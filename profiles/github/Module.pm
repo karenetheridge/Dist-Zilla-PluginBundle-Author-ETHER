@@ -14,7 +14,10 @@ __END__
 
 ...
 
-=head1 METHODS
+=head1 DESCRIPTION
+
+
+=head1 FUNCTIONS/METHODS
 
 =over
 

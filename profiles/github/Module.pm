@@ -30,7 +30,7 @@ __END__
 =head1 SUPPORT
 
 Bugs may be submitted through L<https://rt.cpan.org/Public/Dist/Display.html?Name={{ $dist->name }}>.
-I am also usually active on irc, as 'ether' at L<irc://irc.perl.org>.
+I am also usually active on irc, as 'ether' at C<irc.perl.org>.
 
 =head1 ACKNOWLEDGEMENTS
 

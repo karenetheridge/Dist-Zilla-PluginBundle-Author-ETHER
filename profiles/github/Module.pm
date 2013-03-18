@@ -19,11 +19,11 @@ __END__
 
 =head1 FUNCTIONS/METHODS
 
-=over
+=begin :list
 
-=item * C<foo>
+* C<foo>
 
-=back
+=end :list
 
 ...
 

@@ -14,7 +14,19 @@ __END__
 
 =head1 SYNOPSIS
 
-dzil new -P Author::ETHER New::Module
+    dzil new -P Author::ETHER Foo::Bar
+
+or:
+
+    #!/bin/bash
+    newdist() {
+        local dist=$1
+        local module=`perl -we"print q{$dist} =~ s/-/::/r"`
+        pushd ~/git
+        dzil new -P Author::ETHER -p github $module
+        cd $dist
+    }
+    newdist Foo-Bar
 
 =head1 DESCRIPTION
 

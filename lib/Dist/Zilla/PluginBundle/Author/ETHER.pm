@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::PluginBundle::Author::ETHER;
-# ABSTRACT: ...
+# ABSTRACT: A plugin bundle for distributions built by ETHER
 
 use Moose;
 with 'Dist::Zilla::Role::PluginBundle::Easy';

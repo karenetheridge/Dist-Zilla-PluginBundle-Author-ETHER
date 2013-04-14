@@ -23,8 +23,8 @@ sub configure
 
     $self->add_plugins(
         [ 'Git::NextVersion'    => { version_regexp => '^v([\d._]+)(-TRIAL)?$' } ],
-        [ 'AutoMetaResources'   => { 'bugtracker.rt' => 1, homepage => 'http://metacpan.org/module/%{dist}' } ],
-        'GithubMeta', #         => { homepage => 'http://metacpan.org/module/' . $main_module } ],
+        [ 'AutoMetaResources'   => { 'bugtracker.rt' => 1 } ],
+        'GithubMeta',
         [ 'Authority'           => { authority => 'cpan:ETHER' } ],
         'AutoPrereqs',
         [ 'MetaNoIndex'         => { directory => [ qw(t xt examples) ] } ],
@@ -102,12 +102,10 @@ following C<dist.ini> (following the preamble):
     [Git::NextVersion]
     version_regexp = ^v([\d._]+)(-TRIAL)?$
 
-    ;[GithubMeta]
-    ;homepage = http://metacpan.org/module/$module
+    [GithubMeta]
 
-    [MetaResources]
-    bugtracker.web    = http://rt.cpan.org/NoAuth/Bugs.html?Dist=$dist
-    bugtracker.mailto = bug-$dist@rt.cpan.org
+    [AutoMetaResources]
+    bugtracker.rt = 1
 
     [Authority]
     authority = cpan:ETHER

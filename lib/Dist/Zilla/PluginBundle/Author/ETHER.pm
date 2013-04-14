@@ -11,66 +11,90 @@ sub configure
     my $self = shift;
 
     $self->add_plugins(
-        [ 'Git::GatherDir' => { exclude_filename => 'LICENSE' } ],
-    );
-
-    $self->add_bundle(
-        Filter => {
-            '-bundle' => '@Basic',
-            '-remove' => [ 'GatherDir', 'ExtraTests' ],
-        },
-    );
-
-    $self->add_plugins(
+        # VersionProvider
+        # ; use V= to override; otherwise version is incremented from last tag
         [ 'Git::NextVersion'    => { version_regexp => '^v([\d._]+)(-TRIAL)?$' } ],
-        [ 'AutoMetaResources'   => { 'bugtracker.rt' => 1 } ],
+
+        # MetaData
         'GithubMeta',
+        [ 'AutoMetaResources'   => { 'bugtracker.rt' => 1 } ],
         [ 'Authority'           => { authority => 'cpan:ETHER' } ],
-        'AutoPrereqs',
         [ 'MetaNoIndex'         => { directory => [ qw(t xt examples) ] } ],
         [ 'MetaProvides::Package' => { meta_noindex => 1 } ],
-
-        #;[ContributorsFromGit]
-
-        'InstallGuide',
         'MetaConfig',
-        'MetaJSON',
-        'Git::Describe',
-        'PkgVersion',
-        'MinimumPerl',
+        #[ContributorsFromGit]
 
-        [ 'CopyFilesFromBuild'  => { copy => 'LICENSE' } ],
-        'PodWeaver',
-        #;[%PodWeaver]
+        # ExecFiles, ShareDir
+        'ExecDir',
+        'ShareDir',
 
-        [ 'ReadmeAnyFromPod'    => { type => 'markdown', filename => 'README.md', location => 'root' } ],
+        # Gather Files
+        [ 'Git::GatherDir'      => { exclude_filename => 'LICENSE' } ],
+        (map { [ $_ ] } qw(MetaYAML MetaJSON License Readme Manifest)),
+        [ 'Test::Compile'       => { fail_on_warning => 1, bail_out_on_fail => 1 } ],
+        [ 'Test::CheckDeps'     => { ':version' => '0.005', fatal => 1 } ],
         'NoTabsTests',
         'EOLTests',
+        'MetaTests',
+        'Test::Version',
+        'Test::CPAN::Changes',
+        'Test::ChangesHasContent',
+        [ 'Test::MinimumVersion' => { ':version' => 2.000003, max_target_perl => '5.008008' } ],
         'PodSyntaxTests',
         'PodCoverageTests',
-        #;[Test::Pod::LinkCheck]     many outstanding bugs
-        'Test::Pod::No404s',
         'Test::PodSpelling',
-        [ 'Test::Compile'       => { fail_on_warning => 1, bail_out_on_fail => 1 } ],
-        [ 'Test::MinimumVersion' => { ':version' => 2.000003, max_target_perl => '5.008008' } ],
-        'MetaTests',
-        'Test::CPAN::Changes',
-        'Test::Version',
-        #;[Test::UnusedVars]  ; broken in 5.16.0!
-        'Test::ChangesHasContent',
+        #[Test::Pod::LinkCheck]     many outstanding bugs
+        'Test::Pod::No404s',
 
-        [ 'Test::CheckDeps'     => { ':version' => '0.005', fatal => 1 } ],
-        'Git::CheckFor::MergeConflicts',
-        'CheckPrereqsIndexed',
-        'RunExtraTests',
-        [ 'Git::Remote::Check'  => { remote_branch => 'master' } ],
-        [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
-        [ 'Git::Check'          => { allow_dirty => [ qw(README.md LICENSE) ] } ],
+        # Prune Files
+        'PruneCruft',
+        'ManifestSkip',
+        # (ReadmeAnyFromPod)
+
+        # Munge Files
+        # (Authority)
+        'Git::Describe',
+        'PkgVersion',
+        'PodWeaver',
+        #[%PodWeaver]
         [ 'NextRelease'         => { ':version' => '4.300018', format => '%-8V  %{yyyy-MM-dd HH:mm:ss ZZZZ}d (%U)' } ],
+
+        # Register Prereqs
+        # (MakeMaker)
+        'AutoPrereqs',
+        'MinimumPerl',
+
+        # Install Tool
+        [ 'ReadmeAnyFromPod'    => { type => 'markdown', filename => 'README.md', location => 'root' } ],
+        'MakeMaker',
+        'InstallGuide',
+
+        # After Build
+        [ 'CopyFilesFromBuild'  => { copy => 'LICENSE' } ],
+
+        # Test Runner
+        'RunExtraTests',
+
+        # Before Release
+        [ 'Git::Check'          => { allow_dirty => [ qw(README.md LICENSE) ] } ],
+        'Git::CheckFor::MergeConflicts',
+        [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
+        [ 'Git::Remote::Check'  => { remote_branch => 'master' } ],
+        'CheckPrereqsIndexed',
+        'TestRelease',
+        # (ConfirmRelease)
+
+        # Releaser
+        'UploadToCPAN',
+
+        # After Release
         [ 'Git::Commit'         => { allow_dirty => [ qw(Changes README.md LICENSE) ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         'Git::Push',
         [ 'InstallRelease'      => { install_command => 'cpanm .' } ],
+
+        # listed late, to allow all other plugins which do BeforeRelease checks to run first.
+        'ConfirmRelease',
     );
 }
 
@@ -90,27 +114,18 @@ In C<dist.ini>:
 This is a L<Dist::Zilla> plugin bundle. It is approximately equivalent to the
 following C<dist.ini> (following the preamble):
 
-    [Git::GatherDir]
-    exclude_filename = LICENSE
-
-    [@Filter]
-    -bundle = @Basic
-    -remove = GatherDir
-    -remove = ExtraTests
-
-    ; use V= to override; otherwise version is incremented from last tag
+    ;;; VersionProvider
     [Git::NextVersion]
     version_regexp = ^v([\d._]+)(-TRIAL)?$
 
-    [GithubMeta]
 
+    ;;; MetaData
+    [GithubMeta]
     [AutoMetaResources]
     bugtracker.rt = 1
 
     [Authority]
     authority = cpan:ETHER
-
-    [AutoPrereqs]
 
     [MetaNoIndex]
     directory = t
@@ -120,75 +135,111 @@ following C<dist.ini> (following the preamble):
     [MetaProvides::Package]
     meta_noindex = 1
 
-    ;[ContributorsFromGit]
-
-    [InstallGuide]
     [MetaConfig]
+
+
+    ;;; ExecFiles, ShareDir
+    [ExecDir]
+    [ShareDir]
+
+
+    ;;; Gather Files
+    [Git::GatherDir]
+    exclude_filename = LICENSE
+
+    [MetaYAML]
     [MetaJSON]
-    [Git::Describe]
-    [PkgVersion]
-    [MinimumPerl]
+    [License]
+    [Readme]
+    [Manifest]
 
-    [CopyFilesFromBuild]
-    copy = LICENSE
-
-    [PodWeaver]
-    ;[%PodWeaver]
-
-    [ReadmeAnyFromPod]
-    type = markdown
-    filename = README.md
-    location = root
-
-    [NoTabsTests]
-    [EOLTests]
-    [PodSyntaxTests]
-    [PodCoverageTests]
-    ;[Test::Pod::LinkCheck]     many outstanding bugs
-    ;[Test::Pod::No404s]        ditto
-    [Test::PodSpelling]
+    [GatherDir::Template / profile.ini]
+    root   = profiles/github/build_templates
+    prefix = profiles/github
 
     [Test::Compile]
     fail_on_warning = 1
     bail_out_on_fail = 1
 
-    [Test::MinimumVersion]
-    :version = 2.000003
-    max_target_perl = 5.008008
-
-    [MetaTests]
-    [Test::CPAN::Changes]
-    [Test::Version]
-    ;[Test::UnusedVars]  ; broken in 5.16.0!
-    [Test::ChangesHasContent]
-    ;[Test::Kwalitee]
-    ;[Test::Kwalitee::Extra]
-
     [Test::CheckDeps]
     :version = 0.005
     fatal = 1
 
-    [Git::CheckFor::MergeConflicts]
+    [NoTabsTests]
+    [EOLTests]
+    [MetaTests]
+    [Test::CPAN::Changes]
+    [Test::ChangesHasContent]
+    [Test::Version]
 
-    [CheckPrereqsIndexed]
+    [Test::MinimumVersion]
+    :version = 2.000003
+    max_target_perl = 5.008008
 
+    [PodSyntaxTests]
+    [PodCoverageTests]
+    [Test::PodSpelling]
+    [Test::Pod::No404s]
+
+
+    ;;; Munge Files
+    ; (Authority)
+    [Git::Describe]
+    [PkgVersion]
+    [PodWeaver]
+    [NextRelease]
+    :version = 4.300018
+    format = %-8V  %{yyyy-MM-dd HH:mm:ss ZZZZ}d (%U)
+
+
+    ;;; Register Prereqs
+    [AutoPrereqs]
+    [MinimumPerl]
+
+
+    ;;; Install Tool
+    [ReadmeAnyFromPod]
+    type = markdown
+    filename = README.md
+    location = root
+
+    [MakeMaker]
+    [InstallGuide]
+
+
+    ;;; After Build
+    [CopyFilesFromBuild]
+    copy = LICENSE
+
+
+    ;;; TestRunner
     [RunExtraTests]
 
-    [Git::Remote::Check]
-    remote_branch = master
+
+    ;;; Before Release
+    [Git::Check]
+    allow_dirty = README.md
+    allow_dirty = LICENSE
+
+    [Git::CheckFor::MergeConflicts]
 
     [Git::CheckFor::CorrectBranch]
     :version = 0.004
     release_branch = master
 
-    [Git::Check]
-    allow_dirty = README.md
-    allow_dirty = LICENSE
+    [Git::Remote::Check]
+    remote_branch = master
 
-    [NextRelease]
-    :version = 4.300018
-    format = %-8V  %{yyyy-MM-dd HH:mm:ss ZZZZ}d (%U)
+    [CheckPrereqsIndexed]
+    [TestRelease]
+    ;(ConfirmRelease)
 
+
+    ;;; Releaser
+    [UploadToCPAN]
+
+
+    ;;; AfterRelease
     [Git::Commit]
     allow_dirty = Changes
     allow_dirty = README.md
@@ -203,6 +254,11 @@ following C<dist.ini> (following the preamble):
 
     [InstallRelease]
     install_command = cpanm .
+
+
+    ; listed late, to allow all other plugins which do BeforeRelease checks to run first.
+    [ConfirmRelease]
+
 
 =for Pod::Coverage configure
 

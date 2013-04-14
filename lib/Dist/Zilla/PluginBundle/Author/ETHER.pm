@@ -4,7 +4,9 @@ package Dist::Zilla::PluginBundle::Author::ETHER;
 # ABSTRACT: A plugin bundle for distributions built by ETHER
 
 use Moose;
-with 'Dist::Zilla::Role::PluginBundle::Easy';
+with
+    'Dist::Zilla::Role::PluginBundle::Easy',
+    'Dist::Zilla::Role::PluginBundle::Config::Slicer';
 
 sub mvp_multivalue_args { qw(stopwords) }
 

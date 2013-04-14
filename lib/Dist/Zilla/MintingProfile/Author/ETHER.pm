@@ -14,7 +14,7 @@ __END__
 
 =head1 SYNOPSIS
 
-    dzil new -P Author::ETHER Foo::Bar
+    dzil new -P Author::ETHER -p github Foo::Bar
 
 or:
 

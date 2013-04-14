@@ -6,9 +6,10 @@ package Dist::Zilla::PluginBundle::Author::ETHER;
 use Moose;
 with
     'Dist::Zilla::Role::PluginBundle::Easy',
+    'Dist::Zilla::Role::PluginBundle::PluginRemover',
     'Dist::Zilla::Role::PluginBundle::Config::Slicer';
 
-sub mvp_multivalue_args { qw(stopwords) }
+sub mvp_multivalue_args { shift->plugin_remover_attribute, qw(stopwords) }
 
 has stopwords => (
     is => 'ro', isa => 'ArrayRef',
@@ -289,6 +290,9 @@ Stopwords for spelling tests can be added with the C<dist.ini> option:
 
     stopwords = foo
     stopwords = bar
+
+This bundle makes use of L<Dist::Zilla::Role::PluginBundle::PluginRemover> and
+L<Dist::Zilla::Role::PluginBundle::Config::Slicer> to allow further customization.
 
 =head1 NAMING SCHEME
 

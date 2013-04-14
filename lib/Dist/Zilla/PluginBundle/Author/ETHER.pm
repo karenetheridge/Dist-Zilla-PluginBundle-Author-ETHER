@@ -285,6 +285,11 @@ Stopwords for spelling tests can be added with the C<dist.ini> option:
     stopwords = foo
     stopwords = bar
 
+=head1 NAMING SCHEME
+
+This distribution follows best practices for author-oriented plugin bundles; for more information,
+see L<KENTNL's distribution|Dist::Zilla::PluginBundle::Author::KENTNL/NAMING-SCHEME>.
+
 =head1 SUPPORT
 
 Bugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-PluginBundle-Author-ETHER>

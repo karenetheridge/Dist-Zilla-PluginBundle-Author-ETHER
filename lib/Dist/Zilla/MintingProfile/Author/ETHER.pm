@@ -30,13 +30,17 @@ or:
 
 =head1 DESCRIPTION
 
+The new distribution is packaged with L<Dist::Zilla> using
+L<Dist::Zilla::PluginBundle::Author::ETHER>.
+
 Profiles available are:
 
 =begin :list
 
 * C<github>
 
-Creates a distribution hosted on L<http://github>.
+Creates a distribution hosted on L<http://github>, with hooks to determine the
+module version and other metadata from git.
 
 =end :list
 

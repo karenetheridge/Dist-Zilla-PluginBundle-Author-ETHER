@@ -12,7 +12,6 @@ sub configure
 
     $self->add_plugins(
         # VersionProvider
-        # ; use V= to override; otherwise version is incremented from last tag
         [ 'Git::NextVersion'    => { version_regexp => '^v([\d._]+)(-TRIAL)?$' } ],
 
         # MetaData
@@ -262,9 +261,14 @@ following C<dist.ini> (following the preamble):
 
 =for Pod::Coverage configure
 
-=head1 OPTIONS
+=head1 OPTIONS / OVERRIDES
 
-None so far.
+Use V=<version> to override the version of the distribution being built; otherwise the version is
+incremented from the last git tag.
+
+Subs can be considered "covered" for pod coverage tests by adding a directive to pod:
+
+    =for Pod::Coverage foo bar baz
 
 =head1 SUPPORT
 

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.002     2013-04-14 15:40:08 PDT-0700 (Karen Etheridge)
           - do not index our profiles/, to avoid its contents from showing up
             under "Documentation" on metacpan
           - users of [@Author::ETHER] can now -remove plugins

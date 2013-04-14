@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.001
+version 0.002
 
 # SYNOPSIS
 
@@ -190,6 +190,9 @@ Stopwords for spelling tests can be added with the `dist.ini` option:
 
     stopwords = foo
     stopwords = bar
+
+This bundle makes use of [Dist::Zilla::Role::PluginBundle::PluginRemover](http://search.cpan.org/perldoc?Dist::Zilla::Role::PluginBundle::PluginRemover) and
+[Dist::Zilla::Role::PluginBundle::Config::Slicer](http://search.cpan.org/perldoc?Dist::Zilla::Role::PluginBundle::Config::Slicer) to allow further customization.
 
 # NAMING SCHEME
 

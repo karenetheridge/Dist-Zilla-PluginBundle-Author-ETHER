@@ -41,14 +41,14 @@ sub configure
         [ 'Git::GatherDir'      => { exclude_filename => 'LICENSE' } ],
         (map { [ $_ ] } qw(MetaYAML MetaJSON License Readme Manifest)),
         [ 'Test::Compile'       => { fail_on_warning => 1, bail_out_on_fail => 1 } ],
-        [ 'Test::CheckDeps'     => { ':version' => '0.005', fatal => 1 } ],
+        [ 'Test::CheckDeps'     => { fatal => 1 } ],
         'NoTabsTests',
         'EOLTests',
         'MetaTests',
         'Test::Version',
         'Test::CPAN::Changes',
         'Test::ChangesHasContent',
-        [ 'Test::MinimumVersion' => { ':version' => 2.000003, max_target_perl => '5.008008' } ],
+        [ 'Test::MinimumVersion' => { max_target_perl => '5.008008' } ],
         'PodSyntaxTests',
         'PodCoverageTests',
         [ 'Test::PodSpelling'   => { stopwords => $self->stopwords } ],
@@ -66,7 +66,7 @@ sub configure
         'PkgVersion',
         'PodWeaver',
         #[%PodWeaver]
-        [ 'NextRelease'         => { ':version' => '4.300018', format => '%-8V  %{yyyy-MM-dd HH:mm:ss ZZZZ}d (%U)' } ],
+        [ 'NextRelease'         => { format => '%-8V  %{yyyy-MM-dd HH:mm:ss ZZZZ}d (%U)' } ],
 
         # Register Prereqs
         # (MakeMaker)
@@ -87,7 +87,7 @@ sub configure
         # Before Release
         [ 'Git::Check'          => { allow_dirty => [ qw(README.md LICENSE) ] } ],
         'Git::CheckFor::MergeConflicts',
-        [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
+        [ 'Git::CheckFor::CorrectBranch' => { release_branch => 'master' } ],
         [ 'Git::Remote::Check'  => { remote_branch => 'master' } ],
         'CheckPrereqsIndexed',
         'TestRelease',

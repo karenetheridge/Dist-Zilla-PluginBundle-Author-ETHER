@@ -6,6 +6,16 @@ package Dist::Zilla::PluginBundle::Author::ETHER;
 use Moose;
 with 'Dist::Zilla::Role::PluginBundle::Easy';
 
+sub mvp_multivalue_args { qw(stopwords) }
+
+has stopwords => (
+    is => 'ro', isa => 'ArrayRef',
+    lazy => 1,
+    default => sub {
+        exists $_[0]->payload->{stopwords} ? $_[0]->payload->{stopwords} : [];
+    },
+);
+
 sub configure
 {
     my $self = shift;
@@ -41,7 +51,7 @@ sub configure
         [ 'Test::MinimumVersion' => { ':version' => 2.000003, max_target_perl => '5.008008' } ],
         'PodSyntaxTests',
         'PodCoverageTests',
-        'Test::PodSpelling',
+        [ 'Test::PodSpelling'   => { stopwords => $self->stopwords } ],
         #[Test::Pod::LinkCheck]     many outstanding bugs
         'Test::Pod::No404s',
 
@@ -259,7 +269,7 @@ following C<dist.ini> (following the preamble):
     [ConfirmRelease]
 
 
-=for Pod::Coverage configure
+=for Pod::Coverage configure mvp_multivalue_args
 
 =head1 OPTIONS / OVERRIDES
 
@@ -269,6 +279,11 @@ incremented from the last git tag.
 Subs can be considered "covered" for pod coverage tests by adding a directive to pod:
 
     =for Pod::Coverage foo bar baz
+
+Stopwords for spelling tests can be added with the C<dist.ini> option:
+
+    stopwords = foo
+    stopwords = bar
 
 =head1 SUPPORT
 

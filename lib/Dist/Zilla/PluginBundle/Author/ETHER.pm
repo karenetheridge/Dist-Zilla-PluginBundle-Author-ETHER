@@ -183,6 +183,7 @@ following C<dist.ini> (following the preamble):
     [Test::CPAN::Changes]
     [Test::ChangesHasContent]
     [Test::Version]
+    [Test::UnusedVars]
 
     [Test::MinimumVersion]
     :version = 2.000003

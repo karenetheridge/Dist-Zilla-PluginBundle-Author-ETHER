@@ -38,10 +38,6 @@ Profiles available are:
 
 Creates a distribution hosted on L<http://github>.
 
-* C<default>
-
-Maps to C<github>.
-
 =end :list
 
 =head1 SUPPORT

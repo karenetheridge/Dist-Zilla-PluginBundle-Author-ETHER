@@ -206,6 +206,8 @@ following C<dist.ini> (following the preamble):
     [InstallRelease]
     install_command = cpanm .
 
+=for Pod::Coverage configure
+
 =head1 OPTIONS
 
 None so far.

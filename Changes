@@ -4,6 +4,7 @@ Revision history for {{$dist->name}}
           - now building ourself with ourselves, [@Author::ETHER].
           - [Test::UnusedVars] added
           - RT mail link cleaned up
+          - bump prereqs for Dist::Zilla::Role::PluginBundle::PluginRemover
 
 0.002     2013-04-14 15:40:08 PDT-0700 (Karen Etheridge)
           - do not index our profiles/, to avoid its contents from showing up

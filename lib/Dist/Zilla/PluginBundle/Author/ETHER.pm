@@ -6,10 +6,10 @@ package Dist::Zilla::PluginBundle::Author::ETHER;
 use Moose;
 with
     'Dist::Zilla::Role::PluginBundle::Easy',
-    'Dist::Zilla::Role::PluginBundle::PluginRemover',
+    'Dist::Zilla::Role::PluginBundle::PluginRemover' => { -version => '0.102' },
     'Dist::Zilla::Role::PluginBundle::Config::Slicer';
 
-sub mvp_multivalue_args { shift->plugin_remover_attribute, qw(stopwords) }
+sub mvp_multivalue_args { qw(stopwords) }
 
 has stopwords => (
     is => 'ro', isa => 'ArrayRef',

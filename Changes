@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix missing .gitignore in minted dists
 
 0.003     2013-04-21 10:22:48 PDT-0700 (Karen Etheridge)
           - now building ourself with ourselves, [@Author::ETHER].

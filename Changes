@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.003     2013-04-21 10:22:48 PDT-0700 (Karen Etheridge)
           - now building ourself with ourselves, [@Author::ETHER].
           - [Test::UnusedVars] added
           - RT mail link cleaned up

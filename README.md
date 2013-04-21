@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.002
+version 0.003
 
 # SYNOPSIS
 
@@ -77,6 +77,7 @@ following `dist.ini` (following the preamble):
     [Test::CPAN::Changes]
     [Test::ChangesHasContent]
     [Test::Version]
+    [Test::UnusedVars]
 
     [Test::MinimumVersion]
     :version = 2.000003
@@ -191,6 +192,10 @@ Stopwords for spelling tests can be added with the `dist.ini` option:
     stopwords = foo
     stopwords = bar
 
+and/or by adding a directive to pod:
+
+    =for stopwords foo bar baz
+
 This bundle makes use of [Dist::Zilla::Role::PluginBundle::PluginRemover](http://search.cpan.org/perldoc?Dist::Zilla::Role::PluginBundle::PluginRemover) and
 [Dist::Zilla::Role::PluginBundle::Config::Slicer](http://search.cpan.org/perldoc?Dist::Zilla::Role::PluginBundle::Config::Slicer) to allow further customization.
 
@@ -202,7 +207,7 @@ see [KENTNL's distribution](http://search.cpan.org/perldoc?Dist::Zilla::PluginBu
 # SUPPORT
 
 Bugs may be submitted through [the RT bug tracker](https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-PluginBundle-Author-ETHER)
-(or [mailto:bug-Dist-Zilla-PluginBundle-Author-ETHER@rt.cpan.org](mailto:bug-Dist-Zilla-PluginBundle-Author-ETHER@rt.cpan.org)).
+(or [bug-Dist-Zilla-PluginBundle-Author-ETHER@rt.cpan.org](mailto:bug-Dist-Zilla-PluginBundle-Author-ETHER@rt.cpan.org)).
 I am also usually active on irc, as 'ether' at `irc.perl.org`.
 
 # AUTHOR

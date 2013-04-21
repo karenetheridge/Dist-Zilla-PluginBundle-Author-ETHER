@@ -280,6 +280,8 @@ other metadata is derived directly from the local git repository.
 
 =head1 OPTIONS / OVERRIDES
 
+=for stopwords Stopwords
+
 Use V=<version> to override the version of the distribution being built; otherwise the version is
 incremented from the last git tag.
 
@@ -292,10 +294,16 @@ Stopwords for spelling tests can be added with the C<dist.ini> option:
     stopwords = foo
     stopwords = bar
 
+and/or by adding a directive to pod:
+
+    =for stopwords foo bar baz
+
 This bundle makes use of L<Dist::Zilla::Role::PluginBundle::PluginRemover> and
 L<Dist::Zilla::Role::PluginBundle::Config::Slicer> to allow further customization.
 
 =head1 NAMING SCHEME
+
+=for stopwords KENTNL's
 
 This distribution follows best practices for author-oriented plugin bundles; for more information,
 see L<KENTNL's distribution|Dist::Zilla::PluginBundle::Author::KENTNL/NAMING-SCHEME>.

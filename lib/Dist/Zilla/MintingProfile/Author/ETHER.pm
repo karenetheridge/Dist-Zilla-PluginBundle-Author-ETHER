@@ -39,7 +39,7 @@ Profiles available are:
 
 * C<github>
 
-Creates a distribution hosted on L<http://github>, with hooks to determine the
+Creates a distribution hosted on L<github|http://github.com>, with hooks to determine the
 module version and other metadata from git.
 
 =end :list

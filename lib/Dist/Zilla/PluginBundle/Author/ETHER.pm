@@ -275,7 +275,8 @@ following C<dist.ini> (following the preamble):
 
 =for Pod::Coverage configure mvp_multivalue_args
 
-The distribution's code is assumed to be hosted at github; the version and
+The distribution's code is assumed to be hosted at L<github|http://github.com>;
+the version and
 other metadata is derived directly from the local git repository.
 
 =head1 OPTIONS / OVERRIDES

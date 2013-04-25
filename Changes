@@ -5,6 +5,8 @@ Revision history for {{$dist->name}}
           - [-Encoding] podweaver plugin added to this distribution and
             minted dists
           - extra stopwords added, after disabling my local aspell dictionary
+          - Pod::Weaver plugins used in this bundle are added as runtime
+            prerequisites
 
 0.003     2013-04-21 10:22:48 PDT-0700 (Karen Etheridge)
           - now building ourself with ourselves, [@Author::ETHER].

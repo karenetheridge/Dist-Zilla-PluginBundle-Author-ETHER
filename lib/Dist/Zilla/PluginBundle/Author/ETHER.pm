@@ -283,7 +283,8 @@ The version and other metadata is derived directly from the local git repository
 
 =for stopwords Stopwords
 
-Use V=<version> to override the version of the distribution being built; otherwise the version is
+Use C<< V=<version> >> to override the version of the distribution being built;
+otherwise the version is
 incremented from the last git tag.
 
 Subs can be considered "covered" for pod coverage tests by adding a directive to pod:

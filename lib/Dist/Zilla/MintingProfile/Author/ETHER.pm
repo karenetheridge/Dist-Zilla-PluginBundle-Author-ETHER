@@ -46,6 +46,8 @@ module version and other metadata from git.
 
 =head1 SUPPORT
 
+=for stopwords irc
+
 Bugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-PluginBundle-Author-ETHER>
 (or L<bug-Dist-Zilla-PluginBundle-Author-ETHER@rt.cpan.org|mailto:bug-Dist-Zilla-PluginBundle-Author-ETHER@rt.cpan.org>).
 I am also usually active on irc, as 'ether' at C<irc.perl.org>.

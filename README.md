@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.003
+version 0.004
 
 # SYNOPSIS
 
@@ -175,12 +175,14 @@ following `dist.ini` (following the preamble):
     ; listed late, to allow all other plugins which do BeforeRelease checks to run first.
     [ConfirmRelease]
 
-The distribution's code is assumed to be hosted at github; the version and
-other metadata is derived directly from the local git repository.
+The distribution's code is assumed to be hosted at [github](http://github.com);
+[RT](http://rt.cpan.org) is used as the issue tracker.
+The version and other metadata is derived directly from the local git repository.
 
 # OPTIONS / OVERRIDES
 
-Use V=<version> to override the version of the distribution being built; otherwise the version is
+Use `V=<version>` to override the version of the distribution being built;
+otherwise the version is
 incremented from the last git tag.
 
 Subs can be considered "covered" for pod coverage tests by adding a directive to pod:

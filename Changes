@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - support dropped for directly passing stopwords via a mvp argument
+            -- it's easier to just use a directive right in pod (and they can
+            be added via ConfigSlicer too, if needed)
 
 0.005     2013-04-28 08:47:40 PDT-0700 (Karen Etheridge)
           - bump version for [Test::Compile] and [Test::CheckDeps] (RT#84900,

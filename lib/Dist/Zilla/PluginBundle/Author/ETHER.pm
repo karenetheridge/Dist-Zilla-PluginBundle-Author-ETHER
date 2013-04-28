@@ -9,16 +9,6 @@ with
     'Dist::Zilla::Role::PluginBundle::PluginRemover' => { -version => '0.102' },
     'Dist::Zilla::Role::PluginBundle::Config::Slicer';
 
-sub mvp_multivalue_args { qw(stopwords) }
-
-has stopwords => (
-    is => 'ro', isa => 'ArrayRef',
-    lazy => 1,
-    default => sub {
-        exists $_[0]->payload->{stopwords} ? $_[0]->payload->{stopwords} : [];
-    },
-);
-
 sub configure
 {
     my $self = shift;
@@ -54,7 +44,7 @@ sub configure
         [ 'Test::MinimumVersion' => { max_target_perl => '5.008008' } ],
         'PodSyntaxTests',
         'PodCoverageTests',
-        [ 'Test::PodSpelling'   => { stopwords => $self->stopwords } ],
+        'Test::PodSpelling',
         #[Test::Pod::LinkCheck]     many outstanding bugs
         'Test::Pod::No404s',
 
@@ -297,12 +287,8 @@ Subs can be considered "covered" for pod coverage tests by adding a directive to
 
 =head2 spelling stopwords
 
-Stopwords for spelling tests can be added with the C<dist.ini> option:
-
-    stopwords = foo
-    stopwords = bar
-
-and/or by adding a directive to pod:
+Stopwords for spelling tests can be added by adding a directive to pod (as
+many as you'd like), as described in L<Pod::Spelling/ADDING STOPWORDS>:
 
     =for stopwords foo bar baz
 

@@ -283,13 +283,19 @@ The version and other metadata is derived directly from the local git repository
 
 =for stopwords Stopwords
 
+=head2 version
+
 Use C<< V=<version> >> to override the version of the distribution being built;
 otherwise the version is
 incremented from the last git tag.
 
+=head2 pod coverage
+
 Subs can be considered "covered" for pod coverage tests by adding a directive to pod:
 
     =for Pod::Coverage foo bar baz
+
+=head2 spelling stopwords
 
 Stopwords for spelling tests can be added with the C<dist.ini> option:
 
@@ -299,6 +305,10 @@ Stopwords for spelling tests can be added with the C<dist.ini> option:
 and/or by adding a directive to pod:
 
     =for stopwords foo bar baz
+
+=head2 other customizations
+
+=for stopwords customizations
 
 This bundle makes use of L<Dist::Zilla::Role::PluginBundle::PluginRemover> and
 L<Dist::Zilla::Role::PluginBundle::Config::Slicer> to allow further customization.

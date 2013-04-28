@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.005     2013-04-28 08:47:40 PDT-0700 (Karen Etheridge)
           - bump version for [Test::Compile] and [Test::CheckDeps] (RT#84900,
             RT#84904, RT#84905)
 

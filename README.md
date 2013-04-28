@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.004
+version 0.005
 
 # SYNOPSIS
 
@@ -181,13 +181,19 @@ The version and other metadata is derived directly from the local git repository
 
 # OPTIONS / OVERRIDES
 
+## version
+
 Use `V=<version>` to override the version of the distribution being built;
 otherwise the version is
 incremented from the last git tag.
 
+## pod coverage
+
 Subs can be considered "covered" for pod coverage tests by adding a directive to pod:
 
     =for Pod::Coverage foo bar baz
+
+## spelling stopwords
 
 Stopwords for spelling tests can be added with the `dist.ini` option:
 
@@ -197,6 +203,8 @@ Stopwords for spelling tests can be added with the `dist.ini` option:
 and/or by adding a directive to pod:
 
     =for stopwords foo bar baz
+
+## other customizations
 
 This bundle makes use of [Dist::Zilla::Role::PluginBundle::PluginRemover](http://search.cpan.org/perldoc?Dist::Zilla::Role::PluginBundle::PluginRemover) and
 [Dist::Zilla::Role::PluginBundle::Config::Slicer](http://search.cpan.org/perldoc?Dist::Zilla::Role::PluginBundle::Config::Slicer) to allow further customization.

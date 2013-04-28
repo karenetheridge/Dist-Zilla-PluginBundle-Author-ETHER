@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - bump version for [Test::Compile] and [Test::CheckDeps] (RT#84900,
+            RT#84904, RT#84905)
 
 0.004     2013-04-26 20:56:11 PDT-0700 (Karen Etheridge)
           - fix missing .gitignore in minted dists

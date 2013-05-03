@@ -65,6 +65,11 @@ sub configure
         # (MakeMaker)
         'AutoPrereqs',
         'MinimumPerl',
+        [ 'Prereqs'             => {
+                '-phase' => 'develop', '-relationship' => 'requires',
+                'Dist::Zilla' => Dist::Zilla->VERSION,
+                blessed($self) => $self->VERSION,
+            } ],
 
         # Install Tool
         [ 'ReadmeAnyFromPod'    => { type => 'markdown', filename => 'README.md', location => 'root' } ],
@@ -198,6 +203,9 @@ following C<dist.ini> (following the preamble):
     ;;; Register Prereqs
     [AutoPrereqs]
     [MinimumPerl]
+    [Prereqs / DevelopRequires]
+    Dist::Zilla = <version used to built this bundle>
+    Dist::Zilla::PluginBundle::Author::ETHER = <our own version>
 
 
     ;;; Install Tool

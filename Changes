@@ -9,6 +9,8 @@ Revision history for {{$dist->name}}
             commit to run on 5.16.3+, not 5.8.8+
           - the version of Dist::Zilla used to build this distribution is
             injected as a develop prerequisite for users of the plugin bundle
+          - the version of this bundle used to mint a dist is set as the
+            minimum version for subsequent builds of the dist
 
 0.005     2013-04-28 08:47:40 PDT-0700 (Karen Etheridge)
           - bump version for [Test::Compile] and [Test::CheckDeps] (RT#84900,

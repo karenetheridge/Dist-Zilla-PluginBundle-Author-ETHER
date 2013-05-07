@@ -98,6 +98,7 @@ sub configure
         [ 'Git::Commit'         => { allow_dirty => [ qw(Changes README.md LICENSE) ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         'Git::Push',
+        [ 'GitHub::Update'      => { metacpan => 1 } ],
         [ 'InstallRelease'      => { install_command => 'cpanm .' } ],
 
         # listed late, to allow all other plugins which do BeforeRelease checks to run first.
@@ -263,6 +264,9 @@ following C<dist.ini> (following the preamble):
 
     [Git::Push]
 
+    [GitHub::Update]
+    metacpan = 1
+
     [InstallRelease]
     install_command = cpanm .
 
@@ -273,8 +277,13 @@ following C<dist.ini> (following the preamble):
 
 =for Pod::Coverage configure mvp_multivalue_args
 
+=for stopwords metacpan
+
 The distribution's code is assumed to be hosted at L<github|http://github.com>;
 L<RT|http://rt.cpan.org> is used as the issue tracker.
+The home page in the metadata points to L<github|http://github.com>,
+while the home page on L<github|http://github.com> is updated on release to
+point to L<metacpan|http://metacpan.org>.
 The version and other metadata is derived directly from the local git repository.
 
 =head1 OPTIONS / OVERRIDES

@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.005
+version 0.006
 
 # SYNOPSIS
 
@@ -104,6 +104,9 @@ following `dist.ini` (following the preamble):
     ;;; Register Prereqs
     [AutoPrereqs]
     [MinimumPerl]
+    [Prereqs / DevelopRequires]
+    Dist::Zilla = <version used to built this bundle>
+    Dist::Zilla::PluginBundle::Author::ETHER = <our own version>
 
 
 
@@ -167,6 +170,9 @@ following `dist.ini` (following the preamble):
 
     [Git::Push]
 
+    [GitHub::Update]
+    metacpan = 1
+
     [InstallRelease]
     install_command = cpanm .
 
@@ -177,6 +183,9 @@ following `dist.ini` (following the preamble):
 
 The distribution's code is assumed to be hosted at [github](http://github.com);
 [RT](http://rt.cpan.org) is used as the issue tracker.
+The home page in the metadata points to [github](http://github.com),
+while the home page on [github](http://github.com) is updated on release to
+point to [metacpan](http://metacpan.org).
 The version and other metadata is derived directly from the local git repository.
 
 # OPTIONS / OVERRIDES
@@ -195,12 +204,8 @@ Subs can be considered "covered" for pod coverage tests by adding a directive to
 
 ## spelling stopwords
 
-Stopwords for spelling tests can be added with the `dist.ini` option:
-
-    stopwords = foo
-    stopwords = bar
-
-and/or by adding a directive to pod:
+Stopwords for spelling tests can be added by adding a directive to pod (as
+many as you'd like), as described in ["ADDING STOPWORDS" in Pod::Spelling](http://search.cpan.org/perldoc?Pod::Spelling#ADDING STOPWORDS):
 
     =for stopwords foo bar baz
 

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.006     2013-05-10 17:06:41 PDT-0700 (Karen Etheridge)
           - support dropped for directly passing stopwords via a mvp argument
             -- it's easier to just use a directive right in pod (and they can
             be added via ConfigSlicer too, if needed)

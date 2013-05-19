@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - minting profile updates:
+            - extra kwalitee tests enabled by default
 
 0.006     2013-05-10 17:06:41 PDT-0700 (Karen Etheridge)
           - support dropped for directly passing stopwords via a mvp argument

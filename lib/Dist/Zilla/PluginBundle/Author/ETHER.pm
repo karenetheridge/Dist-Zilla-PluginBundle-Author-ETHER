@@ -32,7 +32,7 @@ sub configure
 
         # Gather Files
         [ 'Git::GatherDir'      => { exclude_filename => 'LICENSE' } ],
-        (map { [ $_ ] } qw(MetaYAML MetaJSON License Readme Manifest)),
+        qw(MetaYAML MetaJSON License Readme Manifest),
         [ 'Test::Compile'       => { fail_on_warning => 1, bail_out_on_fail => 1 } ],
         [ 'Test::CheckDeps'     => { fatal => 1 } ],
         'NoTabsTests',

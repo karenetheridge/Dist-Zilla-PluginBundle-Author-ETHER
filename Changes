@@ -6,7 +6,7 @@ Revision history for {{$dist->name}}
             - test now has 'use <main module>;', prefers done_testing,
               and now fails, rather than not compiling
             - main module now avoids the list transformer where it breaks pod
-              coverage tests
+              coverage tests; includes more template pod
 
 0.006     2013-05-10 17:06:41 PDT-0700 (Karen Etheridge)
           - support dropped for directly passing stopwords via a mvp argument

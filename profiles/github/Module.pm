@@ -19,13 +19,13 @@ __END__
 
 =head1 FUNCTIONS/METHODS
 
-=begin :list
+=over 4
 
-* C<foo>
-
-=end :list
+=item * C<foo>
 
 ...
+
+=back
 
 =head1 SUPPORT
 

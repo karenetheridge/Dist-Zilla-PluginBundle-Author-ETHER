@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.006
+version 0.007
 
 # SYNOPSIS
 
@@ -116,7 +116,7 @@ following `dist.ini` (following the preamble):
     filename = README.md
     location = root
 
-    [MakeMaker]
+    <specified installer> or [MakeMaker]
     [InstallGuide]
 
 
@@ -208,6 +208,21 @@ Stopwords for spelling tests can be added by adding a directive to pod (as
 many as you'd like), as described in ["ADDING STOPWORDS" in Pod::Spelling](http://search.cpan.org/perldoc?Pod::Spelling#ADDING STOPWORDS):
 
     =for stopwords foo bar baz
+
+## installer
+
+The installer back-end selected by default is (currently)
+[\[MakeMaker\]](http://search.cpan.org/perldoc?Dist::Zilla::Plugin::MakeMaker).
+You can select other backends (by plugin name, without the `[]`), with the
+`installer` option, or 'none' if you are supplying your own, as a separate
+plugin.
+
+Encouraged choices are:
+
+    installer = MakeMaker
+    installer = ModuleBuildTiny
+    installer = =inc::Foo (if no configs are needed for this plugin)
+    installer = none
 
 ## other customizations
 

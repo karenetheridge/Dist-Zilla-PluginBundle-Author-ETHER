@@ -12,7 +12,7 @@ __END__
 
 =head1 SYNOPSIS
 
-    use $name;
+    use {{ $name }};
 
     ...
 

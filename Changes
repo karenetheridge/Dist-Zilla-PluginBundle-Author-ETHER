@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
           - fix bad templating in minted module
+          - during minting, push the initial commit to github after creating
+            the remote
 
 0.007     2013-05-29 18:48:34 PDT-0700 (Karen Etheridge)
           - minting profile updates:

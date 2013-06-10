@@ -177,10 +177,6 @@ following C<dist.ini> (following the preamble):
     [Readme]
     [Manifest]
 
-    [GatherDir::Template / profile.ini]
-    root   = profiles/github/build_templates
-    prefix = profiles/github
-
     [Test::Compile]
     fail_on_warning = 1
     bail_out_on_fail = 1

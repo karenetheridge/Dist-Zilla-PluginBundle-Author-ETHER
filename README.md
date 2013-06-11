@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.007
+version 0.008
 
 # SYNOPSIS
 
@@ -58,10 +58,6 @@ following `dist.ini` (following the preamble):
     [License]
     [Readme]
     [Manifest]
-
-    [GatherDir::Template / profile.ini]
-    root   = profiles/github/build_templates
-    prefix = profiles/github
 
     [Test::Compile]
     fail_on_warning = 1

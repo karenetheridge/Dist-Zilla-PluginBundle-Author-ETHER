@@ -18,7 +18,7 @@ has installer => (
     default => sub {
         exists $_[0]->payload->{installer}
             ? $_[0]->payload->{installer}
-            : 'MakeMaker';
+            : 'ModuleBuildTiny';
     },
 );
 
@@ -227,7 +227,7 @@ following C<dist.ini> (following the preamble):
     filename = README.md
     location = root
 
-    <specified installer> or [MakeMaker]
+    <specified installer> or [ModuleBuildTiny]
     [InstallGuide]
 
 
@@ -323,16 +323,18 @@ many as you'd like), as described in L<Pod::Spelling/ADDING STOPWORDS>:
 
 =head2 installer
 
+=for stopwords ModuleBuildTiny
+
 The installer back-end selected by default is (currently)
-L<[MakeMaker]|Dist::Zilla::Plugin::MakeMaker>.
+L<[ModuleBuildTiny]|Dist::Zilla::Plugin::ModuleBuildTiny>.
 You can select other backends (by plugin name, without the C<[]>), with the
 C<installer> option, or 'none' if you are supplying your own, as a separate
 plugin.
 
 Encouraged choices are:
 
-    installer = MakeMaker
     installer = ModuleBuildTiny
+    installer = MakeMaker
     installer = =inc::Foo (if no configs are needed for this plugin)
     installer = none
 

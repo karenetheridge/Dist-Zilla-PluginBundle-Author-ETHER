@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - 'installer' now defaults to ModuleBuildTiny
 
 0.008     2013-06-11 15:59:23 PDT-0700 (Karen Etheridge)
           - fix bad templating in minted module

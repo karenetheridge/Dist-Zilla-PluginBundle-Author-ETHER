@@ -5,6 +5,7 @@ package Dist::Zilla::MintingProfile::Author::ETHER;
 
 use Moose;
 with 'Dist::Zilla::Role::MintingProfile::ShareDir';
+use namespace::autoclean;
 
 __PACKAGE__->meta->make_immutable;
 1;

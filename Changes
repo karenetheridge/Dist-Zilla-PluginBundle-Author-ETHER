@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
           - 'installer' now defaults to ModuleBuildTiny
+          - (experimental) namespaces-are-clean release test added to minting
+            profile, although this won't pass for many types of dists as many
+            things are sloppy about modifying the package stash
 
 0.008     2013-06-11 15:59:23 PDT-0700 (Karen Etheridge)
           - fix bad templating in minted module

@@ -114,8 +114,8 @@ sub configure
         # After Release
         [ 'Git::Commit'         => { allow_dirty => [ qw(Changes README.md LICENSE) ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
-        'Git::Push',
         [ 'GitHub::Update'      => { metacpan => 1 } ],
+        'Git::Push',
         [ 'InstallRelease'      => { install_command => 'cpanm .' } ],
 
         # listed late, to allow all other plugins which do BeforeRelease checks to run first.
@@ -275,10 +275,10 @@ following C<dist.ini> (following the preamble):
     tag_format = v%v%t
     tag_message = v%v%t
 
-    [Git::Push]
-
     [GitHub::Update]
     metacpan = 1
+
+    [Git::Push]
 
     [InstallRelease]
     install_command = cpanm .

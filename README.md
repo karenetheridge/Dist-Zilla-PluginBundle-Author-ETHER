@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.008
+version 0.009
 
 # SYNOPSIS
 
@@ -112,7 +112,7 @@ following `dist.ini` (following the preamble):
     filename = README.md
     location = root
 
-    <specified installer> or [MakeMaker]
+    <specified installer> or [ModuleBuildTiny]
     [InstallGuide]
 
 
@@ -164,10 +164,10 @@ following `dist.ini` (following the preamble):
     tag_format = v%v%t
     tag_message = v%v%t
 
-    [Git::Push]
-
     [GitHub::Update]
     metacpan = 1
+
+    [Git::Push]
 
     [InstallRelease]
     install_command = cpanm .
@@ -208,15 +208,15 @@ many as you'd like), as described in ["ADDING STOPWORDS" in Pod::Spelling](http:
 ## installer
 
 The installer back-end selected by default is (currently)
-[\[MakeMaker\]](http://search.cpan.org/perldoc?Dist::Zilla::Plugin::MakeMaker).
+[\[ModuleBuildTiny\]](http://search.cpan.org/perldoc?Dist::Zilla::Plugin::ModuleBuildTiny).
 You can select other backends (by plugin name, without the `[]`), with the
 `installer` option, or 'none' if you are supplying your own, as a separate
 plugin.
 
 Encouraged choices are:
 
-    installer = MakeMaker
     installer = ModuleBuildTiny
+    installer = MakeMaker
     installer = =inc::Foo (if no configs are needed for this plugin)
     installer = none
 

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.009     2013-06-20 10:18:12 PDT-0700 (Karen Etheridge)
           - 'installer' now defaults to ModuleBuildTiny
           - (experimental) namespaces-are-clean release test added to minting
             profile, although this won't pass for many types of dists as many

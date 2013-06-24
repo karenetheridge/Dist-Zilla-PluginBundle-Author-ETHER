@@ -48,7 +48,7 @@ sub configure
         [ 'Git::GatherDir'      => { exclude_filename => 'LICENSE' } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
         [ 'Test::Compile'       => { ':version' => '2.002', fail_on_warning => 1, bail_out_on_fail => 1 } ],
-        [ 'Test::CheckDeps'     => { ':version' => '0.006', fatal => 1 } ],
+        [ 'Test::CheckDeps'     => { ':version' => '0.007', fatal => 1, level => 'suggests' } ],
 
         'NoTabsTests',
         'EOLTests',
@@ -184,8 +184,9 @@ following C<dist.ini> (following the preamble):
     bail_out_on_fail = 1
 
     [Test::CheckDeps]
-    :version = 0.006
+    :version = 0.007
     fatal = 1
+    level = suggests
 
     [NoTabsTests]
     [EOLTests]

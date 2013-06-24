@@ -47,15 +47,16 @@ sub configure
         # Gather Files
         [ 'Git::GatherDir'      => { exclude_filename => 'LICENSE' } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
-        [ 'Test::Compile'       => { fail_on_warning => 1, bail_out_on_fail => 1 } ],
-        [ 'Test::CheckDeps'     => { fatal => 1 } ],
+        [ 'Test::Compile'       => { ':version' => '2.002', fail_on_warning => 1, bail_out_on_fail => 1 } ],
+        [ 'Test::CheckDeps'     => { ':version' => '0.006', fatal => 1 } ],
+
         'NoTabsTests',
         'EOLTests',
         'MetaTests',
         'Test::Version',
-        'Test::CPAN::Changes',
+        [ 'Test::CPAN::Changes' => { ':version' => '0.008' } ],
         'Test::ChangesHasContent',
-        [ 'Test::MinimumVersion' => { max_target_perl => '5.008008' } ],
+        [ 'Test::MinimumVersion' => { ':version' => '2.0000003', max_target_perl => '5.008008' } ],
         'PodSyntaxTests',
         'PodCoverageTests',
         'Test::PodSpelling',
@@ -73,7 +74,7 @@ sub configure
         'PkgVersion',
         'PodWeaver',
         #[%PodWeaver]
-        [ 'NextRelease'         => { format => '%-8V  %{yyyy-MM-dd HH:mm:ss ZZZZ}d (%U)' } ],
+        [ 'NextRelease'         => { ':version' => '4.300018', format => '%-8V  %{yyyy-MM-dd HH:mm:ss ZZZZ}d (%U)' } ],
 
         # Register Prereqs
         # (MakeMaker or other installer)
@@ -183,7 +184,7 @@ following C<dist.ini> (following the preamble):
     bail_out_on_fail = 1
 
     [Test::CheckDeps]
-    :version = 0.005
+    :version = 0.006
     fatal = 1
 
     [NoTabsTests]

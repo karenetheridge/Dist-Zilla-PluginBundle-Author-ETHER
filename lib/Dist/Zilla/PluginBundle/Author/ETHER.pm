@@ -192,9 +192,9 @@ following C<dist.ini> (following the preamble):
     [NoTabsTests]
     [EOLTests]
     [MetaTests]
+    [Test::Version]
     [Test::CPAN::Changes]
     [Test::ChangesHasContent]
-    [Test::Version]
     [Test::UnusedVars]
 
     [Test::MinimumVersion]

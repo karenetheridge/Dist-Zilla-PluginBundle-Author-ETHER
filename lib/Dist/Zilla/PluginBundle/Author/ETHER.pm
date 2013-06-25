@@ -204,6 +204,7 @@ following C<dist.ini> (following the preamble):
     [PodSyntaxTests]
     [PodCoverageTests]
     [Test::PodSpelling]
+    ;[Test::Pod::LinkCheck]     many outstanding bugs
     [Test::Pod::No404s]
 
 

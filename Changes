@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - t/00-check-deps.t test now has TODO tests for 'recommends' and
             'suggests' prereqs
+          - release test for unused variables reinstated
 
 0.009     2013-06-20 10:18:12 PDT-0700 (Karen Etheridge)
           - 'installer' now defaults to ModuleBuildTiny

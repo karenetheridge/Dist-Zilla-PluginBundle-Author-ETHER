@@ -81,7 +81,9 @@ sub configure
         # (MakeMaker or other installer)
         'AutoPrereqs',
         'MinimumPerl',
-        [ 'Prereqs'             => {
+        [ 'Prereqs' => installer_requirements => {
+                # this is mostly pointless as by the time this runs, we're
+                # already trying to load the installer plugin
                 '-phase' => 'develop', '-relationship' => 'requires',
                 'Dist::Zilla' => Dist::Zilla->VERSION,
                 blessed($self) => $self->VERSION,

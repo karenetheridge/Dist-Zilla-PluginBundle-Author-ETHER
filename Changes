@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.010     2013-06-28 11:28:01 PDT-0700 (Karen Etheridge)
           - t/00-check-deps.t test now has TODO tests for 'recommends' and
             'suggests' prereqs
           - release test for unused variables reinstated

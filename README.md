@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.009
+version 0.010
 
 # SYNOPSIS
 
@@ -64,15 +64,16 @@ following `dist.ini` (following the preamble):
     bail_out_on_fail = 1
 
     [Test::CheckDeps]
-    :version = 0.005
+    :version = 0.007
     fatal = 1
+    level = suggests
 
     [NoTabsTests]
     [EOLTests]
     [MetaTests]
+    [Test::Version]
     [Test::CPAN::Changes]
     [Test::ChangesHasContent]
-    [Test::Version]
     [Test::UnusedVars]
 
     [Test::MinimumVersion]
@@ -82,6 +83,7 @@ following `dist.ini` (following the preamble):
     [PodSyntaxTests]
     [PodCoverageTests]
     [Test::PodSpelling]
+    ;[Test::Pod::LinkCheck]     many outstanding bugs
     [Test::Pod::No404s]
 
 

@@ -83,11 +83,11 @@ sub configure
         'AutoPrereqs',
         'MinimumPerl',
         [ 'Prereqs' => installer_requirements => {
-                # this is mostly pointless as by the time this runs, we're
-                # already trying to load the installer plugin
                 '-phase' => 'develop', '-relationship' => 'requires',
                 'Dist::Zilla' => Dist::Zilla->VERSION,
                 blessed($self) => $self->VERSION,
+                # this is mostly pointless as by the time this runs, we're
+                # already trying to load the installer plugin
                 $self->installer ne 'none'
                     ? ( Dist::Zilla::Util->expand_config_package_name($self->installer) => 0 )
                     : (),

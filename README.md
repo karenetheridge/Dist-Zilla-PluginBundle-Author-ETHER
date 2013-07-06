@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.010
+version 0.011
 
 # SYNOPSIS
 
@@ -60,7 +60,8 @@ following `dist.ini` (following the preamble):
     [Manifest]
 
     [Test::Compile]
-    fail_on_warning = 1
+    :version = 2.004
+    fail_on_warning = author
     bail_out_on_fail = 1
 
     [Test::CheckDeps]

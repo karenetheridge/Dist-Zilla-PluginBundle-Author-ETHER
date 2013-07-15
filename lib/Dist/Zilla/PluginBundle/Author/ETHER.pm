@@ -107,7 +107,7 @@ sub configure
         [ 'Git::Check'          => { allow_dirty => [ qw(README.md LICENSE) ] } ],
         'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { release_branch => 'master' } ],
-        [ 'Git::Remote::Check'  => { remote_branch => 'master' } ],
+        [ 'Git::Remote::Check'  => { branch => 'master', remote_branch => 'master' } ],
         'CheckPrereqsIndexed',
         'TestRelease',
         # (ConfirmRelease)

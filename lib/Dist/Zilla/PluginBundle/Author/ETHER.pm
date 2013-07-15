@@ -75,7 +75,6 @@ sub configure
         'Git::Describe',
         'PkgVersion',
         'PodWeaver',
-        #[%PodWeaver]
         [ 'NextRelease'         => { ':version' => '4.300018', format => '%-8V  %{yyyy-MM-dd HH:mm:ss ZZZZ}d (%U)' } ],
 
         # Register Prereqs

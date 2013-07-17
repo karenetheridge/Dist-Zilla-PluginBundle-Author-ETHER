@@ -48,7 +48,7 @@ sub configure
         [ 'Git::GatherDir'      => { exclude_filename => 'LICENSE' } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
         # note that 2.00[345] are TRIAL releases
-        [ 'Test::Compile'       => { ':version' => '2.005', fail_on_warning => 'author', bail_out_on_fail => 1 } ],
+        [ 'Test::Compile'       => { ':version' => '2.002', fail_on_warning => 'author', bail_out_on_fail => 1 } ],
         [ 'Test::CheckDeps'     => { ':version' => '0.007', fatal => 1, level => 'suggests' } ],
 
         'NoTabsTests',
@@ -183,7 +183,7 @@ following C<dist.ini> (following the preamble):
     [Manifest]
 
     [Test::Compile]
-    :version = 2.005
+    :version = 2.002
     fail_on_warning = author
     bail_out_on_fail = 1
 

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - do not require trial versions of [Test::Compile], allowing
+            flexibility as which we choose to build with
 
 0.011     2013-07-05 17:59:57 PDT-0700 (Karen Etheridge)
           - compile test will also check for warnings, when author is testing

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.012     2013-07-16 18:32:35 PDT-0700 (Karen Etheridge)
           - do not require trial versions of [Test::Compile], allowing
             flexibility as which we choose to build with
 

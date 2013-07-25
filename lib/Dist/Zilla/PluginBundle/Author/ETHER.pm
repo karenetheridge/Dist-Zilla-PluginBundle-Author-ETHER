@@ -23,6 +23,10 @@ has installer => (
     },
 );
 
+my %installer_args = (
+    ModuleBuildTiny => { ':version' => '0.004' },
+);
+
 sub configure
 {
     my $self = shift;
@@ -88,13 +92,17 @@ sub configure
                 # this is mostly pointless as by the time this runs, we're
                 # already trying to load the installer plugin
                 $self->installer ne 'none'
-                    ? ( Dist::Zilla::Util->expand_config_package_name($self->installer) => 0 )
+                    ? ( Dist::Zilla::Util->expand_config_package_name($self->installer) =>
+                        ($installer_args{$self->installer} // {})->{':version'} // 0
+                    )
                     : (),
             } ],
 
         # Install Tool
         [ 'ReadmeAnyFromPod'    => { type => 'markdown', filename => 'README.md', location => 'root' } ],
-        $self->installer ne 'none' ? $self->installer : (),
+        $self->installer ne 'none'
+            ? [ $self->installer => $installer_args{$self->installer} // () ]
+            : (),
         'InstallGuide',
 
         # After Build

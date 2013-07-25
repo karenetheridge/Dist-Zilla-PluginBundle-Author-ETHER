@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
           - inserts --ignore-dir line into .ackrc at build time
+          - when releasing this pluginbundle, dist.ini is edited (and
+            committed) to force a dependency on the newly-released version, and
+            all other local dist.inis using this bundle are also edited
+            (without committing)
 
 0.012     2013-07-16 18:32:35 PDT-0700 (Karen Etheridge)
           - do not require trial versions of [Test::Compile], allowing

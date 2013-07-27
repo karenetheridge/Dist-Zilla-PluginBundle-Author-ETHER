@@ -41,7 +41,9 @@ Profiles available are:
 * C<github>
 
 Creates a distribution hosted on L<github|http://github.com>, with hooks to determine the
-module version and other metadata from git.
+module version and other metadata from git. Issue tracking is disabled, as RT
+is selected as the bugtracker in the distribution's metadata (via the plugin
+bundle).
 
 You will be prompted to create a repository on github immediately; if you
 decline, you must create one manually before you do your first C<push>.

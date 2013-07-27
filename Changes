@@ -6,6 +6,7 @@ Revision history for {{$dist->name}}
             committed) to force a dependency on the newly-released version, and
             all other local dist.inis using this bundle are also edited
             (without committing)
+          - issue tracking is disabled in newly-created github repositories
 
 0.012     2013-07-16 18:32:35 PDT-0700 (Karen Etheridge)
           - do not require trial versions of [Test::Compile], allowing

@@ -3,6 +3,8 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - fix dist.ini munging done at release time (v0.013)
           - injected compile test now also checks files in examples/
+          - ExecDir now looks for installable executables in script/, for
+            compatibility with Module::Build::Tiny
 
 0.013     2013-07-28 16:59:41 PDT-0700 (Karen Etheridge)
           - inserts --ignore-dir line into .ackrc at build time

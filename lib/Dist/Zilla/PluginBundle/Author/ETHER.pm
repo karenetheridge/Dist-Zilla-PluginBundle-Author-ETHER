@@ -45,7 +45,7 @@ sub configure
         #[ContributorsFromGit]
 
         # ExecFiles, ShareDir
-        'ExecDir',
+        [ 'ExecDir'             => { dir => 'script' } ],
         'ShareDir',
 
         # Finders
@@ -135,6 +135,9 @@ sub configure
         # listed late, to allow all other plugins which do BeforeRelease checks to run first.
         'ConfirmRelease',
     );
+
+    # check for a bin/ that should probably be renamed to script/
+    warn 'bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?' if -d 'bin';
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -179,6 +182,8 @@ following C<dist.ini> (following the preamble):
 
     ;;; ExecFiles, ShareDir
     [ExecDir]
+    dir = script
+
     [ShareDir]
 
 

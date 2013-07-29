@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix dist.ini munging done at release time (v0.013)
 
 0.013     2013-07-28 16:59:41 PDT-0700 (Karen Etheridge)
           - inserts --ignore-dir line into .ackrc at build time

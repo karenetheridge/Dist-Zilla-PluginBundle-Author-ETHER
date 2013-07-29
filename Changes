@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.013     2013-07-28 16:59:41 PDT-0700 (Karen Etheridge)
           - inserts --ignore-dir line into .ackrc at build time
           - when releasing this pluginbundle, dist.ini is edited (and
             committed) to force a dependency on the newly-released version, and

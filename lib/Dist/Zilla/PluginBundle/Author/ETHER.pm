@@ -190,7 +190,7 @@ following C<dist.ini> (following the preamble):
     [Manifest]
 
     [Test::Compile]
-    :version = 2.002
+    :version = 2.010
     fail_on_warning = author
     bail_out_on_fail = 1
 

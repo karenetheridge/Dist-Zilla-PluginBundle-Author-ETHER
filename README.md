@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.013
+version 0.014
 
 # SYNOPSIS
 
@@ -45,6 +45,8 @@ following `dist.ini` (following the preamble):
 
     ;;; ExecFiles, ShareDir
     [ExecDir]
+    dir = script
+
     [ShareDir]
 
 
@@ -59,10 +61,15 @@ following `dist.ini` (following the preamble):
     [Readme]
     [Manifest]
 
+    [FileFinder::ByName / Examples]
+    dir = examples
+
     [Test::Compile]
-    :version = 2.002
+    :version = 2.010
     fail_on_warning = author
     bail_out_on_fail = 1
+    script_finder = :ExecFiles
+    script_finder = Examples
 
     [Test::CheckDeps]
     :version = 0.007

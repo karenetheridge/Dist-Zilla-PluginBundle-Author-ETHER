@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.014     2013-07-29 17:25:48 PDT-0700 (Karen Etheridge)
           - fix dist.ini munging done at release time (v0.013)
           - injected compile test now also checks files in examples/
           - ExecDir now looks for installable executables in script/, for

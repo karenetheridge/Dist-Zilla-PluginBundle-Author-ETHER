@@ -3,7 +3,6 @@
 /cover_db/
 /test-mydeps-*
 /nytprof*
-.*.sw[a-z]
 /Dist-Zilla-PluginBundle-Author-ETHER-*
 /todo.txt
 /todo/

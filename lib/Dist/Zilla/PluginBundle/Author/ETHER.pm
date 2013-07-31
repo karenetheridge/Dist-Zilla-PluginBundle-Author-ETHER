@@ -60,7 +60,10 @@ sub configure
         'EOLTests',
         'MetaTests',
         'Test::Version',
-        [ 'Test::CPAN::Changes' => { ':version' => '0.008' } ],
+        # CPAN::Changes 0.21 got way too zealous with timestamp formats
+        ( use_module('CPAN::Changes')->VERSION < 0.21
+            ? [ 'Test::CPAN::Changes' => { ':version' => '0.008' } ]
+            : ()),
         'Test::ChangesHasContent',
         'Test::UnusedVars',
         [ 'Test::MinimumVersion' => { ':version' => '2.0000003', max_target_perl => '5.008008' } ],
@@ -216,7 +219,8 @@ following C<dist.ini> (following the preamble):
     [EOLTests]
     [MetaTests]
     [Test::Version]
-    [Test::CPAN::Changes]
+    ; (may or may not be included, depending on the version available)
+    ;[Test::CPAN::Changes]
     [Test::ChangesHasContent]
     [Test::UnusedVars]
 

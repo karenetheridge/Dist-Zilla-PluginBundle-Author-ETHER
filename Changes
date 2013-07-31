@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - [Test::CPAN::Changes] omitted if its version >= 0.21, pending
+            resolution of too-strict datetime formats (e.g. RT#87499)
 
 0.014     2013-07-29 17:25:48 PDT-0700 (Karen Etheridge)
           - fix dist.ini munging done at release time (v0.013)

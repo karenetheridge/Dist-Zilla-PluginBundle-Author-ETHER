@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.014
+version 0.015
 
 # SYNOPSIS
 
@@ -80,7 +80,8 @@ following `dist.ini` (following the preamble):
     [EOLTests]
     [MetaTests]
     [Test::Version]
-    [Test::CPAN::Changes]
+    ; (may or may not be included, depending on the version available)
+    ;[Test::CPAN::Changes]
     [Test::ChangesHasContent]
     [Test::UnusedVars]
 

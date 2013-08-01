@@ -10,6 +10,7 @@ with
     'Dist::Zilla::Role::PluginBundle::Config::Slicer';
 
 use Dist::Zilla::Util;
+use Module::Runtime 'use_module';
 use namespace::autoclean;
 
 # Note: no support yet for depending on a specific version of the plugin

@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - added basic tests for the pluginbundle and minter
 
 0.015     2013-08-01 16:02:32 PDT-0700 (Karen Etheridge)
           - [Test::CPAN::Changes] omitted if its version >= 0.21, pending

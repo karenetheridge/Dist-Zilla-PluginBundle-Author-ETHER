@@ -2,6 +2,11 @@ use strict;
 use warnings FATAL => 'all';
 
 use Test::More;
+
+BEGIN {
+    plan skip_all => 'these tests require a git repository' unless -d '.git';
+}
+
 use Test::Warnings;
 use Test::Deep;
 use Test::Deep qw(cmp_details deep_diag);

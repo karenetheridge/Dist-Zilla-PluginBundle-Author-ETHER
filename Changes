@@ -4,6 +4,8 @@ Revision history for {{$dist->name}}
           - update minimum version of perl required, re syntax used in
             templates applied during minting
           - inject a forced dependency on a fixed CPAN::Meta::Check
+          - skip pluginbundle tests if .git dir is not present (too many
+            plugins rely on git data)
 
 0.016     2013-08-03 12:44:15 PDT-0700 (Karen Etheridge)
           - added basic tests for the pluginbundle and minter

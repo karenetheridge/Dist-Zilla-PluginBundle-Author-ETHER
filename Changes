@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - update minimum version of perl required, re syntax used in
             templates applied during minting
+          - inject a forced dependency on a fixed CPAN::Meta::Check
 
 0.016     2013-08-03 12:44:15 PDT-0700 (Karen Etheridge)
           - added basic tests for the pluginbundle and minter

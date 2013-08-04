@@ -90,6 +90,10 @@ sub configure
         # (MakeMaker or other installer)
         'AutoPrereqs',
         'MinimumPerl',
+        [ 'Prereqs' => 'Test::CheckDeps, indirect' => {
+                '-phase' => 'test', '-relationship' => 'requires',
+                'CPAN::Meta::Check' => '0.007',
+                } ],
         [ 'Prereqs' => installer_requirements => {
                 '-phase' => 'develop', '-relationship' => 'requires',
                 'Dist::Zilla' => Dist::Zilla->VERSION,

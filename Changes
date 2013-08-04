@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - update minimum version of perl required, re syntax used in
+            templates applied during minting
 
 0.016     2013-08-03 12:44:15 PDT-0700 (Karen Etheridge)
           - added basic tests for the pluginbundle and minter

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.017     2013-08-04 09:12:17 PDT-0700 (Karen Etheridge)
           - update minimum version of perl required, re syntax used in
             templates applied during minting
           - inject a forced dependency on a fixed CPAN::Meta::Check

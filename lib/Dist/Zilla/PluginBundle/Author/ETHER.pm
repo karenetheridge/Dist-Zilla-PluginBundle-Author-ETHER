@@ -67,7 +67,7 @@ sub configure
             : ()),
         'Test::ChangesHasContent',
         'Test::UnusedVars',
-        [ 'Test::MinimumVersion' => { ':version' => '2.0000003', max_target_perl => '5.008008' } ],
+        [ 'Test::MinimumVersion' => { ':version' => '2.000003', max_target_perl => '5.008008' } ],
         'PodSyntaxTests',
         'PodCoverageTests',
         'Test::PodSpelling',

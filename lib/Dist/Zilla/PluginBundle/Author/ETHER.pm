@@ -116,7 +116,7 @@ sub configure
 
         # After Build
         [ 'CopyFilesFromBuild'  => { copy => 'LICENSE' } ],
-        [ 'Run::AfterBuild' => { run => q!if [[ %d =~ %n ]]; then test -e .ackrc && grep -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi! } ],
+        [ 'Run::AfterBuild' => { run => q!if [[ %d =~ %n ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi! } ],
 
         # Test Runner
         'RunExtraTests',

@@ -124,7 +124,7 @@ sub configure
         # Before Release
         [ 'Git::Check'          => { allow_dirty => [ qw(README.md LICENSE) ] } ],
         'Git::CheckFor::MergeConflicts',
-        [ 'Git::CheckFor::CorrectBranch' => { release_branch => 'master' } ],
+        [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
         [ 'Git::Remote::Check'  => { branch => 'master', remote_branch => 'master' } ],
         'CheckPrereqsIndexed',
         'TestRelease',
@@ -225,7 +225,7 @@ following C<dist.ini> (following the preamble):
     [MetaTests]
     [Test::Version]
     ; (may or may not be included, depending on the version available)
-    ;[Test::CPAN::Changes]
+    [Test::CPAN::Changes]
     [Test::ChangesHasContent]
     [Test::UnusedVars]
 
@@ -253,7 +253,15 @@ following C<dist.ini> (following the preamble):
     ;;; Register Prereqs
     [AutoPrereqs]
     [MinimumPerl]
-    [Prereqs / DevelopRequires]
+
+    [Prereqs / Test::CheckDeps, indirect]
+    -phase = test
+    -relationship = requires
+    CPAN::Meta::Check = 0.007
+
+    [Prereqs / installer_requirements]
+    -phase = develop
+    -relationship = requires
     Dist::Zilla = <version used to built this bundle>
     Dist::Zilla::PluginBundle::Author::ETHER = <our own version>
 
@@ -272,6 +280,9 @@ following C<dist.ini> (following the preamble):
     [CopyFilesFromBuild]
     copy = LICENSE
 
+    [Run::AfterBuild]
+    run => if [[ %d =~ %n ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
+
 
     ;;; TestRunner
     [RunExtraTests]
@@ -289,6 +300,7 @@ following C<dist.ini> (following the preamble):
     release_branch = master
 
     [Git::Remote::Check]
+    branch = master
     remote_branch = master
 
     [CheckPrereqsIndexed]

@@ -4,7 +4,8 @@ use warnings FATAL => 'all';
 use Test::More;
 
 BEGIN {
-    plan skip_all => 'these tests require a git repository' unless -d '.git';
+    plan skip_all => 'these tests require a git repository'
+        unless -d '.git' or -d '../../.git' or -d '../../../.git';
 }
 
 use Test::Warnings;
@@ -27,7 +28,7 @@ my $tzil = Builder->from_config(
                     license => 'Perl_5',
                 },
                 'GatherDir',
-                # Git::GatherDir doesn't understand our corpus structure??
+                # our files are copied into source, so Git::GatherDir doesn't see them
                 [ '@Author::ETHER' => { '-remove' => 'Git::GatherDir' } ],
             ),
         },

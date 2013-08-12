@@ -36,6 +36,10 @@ sub configure
         # VersionProvider
         [ 'Git::NextVersion'    => { version_regexp => '^v([\d._]+)(-TRIAL)?$' } ],
 
+        # BeforeBuild
+        [ 'PromptIfStale' => 'build' => { phase => 'build', module => [ blessed($self) ] } ],
+        [ 'PromptIfStale' => 'release' => { phase => 'release', check_all_plugins => 1 } ],
+
         # MetaData
         'GithubMeta',
         [ 'AutoMetaResources'   => { 'bugtracker.rt' => 1 } ],
@@ -168,6 +172,13 @@ following C<dist.ini> (following the preamble):
     [Git::NextVersion]
     version_regexp = ^v([\d._]+)(-TRIAL)?$
 
+    ;;; BeforeBuild
+    [PromptIfStale / build]
+    phase = build
+    module = Dist::Zilla::Plugin::Author::ETHER
+    [PromptIfStale / release]
+    phase = release
+    check_all_plugins = 1
 
     ;;; MetaData
     [GithubMeta]

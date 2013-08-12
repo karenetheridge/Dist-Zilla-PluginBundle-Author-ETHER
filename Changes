@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - now using [PromptIfStale] to ensure the plugin bundle is always
+            the latest version, and all plugins are checked at release time
 
 0.017     2013-08-04 09:12:17 PDT-0700 (Karen Etheridge)
           - update minimum version of perl required, re syntax used in

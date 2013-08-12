@@ -29,7 +29,7 @@ my $tzil = Builder->from_config(
                 },
                 'GatherDir',
                 # our files are copied into source, so Git::GatherDir doesn't see them
-                [ '@Author::ETHER' => { '-remove' => 'Git::GatherDir' } ],
+                [ '@Author::ETHER' => { '-remove' => [ 'Git::GatherDir', 'PromptIfStale' ] } ],
             ),
         },
     },

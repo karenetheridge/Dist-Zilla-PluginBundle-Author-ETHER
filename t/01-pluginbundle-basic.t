@@ -52,6 +52,7 @@ my @expected_files = qw(
     t/00-compile.t
     xt/author/pod-spell.t
     xt/release/changes_has_content.t
+    xt/release/cpan-changes.t
     xt/release/distmeta.t
     xt/release/eol.t
     xt/release/minimum-version.t

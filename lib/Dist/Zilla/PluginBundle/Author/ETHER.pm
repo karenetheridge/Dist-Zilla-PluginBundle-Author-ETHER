@@ -85,7 +85,7 @@ sub configure
         'Git::Describe',
         'PkgVersion',
         'PodWeaver',
-        [ 'NextRelease'         => { ':version' => '4.300018', format => '%-8V  %{yyyy-MM-dd HH:mm:ss ZZZZ}d (%U)' } ],
+        [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8V  %{yyyy-MM-dd HH:mm:ss\'Z\'}d (%U)' } ],
 
         # Register Prereqs
         # (MakeMaker or other installer)
@@ -254,7 +254,8 @@ following C<dist.ini> (following the preamble):
     [PodWeaver]
     [NextRelease]
     :version = 4.300018
-    format = %-8V  %{yyyy-MM-dd HH:mm:ss ZZZZ}d (%U)
+    time_zone = UTC
+    format = %-8V  %{yyyy-MM-dd HH:mm:ss'Z'}d (%U)
 
 
     ;;; Register Prereqs

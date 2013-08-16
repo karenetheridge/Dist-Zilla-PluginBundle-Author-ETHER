@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.017
+version 0.018
 
 # SYNOPSIS
 
@@ -21,7 +21,13 @@ following `dist.ini` (following the preamble):
     [Git::NextVersion]
     version_regexp = ^v([\d._]+)(-TRIAL)?$
 
-
+    ;;; BeforeBuild
+    [PromptIfStale / build]
+    phase = build
+    module = Dist::Zilla::Plugin::Author::ETHER
+    [PromptIfStale / release]
+    phase = release
+    check_all_plugins = 1
 
     ;;; MetaData
     [GithubMeta]
@@ -80,8 +86,7 @@ following `dist.ini` (following the preamble):
     [EOLTests]
     [MetaTests]
     [Test::Version]
-    ; (may or may not be included, depending on the version available)
-    ;[Test::CPAN::Changes]
+    [Test::CPAN::Changes]
     [Test::ChangesHasContent]
     [Test::UnusedVars]
 
@@ -104,14 +109,23 @@ following `dist.ini` (following the preamble):
     [PodWeaver]
     [NextRelease]
     :version = 4.300018
-    format = %-8V  %{yyyy-MM-dd HH:mm:ss ZZZZ}d (%U)
+    time_zone = UTC
+    format = %-8V  %{yyyy-MM-dd HH:mm:ss'Z'}d (%U)
 
 
 
     ;;; Register Prereqs
     [AutoPrereqs]
     [MinimumPerl]
-    [Prereqs / DevelopRequires]
+
+    [Prereqs / Test::CheckDeps, indirect]
+    -phase = test
+    -relationship = requires
+    CPAN::Meta::Check = 0.007
+
+    [Prereqs / installer_requirements]
+    -phase = develop
+    -relationship = requires
     Dist::Zilla = <version used to built this bundle>
     Dist::Zilla::PluginBundle::Author::ETHER = <our own version>
 
@@ -132,6 +146,9 @@ following `dist.ini` (following the preamble):
     [CopyFilesFromBuild]
     copy = LICENSE
 
+    [Run::AfterBuild]
+    run => if [[ %d =~ %n ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
+
 
 
     ;;; TestRunner
@@ -151,6 +168,7 @@ following `dist.ini` (following the preamble):
     release_branch = master
 
     [Git::Remote::Check]
+    branch = master
     remote_branch = master
 
     [CheckPrereqsIndexed]

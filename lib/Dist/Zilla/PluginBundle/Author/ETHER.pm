@@ -11,6 +11,7 @@ with
 
 use Dist::Zilla::Util;
 use Module::Runtime 'use_module';
+use Moose::Util::TypeConstraints;
 use namespace::autoclean;
 
 # Note: no support yet for depending on a specific version of the plugin
@@ -21,6 +22,16 @@ has installer => (
         exists $_[0]->payload->{installer}
             ? $_[0]->payload->{installer}
             : 'ModuleBuildTiny';
+    },
+);
+
+has server => (
+    is => 'ro', isa => enum([qw(github gitmo p5sagit none)]),
+    lazy => 1,
+    default => sub {
+        exists $_[0]->payload->{server}
+            ? $_[0]->payload->{server}
+            : 'github';
     },
 );
 
@@ -41,8 +52,12 @@ sub configure
         [ 'PromptIfStale' => 'release' => { phase => 'release', check_all_plugins => 1 } ],
 
         # MetaData
-        'GithubMeta',
-        [ 'AutoMetaResources'   => { 'bugtracker.rt' => 1 } ],
+        $self->server eq 'github' ? ( [ 'GithubMeta' ] ) : (),
+        [ 'AutoMetaResources'   => { 'bugtracker.rt' => 1,
+              $self->server eq 'gitmo' ? ( 'repository.gitmo' => 1 )
+            : $self->server eq 'p5sagit' ? ( 'repository.p5sagit' => 1 )
+            : ()
+        } ],
         [ 'Authority'           => { authority => 'cpan:ETHER' } ],
         [ 'MetaNoIndex'         => { directory => [ qw(t xt examples) ] } ],
         [ 'MetaProvides::Package' => { meta_noindex => 1 } ],
@@ -137,7 +152,7 @@ sub configure
         # After Release
         [ 'Git::Commit'         => { allow_dirty => [ qw(Changes README.md LICENSE) ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
-        [ 'GitHub::Update'      => { metacpan => 1 } ],
+        $self->server eq 'github' ? ( [ 'GitHub::Update' => { metacpan => 1 } ] ) : (),
         'Git::Push',
         [ 'InstallRelease'      => { install_command => 'cpanm .' } ],
 
@@ -178,9 +193,10 @@ following C<dist.ini> (following the preamble):
     check_all_plugins = 1
 
     ;;; MetaData
-    [GithubMeta]
+    [GithubMeta]    ; (if server = 'github' or omitted)
     [AutoMetaResources]
     bugtracker.rt = 1
+    ; (plus repository.* = 1 if server = 'gitmo' or 'p5sagit')
 
     [Authority]
     authority = cpan:ETHER
@@ -331,7 +347,7 @@ following C<dist.ini> (following the preamble):
     tag_format = v%v%t
     tag_message = v%v%t
 
-    [GitHub::Update]
+    [GitHub::Update]    ; (if server = 'github' or omitted)
     metacpan = 1
 
     [Git::Push]
@@ -394,6 +410,28 @@ Encouraged choices are:
     installer = MakeMaker
     installer = =inc::Foo (if no configs are needed for this plugin)
     installer = none
+
+=head2 server
+
+=begin :list
+
+* C<github>
+(default)
+metadata and release plugins are tailored to L<github|http://github.com>..
+
+* C<gitmo>
+metadata and release plugins are tailored to
+L<http://git.moose.perl.org|gitmo@git.moose.perl.org>.
+
+* C<p5sagit>
+metadata and release plugins are tailored to
+L<http://git.shadowcat.co.uk|p5sagit@git.shadowcat.co.uk>.
+
+* C<none>
+no special configuration of metadata (relating to repositories etc) is done --
+you'll need to provide this yourself.
+
+=end :list
 
 =head2 other customizations
 

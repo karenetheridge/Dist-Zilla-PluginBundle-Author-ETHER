@@ -51,19 +51,6 @@ sub configure
         [ 'PromptIfStale' => 'build' => { phase => 'build', module => [ blessed($self) ] } ],
         [ 'PromptIfStale' => 'release' => { phase => 'release', check_all_plugins => 1 } ],
 
-        # MetaData
-        $self->server eq 'github' ? ( [ 'GithubMeta' ] ) : (),
-        [ 'AutoMetaResources'   => { 'bugtracker.rt' => 1,
-              $self->server eq 'gitmo' ? ( 'repository.gitmo' => 1 )
-            : $self->server eq 'p5sagit' ? ( 'repository.p5sagit' => 1 )
-            : ()
-        } ],
-        [ 'Authority'           => { authority => 'cpan:ETHER' } ],
-        [ 'MetaNoIndex'         => { directory => [ qw(t xt examples) ] } ],
-        [ 'MetaProvides::Package' => { meta_noindex => 1 } ],
-        'MetaConfig',
-        #[ContributorsFromGit]
-
         # ExecFiles, ShareDir
         [ 'ExecDir'             => { dir => 'script' } ],
         'ShareDir',
@@ -101,6 +88,19 @@ sub configure
         'PkgVersion',
         'PodWeaver',
         [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8V  %{yyyy-MM-dd HH:mm:ss\'Z\'}d (%U)' } ],
+
+        # MetaData
+        $self->server eq 'github' ? ( [ 'GithubMeta' ] ) : (),
+        [ 'AutoMetaResources'   => { 'bugtracker.rt' => 1,
+              $self->server eq 'gitmo' ? ( 'repository.gitmo' => 1 )
+            : $self->server eq 'p5sagit' ? ( 'repository.p5sagit' => 1 )
+            : ()
+        } ],
+        [ 'Authority'           => { authority => 'cpan:ETHER' } ],
+        [ 'MetaNoIndex'         => { directory => [ qw(t xt examples) ] } ],
+        [ 'MetaProvides::Package' => { meta_noindex => 1 } ],
+        'MetaConfig',
+        #[ContributorsFromGit]
 
         # Register Prereqs
         # (MakeMaker or other installer)
@@ -192,25 +192,6 @@ following C<dist.ini> (following the preamble):
     phase = release
     check_all_plugins = 1
 
-    ;;; MetaData
-    [GithubMeta]    ; (if server = 'github' or omitted)
-    [AutoMetaResources]
-    bugtracker.rt = 1
-    ; (plus repository.* = 1 if server = 'gitmo' or 'p5sagit')
-
-    [Authority]
-    authority = cpan:ETHER
-
-    [MetaNoIndex]
-    directory = t
-    directory = xt
-    directory = examples
-
-    [MetaProvides::Package]
-    meta_noindex = 1
-
-    [MetaConfig]
-
 
     ;;; ExecFiles, ShareDir
     [ExecDir]
@@ -272,6 +253,26 @@ following C<dist.ini> (following the preamble):
     :version = 4.300018
     time_zone = UTC
     format = %-8V  %{yyyy-MM-dd HH:mm:ss'Z'}d (%U)
+
+
+    ;;; MetaData
+    [GithubMeta]    ; (if server = 'github' or omitted)
+    [AutoMetaResources]
+    bugtracker.rt = 1
+    ; (plus repository.* = 1 if server = 'gitmo' or 'p5sagit')
+
+    [Authority]
+    authority = cpan:ETHER
+
+    [MetaNoIndex]
+    directory = t
+    directory = xt
+    directory = examples
+
+    [MetaProvides::Package]
+    meta_noindex = 1
+
+    [MetaConfig]
 
 
     ;;; Register Prereqs

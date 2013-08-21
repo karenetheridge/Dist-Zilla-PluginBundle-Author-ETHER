@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.019     2013-08-21 19:16:27Z (Karen Etheridge)
           - now supporting dists hosted elsewhere than github (currently
             gitmo, p5sagit, or other), via the 'server' option
           - Test::Version now runs in strict mode

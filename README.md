@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.018
+version 0.019
 
 # SYNOPSIS
 
@@ -28,24 +28,6 @@ following `dist.ini` (following the preamble):
     [PromptIfStale / release]
     phase = release
     check_all_plugins = 1
-
-    ;;; MetaData
-    [GithubMeta]
-    [AutoMetaResources]
-    bugtracker.rt = 1
-
-    [Authority]
-    authority = cpan:ETHER
-
-    [MetaNoIndex]
-    directory = t
-    directory = xt
-    directory = examples
-
-    [MetaProvides::Package]
-    meta_noindex = 1
-
-    [MetaConfig]
 
 
 
@@ -99,6 +81,7 @@ following `dist.ini` (following the preamble):
     [Test::PodSpelling]
     ;[Test::Pod::LinkCheck]     many outstanding bugs
     [Test::Pod::No404s]
+    [Test::Kwalitee]
 
 
 
@@ -111,6 +94,27 @@ following `dist.ini` (following the preamble):
     :version = 4.300018
     time_zone = UTC
     format = %-8V  %{yyyy-MM-dd HH:mm:ss'Z'}d (%U)
+
+
+
+    ;;; MetaData
+    [GithubMeta]    ; (if server = 'github' or omitted)
+    [AutoMetaResources]
+    bugtracker.rt = 1
+    ; (plus repository.* = 1 if server = 'gitmo' or 'p5sagit')
+
+    [Authority]
+    authority = cpan:ETHER
+
+    [MetaNoIndex]
+    directory = t
+    directory = xt
+    directory = examples
+
+    [MetaProvides::Package]
+    meta_noindex = 1
+
+    [MetaConfig]
 
 
 
@@ -193,7 +197,7 @@ following `dist.ini` (following the preamble):
     tag_format = v%v%t
     tag_message = v%v%t
 
-    [GitHub::Update]
+    [GitHub::Update]    ; (if server = 'github' or omitted)
     metacpan = 1
 
     [Git::Push]
@@ -248,6 +252,28 @@ Encouraged choices are:
     installer = MakeMaker
     installer = =inc::Foo (if no configs are needed for this plugin)
     installer = none
+
+## server
+
+- `github`
+
+    (default)
+    metadata and release plugins are tailored to [github](http://github.com)..
+
+- `gitmo`
+
+    metadata and release plugins are tailored to
+    [http://git.moose.perl.org](http://search.cpan.org/perldoc?gitmo@git.moose.perl.org).
+
+- `p5sagit`
+
+    metadata and release plugins are tailored to
+    [http://git.shadowcat.co.uk](http://search.cpan.org/perldoc?p5sagit@git.shadowcat.co.uk).
+
+- `none`
+
+    no special configuration of metadata (relating to repositories etc) is done --
+    you'll need to provide this yourself.
 
 ## other customizations
 

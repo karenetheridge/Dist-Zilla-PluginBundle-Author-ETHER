@@ -73,24 +73,10 @@ find({
     $build_dir,
 );
 
-my ($ok, $stack) = cmp_details(
+cmp_deeply(
     \@found_files,
     bag(@expected_files),
+    'the right files are created by the pluginbundle',
 );
-
-pass('the right files are created') if $ok;
-
-if (not $ok)
-{
-    # check that the minimum expected files are still created...
-    cmp_deeply(
-        \@found_files,
-        superbagof(@expected_files),
-        'the minimum set of expected files are created',
-    )
-    and
-    Test::Builder->new->diag("When checking what files are created in the build...\n"
-        . deep_diag($stack));
-}
 
 done_testing;

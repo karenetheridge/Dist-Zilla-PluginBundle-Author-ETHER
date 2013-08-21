@@ -66,7 +66,7 @@ sub configure
         'NoTabsTests',
         'EOLTests',
         'MetaTests',
-        'Test::Version',
+        [ 'Test::Version'       => { is_strict => 1 } ],
         [ 'Test::CPAN::Changes' => { ':version' => '0.008' } ],
         'Test::ChangesHasContent',
         'Test::UnusedVars',

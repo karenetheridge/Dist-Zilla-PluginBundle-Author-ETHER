@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - now supporting dists hosted elsewhere than github (currently
             gitmo, p5sagit, or other), via the 'server' option
+          - Test::Version now runs in strict mode
 
 0.018     2013-08-16 05:11:06Z (Karen Etheridge)
           - now using [PromptIfStale] to ensure the plugin bundle is always

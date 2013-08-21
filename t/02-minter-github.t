@@ -72,4 +72,10 @@ like(
     'plugin bundle is referenced in dist.ini',
 );
 
+like(
+    $tzil->slurp_file('mint/xt/release/clean-namespaces.t'),
+    qr{namespaces_clean\(grep { !/\^My::New::Dist::Conflicts\$/ } Test::CleanNamespaces->find_modules\);}m,
+    'Test::CleanNamespaces skips the ::Conflicts module',
+);
+
 done_testing;

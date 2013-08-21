@@ -76,6 +76,7 @@ sub configure
         'Test::PodSpelling',
         #[Test::Pod::LinkCheck]     many outstanding bugs
         'Test::Pod::No404s',
+        'Test::Kwalitee',
 
         # Prune Files
         'PruneCruft',
@@ -242,6 +243,7 @@ following C<dist.ini> (following the preamble):
     [Test::PodSpelling]
     ;[Test::Pod::LinkCheck]     many outstanding bugs
     [Test::Pod::No404s]
+    [Test::Kwalitee]
 
 
     ;;; Munge Files

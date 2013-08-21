@@ -55,6 +55,7 @@ my @expected_files = qw(
     xt/release/cpan-changes.t
     xt/release/distmeta.t
     xt/release/eol.t
+    xt/release/kwalitee.t
     xt/release/minimum-version.t
     xt/release/no-tabs.t
     xt/release/pod-coverage.t

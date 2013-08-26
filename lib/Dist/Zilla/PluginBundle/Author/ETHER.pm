@@ -86,7 +86,7 @@ sub configure
         # Munge Files
         # (Authority)
         'Git::Describe',
-        'PkgVersion',
+        [ PkgVersion            => { ':version' => '4.300036', die_on_existing_version => 1 } ],
         'PodWeaver',
         [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8V  %{yyyy-MM-dd HH:mm:ss\'Z\'}d (%U)' } ],
 
@@ -250,6 +250,9 @@ following C<dist.ini> (following the preamble):
     ; (Authority)
     [Git::Describe]
     [PkgVersion]
+    :version = 4.300036
+    die_on_existing_version = 1
+
     [PodWeaver]
     [NextRelease]
     :version = 4.300018

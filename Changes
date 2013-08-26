@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - set new die_on_existing_version option in [PkgVersion]
 
 0.019     2013-08-21 19:16:27Z (Karen Etheridge)
           - now supporting dists hosted elsewhere than github (currently

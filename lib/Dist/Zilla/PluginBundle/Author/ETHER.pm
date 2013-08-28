@@ -76,7 +76,7 @@ sub configure
         'Test::PodSpelling',
         #[Test::Pod::LinkCheck]     many outstanding bugs
         'Test::Pod::No404s',
-        'Test::Kwalitee',
+        [ 'Test::Kwalitee'      => { ':version' => '2.06' } ],
 
         # Prune Files
         'PruneCruft',

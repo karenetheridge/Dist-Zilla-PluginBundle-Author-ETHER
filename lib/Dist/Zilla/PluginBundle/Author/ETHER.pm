@@ -155,7 +155,7 @@ sub configure
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? ( [ 'GitHub::Update' => { metacpan => 1 } ] ) : (),
         'Git::Push',
-        [ 'InstallRelease'      => { install_command => 'cpanm .' } ],
+        [ 'InstallRelease'      => { install_command => 'cpanm . && cpanm-reporter' } ],
 
         # listed late, to allow all other plugins which do BeforeRelease checks to run first.
         'ConfirmRelease',
@@ -359,7 +359,7 @@ following C<dist.ini> (following the preamble):
     [Git::Push]
 
     [InstallRelease]
-    install_command = cpanm .
+    install_command = cpanm . && cpanm-reporter
 
 
     ; listed late, to allow all other plugins which do BeforeRelease checks to run first.

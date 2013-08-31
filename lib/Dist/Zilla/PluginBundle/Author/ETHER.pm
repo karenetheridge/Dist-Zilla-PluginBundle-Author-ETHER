@@ -61,7 +61,7 @@ sub configure
         # Gather Files
         [ 'Git::GatherDir'      => { exclude_filename => 'LICENSE' } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
-        [ 'Test::Compile'       => { ':version' => '2.010', fail_on_warning => 'author', bail_out_on_fail => 1, script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
+        [ 'Test::Compile'       => { ':version' => '2.023', fail_on_warning => 'author', bail_out_on_fail => 1, script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
         [ 'Test::CheckDeps'     => { ':version' => '0.007', fatal => 1, level => 'suggests' } ],
         'NoTabsTests',
         'EOLTests',
@@ -215,7 +215,7 @@ following C<dist.ini> (following the preamble):
     dir = examples
 
     [Test::Compile]
-    :version = 2.010
+    :version = 2.023
     fail_on_warning = author
     bail_out_on_fail = 1
     script_finder = :ExecFiles

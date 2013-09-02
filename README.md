@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.019
+version 0.020
 
 # SYNOPSIS
 
@@ -53,7 +53,7 @@ following `dist.ini` (following the preamble):
     dir = examples
 
     [Test::Compile]
-    :version = 2.010
+    :version = 2.023
     fail_on_warning = author
     bail_out_on_fail = 1
     script_finder = :ExecFiles
@@ -89,6 +89,9 @@ following `dist.ini` (following the preamble):
     ; (Authority)
     [Git::Describe]
     [PkgVersion]
+    :version = 4.300036
+    die_on_existing_version = 1
+
     [PodWeaver]
     [NextRelease]
     :version = 4.300018
@@ -203,7 +206,7 @@ following `dist.ini` (following the preamble):
     [Git::Push]
 
     [InstallRelease]
-    install_command = cpanm .
+    install_command = cpanm . && cpanm-reporter
 
 
 

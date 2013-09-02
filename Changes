@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.020     2013-09-02 23:50:35Z (Karen Etheridge)
           - set new die_on_existing_version option in [PkgVersion]
           - after releasing and we install the dist, submit a cpantesters
             report

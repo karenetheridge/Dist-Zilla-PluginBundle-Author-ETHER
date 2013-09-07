@@ -1,8 +1,5 @@
 /.build/
 !.gitignore
-/cover_db/
-/test-mydeps-*
-/nytprof*
 /Dist-Zilla-PluginBundle-Author-ETHER-*
 /todo.txt
 /todo/

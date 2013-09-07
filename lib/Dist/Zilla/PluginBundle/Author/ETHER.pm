@@ -77,6 +77,7 @@ sub configure
         #[Test::Pod::LinkCheck]     many outstanding bugs
         'Test::Pod::No404s',
         [ 'Test::Kwalitee'      => { ':version' => '2.06' } ],
+        [ 'MojibakeTests' ],
 
         # Prune Files
         'PruneCruft',
@@ -244,6 +245,7 @@ following C<dist.ini> (following the preamble):
     ;[Test::Pod::LinkCheck]     many outstanding bugs
     [Test::Pod::No404s]
     [Test::Kwalitee]
+    [MojibakeTests]
 
 
     ;;; Munge Files

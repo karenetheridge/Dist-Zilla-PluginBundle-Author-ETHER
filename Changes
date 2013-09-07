@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.021     2013-09-07 19:41:06Z (Karen Etheridge)
           - disable invocation of cpanm-reporter (see RT#88367)
           - added [MojibakeTests], for testing file encoding at release time
           - removed use of deprecated Class::MOP::class_of

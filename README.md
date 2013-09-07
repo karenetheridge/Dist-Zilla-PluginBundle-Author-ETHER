@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.020
+version 0.021
 
 # SYNOPSIS
 
@@ -82,6 +82,7 @@ following `dist.ini` (following the preamble):
     ;[Test::Pod::LinkCheck]     many outstanding bugs
     [Test::Pod::No404s]
     [Test::Kwalitee]
+    [MojibakeTests]
 
 
 
@@ -206,7 +207,7 @@ following `dist.ini` (following the preamble):
     [Git::Push]
 
     [InstallRelease]
-    install_command = cpanm . && cpanm-reporter
+    install_command = cpanm .
 
 
 

@@ -8,6 +8,7 @@ use Test::DZil;
 use Path::Class;
 use File::Find;
 use File::Spec;
+use Moose::Util 'find_meta';
 
 # we need the profiles dir to have gone through file munging first (for
 # profile.ini)
@@ -22,7 +23,7 @@ my $tzil = Minter->_new_from_profile(
 # we need to stop the git plugins from doing their thing
 foreach my $plugin (grep { /Git/ } map { ref } @{$tzil->plugins})
 {
-    my $meta = Class::MOP::class_of($plugin);
+    my $meta = find_meta($plugin);
     $meta->make_mutable;
     $meta->add_around_method_modifier(after_mint => sub { Test::More::note("in $plugin after_mint...") });
 }

@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - disable invocation of cpanm-reporter (see RT#88367)
           - added [MojibakeTests], for testing file encoding at release time
+          - removed use of deprecated Class::MOP::class_of
 
 0.020     2013-09-02 23:50:35Z (Karen Etheridge)
           - set new die_on_existing_version option in [PkgVersion]

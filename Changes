@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.022     2013-09-10 01:48:53Z (Karen Etheridge)
           - warnings tests bypassed during installation, to prevent
             installation issues in the presence of deprecation warnings from
             upstream dependencies (in this case, via Moose 2.1100) - and

@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.021
+version 0.022
 
 # SYNOPSIS
 
@@ -262,7 +262,7 @@ Encouraged choices are:
 - `github`
 
     (default)
-    metadata and release plugins are tailored to [github](http://github.com)..
+    metadata and release plugins are tailored to [github](http://github.com).
 
 - `gitmo`
 

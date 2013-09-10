@@ -40,6 +40,8 @@ Profiles available are:
 
 * C<github>
 
+=for stopwords github metadata
+
 Creates a distribution hosted on L<github|http://github.com>, with hooks to determine the
 module version and other metadata from git. Issue tracking is disabled, as RT
 is selected as the bugtracker in the distribution's metadata (via the plugin

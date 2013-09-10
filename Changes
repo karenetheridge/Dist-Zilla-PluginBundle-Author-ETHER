@@ -1,6 +1,10 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - warnings tests bypassed during installation, to prevent
+            installation issues in the presence of deprecation warnings from
+            upstream dependencies (in this case, via Moose 2.1100) - and
+            similar change made in test generated via minting profile
 
 0.021     2013-09-07 19:41:06Z (Karen Etheridge)
           - disable invocation of cpanm-reporter (see RT#88367)

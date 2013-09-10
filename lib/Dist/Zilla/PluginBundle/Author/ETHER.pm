@@ -423,11 +423,9 @@ Encouraged choices are:
 
 =begin :list
 
-=for stopwords github metadata
-
 * C<github>
 (default)
-metadata and release plugins are tailored to L<github|http://github.com>.
+metadata and release plugins are tailored to L<github|http://github.com>..
 
 * C<gitmo>
 metadata and release plugins are tailored to

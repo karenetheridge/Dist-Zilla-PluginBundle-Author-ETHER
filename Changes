@@ -6,6 +6,7 @@ Revision history for {{$dist->name}}
             upstream dependencies (in this case, via Moose 2.1100) - and
             similar change made in test generated via minting profile
           - bumped dependency version for [Test::PodSpelling] and wordlists
+          - bumped dependency on Dist::Zilla, for yaml encoding fixes
 
 0.021     2013-09-07 19:41:06Z (Karen Etheridge)
           - disable invocation of cpanm-reporter (see RT#88367)

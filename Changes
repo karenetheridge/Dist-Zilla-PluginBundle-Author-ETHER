@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - now checking for stale prereqs at dist release time
 
 0.022     2013-09-10 01:48:53Z (Karen Etheridge)
           - warnings tests bypassed during installation, to prevent

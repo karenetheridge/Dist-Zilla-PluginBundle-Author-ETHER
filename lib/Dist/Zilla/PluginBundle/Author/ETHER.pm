@@ -49,7 +49,7 @@ sub configure
 
         # BeforeBuild
         [ 'PromptIfStale' => 'build' => { phase => 'build', module => [ blessed($self) ] } ],
-        [ 'PromptIfStale' => 'release' => { phase => 'release', check_all_plugins => 1 } ],
+        [ 'PromptIfStale' => 'release' => { phase => 'release', check_all_plugins => 1, ':version' => '0.004', check_all_prereqs => 1 } ],
 
         # ExecFiles, ShareDir
         [ 'ExecDir'             => { dir => 'script' } ],
@@ -193,6 +193,8 @@ following C<dist.ini> (following the preamble):
     [PromptIfStale / release]
     phase = release
     check_all_plugins = 1
+    :version = 0.004
+    check_all_prereqs = 1
 
 
     ;;; ExecFiles, ShareDir

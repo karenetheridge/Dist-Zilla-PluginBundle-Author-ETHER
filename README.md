@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.022
+version 0.023
 
 # SYNOPSIS
 
@@ -28,6 +28,8 @@ following `dist.ini` (following the preamble):
     [PromptIfStale / release]
     phase = release
     check_all_plugins = 1
+    :version = 0.004
+    check_all_prereqs = 1
 
 
 

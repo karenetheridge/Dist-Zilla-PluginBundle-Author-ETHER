@@ -37,15 +37,17 @@ my %server_to_resources = (
             web => 'http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/NoOptions.git;a=summary',
         },
     },
-    p5sagit => {
-        %bugtracker,
-        # no homepage set
-        repository => {
-            type => 'git',
-            url => 'git://git.shadowcat.co.uk/p5sagit/NoOptions.git',
-            web => 'http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=p5sagit/NoOptions.git;a=summary',
+    ( map {
+        $_ => {
+            %bugtracker,
+            # no homepage set
+            repository => {
+                type => 'git',
+                url => 'git://git.shadowcat.co.uk/' . $_ . '/NoOptions.git',
+                web => 'http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=' . $_ . '/NoOptions.git;a=summary',
+            },
         },
-    },
+    } qw(p5sagit catagits)),
 );
 
 foreach my $server (keys %server_to_resources)

@@ -26,7 +26,7 @@ has installer => (
 );
 
 has server => (
-    is => 'ro', isa => enum([qw(github gitmo p5sagit none)]),
+    is => 'ro', isa => enum([qw(github gitmo p5sagit catagits none)]),
     lazy => 1,
     default => sub {
         exists $_[0]->payload->{server}
@@ -96,6 +96,7 @@ sub configure
         [ 'AutoMetaResources'   => { 'bugtracker.rt' => 1,
               $self->server eq 'gitmo' ? ( 'repository.gitmo' => 1 )
             : $self->server eq 'p5sagit' ? ( 'repository.p5sagit' => 1 )
+            : $self->server eq 'catagits' ? ( 'repository.catagits' => 1 )
             : ()
         } ],
         [ 'Authority'           => { authority => 'cpan:ETHER' } ],
@@ -436,6 +437,10 @@ L<http://git.moose.perl.org|gitmo@git.moose.perl.org>.
 * C<p5sagit>
 metadata and release plugins are tailored to
 L<http://git.shadowcat.co.uk|p5sagit@git.shadowcat.co.uk>.
+
+* C<catagits>
+metadata and release plugins are tailored to
+L<http://git.shadowcat.co.uk|catagits@git.shadowcat.co.uk>.
 
 * C<none>
 no special configuration of metadata (relating to repositories etc) is done --

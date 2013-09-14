@@ -11,7 +11,6 @@ BEGIN {
 
 use if $ENV{AUTHOR_TESTING} || $ENV{AUTOMATED_TESTING}, 'Test::Warnings';
 use Test::Deep;
-use Test::Deep qw(cmp_details deep_diag);
 use Test::DZil;
 use File::Find;
 use File::Spec;

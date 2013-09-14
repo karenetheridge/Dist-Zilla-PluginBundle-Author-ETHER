@@ -3,12 +3,6 @@ use warnings FATAL => 'all';
 
 use Test::More;
 use JSON;
-
-BEGIN {
-    plan skip_all => 'these tests require a git repository'
-        unless -d '.git' or -d '../../.git' or -d '../../../.git';
-}
-
 use if $ENV{AUTHOR_TESTING} || $ENV{AUTOMATED_TESTING}, 'Test::Warnings';
 use Test::Deep;
 use Test::DZil;
@@ -26,12 +20,14 @@ my $tzil = Builder->from_config(
                     copyright_holder => 'E. Xavier Ample',
                     copyright_year => '2013',
                     license => 'Perl_5',
+                    version => '1.0',
                 },
                 'GatherDir',
                 # our files are copied into source, so Git::GatherDir doesn't see them
+                # and besides, we would like to run these tests at install time too!
                 [ '@Author::ETHER' => {
                     server => 'gitmo',
-                    '-remove' => [ 'Git::GatherDir', 'PromptIfStale' ],
+                    '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'PromptIfStale' ],
                   },
                 ],
             ),

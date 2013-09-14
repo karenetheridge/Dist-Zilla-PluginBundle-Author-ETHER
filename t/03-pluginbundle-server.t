@@ -9,44 +9,27 @@ use Test::DZil;
 use File::Find;
 use File::Spec;
 
-my $tzil = Builder->from_config(
-    { dist_root => 't/corpus/dist/no_options' },
-    {
-        add_files => {
-            'source/dist.ini' => dist_ini(
-                {
-                    name    => 'NoOptions',
-                    author  => 'E. Xavier Ample <example@example.org>',
-                    copyright_holder => 'E. Xavier Ample',
-                    copyright_year => '2013',
-                    license => 'Perl_5',
-                    version => '1.0',
-                },
-                'GatherDir',
-                # our files are copied into source, so Git::GatherDir doesn't see them
-                # and besides, we would like to run these tests at install time too!
-                [ '@Author::ETHER' => {
-                    server => 'gitmo',
-                    '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'PromptIfStale' ],
-                  },
-                ],
-            ),
-        },
+# this data should be constant across all server types
+my %bugtracker = (
+    bugtracker => {
+        mailto => 'bug-NoOptions@rt.cpan.org',
+        web => 'https://rt.cpan.org/Public/Dist/Display.html?Name=NoOptions',
     },
 );
 
-$tzil->build;
-
-my $json = $tzil->slurp_file('build/META.json');
-my $meta = JSON->new->decode($json);
-
-cmp_deeply(
-    $meta->{resources},
-    {
-        bugtracker => {
-            mailto => 'bug-NoOptions@rt.cpan.org',
-            web => 'https://rt.cpan.org/Public/Dist/Display.html?Name=NoOptions',
+my %server_to_resources = (
+    github => {
+        %bugtracker,
+        homepage => 'https://github.com/karenetheridge/Dist-Zilla-PluginBundle-Author-ETHER',
+        repository => {
+            type => 'git',
+            # note that we use use .git/config in the local repo!
+            url => 'https://github.com/karenetheridge/Dist-Zilla-PluginBundle-Author-ETHER.git',
+            web => 'https://github.com/karenetheridge/Dist-Zilla-PluginBundle-Author-ETHER',
         },
+    },
+    gitmo => {
+        %bugtracker,
         # no homepage set
         repository => {
             type => 'git',
@@ -54,7 +37,58 @@ cmp_deeply(
             web => 'http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/NoOptions.git;a=summary',
         },
     },
-    'all meta resources are correct',
+    p5sagit => {
+        %bugtracker,
+        # no homepage set
+        repository => {
+            type => 'git',
+            url => 'git://git.shadowcat.co.uk/p5sagit/NoOptions.git',
+            web => 'http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=p5sagit/NoOptions.git;a=summary',
+        },
+    },
 );
+
+foreach my $server (keys %server_to_resources)
+{ SKIP: {
+    skip('can only test server=github when in the local git repository', 1)
+        if $server eq 'github' and not (-d '.git' or -d '../../.git' or -d '../../../.git');
+
+    my $tzil = Builder->from_config(
+        { dist_root => 't/corpus/dist/no_options' },
+        {
+            add_files => {
+                'source/dist.ini' => dist_ini(
+                    {
+                        name    => 'NoOptions',
+                        author  => 'E. Xavier Ample <example@example.org>',
+                        copyright_holder => 'E. Xavier Ample',
+                        copyright_year => '2013',
+                        license => 'Perl_5',
+                        version => '1.0',
+                    },
+                    'GatherDir',
+                    # our files are copied into source, so Git::GatherDir doesn't see them
+                    # and besides, we would like to run these tests at install time too!
+                    [ '@Author::ETHER' => {
+                        server => $server,
+                        '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'PromptIfStale' ],
+                      },
+                    ],
+                ),
+            },
+        },
+    );
+
+    $tzil->build;
+
+    my $json = $tzil->slurp_file('build/META.json');
+    my $meta = JSON->new->decode($json);
+
+    cmp_deeply(
+        $meta->{resources},
+        $server_to_resources{$server},
+        'server ' . $server . ': all meta resources are correct',
+    );
+} }
 
 done_testing;

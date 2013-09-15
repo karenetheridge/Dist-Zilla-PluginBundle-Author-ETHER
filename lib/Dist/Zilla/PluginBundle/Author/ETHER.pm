@@ -63,7 +63,7 @@ sub configure
         qw(MetaYAML MetaJSON License Readme Manifest),
         [ 'Test::Compile'       => { ':version' => '2.023', fail_on_warning => 'author', bail_out_on_fail => 1, script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
         [ 'Test::CheckDeps'     => { ':version' => '0.007', fatal => 1, level => 'suggests' } ],
-        'NoTabsTests',
+        [ 'Test::NoTabs'        => { script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
         'EOLTests',
         'MetaTests',
         [ 'Test::Version'       => { is_strict => 1 } ],
@@ -230,7 +230,10 @@ following C<dist.ini> (following the preamble):
     fatal = 1
     level = suggests
 
-    [NoTabsTests]
+    [Test::NoTabs]
+    script_finder = :ExecFiles
+    script_finder = Examples
+
     [EOLTests]
     [MetaTests]
     [Test::Version]

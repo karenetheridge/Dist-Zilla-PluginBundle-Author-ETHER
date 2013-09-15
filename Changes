@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - now also support the server = catagits option, for Catalyst
             repositories hosted at Shadowcat Systems
+          - switch to [Test::NoTabs], also testing examples/ files
 
 0.023     2013-09-11 01:43:22Z (Karen Etheridge)
           - now checking for stale prereqs at dist release time

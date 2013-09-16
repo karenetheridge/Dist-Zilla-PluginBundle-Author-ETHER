@@ -433,7 +433,7 @@ Encouraged choices are:
     installer = ModuleBuildTiny
     installer = MakeMaker
     installer = =inc::Foo (if no configs are needed for this plugin)
-    installer = none
+    installer = none (if you are including your own later on, with configs)
 
 =head2 server
 

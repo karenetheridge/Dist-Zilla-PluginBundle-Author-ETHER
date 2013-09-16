@@ -49,7 +49,7 @@ sub configure
 
         # BeforeBuild
         [ 'PromptIfStale' => 'build' => { phase => 'build', module => [ blessed($self) ] } ],
-        [ 'PromptIfStale' => 'release' => { phase => 'release', check_all_plugins => 1, ':version' => '0.004', check_all_prereqs => 1 } ],
+        [ 'PromptIfStale' => 'release' => { phase => 'release', check_all_plugins => 1, check_all_prereqs => 1 } ],
 
         # ExecFiles, ShareDir
         [ 'ExecDir'             => { dir => 'script' } ],
@@ -76,7 +76,7 @@ sub configure
         'Test::PodSpelling',
         #[Test::Pod::LinkCheck]     many outstanding bugs
         'Test::Pod::No404s',
-        [ 'Test::Kwalitee'      => { ':version' => '2.06' } ],
+        'Test::Kwalitee',
         [ 'MojibakeTests' ],
 
         # Prune Files
@@ -194,7 +194,7 @@ following C<dist.ini> (following the preamble):
     [PromptIfStale / release]
     phase = release
     check_all_plugins = 1
-    :version = 0.004
+    ; requires :version = 0.004, but we will be checking ourselves)
     check_all_prereqs = 1
 
 

@@ -35,6 +35,16 @@ has server => (
     },
 );
 
+has _requested_version => (
+    is => 'ro', isa => 'Str',
+    lazy => 1,
+    default => sub {
+        exists $_[0]->payload->{':version'}
+            ? $_[0]->payload->{':version'}
+            : '0';
+    },
+);
+
 my %installer_args = (
     ModuleBuildTiny => { ':version' => '0.004' },
 );
@@ -116,7 +126,7 @@ sub configure
         [ 'Prereqs' => installer_requirements => {
                 '-phase' => 'develop', '-relationship' => 'requires',
                 'Dist::Zilla' => Dist::Zilla->VERSION,
-                blessed($self) => $self->VERSION,
+                blessed($self) => $self->_requested_version,
                 # this is mostly pointless as by the time this runs, we're
                 # already trying to load the installer plugin
                 $self->installer ne 'none'
@@ -301,7 +311,7 @@ following C<dist.ini> (following the preamble):
     -phase = develop
     -relationship = requires
     Dist::Zilla = <version used to built this bundle>
-    Dist::Zilla::PluginBundle::Author::ETHER = <our own version>
+    Dist::Zilla::PluginBundle::Author::ETHER = <version specified in dist.ini>
 
 
     ;;; Install Tool

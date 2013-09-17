@@ -174,7 +174,8 @@ sub configure
     );
 
     # check for a bin/ that should probably be renamed to script/
-    warn 'bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?' if -d 'bin';
+    warn 'bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?'
+        if -d 'bin' and $self->installer eq 'ModuleBuildTiny';
 }
 
 __PACKAGE__->meta->make_immutable;

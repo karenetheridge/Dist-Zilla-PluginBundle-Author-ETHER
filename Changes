@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.024     2013-09-19 02:29:14Z (Karen Etheridge)
           - now also support the server = catagits option, for Catalyst
             repositories hosted at Shadowcat Systems
           - switch to [Test::NoTabs], also testing examples/ files

@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.023
+version 0.024
 
 # SYNOPSIS
 
@@ -28,7 +28,7 @@ following `dist.ini` (following the preamble):
     [PromptIfStale / release]
     phase = release
     check_all_plugins = 1
-    :version = 0.004
+    ; requires :version = 0.004, but we will be checking ourselves)
     check_all_prereqs = 1
 
 
@@ -62,11 +62,13 @@ following `dist.ini` (following the preamble):
     script_finder = Examples
 
     [Test::CheckDeps]
-    :version = 0.007
     fatal = 1
     level = suggests
 
-    [NoTabsTests]
+    [Test::NoTabs]
+    script_finder = :ExecFiles
+    script_finder = Examples
+
     [EOLTests]
     [MetaTests]
     [Test::Version]
@@ -128,16 +130,11 @@ following `dist.ini` (following the preamble):
     [AutoPrereqs]
     [MinimumPerl]
 
-    [Prereqs / Test::CheckDeps, indirect]
-    -phase = test
-    -relationship = requires
-    CPAN::Meta::Check = 0.007
-
     [Prereqs / installer_requirements]
     -phase = develop
     -relationship = requires
     Dist::Zilla = <version used to built this bundle>
-    Dist::Zilla::PluginBundle::Author::ETHER = <our own version>
+    Dist::Zilla::PluginBundle::Author::ETHER = <version specified in dist.ini>
 
 
 
@@ -147,7 +144,7 @@ following `dist.ini` (following the preamble):
     filename = README.md
     location = root
 
-    <specified installer> or [ModuleBuildTiny]
+    <specified installer>
     [InstallGuide]
 
 
@@ -246,8 +243,8 @@ many as you'd like), as described in ["ADDING STOPWORDS" in Pod::Spelling](http:
 
 ## installer
 
-The installer back-end selected by default is (currently)
-[\[ModuleBuildTiny\]](http://search.cpan.org/perldoc?Dist::Zilla::Plugin::ModuleBuildTiny).
+The installer back-end to use; defaults to `none` (forcing users to
+consciously choose which is desired).
 You can select other backends (by plugin name, without the `[]`), with the
 `installer` option, or 'none' if you are supplying your own, as a separate
 plugin.
@@ -257,7 +254,7 @@ Encouraged choices are:
     installer = ModuleBuildTiny
     installer = MakeMaker
     installer = =inc::Foo (if no configs are needed for this plugin)
-    installer = none
+    installer = none (if you are including your own later on, with configs)
 
 ## server
 
@@ -275,6 +272,11 @@ Encouraged choices are:
 
     metadata and release plugins are tailored to
     [http://git.shadowcat.co.uk](http://search.cpan.org/perldoc?p5sagit@git.shadowcat.co.uk).
+
+- `catagits`
+
+    metadata and release plugins are tailored to
+    [http://git.shadowcat.co.uk](http://search.cpan.org/perldoc?catagits@git.shadowcat.co.uk).
 
 - `none`
 

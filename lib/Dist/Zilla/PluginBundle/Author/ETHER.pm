@@ -87,7 +87,7 @@ sub configure
         #[Test::Pod::LinkCheck]     many outstanding bugs
         'Test::Pod::No404s',
         'Test::Kwalitee',
-        [ 'MojibakeTests' ],
+        'MojibakeTests',
 
         # Prune Files
         'PruneCruft',

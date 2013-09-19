@@ -405,7 +405,7 @@ Subs can be considered "covered" for pod coverage tests by adding a directive to
 =head2 spelling stopwords
 
 Stopwords for spelling tests can be added by adding a directive to pod (as
-many as you'd like), as described in L<Pod::Spelling/ADDING STOPWORDS>:
+many as you'd like), as described in L<Pod::Spell/ADDING STOPWORDS>:
 
     =for stopwords foo bar baz
 

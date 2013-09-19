@@ -36,7 +36,6 @@ $tzil->build;
 my $build_dir = $tzil->tempdir->subdir('build');
 
 my @expected_files = qw(
-    Build.PL
     dist.ini
     INSTALL
     lib/NoOptions.pm

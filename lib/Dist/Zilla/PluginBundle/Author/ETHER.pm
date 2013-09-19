@@ -21,7 +21,7 @@ has installer => (
     default => sub {
         exists $_[0]->payload->{installer}
             ? $_[0]->payload->{installer}
-            : 'ModuleBuildTiny';
+            : 'none';
     },
 );
 
@@ -311,7 +311,7 @@ following C<dist.ini> (following the preamble):
     filename = README.md
     location = root
 
-    <specified installer> or [ModuleBuildTiny]
+    <specified installer>
     [InstallGuide]
 
 
@@ -413,8 +413,8 @@ many as you'd like), as described in L<Pod::Spelling/ADDING STOPWORDS>:
 
 =for stopwords ModuleBuildTiny
 
-The installer back-end selected by default is (currently)
-L<[ModuleBuildTiny]|Dist::Zilla::Plugin::ModuleBuildTiny>.
+The installer back-end to use; defaults to C<none> (forcing users to
+consciously choose which is desired).
 You can select other backends (by plugin name, without the C<[]>), with the
 C<installer> option, or 'none' if you are supplying your own, as a separate
 plugin.

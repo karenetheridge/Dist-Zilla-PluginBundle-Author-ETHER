@@ -72,7 +72,7 @@ sub configure
         [ 'Git::GatherDir'      => { exclude_filename => 'LICENSE' } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
         [ 'Test::Compile'       => { ':version' => '2.023', fail_on_warning => 'author', bail_out_on_fail => 1, script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
-        [ 'Test::CheckDeps'     => { ':version' => '0.007', fatal => 1, level => 'suggests' } ],
+        [ 'Test::CheckDeps'     => { fatal => 1, level => 'suggests' } ],
         [ 'Test::NoTabs'        => { script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
         'EOLTests',
         'MetaTests',
@@ -119,10 +119,6 @@ sub configure
         # (MakeMaker or other installer)
         'AutoPrereqs',
         'MinimumPerl',
-        [ 'Prereqs' => 'Test::CheckDeps, indirect' => {
-                '-phase' => 'test', '-relationship' => 'requires',
-                'CPAN::Meta::Check' => '0.007',
-                } ],
         [ 'Prereqs' => installer_requirements => {
                 '-phase' => 'develop', '-relationship' => 'requires',
                 'Dist::Zilla' => Dist::Zilla->VERSION,
@@ -237,7 +233,6 @@ following C<dist.ini> (following the preamble):
     script_finder = Examples
 
     [Test::CheckDeps]
-    :version = 0.007
     fatal = 1
     level = suggests
 
@@ -302,11 +297,6 @@ following C<dist.ini> (following the preamble):
     ;;; Register Prereqs
     [AutoPrereqs]
     [MinimumPerl]
-
-    [Prereqs / Test::CheckDeps, indirect]
-    -phase = test
-    -relationship = requires
-    CPAN::Meta::Check = 0.007
 
     [Prereqs / installer_requirements]
     -phase = develop

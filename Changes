@@ -4,6 +4,8 @@ Revision history for {{$dist->name}}
           - now also support the server = catagits option, for Catalyst
             repositories hosted at Shadowcat Systems
           - switch to [Test::NoTabs], also testing examples/ files
+          - bump prereq on [Test::CheckDeps] to get CPAN::Meta::Check
+            dependency that we can now remove from here
 
 0.023     2013-09-11 01:43:22Z (Karen Etheridge)
           - now checking for stale prereqs at dist release time

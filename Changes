@@ -2,6 +2,7 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
           - added missing dependency on [MojibakeTests] (RT#88807)
+          - fixed bad dependency for NoTabs tester that changed names
 
 0.024     2013-09-19 02:29:14Z (Karen Etheridge)
           - now also support the server = catagits option, for Catalyst

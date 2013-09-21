@@ -73,7 +73,7 @@ foreach my $server (keys %server_to_resources)
                     # and besides, we would like to run these tests at install time too!
                     [ '@Author::ETHER' => {
                         server => $server,
-                        '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'PromptIfStale' ],
+                        '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'PromptIfStale' ],
                       },
                     ],
                 ),

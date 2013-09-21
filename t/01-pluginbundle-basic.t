@@ -25,12 +25,28 @@ my $tzil = Builder->from_config(
                 # our files are copied into source, so Git::GatherDir doesn't see them
                 # and besides, we would like to run these tests at install time too!
                 [ '@Author::ETHER' => {
-                    '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'PromptIfStale' ],
+                    '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'PromptIfStale' ],
                 } ],
             ),
         },
     },
 );
+
+my @git_plugins =
+    grep { /Git/ }
+    map { blessed $_ }
+    grep {
+            $_->does('Dist::Zilla::Role::BeforeBuild')
+         or $_->does('Dist::Zilla::Role::FileGatherer')
+         or $_->does('Dist::Zilla::Role::FilePruner')
+         or $_->does('Dist::Zilla::Role::FileMunger')
+         or $_->does('Dist::Zilla::Role::PrereqSource')
+         or $_->does('Dist::Zilla::Role::InstallTool')
+         or $_->does('Dist::Zilla::Role::AfterBuild')
+    } @{$tzil->plugins};
+
+cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');
+
 
 $tzil->build;
 my $build_dir = $tzil->tempdir->subdir('build');

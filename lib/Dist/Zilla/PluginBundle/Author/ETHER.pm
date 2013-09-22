@@ -458,10 +458,13 @@ you'll need to provide this yourself.
 
 This bundle makes use of L<Dist::Zilla::Role::PluginBundle::PluginRemover> and
 L<Dist::Zilla::Role::PluginBundle::Config::Slicer> to allow further customization.
+Plugins are not loaded until they are actually needed, so it is possible to
+C<--force>-install this plugin bundle and C<-remove> some plugins that do not
+install or are otherwise problematic.
 
 =head1 NAMING SCHEME
 
-=for stopwords KENTNL
+=for stopwords KENTNL's
 
 This distribution follows best practices for author-oriented plugin bundles; for more information,
 see L<KENTNL's distribution|Dist::Zilla::PluginBundle::Author::KENTNL/NAMING-SCHEME>.

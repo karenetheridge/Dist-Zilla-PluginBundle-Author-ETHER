@@ -11,17 +11,22 @@ with
 
 use Dist::Zilla::Util;
 use Moose::Util::TypeConstraints;
+use List::MoreUtils 'any';
 use namespace::autoclean;
+
+sub mvp_multivalue_args { qw(installer) }
 
 # Note: no support yet for depending on a specific version of the plugin
 has installer => (
-    is => 'ro', isa => 'Str',
+    isa => 'ArrayRef[Str]',
     lazy => 1,
     default => sub {
         exists $_[0]->payload->{installer}
             ? $_[0]->payload->{installer}
-            : 'none';
+            : [];
     },
+    traits => ['Array'],
+    handles => { installer => 'elements' },
 );
 
 has server => (
@@ -47,6 +52,18 @@ has _requested_version => (
 my %installer_args = (
     ModuleBuildTiny => { ':version' => '0.004' },
 );
+
+around BUILDARGS => sub
+{
+    my $orig = shift;
+    my $self = shift;
+    my $args = $self->$orig(@_);
+
+    # remove 'none' from installer list
+    return $args if not exists $args->{payload}{installer};
+    @{$args->{payload}{installer}} = grep { $_ ne 'none' } @{$args->{payload}{installer}};
+    return $args;
+};
 
 sub configure
 {
@@ -123,20 +140,18 @@ sub configure
                 '-phase' => 'develop', '-relationship' => 'requires',
                 'Dist::Zilla' => Dist::Zilla->VERSION,
                 blessed($self) => $self->_requested_version,
+
                 # this is mostly pointless as by the time this runs, we're
                 # already trying to load the installer plugin
-                $self->installer ne 'none'
-                    ? ( Dist::Zilla::Util->expand_config_package_name($self->installer) =>
-                        ($installer_args{$self->installer} // {})->{':version'} // 0
-                    )
-                    : (),
+                ( map {
+                    Dist::Zilla::Util->expand_config_package_name($_) =>
+                        ($installer_args{$_} // {})->{':version'} // 0
+                } $self->installer ),
             } ],
 
         # Install Tool
         [ 'ReadmeAnyFromPod'    => { type => 'markdown', filename => 'README.md', location => 'root' } ],
-        $self->installer ne 'none'
-            ? [ $self->installer => $installer_args{$self->installer} // () ]
-            : (),
+        ( map { [ $_ => $installer_args{$_} // () ] } $self->installer ),
         'InstallGuide',
 
         # After Build
@@ -171,7 +186,7 @@ sub configure
 
     # check for a bin/ that should probably be renamed to script/
     warn 'bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?'
-        if -d 'bin' and $self->installer eq 'ModuleBuildTiny';
+        if -d 'bin' and any { $_ eq 'ModuleBuildTiny' } $self->installer;
 }
 
 __PACKAGE__->meta->make_immutable;

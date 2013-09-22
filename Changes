@@ -6,6 +6,8 @@ Revision history for {{$dist->name}}
           - make tests run without git again (broken in 0.024) by removing all
             git-based plugins for testing
           - now generating a t/00-report-prereqs.t
+          - 'installer' option can now be specified more than once, for
+            stacking plugins
 
 0.024     2013-09-19 02:29:14Z (Karen Etheridge)
           - now also support the server = catagits option, for Catalyst

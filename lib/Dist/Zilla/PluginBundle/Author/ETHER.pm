@@ -87,6 +87,7 @@ sub configure
         'Test::Pod::No404s',
         'Test::Kwalitee',
         'MojibakeTests',
+        'Test::ReportPrereqs',
 
         # Prune Files
         'PruneCruft',

@@ -71,6 +71,7 @@ my @expected_files = qw(
     README
     t/00-check-deps.t
     t/00-compile.t
+    t/00-report-prereqs.t
     xt/author/pod-spell.t
     xt/release/changes_has_content.t
     xt/release/cpan-changes.t

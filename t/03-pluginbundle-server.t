@@ -6,8 +6,6 @@ use if $ENV{AUTHOR_TESTING} || $ENV{AUTOMATED_TESTING}, 'Test::Warnings';
 use Test::Deep;
 use Test::Deep::JSON;
 use Test::DZil;
-use File::Find;
-use File::Spec;
 use Path::Tiny;
 
 # this data should be constant across all server types

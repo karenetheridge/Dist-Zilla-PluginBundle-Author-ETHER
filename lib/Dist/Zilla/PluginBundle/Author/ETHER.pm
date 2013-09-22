@@ -10,7 +10,6 @@ with
     'Dist::Zilla::Role::PluginBundle::Config::Slicer';
 
 use Dist::Zilla::Util;
-use Module::Runtime 'use_module';
 use Moose::Util::TypeConstraints;
 use namespace::autoclean;
 

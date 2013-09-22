@@ -8,6 +8,8 @@ Revision history for {{$dist->name}}
           - now generating a t/00-report-prereqs.t
           - 'installer' option can now be specified more than once, for
             stacking plugins
+          - new installer default: MakeMaker::Fallback and ModuleBuildTiny
+            (RT#88642)
 
 0.024     2013-09-19 02:29:14Z (Karen Etheridge)
           - now also support the server = catagits option, for Catalyst
@@ -18,7 +20,7 @@ Revision history for {{$dist->name}}
           - vim modeline added to .pm in minted dist
           - default 'installer' backend now defaults to 'none', forcing
             consumers to explicitly state a preference; minted dists specify
-            ModuleBuildTiny, the previous default
+            ModuleBuildTiny, the previous default (RT#88642)
 
 0.023     2013-09-11 01:43:22Z (Karen Etheridge)
           - now checking for stale prereqs at dist release time

@@ -23,7 +23,7 @@ has installer => (
     default => sub {
         exists $_[0]->payload->{installer}
             ? $_[0]->payload->{installer}
-            : [];
+            : [ 'MakeMaker::Fallback', 'ModuleBuildTiny' ];
     },
     traits => ['Array'],
     handles => { installer => 'elements' },
@@ -326,7 +326,7 @@ following C<dist.ini> (following the preamble):
     filename = README.md
     location = root
 
-    <specified installer>
+    <specified installer(s)>
     [InstallGuide]
 
 
@@ -428,8 +428,11 @@ many as you'd like), as described in L<Pod::Spell/ADDING STOPWORDS>:
 
 =for stopwords ModuleBuildTiny
 
-The installer back-end to use; defaults to C<none> (forcing users to
-consciously choose which is desired).
+The installer back-end(s) to use (can be specified more than once); defaults
+to C<MakeMaker::Fallback>
+and C<ModuleBuildTiny> (which generates a F<Build.PL> for normal use, and
+F<Makefile.PL> as a fallback, containing an upgrade warning).
+
 You can select other backends (by plugin name, without the C<[]>), with the
 C<installer> option, or 'none' if you are supplying your own, as a separate
 plugin.

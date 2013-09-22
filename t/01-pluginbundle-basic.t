@@ -9,6 +9,8 @@ use File::Find;
 use File::Spec;
 use Path::Tiny;
 
+use Test::Requires 'Dist::Zilla::Plugin::MakeMaker::Fallback';
+
 my $tzil = Builder->from_config(
     { dist_root => 't/does_not_exist' },
     {
@@ -61,6 +63,8 @@ $tzil->build;
 my $build_dir = $tzil->tempdir->subdir('build');
 
 my @expected_files = qw(
+    Build.PL
+    Makefile.PL
     dist.ini
     INSTALL
     lib/NoOptions.pm

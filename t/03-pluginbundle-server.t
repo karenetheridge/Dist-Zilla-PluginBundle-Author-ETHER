@@ -2,9 +2,9 @@ use strict;
 use warnings FATAL => 'all';
 
 use Test::More;
-use JSON;
 use if $ENV{AUTHOR_TESTING} || $ENV{AUTOMATED_TESTING}, 'Test::Warnings';
 use Test::Deep;
+use Test::Deep::JSON;
 use Test::DZil;
 use File::Find;
 use File::Spec;
@@ -87,8 +87,10 @@ foreach my $server (keys %server_to_resources)
     my $meta = JSON->new->decode($json);
 
     cmp_deeply(
-        $meta->{resources},
-        $server_to_resources{$server},
+        $tzil->slurp_file('build/META.json'),
+        json(superhashof({
+            resources => $server_to_resources{$server},
+        })),
         'server ' . $server . ': all meta resources are correct',
     );
 } }

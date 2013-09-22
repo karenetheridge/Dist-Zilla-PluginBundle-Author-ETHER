@@ -7,9 +7,10 @@ use Test::Deep;
 use Test::DZil;
 use File::Find;
 use File::Spec;
+use Path::Tiny;
 
 my $tzil = Builder->from_config(
-    { dist_root => 't/corpus/dist/no_options' },
+    { dist_root => 't/does_not_exist' },
     {
         add_files => {
             'source/dist.ini' => dist_ini(
@@ -28,6 +29,14 @@ my $tzil = Builder->from_config(
                     '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'PromptIfStale' ],
                 } ],
             ),
+            path(qw(source lib NoOptions.pm)) => <<'MODULE',
+use strict;
+use warnings;
+package NoOptions;
+# ABSTRACT: Sample abstract
+
+1;
+MODULE
         },
     },
 );

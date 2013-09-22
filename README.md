@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.024
+version 0.025
 
 # SYNOPSIS
 
@@ -144,7 +144,7 @@ following `dist.ini` (following the preamble):
     filename = README.md
     location = root
 
-    <specified installer>
+    <specified installer(s)>
     [InstallGuide]
 
 
@@ -237,14 +237,17 @@ Subs can be considered "covered" for pod coverage tests by adding a directive to
 ## spelling stopwords
 
 Stopwords for spelling tests can be added by adding a directive to pod (as
-many as you'd like), as described in ["ADDING STOPWORDS" in Pod::Spelling](http://search.cpan.org/perldoc?Pod::Spelling#ADDING STOPWORDS):
+many as you'd like), as described in ["ADDING STOPWORDS" in Pod::Spell](http://search.cpan.org/perldoc?Pod::Spell#ADDING STOPWORDS):
 
     =for stopwords foo bar baz
 
 ## installer
 
-The installer back-end to use; defaults to `none` (forcing users to
-consciously choose which is desired).
+The installer back-end(s) to use (can be specified more than once); defaults
+to `MakeMaker::Fallback`
+and `ModuleBuildTiny` (which generates a `Build.PL` for normal use, and
+`Makefile.PL` as a fallback, containing an upgrade warning).
+
 You can select other backends (by plugin name, without the `[]`), with the
 `installer` option, or 'none' if you are supplying your own, as a separate
 plugin.
@@ -287,6 +290,9 @@ Encouraged choices are:
 
 This bundle makes use of [Dist::Zilla::Role::PluginBundle::PluginRemover](http://search.cpan.org/perldoc?Dist::Zilla::Role::PluginBundle::PluginRemover) and
 [Dist::Zilla::Role::PluginBundle::Config::Slicer](http://search.cpan.org/perldoc?Dist::Zilla::Role::PluginBundle::Config::Slicer) to allow further customization.
+Plugins are not loaded until they are actually needed, so it is possible to
+`--force`\-install this plugin bundle and `-remove` some plugins that do not
+install or are otherwise problematic.
 
 # NAMING SCHEME
 

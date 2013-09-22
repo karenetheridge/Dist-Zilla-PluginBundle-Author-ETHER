@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.025     2013-09-22 22:04:46Z (Karen Etheridge)
           - added missing dependency on [MojibakeTests] (RT#88807)
           - fixed bad dependency for NoTabs tester that changed names
           - make tests run without git again (broken in 0.024) by removing all

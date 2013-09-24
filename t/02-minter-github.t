@@ -2,7 +2,7 @@ use strict;
 use warnings FATAL => 'all';
 
 use Test::More;
-use if $ENV{AUTHOR_TESTING} || $ENV{AUTOMATED_TESTING}, 'Test::Warnings';
+use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep;
 use Test::DZil;
 use Path::Class;

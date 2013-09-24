@@ -8,6 +8,8 @@ use Test::Deep::JSON;
 use Test::DZil;
 use Path::Tiny;
 
+use Test::Requires 'Dist::Zilla::Plugin::MakeMaker::Fallback';
+
 # this data should be constant across all server types
 my %bugtracker = (
     bugtracker => {

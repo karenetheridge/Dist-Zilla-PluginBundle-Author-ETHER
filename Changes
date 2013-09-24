@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - skip relevant tests when optional dependencies are not installed
 
 0.025     2013-09-22 22:04:46Z (Karen Etheridge)
           - added missing dependency on [MojibakeTests] (RT#88807)

@@ -29,6 +29,7 @@ my $tzil = Builder->from_config(
                 # and besides, we would like to run these tests at install time too!
                 [ '@Author::ETHER' => {
                     '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'PromptIfStale' ],
+                    server => 'none',
                 } ],
             ),
             path(qw(source lib NoOptions.pm)) => <<'MODULE',

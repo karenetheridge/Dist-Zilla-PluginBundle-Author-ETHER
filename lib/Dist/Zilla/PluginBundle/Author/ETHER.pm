@@ -482,7 +482,7 @@ install or are otherwise problematic.
 
 =head1 NAMING SCHEME
 
-=for stopwords KENTNL's
+=for stopwords KENTNL
 
 This distribution follows best practices for author-oriented plugin bundles; for more information,
 see L<KENTNL's distribution|Dist::Zilla::PluginBundle::Author::KENTNL/NAMING-SCHEME>.

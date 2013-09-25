@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - minted dists once again use the default 'installer' value (now
+            [MakeMaker::Fallback] and [ModuleBuildTiny], since 0.025)
 
 0.026     2013-09-25 02:00:04Z (Karen Etheridge)
           - skip relevant tests when optional dependencies are not installed

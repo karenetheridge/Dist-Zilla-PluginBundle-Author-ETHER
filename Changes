@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.026     2013-09-25 02:00:04Z (Karen Etheridge)
           - skip relevant tests when optional dependencies are not installed
 
 0.025     2013-09-22 22:04:46Z (Karen Etheridge)

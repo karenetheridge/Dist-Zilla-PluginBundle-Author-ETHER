@@ -196,14 +196,14 @@ __END__
 
 =head1 SYNOPSIS
 
-In C<dist.ini>:
+In your F<dist.ini>:
 
     [@Author::ETHER]
 
 =head1 DESCRIPTION
 
 This is a L<Dist::Zilla> plugin bundle. It is approximately equivalent to the
-following C<dist.ini> (following the preamble):
+following F<dist.ini> (following the preamble):
 
     ;;; VersionProvider
     [Git::NextVersion]

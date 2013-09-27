@@ -17,8 +17,8 @@ use Test::Requires qw(
 # this data should be constant across all server types
 my %bugtracker = (
     bugtracker => {
-        mailto => 'bug-MyDist@rt.cpan.org',
-        web => 'https://rt.cpan.org/Public/Dist/Display.html?Name=MyDist',
+        mailto => 'bug-DZT-Sample@rt.cpan.org',
+        web => 'https://rt.cpan.org/Public/Dist/Display.html?Name=DZT-Sample',
     },
 );
 
@@ -38,8 +38,8 @@ my %server_to_resources = (
         # no homepage set
         repository => {
             type => 'git',
-            url => 'git://git.moose.perl.org/MyDist.git',
-            web => 'http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/MyDist.git;a=summary',
+            url => 'git://git.moose.perl.org/DZT-Sample.git',
+            web => 'http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/DZT-Sample.git;a=summary',
         },
     },
     ( map {
@@ -48,8 +48,8 @@ my %server_to_resources = (
             # no homepage set
             repository => {
                 type => 'git',
-                url => 'git://git.shadowcat.co.uk/' . $_ . '/MyDist.git',
-                web => 'http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=' . $_ . '/MyDist.git;a=summary',
+                url => 'git://git.shadowcat.co.uk/' . $_ . '/DZT-Sample.git',
+                web => 'http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=' . $_ . '/DZT-Sample.git;a=summary',
             },
         },
     } qw(p5sagit catagits)),
@@ -64,15 +64,7 @@ foreach my $server (keys %server_to_resources)
         { dist_root => 't/does_not_exist' },
         {
             add_files => {
-                'source/dist.ini' => dist_ini(
-                    {
-                        name    => 'MyDist',
-                        author  => 'E. Xavier Ample <example@example.org>',
-                        copyright_holder => 'E. Xavier Ample',
-                        copyright_year => '2013',
-                        license => 'Perl_5',
-                        version => '1.0',
-                    },
+                'source/dist.ini' => simple_ini(
                     'GatherDir',
                     # our files are copied into source, so Git::GatherDir doesn't see them
                     # and besides, we would like to run these tests at install time too!
@@ -82,22 +74,12 @@ foreach my $server (keys %server_to_resources)
                       },
                     ],
                 ),
-                path(qw(source lib MyDist.pm)) => <<'MODULE',
-use strict;
-use warnings;
-package MyDist;
-# ABSTRACT: Sample abstract
-
-1;
-MODULE
+                path(qw(source lib MyModule.pm)) => 'package MyModule; 1',
             },
         },
     );
 
     $tzil->build;
-
-    my $json = $tzil->slurp_file('build/META.json');
-    my $meta = JSON->new->decode($json);
 
     cmp_deeply(
         $tzil->slurp_file('build/META.json'),

@@ -16,15 +16,7 @@ use List::MoreUtils 'none';
         { dist_root => 't/does_not_exist' },
         {
             add_files => {
-                'source/dist.ini' => dist_ini(
-                    {
-                        name    => 'MyDist',
-                        author  => 'E. Xavier Ample <example@example.org>',
-                        copyright_holder => 'E. Xavier Ample',
-                        copyright_year => '2013',
-                        license => 'Perl_5',
-                        version => '1.0',
-                    },
+                'source/dist.ini' => simple_ini(
                     'GatherDir',
                     # our files are copied into source, so Git::GatherDir doesn't see them
                     # and besides, we would like to run these tests at install time too!
@@ -34,14 +26,7 @@ use List::MoreUtils 'none';
                       },
                     ],
                 ),
-                path(qw(source lib MyDist.pm)) => <<'MODULE',
-use strict;
-use warnings;
-package MyDist;
-# ABSTRACT: Sample abstract
-
-1;
-MODULE
+                path(qw(source lib MyDist.pm)) => 'package MyDist; 1',
             },
         },
     );
@@ -76,15 +61,7 @@ SKIP: {
         { dist_root => 't/does_not_exist' },
         {
             add_files => {
-                'source/dist.ini' => dist_ini(
-                    {
-                        name    => 'MyDist',
-                        author  => 'E. Xavier Ample <example@example.org>',
-                        copyright_holder => 'E. Xavier Ample',
-                        copyright_year => '2013',
-                        license => 'Perl_5',
-                        version => '1.0',
-                    },
+                'source/dist.ini' => simple_ini(
                     'GatherDir',
                     # our files are copied into source, so Git::GatherDir doesn't see them
                     # and besides, we would like to run these tests at install time too!
@@ -94,14 +71,7 @@ SKIP: {
                       },
                     ],
                 ),
-                path(qw(source lib MyDist.pm)) => <<'MODULE',
-use strict;
-use warnings;
-package MyDist;
-# ABSTRACT: Sample abstract
-
-1;
-MODULE
+                path(qw(source lib MyModule.pm)) => 'package MyModule; 1',
             },
         },
     );

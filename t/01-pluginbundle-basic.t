@@ -15,15 +15,7 @@ my $tzil = Builder->from_config(
     { dist_root => 't/does_not_exist' },
     {
         add_files => {
-            'source/dist.ini' => dist_ini(
-                {
-                    name    => 'NoOptions',
-                    author  => 'E. Xavier Ample <example@example.org>',
-                    copyright_holder => 'E. Xavier Ample',
-                    copyright_year => '2013',
-                    license => 'Perl_5',
-                    version => '1.0',
-                },
+            'source/dist.ini' => simple_ini(
                 'GatherDir',
                 # our files are copied into source, so Git::GatherDir doesn't see them
                 # and besides, we would like to run these tests at install time too!
@@ -32,14 +24,7 @@ my $tzil = Builder->from_config(
                     server => 'none',
                 } ],
             ),
-            path(qw(source lib NoOptions.pm)) => <<'MODULE',
-use strict;
-use warnings;
-package NoOptions;
-# ABSTRACT: Sample abstract
-
-1;
-MODULE
+            path(qw(source lib NoOptions.pm)) => 'package NoOptions; 1',
         },
     },
 );

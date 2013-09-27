@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.027     2013-09-27 03:50:26Z (Karen Etheridge)
           - minted dists once again use the default 'installer' value (now
             [MakeMaker::Fallback] and [ModuleBuildTiny], since 0.025)
           - added missing required prereqs, and now properly skipping relevant

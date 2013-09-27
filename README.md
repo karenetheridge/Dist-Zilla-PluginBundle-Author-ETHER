@@ -4,11 +4,11 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.026
+version 0.027
 
 # SYNOPSIS
 
-In `dist.ini`:
+In your `dist.ini`:
 
     [@Author::ETHER]
 

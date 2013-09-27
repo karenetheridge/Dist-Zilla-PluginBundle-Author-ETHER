@@ -9,7 +9,14 @@ use File::Find;
 use File::Spec;
 use Path::Tiny;
 
-use Test::Requires 'Dist::Zilla::Plugin::MakeMaker::Fallback';
+# these are used by our default 'installer' setting
+use Test::Requires qw(
+    Dist::Zilla::Plugin::MakeMaker::Fallback
+    Dist::Zilla::Plugin::ModuleBuildTiny
+);
+
+use lib 't/lib';
+use Helper;
 
 my $tzil = Builder->from_config(
     { dist_root => 't/does_not_exist' },
@@ -32,18 +39,16 @@ my $tzil = Builder->from_config(
 my @git_plugins =
     grep { /Git/ }
     map { blessed $_ }
-    grep {
-            $_->does('Dist::Zilla::Role::BeforeBuild')
-         or $_->does('Dist::Zilla::Role::FileGatherer')
-         or $_->does('Dist::Zilla::Role::FilePruner')
-         or $_->does('Dist::Zilla::Role::FileMunger')
-         or $_->does('Dist::Zilla::Role::PrereqSource')
-         or $_->does('Dist::Zilla::Role::InstallTool')
-         or $_->does('Dist::Zilla::Role::AfterBuild')
-    } @{$tzil->plugins};
+    @{$tzil->plugins};
 
 cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');
 
+# check that everything we loaded is in test-requires or run-requires
+all_plugins_are_required($tzil,
+    'Dist::Zilla::Plugin::GatherDir',   # used by us here
+    'Dist::Zilla::Plugin::MakeMaker::Fallback',
+    'Dist::Zilla::Plugin::ModuleBuildTiny',
+);
 
 $tzil->build;
 my $build_dir = $tzil->tempdir->subdir('build');

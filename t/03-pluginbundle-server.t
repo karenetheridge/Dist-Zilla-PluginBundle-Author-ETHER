@@ -9,10 +9,12 @@ use Test::DZil;
 use Path::Tiny;
 
 use Test::Requires qw(
-    Dist::Zilla::Plugin::MakeMaker::Fallback
+    Dist::Zilla::Plugin::GithubMeta
     Dist::Zilla::Plugin::GitHub::Update
-    Dist::Zilla::Plugin::AutoMetaResources
 );
+
+use lib 't/lib';
+use Helper;
 
 # this data should be constant across all server types
 my %bugtracker = (
@@ -70,6 +72,7 @@ foreach my $server (keys %server_to_resources)
                     # and besides, we would like to run these tests at install time too!
                     [ '@Author::ETHER' => {
                         server => $server,
+                        installer => 'none',
                         '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'PromptIfStale' ],
                       },
                     ],
@@ -80,6 +83,13 @@ foreach my $server (keys %server_to_resources)
     );
 
     $tzil->build;
+
+    # check that everything we loaded is in test-requires or run-requires
+    all_plugins_are_required($tzil,
+        'Dist::Zilla::Plugin::GatherDir',   # used by us here
+        'Dist::Zilla::Plugin::GithubMeta',
+        'Dist::Zilla::Plugin::GitHub::Update',
+    );
 
     cmp_deeply(
         $tzil->slurp_file('build/META.json'),

@@ -11,6 +11,13 @@ use Path::Tiny;
 use Module::Runtime 'use_module';
 use List::MoreUtils 'none';
 
+use Test::Requires qw(
+    Dist::Zilla::Plugin::ModuleBuildTiny
+);
+
+use lib 't/lib';
+use Helper;
+
 {
     my $tzil = Builder->from_config(
         { dist_root => 't/does_not_exist' },
@@ -22,6 +29,7 @@ use List::MoreUtils 'none';
                     # and besides, we would like to run these tests at install time too!
                     [ '@Author::ETHER' => {
                         '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'PromptIfStale' ],
+                        server => 'none',
                         installer => 'MakeMaker',
                       },
                     ],
@@ -67,6 +75,7 @@ SKIP: {
                     # and besides, we would like to run these tests at install time too!
                     [ '@Author::ETHER' => {
                         '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'PromptIfStale' ],
+                        server => 'none',
                         installer => [ qw(MakeMaker ModuleBuildTiny) ],
                       },
                     ],

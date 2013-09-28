@@ -41,6 +41,12 @@ use Helper;
 
     $tzil->build;
 
+    # check that everything we loaded is in test-requires or run-requires
+    all_plugins_are_required($tzil,
+        'Dist::Zilla::Plugin::GatherDir',   # used by us here
+        'Dist::Zilla::Plugin::MakeMaker',
+    );
+
     my $build_dir = $tzil->tempdir->subdir('build');
     my @found_files;
     find({
@@ -86,6 +92,13 @@ SKIP: {
     );
 
     $tzil->build;
+
+    # check that everything we loaded is in test-requires or run-requires
+    all_plugins_are_required($tzil,
+        'Dist::Zilla::Plugin::GatherDir',   # used by us here
+        'Dist::Zilla::Plugin::MakeMaker',
+        'Dist::Zilla::Plugin::ModuleBuildTiny',
+    );
 
     my $build_dir = $tzil->tempdir->subdir('build');
     my @found_files;

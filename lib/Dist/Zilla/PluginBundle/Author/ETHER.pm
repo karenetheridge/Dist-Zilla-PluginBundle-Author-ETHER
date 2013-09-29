@@ -16,7 +16,8 @@ use namespace::autoclean;
 
 sub mvp_multivalue_args { qw(installer) }
 
-# Note: no support yet for depending on a specific version of the plugin
+# Note: no support yet for depending on a specific version of the plugin --
+# but [PromptIfStale] generally makes that unnecessary
 has installer => (
     isa => 'ArrayRef[Str]',
     lazy => 1,

@@ -3,6 +3,8 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - injected t/00-check-deps.t no longer bails out when failures are
             encountered
+          - the shell command used to update the local .ackrc is now POSIX
+            shell compatible
 
 0.027     2013-09-27 03:50:26Z (Karen Etheridge)
           - minted dists once again use the default 'installer' value (now

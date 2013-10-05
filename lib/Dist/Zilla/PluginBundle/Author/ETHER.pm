@@ -157,7 +157,7 @@ sub configure
 
         # After Build
         [ 'CopyFilesFromBuild'  => { copy => 'LICENSE' } ],
-        [ 'Run::AfterBuild' => { run => q!if [[ %d =~ %n ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi! } ],
+        [ 'Run::AfterBuild' => { run => q!if [ -d %d ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi! } ],
 
         # Test Runner
         'RunExtraTests',
@@ -336,7 +336,7 @@ following F<dist.ini> (following the preamble):
     copy = LICENSE
 
     [Run::AfterBuild]
-    run => if [[ %d =~ %n ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
+    run => if [ -d %d ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
 
 
     ;;; TestRunner

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.028     2013-10-06 06:17:12Z (Karen Etheridge)
           - injected t/00-check-deps.t no longer bails out when failures are
             encountered
           - the shell command used to update the local .ackrc is now POSIX

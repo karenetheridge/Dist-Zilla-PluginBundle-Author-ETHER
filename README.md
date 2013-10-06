@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.027
+version 0.028
 
 # SYNOPSIS
 
@@ -62,7 +62,7 @@ following `dist.ini` (following the preamble):
     script_finder = Examples
 
     [Test::CheckDeps]
-    fatal = 1
+    fatal = 0
     level = suggests
 
     [Test::NoTabs]
@@ -154,7 +154,7 @@ following `dist.ini` (following the preamble):
     copy = LICENSE
 
     [Run::AfterBuild]
-    run => if [[ %d =~ %n ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
+    run => if [ -d %d ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
 
 
 

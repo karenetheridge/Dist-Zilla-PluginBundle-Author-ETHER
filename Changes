@@ -5,6 +5,9 @@ Revision history for {{$dist->name}}
             encountered
           - the shell command used to update the local .ackrc is now POSIX
             shell compatible
+          - fix unit tests that broke when Dist::Zilla::Plugin::InstallGuide
+            1.200001 was released (which retroactively broke the 0.027
+            release)
 
 0.027     2013-09-27 03:50:26Z (Karen Etheridge)
           - minted dists once again use the default 'installer' value (now

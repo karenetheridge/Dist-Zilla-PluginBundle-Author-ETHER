@@ -23,7 +23,7 @@ use Helper;
                     [ '@Author::ETHER' => {
                         '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'PromptIfStale' ],
                         server => 'none',
-                        installer => 'none',
+                        installer => 'MakeMaker',
                       },
                     ],
                 ),
@@ -37,6 +37,7 @@ use Helper;
     # check that everything we loaded is in test-requires or run-requires
     all_plugins_are_required($tzil,
         'Dist::Zilla::Plugin::GatherDir',   # used by us here
+        'Dist::Zilla::Plugin::MakeMaker',   # via installer option
     );
 
     ok(!-e "build/$_", "no $_ was created in the dist") foreach qw(Makefile.PL Build.PL);

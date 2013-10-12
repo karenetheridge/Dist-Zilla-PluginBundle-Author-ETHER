@@ -35,6 +35,7 @@ my @expected_files = qw(
     .gitignore
     Changes
     dist.ini
+    CONTRIBUTING
     LICENSE
     README.md
     weaver.ini

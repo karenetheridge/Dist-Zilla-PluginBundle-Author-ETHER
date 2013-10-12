@@ -86,8 +86,10 @@ sub configure
         [ 'FileFinder::ByName' => Examples => { dir => 'examples' } ],
 
         # Gather Files
-        [ 'Git::GatherDir'      => { exclude_filename => 'LICENSE' } ],
+        [ 'Git::GatherDir'      => { exclude_filename => [ qw(LICENSE CONTRIBUTING) ] } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
+        [ 'GenerateFile::ShareDir' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING' } ],
+
         [ 'Test::Compile'       => {
             ':version' => '2.035',
             fail_on_warning => 'author',
@@ -165,11 +167,11 @@ sub configure
         'InstallGuide',
 
         # After Build
-        [ 'CopyFilesFromBuild'  => { copy => 'LICENSE' } ],
+        [ 'CopyFilesFromBuild'  => { copy => [ qw(LICENSE CONTRIBUTING) ] } ],
         [ 'Run::AfterBuild' => { run => q!if [ -d %d ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi! } ],
 
         # Before Release
-        [ 'Git::Check'          => { allow_dirty => [ qw(README.md LICENSE) ] } ],
+        [ 'Git::Check'          => { allow_dirty => [ qw(README.md LICENSE CONTRIBUTING) ] } ],
         'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
         [ 'Git::Remote::Check'  => { branch => 'master', remote_branch => 'master' } ],
@@ -181,7 +183,7 @@ sub configure
         'UploadToCPAN',
 
         # After Release
-        [ 'Git::Commit'         => { allow_dirty => [ qw(Changes README.md LICENSE) ], commit_msg => '%N-%v%t%n%n%c' } ],
+        [ 'Git::Commit'         => { allow_dirty => [ qw(Changes README.md LICENSE CONTRIBUTING) ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? ( [ 'GitHub::Update' => { metacpan => 1 } ] ) : (),
         'Git::Push',
@@ -237,12 +239,16 @@ following F<dist.ini> (following the preamble):
     ;;; Gather Files
     [Git::GatherDir]
     exclude_filename = LICENSE
+    exclude_filename = CONTRIBUTING
 
     [MetaYAML]
     [MetaJSON]
     [License]
     [Readme]
     [Manifest]
+    [GenerateFile::ShareDir]
+    -dist = Dist-Zilla-PluginBundle-Author-ETHER
+    -filename = CONTRIBUTING
 
     [FileFinder::ByName / Examples]
     dir = examples
@@ -345,6 +351,7 @@ following F<dist.ini> (following the preamble):
     ;;; After Build
     [CopyFilesFromBuild]
     copy = LICENSE
+    copy = CONTRIBUTING
 
     [Run::AfterBuild]
     run => if [ -d %d ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
@@ -354,6 +361,7 @@ following F<dist.ini> (following the preamble):
     [Git::Check]
     allow_dirty = README.md
     allow_dirty = LICENSE
+    allow_dirty = CONTRIBUTING
 
     [Git::CheckFor::MergeConflicts]
 
@@ -379,6 +387,7 @@ following F<dist.ini> (following the preamble):
     allow_dirty = Changes
     allow_dirty = README.md
     allow_dirty = LICENSE
+    allow_dirty = CONTRIBUTING
     commit_msg = %N-%v%t%n%n%c
 
     [Git::Tag]

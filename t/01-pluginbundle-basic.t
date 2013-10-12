@@ -15,6 +15,8 @@ use Test::Requires qw(
     Dist::Zilla::Plugin::ModuleBuildTiny
 );
 
+use Test::File::ShareDir -share => { -dist => { 'Dist-Zilla-PluginBundle-Author-ETHER' => 'share' } };
+
 use lib 't/lib';
 use Helper;
 
@@ -59,6 +61,7 @@ my @expected_files = qw(
     dist.ini
     INSTALL
     lib/NoOptions.pm
+    CONTRIBUTING
     LICENSE
     MANIFEST
     META.json

@@ -13,6 +13,8 @@ use Test::Requires qw(
     Dist::Zilla::Plugin::GitHub::Update
 );
 
+use Test::File::ShareDir -share => { -dist => { 'Dist-Zilla-PluginBundle-Author-ETHER' => 'share' } };
+
 use lib 't/lib';
 use Helper;
 

@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - dropped [Test::CheckDeps]
 
 0.028     2013-10-06 06:17:12Z (Karen Etheridge)
           - injected t/00-check-deps.t no longer bails out when failures are

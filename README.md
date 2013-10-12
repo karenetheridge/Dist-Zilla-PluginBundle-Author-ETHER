@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.028
+version 0.029
 
 # SYNOPSIS
 
@@ -44,26 +44,28 @@ following `dist.ini` (following the preamble):
     ;;; Gather Files
     [Git::GatherDir]
     exclude_filename = LICENSE
+    exclude_filename = CONTRIBUTING
 
     [MetaYAML]
     [MetaJSON]
     [License]
     [Readme]
     [Manifest]
+    [GenerateFile::ShareDir]
+    -dist = Dist-Zilla-PluginBundle-Author-ETHER
+    -filename = CONTRIBUTING
 
     [FileFinder::ByName / Examples]
     dir = examples
 
     [Test::Compile]
-    :version = 2.023
+    :version = 2.035
     fail_on_warning = author
     bail_out_on_fail = 1
+    filename = xt/author/00-compile.t
+    phase = develop
     script_finder = :ExecFiles
     script_finder = Examples
-
-    [Test::CheckDeps]
-    fatal = 0
-    level = suggests
 
     [Test::NoTabs]
     script_finder = :ExecFiles
@@ -87,6 +89,8 @@ following `dist.ini` (following the preamble):
     [Test::Pod::No404s]
     [Test::Kwalitee]
     [MojibakeTests]
+    [Test::ReportPrereqs]
+    verify_prereqs = 1
 
 
 
@@ -133,8 +137,17 @@ following `dist.ini` (following the preamble):
     [Prereqs / installer_requirements]
     -phase = develop
     -relationship = requires
-    Dist::Zilla = <version used to built this bundle>
+    Dist::Zilla = <version used to built the pluginbundle>
     Dist::Zilla::PluginBundle::Author::ETHER = <version specified in dist.ini>
+
+    [Prereqs / pluginbundle_version]
+    -phase = develop
+    -relationship = recommends
+    Dist::Zilla::PluginBundle::Author::ETHER = <current installed version>
+
+    ;;; Test Runner
+    [RunExtraTests]
+    # <specified installer(s)>
 
 
 
@@ -152,14 +165,10 @@ following `dist.ini` (following the preamble):
     ;;; After Build
     [CopyFilesFromBuild]
     copy = LICENSE
+    copy = CONTRIBUTING
 
     [Run::AfterBuild]
     run => if [ -d %d ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
-
-
-
-    ;;; TestRunner
-    [RunExtraTests]
 
 
 
@@ -167,6 +176,7 @@ following `dist.ini` (following the preamble):
     [Git::Check]
     allow_dirty = README.md
     allow_dirty = LICENSE
+    allow_dirty = CONTRIBUTING
 
     [Git::CheckFor::MergeConflicts]
 
@@ -194,6 +204,7 @@ following `dist.ini` (following the preamble):
     allow_dirty = Changes
     allow_dirty = README.md
     allow_dirty = LICENSE
+    allow_dirty = CONTRIBUTING
     commit_msg = %N-%v%t%n%n%c
 
     [Git::Tag]

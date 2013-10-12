@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.029     2013-10-12 21:27:40Z (Karen Etheridge)
           - dropped [Test::CheckDeps]
           - xt/ tests are now run before t/
           - compile test now generated as xt/author/00-compile.t

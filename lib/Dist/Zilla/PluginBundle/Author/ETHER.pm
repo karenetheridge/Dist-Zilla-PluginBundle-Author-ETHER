@@ -149,6 +149,9 @@ sub configure
                 } $self->installer ),
             } ],
 
+        # Test Runner
+        'RunExtraTests',
+
         # Install Tool
         [ 'ReadmeAnyFromPod'    => { type => 'markdown', filename => 'README.md', location => 'root' } ],
         ( map { [ $_ => $installer_args{$_} // () ] } $self->installer ),
@@ -157,9 +160,6 @@ sub configure
         # After Build
         [ 'CopyFilesFromBuild'  => { copy => 'LICENSE' } ],
         [ 'Run::AfterBuild' => { run => q!if [ -d %d ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi! } ],
-
-        # Test Runner
-        'RunExtraTests',
 
         # Before Release
         [ 'Git::Check'          => { allow_dirty => [ qw(README.md LICENSE) ] } ],
@@ -316,6 +316,11 @@ following F<dist.ini> (following the preamble):
     Dist::Zilla::PluginBundle::Author::ETHER = <version specified in dist.ini>
 
 
+    ;;; Test Runner
+    [RunExtraTests]
+    # <specified installer(s)>
+
+
     ;;; Install Tool
     [ReadmeAnyFromPod]
     type = markdown
@@ -332,10 +337,6 @@ following F<dist.ini> (following the preamble):
 
     [Run::AfterBuild]
     run => if [ -d %d ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
-
-
-    ;;; TestRunner
-    [RunExtraTests]
 
 
     ;;; Before Release

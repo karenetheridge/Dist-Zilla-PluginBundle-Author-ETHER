@@ -94,8 +94,7 @@ sub configure
             ':version' => '2.035',
             fail_on_warning => 'author',
             bail_out_on_fail => 1,
-            filename => 'xt/author/00-compile.t',
-            phase => 'develop',
+            xt_mode => 1,
             script_finder => [qw(:ExecFiles @Author::ETHER/Examples)],
           } ],
         [ 'Test::NoTabs'        => { script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
@@ -261,8 +260,7 @@ following F<dist.ini> (following the preamble):
     :version = 2.035
     fail_on_warning = author
     bail_out_on_fail = 1
-    filename = xt/author/00-compile.t
-    phase = develop
+    xt_mode = 1
     script_finder = :ExecFiles
     script_finder = Examples
 

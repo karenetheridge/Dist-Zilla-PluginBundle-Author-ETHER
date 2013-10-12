@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - xt_mode must be used in [Test::Compile] when xt/ tests run before
             t/ (because 'make'/'Build' has not been run yet)
+          - fixed broken gathering of sharedir
 
 0.029     2013-10-12 21:27:40Z (Karen Etheridge)
           - dropped [Test::CheckDeps]

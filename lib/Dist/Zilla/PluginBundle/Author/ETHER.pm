@@ -86,7 +86,8 @@ sub configure
         [ 'FileFinder::ByName' => Examples => { dir => 'examples' } ],
 
         # Gather Files
-        [ 'Git::GatherDir'      => { exclude_filename => [ qw(LICENSE CONTRIBUTING) ] } ],
+        # FIXME - exclude_filename should be an exact (anchored) match
+        [ 'Git::GatherDir'      => { exclude_match => [ qw(^LICENSE$ ^CONTRIBUTING$) ] } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
         [ 'GenerateFile::ShareDir' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING' } ],
 

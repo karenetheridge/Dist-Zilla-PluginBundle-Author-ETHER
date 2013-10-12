@@ -11,8 +11,8 @@ use Path::Tiny;
 use JSON;
 use Test::Deep '!blessed';
 
-# checks that all plugins in use are in our runtime or test requires list
-# optionally take a list of plugins to exempt
+# checks that all plugins in use are in the plugin bundle dist's runtime or
+# test requires list (optionally take a list of plugins to exempt)
 sub all_plugins_are_required
 { SKIP: {
     skip('this test requires a built dist', 1) if not -f 'META.json';
@@ -20,6 +20,7 @@ sub all_plugins_are_required
     my ($tzil, @extra_plugins) = @_;
     my @used_plugins = uniq map { blessed $_ } @{$tzil->plugins};
 
+    # Note that this is not $tzil->distmeta, but the pluginbundle dist's meta
     my $meta = JSON->new->decode(path('META.json')->slurp_utf8);
     my @prereqs = uniq (keys %{$meta->{prereqs}{runtime}{requires}}), (keys %{$meta->{prereqs}{test}{requires}});
 
@@ -30,7 +31,7 @@ sub all_plugins_are_required
             @extra_plugins,
             'Dist::Zilla::Plugin::FinderCode',  # added automatically by dist builder
         ),
-        'all plugins in use are specified as *required* prerequisites',
+        'all plugins in use are specified as *required* prerequisites by the plugin bundle',
     );
 } }
 

@@ -88,7 +88,14 @@ sub configure
         # Gather Files
         [ 'Git::GatherDir'      => { exclude_filename => 'LICENSE' } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
-        [ 'Test::Compile'       => { ':version' => '2.023', fail_on_warning => 'author', bail_out_on_fail => 1, script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
+        [ 'Test::Compile'       => {
+            ':version' => '2.035',
+            fail_on_warning => 'author',
+            bail_out_on_fail => 1,
+            filename => 'xt/author/00-compile.t',
+            phase => 'develop',
+            script_finder => [qw(:ExecFiles @Author::ETHER/Examples)],
+          } ],
         [ 'Test::NoTabs'        => { script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
         'EOLTests',
         'MetaTests',
@@ -241,9 +248,11 @@ following F<dist.ini> (following the preamble):
     dir = examples
 
     [Test::Compile]
-    :version = 2.023
+    :version = 2.035
     fail_on_warning = author
     bail_out_on_fail = 1
+    filename = xt/author/00-compile.t
+    phase = develop
     script_finder = :ExecFiles
     script_finder = Examples
 

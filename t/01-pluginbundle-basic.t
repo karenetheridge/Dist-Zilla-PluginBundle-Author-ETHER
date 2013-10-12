@@ -64,8 +64,8 @@ my @expected_files = qw(
     META.json
     META.yml
     README
-    t/00-compile.t
     t/00-report-prereqs.t
+    xt/author/00-compile.t
     xt/author/pod-spell.t
     xt/release/changes_has_content.t
     xt/release/cpan-changes.t

@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.029
+version 0.030
 
 # SYNOPSIS
 
@@ -62,8 +62,7 @@ following `dist.ini` (following the preamble):
     :version = 2.035
     fail_on_warning = author
     bail_out_on_fail = 1
-    filename = xt/author/00-compile.t
-    phase = develop
+    xt_mode = 1
     script_finder = :ExecFiles
     script_finder = Examples
 

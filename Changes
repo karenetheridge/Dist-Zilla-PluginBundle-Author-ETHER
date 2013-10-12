@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.030     2013-10-12 22:09:46Z (Karen Etheridge)
           - xt_mode must be used in [Test::Compile] when xt/ tests run before
             t/ (because 'make'/'Build' has not been run yet)
           - fixed broken gathering of sharedir

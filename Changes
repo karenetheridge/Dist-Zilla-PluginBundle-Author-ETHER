@@ -4,6 +4,8 @@ Revision history for {{$dist->name}}
           - dropped [Test::CheckDeps]
           - xt/ tests are now run before t/
           - compile test now generated as xt/author/00-compile.t
+          - prereqs are noisly, but non-fatally, verified in
+            t/00-report-prereqs.t
 
 0.028     2013-10-06 06:17:12Z (Karen Etheridge)
           - injected t/00-check-deps.t no longer bails out when failures are

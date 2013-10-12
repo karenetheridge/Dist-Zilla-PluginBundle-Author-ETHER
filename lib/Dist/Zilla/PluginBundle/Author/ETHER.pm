@@ -111,7 +111,7 @@ sub configure
         'Test::Pod::No404s',
         'Test::Kwalitee',
         'MojibakeTests',
-        'Test::ReportPrereqs',
+        [ 'Test::ReportPrereqs' => { verify_prereqs => 1 } ],
 
         # Prune Files
         'PruneCruft',
@@ -278,6 +278,8 @@ following F<dist.ini> (following the preamble):
     [Test::Pod::No404s]
     [Test::Kwalitee]
     [MojibakeTests]
+    [Test::ReportPrereqs]
+    verify_prereqs = 1
 
 
     ;;; Munge Files

@@ -157,6 +157,10 @@ sub configure
                         ($installer_args{$_} // {})->{':version'} // 0
                 } $self->installer ),
             } ],
+        [ 'Prereqs' => pluginbundle_version => {
+                '-phase' => 'develop', '-relationship' => 'recommends',
+                blessed($self) => $self->VERSION,
+            } ],
 
         # Test Runner
         'RunExtraTests',
@@ -329,9 +333,13 @@ following F<dist.ini> (following the preamble):
     [Prereqs / installer_requirements]
     -phase = develop
     -relationship = requires
-    Dist::Zilla = <version used to built this bundle>
+    Dist::Zilla = <version used to built the pluginbundle>
     Dist::Zilla::PluginBundle::Author::ETHER = <version specified in dist.ini>
 
+    [Prereqs / pluginbundle_version]
+    -phase = develop
+    -relationship = recommends
+    Dist::Zilla::PluginBundle::Author::ETHER = <current installed version>
 
     ;;; Test Runner
     [RunExtraTests]

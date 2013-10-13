@@ -14,18 +14,15 @@ However, you can run tests directly using the 'prove' tool:
   $ prove -lv t/some_test_file.t
   $ prove -lvr t/
 
-For most distributions, 'prove' is entirely sufficent for you to test any
+In most cases, 'prove' is entirely sufficent for you to test any
 patches you have.
 
-You may need to satisfy some dependencies.  See the included META.json
-file for a list.  If you install App::mymeta_requires from CPAN, it's easy
-to satisfy any that you are missing by piping the output to your favorite
-CPAN client:
+You may need to satisfy some dependencies.  The easiest way to satisfy
+dependencies is to install the last release -- this is available at
+http::/metacpan.org/release/{{ $dist->name }}.
 
-  $ mymeta-requires | cpanm
-  $ cpan `mymeta-requires`
-
-or if you use cpanminus, you can simply do:
+If you use cpanminus, you can simply do this from the root of the extracted
+tarball directory:
 
   $ cpanm --installdeps .
 
@@ -46,9 +43,9 @@ Once installed, here are some dzil commands you might try:
 
 You can learn more about Dist::Zilla at http://dzil.org/.
 {{
-if ((my $url = $dist->distmeta->{resources}{repository}{url}) =~ /github/) {
+if ((my $link = $dist->distmeta->{resources}{repository}{web}) =~ /github/) {
 "\n" . 'The code for this distribution is hosted at GitHub. The main repository is:
-' . $url . '.
+' . $link . '.
 You can submit code changes by forking the repository, pushing your code
 changes to your clone, and then submitting a pull request. Detailed
 instructions for doing that is available here:

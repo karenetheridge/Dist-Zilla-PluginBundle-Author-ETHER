@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.031     2013-10-13 17:43:37Z (Karen Etheridge)
           - fix discrepancy for [Test::Compile] between prereq versions in
             metadata, and runtime required version (RT#89429)
 

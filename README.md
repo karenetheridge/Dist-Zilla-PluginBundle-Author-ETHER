@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.030
+version 0.031
 
 # SYNOPSIS
 
@@ -59,7 +59,7 @@ following `dist.ini` (following the preamble):
     dir = examples
 
     [Test::Compile]
-    :version = 2.035
+    :version = 2.036
     fail_on_warning = author
     bail_out_on_fail = 1
     xt_mode = 1
@@ -167,7 +167,7 @@ following `dist.ini` (following the preamble):
     copy = CONTRIBUTING
 
     [Run::AfterBuild]
-    run => if [ -d %d ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
+    run => if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
 
 
 

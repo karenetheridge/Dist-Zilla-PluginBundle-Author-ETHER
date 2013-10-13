@@ -172,7 +172,8 @@ sub configure
 
         # After Build
         [ 'CopyFilesFromBuild'  => { copy => [ qw(LICENSE CONTRIBUTING) ] } ],
-        [ 'Run::AfterBuild' => { run => q!if [ -d %d ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi! } ],
+        [ 'Run::AfterBuild' => { run => q{if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi} } ],
+
 
         # Before Release
         [ 'Git::Check'          => { allow_dirty => [ qw(README.md LICENSE CONTRIBUTING) ] } ],
@@ -361,7 +362,7 @@ following F<dist.ini> (following the preamble):
     copy = CONTRIBUTING
 
     [Run::AfterBuild]
-    run => if [ -d %d ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
+    run => if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
 
 
     ;;; Before Release

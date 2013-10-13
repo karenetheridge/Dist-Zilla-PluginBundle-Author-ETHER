@@ -92,7 +92,7 @@ sub configure
         [ 'GenerateFile::ShareDir' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING' } ],
 
         [ 'Test::Compile'       => {
-            ':version' => '2.035',
+            ':version' => '2.036',
             fail_on_warning => 'author',
             bail_out_on_fail => 1,
             xt_mode => 1,
@@ -259,7 +259,7 @@ following F<dist.ini> (following the preamble):
     dir = examples
 
     [Test::Compile]
-    :version = 2.035
+    :version = 2.036
     fail_on_warning = author
     bail_out_on_fail = 1
     xt_mode = 1

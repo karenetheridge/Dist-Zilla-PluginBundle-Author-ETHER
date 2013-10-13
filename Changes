@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix discrepancy for [Test::Compile] between prereq versions in
+            metadata, and runtime required version (RT#89429)
 
 0.030     2013-10-12 22:09:46Z (Karen Etheridge)
           - xt_mode must be used in [Test::Compile] when xt/ tests run before

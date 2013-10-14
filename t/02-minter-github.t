@@ -75,6 +75,23 @@ like(
 );
 
 like(
+    $tzil->slurp_file('mint/.gitignore'),
+    qr'^/My-New-Dist-\*$'ms,
+    '.gitignore file is created properly, with dist name correctly inserted',
+);
+
+is(
+    $tzil->slurp_file('mint/Changes'),
+    <<'STRING',
+Revision history for {{$dist->name}}
+
+{{$NEXT}}
+          - Initial release.
+STRING
+    'Changes file is created properly, with templates and whitespace preserved',
+);
+
+like(
     $tzil->slurp_file('mint/xt/release/clean-namespaces.t'),
     qr{namespaces_clean\(grep { !/\^My::New::Dist::Conflicts\$/ } Test::CleanNamespaces->find_modules\);}m,
     'Test::CleanNamespaces skips the ::Conflicts module',

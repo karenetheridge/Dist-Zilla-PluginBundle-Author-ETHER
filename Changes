@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix some bad templates for files used in the minting profile
 
 0.031     2013-10-13 17:43:37Z (Karen Etheridge)
           - fix discrepancy for [Test::Compile] between prereq versions in

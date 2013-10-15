@@ -171,6 +171,7 @@ sub configure
         'InstallGuide',
 
         # After Build
+        'CheckSelfDependency',
         [ 'CopyFilesFromBuild'  => { copy => [ qw(LICENSE CONTRIBUTING) ] } ],
         [ 'Run::AfterBuild' => { run => q{if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi} } ],
 
@@ -357,6 +358,7 @@ following F<dist.ini> (following the preamble):
 
 
     ;;; After Build
+    [CheckSelfDependency]
     [CopyFilesFromBuild]
     copy = LICENSE
     copy = CONTRIBUTING

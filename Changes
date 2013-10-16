@@ -3,6 +3,10 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - fix some bad templates for files used in the minting profile
           - added [CheckSelfDependency]
+          - all prereqs that are used based on config settings are now
+            (guaranteed to be) included in the pluginbundle as runtime
+            recommendations, as well as injected into the built dist as
+            develop requirements (RT#89530)
 
 0.031     2013-10-13 17:43:37Z (Karen Etheridge)
           - fix discrepancy for [Test::Compile] between prereq versions in

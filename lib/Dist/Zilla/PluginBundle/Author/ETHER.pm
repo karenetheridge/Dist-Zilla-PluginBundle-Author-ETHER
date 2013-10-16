@@ -70,6 +70,8 @@ sub configure
 {
     my $self = shift;
 
+    my %extra_develop_requires;
+
     $self->add_plugins(
         # VersionProvider
         [ 'Git::NextVersion'    => { version_regexp => '^v([\d._]+)(-TRIAL)?$' } ],
@@ -128,7 +130,8 @@ sub configure
         [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8V  %{yyyy-MM-dd HH:mm:ss\'Z\'}d (%U)' } ],
 
         # MetaData
-        $self->server eq 'github' ? ( [ 'GithubMeta' ] ) : (),
+        $self->server eq 'github'
+            ? ( 'GithubMeta', do { $extra_develop_requires{'Dist::Zilla::Plugin::GithubMeta'} = 0; () }) : (),
         [ 'AutoMetaResources'   => { 'bugtracker.rt' => 1,
               $self->server eq 'gitmo' ? ( 'repository.gitmo' => 1 )
             : $self->server eq 'p5sagit' ? ( 'repository.p5sagit' => 1 )
@@ -150,8 +153,9 @@ sub configure
                 'Dist::Zilla' => Dist::Zilla->VERSION,
                 blessed($self) => $self->_requested_version,
 
-                # this is mostly pointless as by the time this runs, we're
-                # already trying to load the installer plugin
+                # this is useless for "dzil authordeps", as by the time this
+                # runs, we're already trying to load the installer plugin --
+                # but it is useful for people doing "cpanm --with-develop"
                 ( map {
                     Dist::Zilla::Util->expand_config_package_name($_) =>
                         ($installer_args{$_} // {})->{':version'} // 0
@@ -191,13 +195,23 @@ sub configure
         # After Release
         [ 'Git::Commit'         => { allow_dirty => [ qw(Changes README.md LICENSE CONTRIBUTING) ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
-        $self->server eq 'github' ? ( [ 'GitHub::Update' => { metacpan => 1 } ] ) : (),
+        $self->server eq 'github' ? (
+            [ 'GitHub::Update' => { metacpan => 1 } ],
+            do { $extra_develop_requires{'Dist::Zilla::Plugin::GitHub::Update'} = 0; () },
+        ) : (),
         'Git::Push',
         [ 'InstallRelease'      => { install_command => 'cpanm .' } ],
 
         # listed late, to allow all other plugins which do BeforeRelease checks to run first.
         'ConfirmRelease',
     );
+
+    $self->add_plugins(
+        [ 'Prereqs' => via_options => {
+            '-phase' => 'develop', '-relationship' => 'requires',
+            %extra_develop_requires
+          } ]
+    ) if keys %extra_develop_requires;
 
     # check for a bin/ that should probably be renamed to script/
     warn 'bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?'

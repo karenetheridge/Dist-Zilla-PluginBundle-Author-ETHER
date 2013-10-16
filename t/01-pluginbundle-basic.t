@@ -45,14 +45,17 @@ my @git_plugins =
 
 cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');
 
-# check that everything we loaded is in test-requires or run-requires
-all_plugins_are_required($tzil,
-    'Dist::Zilla::Plugin::GatherDir',   # used by us here
-    'Dist::Zilla::Plugin::MakeMaker::Fallback',
-    'Dist::Zilla::Plugin::ModuleBuildTiny',
+$tzil->build;
+
+# check that everything we loaded is in the pluginbundle's run-requires
+all_plugins_in_prereqs($tzil,
+    exempt => [ 'Dist::Zilla::Plugin::GatherDir' ],     # used by us here
+    additional => [
+        'Dist::Zilla::Plugin::MakeMaker::Fallback',     # via installer option
+        'Dist::Zilla::Plugin::ModuleBuildTiny',         # ""
+    ],
 );
 
-$tzil->build;
 my $build_dir = $tzil->tempdir->subdir('build');
 
 my @expected_files = qw(

@@ -36,10 +36,10 @@ use Helper;
 
     $tzil->build;
 
-    # check that everything we loaded is in test-requires or run-requires
-    all_plugins_are_required($tzil,
-        'Dist::Zilla::Plugin::GatherDir',   # used by us here
-        'Dist::Zilla::Plugin::MakeMaker',   # via installer option
+    # check that everything we loaded is properly declared as prereqs
+    all_plugins_in_prereqs($tzil,
+        exempt => [ 'Dist::Zilla::Plugin::GatherDir' ],     # used by us here
+        additional => [ 'Dist::Zilla::Plugin::MakeMaker' ], # via installer option
     );
 
     ok(!-e "build/$_", "no $_ was created in the dist") foreach qw(Makefile.PL Build.PL);

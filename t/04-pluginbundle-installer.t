@@ -43,10 +43,10 @@ use Helper;
 
     $tzil->build;
 
-    # check that everything we loaded is in test-requires or run-requires
-    all_plugins_are_required($tzil,
-        'Dist::Zilla::Plugin::GatherDir',   # used by us here
-        'Dist::Zilla::Plugin::MakeMaker',
+    # check that everything we loaded is properly declared as prereqs
+    all_plugins_in_prereqs($tzil,
+        exempt => [ 'Dist::Zilla::Plugin::GatherDir' ],     # used by us here
+        additional => [ 'Dist::Zilla::Plugin::MakeMaker' ], # via installer option
     );
 
     my $build_dir = $tzil->tempdir->subdir('build');
@@ -95,11 +95,13 @@ SKIP: {
 
     $tzil->build;
 
-    # check that everything we loaded is in test-requires or run-requires
-    all_plugins_are_required($tzil,
-        'Dist::Zilla::Plugin::GatherDir',   # used by us here
-        'Dist::Zilla::Plugin::MakeMaker',
-        'Dist::Zilla::Plugin::ModuleBuildTiny',
+    # check that everything we loaded is properly declared as prereqs
+    all_plugins_in_prereqs($tzil,
+        exempt => [ 'Dist::Zilla::Plugin::GatherDir' ],     # used by us here
+        additional => [
+            'Dist::Zilla::Plugin::MakeMaker',       # via installer option
+            'Dist::Zilla::Plugin::ModuleBuildTiny', # ""
+        ],
     );
 
     my $build_dir = $tzil->tempdir->subdir('build');

@@ -24,7 +24,11 @@ http::/metacpan.org/release/{{ $dist->name }}.
 If you use cpanminus, you can simply do this from the root of the extracted
 tarball directory:
 
-  $ cpanm --installdeps .
+  $ cpanm --installdeps --with-recommends .
+
+Or, you can skip the download step entirely, with:
+
+  $ cpanm --with-recommends {{ $dist->name }}
 
 Dist::Zilla is a very powerful authoring tool, but requires a number of
 author-specific plugins.  If you would like to use it for contributing,
@@ -33,6 +37,15 @@ your CPAN client:
 
   $ cpan `dzil authordeps`
   $ dzil authordeps | cpanm
+
+You can also do this from the root of the extracted tarball directory, to
+install all developer tools directly:
+
+  $ cpanm --installdeps --with-develop --with-recommends .
+
+Or do it all without downloading the distribution first:
+
+  $ cpanm --with-develop --with-recommends {{ $dist->name }}
 
 Once installed, here are some dzil commands you might try:
 

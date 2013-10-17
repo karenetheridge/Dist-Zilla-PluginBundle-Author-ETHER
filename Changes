@@ -7,6 +7,7 @@ Revision history for {{$dist->name}}
             (guaranteed to be) included in the pluginbundle as runtime
             recommendations, as well as injected into the built dist as
             develop requirements (RT#89530)
+          - more tweaks to CONTRIBUTING text
 
 0.031     2013-10-13 17:43:37Z (Karen Etheridge)
           - fix discrepancy for [Test::Compile] between prereq versions in

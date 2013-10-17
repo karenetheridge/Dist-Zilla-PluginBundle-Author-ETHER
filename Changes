@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.032     2013-10-17 02:26:03Z (Karen Etheridge)
           - fix some bad templates for files used in the minting profile
           - added [CheckSelfDependency]
           - all prereqs that are used based on config settings are now

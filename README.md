@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.031
+version 0.032
 
 # SYNOPSIS
 
@@ -162,6 +162,7 @@ following `dist.ini` (following the preamble):
 
 
     ;;; After Build
+    [CheckSelfDependency]
     [CopyFilesFromBuild]
     copy = LICENSE
     copy = CONTRIBUTING

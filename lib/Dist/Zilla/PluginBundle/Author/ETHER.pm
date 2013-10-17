@@ -95,7 +95,6 @@ sub configure
 
         [ 'Test::Compile'       => {
             ':version' => '2.036',
-            fail_on_warning => 'author',
             bail_out_on_fail => 1,
             xt_mode => 1,
             script_finder => [qw(:ExecFiles @Author::ETHER/Examples)],

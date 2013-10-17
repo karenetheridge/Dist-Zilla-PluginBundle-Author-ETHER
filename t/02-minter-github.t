@@ -6,6 +6,7 @@ use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep;
 use Test::DZil;
 use Path::Class;
+use Path::Tiny;
 use File::Find;
 use File::Spec;
 use Moose::Util 'find_meta';
@@ -63,25 +64,25 @@ cmp_deeply(
 );
 
 like(
-    $tzil->slurp_file('mint/lib/My/New/Dist.pm'),
+    path($mint_dir, 'lib/My/New/Dist.pm')->slurp_utf8,
     qr/^use strict;\nuse warnings;\npackage My::New::Dist;/m,
     'our new module has a valid package declaration',
 );
 
 like(
-    $tzil->slurp_file('mint/dist.ini'),
+    path($mint_dir, 'dist.ini')->slurp_utf8,
     qr/\[\@Author::ETHER\]/,
     'plugin bundle is referenced in dist.ini',
 );
 
 like(
-    $tzil->slurp_file('mint/.gitignore'),
+    path($mint_dir, '.gitignore')->slurp_utf8,
     qr'^/My-New-Dist-\*$'ms,
     '.gitignore file is created properly, with dist name correctly inserted',
 );
 
 is(
-    $tzil->slurp_file('mint/Changes'),
+    path($mint_dir, 'Changes')->slurp_utf8,
     <<'STRING',
 Revision history for {{$dist->name}}
 
@@ -92,7 +93,7 @@ STRING
 );
 
 like(
-    $tzil->slurp_file('mint/xt/release/clean-namespaces.t'),
+    path($mint_dir, 'xt/release/clean-namespaces.t')->slurp_utf8,
     qr{namespaces_clean\(grep { !/\^My::New::Dist::Conflicts\$/ } Test::CleanNamespaces->find_modules\);}m,
     'Test::CleanNamespaces skips the ::Conflicts module',
 );

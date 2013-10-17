@@ -97,7 +97,7 @@ foreach my $server (keys %server_to_resources)
     );
 
     cmp_deeply(
-        $tzil->slurp_file('build/META.json'),
+        path($tzil->tempdir->file('build', 'META.json'))->slurp_utf8,
         json(superhashof({
             resources => $server_to_resources{$server},
         })),

@@ -21,6 +21,7 @@ Revision history for {{$dist->name}}
           - fixed broken gathering of sharedir
 
 0.029     2013-10-12 21:27:40Z (Karen Etheridge)
+          --- a.k.a. "the ribasushi release"
           - dropped [Test::CheckDeps]
           - xt/ tests are now run before t/
           - compile test now generated as xt/author/00-compile.t

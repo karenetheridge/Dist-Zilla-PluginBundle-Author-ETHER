@@ -88,7 +88,7 @@ sub configure
         [ 'FileFinder::ByName' => Examples => { dir => 'examples' } ],
 
         # Gather Files
-        [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ qw(LICENSE CONTRIBUTING) ] } ],
+        [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ qw(README.md LICENSE CONTRIBUTING) ] } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
         [ 'GenerateFile::ShareDir' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING' } ],
 
@@ -168,18 +168,17 @@ sub configure
         'RunExtraTests',
 
         # Install Tool
-        [ 'ReadmeAnyFromPod'    => { type => 'markdown', filename => 'README.md', location => 'root' } ],
+        [ 'ReadmeAnyFromPod'    => { type => 'markdown', filename => 'README.md', location => 'build' } ],
         ( map { [ $_ => $installer_args{$_} // () ] } $self->installer ),
         'InstallGuide',
 
         # After Build
         'CheckSelfDependency',
-        [ 'CopyFilesFromBuild'  => { copy => [ qw(LICENSE CONTRIBUTING) ] } ],
         [ 'Run::AfterBuild' => { run => q{if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi} } ],
 
 
         # Before Release
-        [ 'Git::Check'          => { allow_dirty => [ qw(README.md LICENSE CONTRIBUTING) ] } ],
+        [ 'Git::Check'          => { allow_dirty => [] } ],
         'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
         [ 'Git::Remote::Check'  => { branch => 'master', remote_branch => 'master' } ],
@@ -191,6 +190,7 @@ sub configure
         'UploadToCPAN',
 
         # After Release
+        [ 'CopyFilesFromRelease' => { filename => [ qw(README.md LICENSE CONTRIBUTING) ] } ],
         [ 'Git::Commit'         => { allow_dirty => [ qw(Changes README.md LICENSE CONTRIBUTING) ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? (
@@ -256,6 +256,7 @@ following F<dist.ini> (following the preamble):
 
     ;;; Gather Files
     [Git::GatherDir]
+    exclude_filename = README.md
     exclude_filename = LICENSE
     exclude_filename = CONTRIBUTING
 
@@ -363,7 +364,7 @@ following F<dist.ini> (following the preamble):
     [ReadmeAnyFromPod]
     type = markdown
     filename = README.md
-    location = root
+    location = build
 
     <specified installer(s)>
     [InstallGuide]
@@ -371,9 +372,6 @@ following F<dist.ini> (following the preamble):
 
     ;;; After Build
     [CheckSelfDependency]
-    [CopyFilesFromBuild]
-    copy = LICENSE
-    copy = CONTRIBUTING
 
     [Run::AfterBuild]
     run => if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
@@ -381,9 +379,7 @@ following F<dist.ini> (following the preamble):
 
     ;;; Before Release
     [Git::Check]
-    allow_dirty = README.md
-    allow_dirty = LICENSE
-    allow_dirty = CONTRIBUTING
+    allow_dirty =
 
     [Git::CheckFor::MergeConflicts]
 
@@ -405,6 +401,11 @@ following F<dist.ini> (following the preamble):
 
 
     ;;; AfterRelease
+    [CopyFilesFromRelease]
+    copy = README.md
+    copy = LICENSE
+    copy = CONTRIBUTING
+
     [Git::Commit]
     allow_dirty = Changes
     allow_dirty = README.md

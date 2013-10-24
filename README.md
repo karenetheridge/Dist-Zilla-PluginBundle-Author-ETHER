@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.032
+version 0.033
 
 # SYNOPSIS
 
@@ -43,6 +43,7 @@ following `dist.ini` (following the preamble):
 
     ;;; Gather Files
     [Git::GatherDir]
+    exclude_filename = README.md
     exclude_filename = LICENSE
     exclude_filename = CONTRIBUTING
 
@@ -154,7 +155,7 @@ following `dist.ini` (following the preamble):
     [ReadmeAnyFromPod]
     type = markdown
     filename = README.md
-    location = root
+    location = build
 
     <specified installer(s)>
     [InstallGuide]
@@ -163,9 +164,6 @@ following `dist.ini` (following the preamble):
 
     ;;; After Build
     [CheckSelfDependency]
-    [CopyFilesFromBuild]
-    copy = LICENSE
-    copy = CONTRIBUTING
 
     [Run::AfterBuild]
     run => if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
@@ -174,9 +172,7 @@ following `dist.ini` (following the preamble):
 
     ;;; Before Release
     [Git::Check]
-    allow_dirty = README.md
-    allow_dirty = LICENSE
-    allow_dirty = CONTRIBUTING
+    allow_dirty =
 
     [Git::CheckFor::MergeConflicts]
 
@@ -200,6 +196,11 @@ following `dist.ini` (following the preamble):
 
 
     ;;; AfterRelease
+    [CopyFilesFromRelease]
+    copy = README.md
+    copy = LICENSE
+    copy = CONTRIBUTING
+
     [Git::Commit]
     allow_dirty = Changes
     allow_dirty = README.md

@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - more tweaks to CONTRIBUTING text
 
 0.033     2013-10-24 01:47:28Z (Karen Etheridge)
           - now only generating README.md, LICENSE and CONTRIBUTING in the

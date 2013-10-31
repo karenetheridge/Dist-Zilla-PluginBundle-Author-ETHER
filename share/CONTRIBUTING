@@ -21,14 +21,9 @@ You may need to satisfy some dependencies.  The easiest way to satisfy
 dependencies is to install the last release -- this is available at
 http::/metacpan.org/release/{{ $dist->name }}.
 
-If you use cpanminus, you can simply do this from the root of the extracted
-tarball directory:
+If you use cpanminus, you can do it without downloading the tarball first:
 
-  $ cpanm --installdeps --with-recommends .
-
-Or, you can skip the download step entirely, with:
-
-  $ cpanm --with-recommends {{ $dist->name }}
+  $ cpanm --reinstall --installdeps --with-recommends {{ $dist->name }}
 
 Dist::Zilla is a very powerful authoring tool, but requires a number of
 author-specific plugins.  If you would like to use it for contributing,
@@ -38,14 +33,9 @@ your CPAN client:
   $ cpan `dzil authordeps`
   $ dzil authordeps | cpanm
 
-You can also do this from the root of the extracted tarball directory, to
-install all developer tools directly:
+You can also do this via cpanm directly:
 
-  $ cpanm --installdeps --with-develop --with-recommends .
-
-Or do it all without downloading the distribution first:
-
-  $ cpanm --with-develop --with-recommends {{ $dist->name }}
+  $ cpanm --reinstall --installdeps --with-develop --with-recommends {{ $dist->name }}
 
 Once installed, here are some dzil commands you might try:
 

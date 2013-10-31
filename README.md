@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.033
+version 0.034
 
 # SYNOPSIS
 
@@ -106,6 +106,10 @@ following `dist.ini` (following the preamble):
     :version = 4.300018
     time_zone = UTC
     format = %-8V  %{yyyy-MM-dd HH:mm:ss'Z'}d (%U)
+    [ReadmeAnyFromPod]
+    type = markdown
+    filename = README.md
+    location = build
 
 
 
@@ -152,11 +156,6 @@ following `dist.ini` (following the preamble):
 
 
     ;;; Install Tool
-    [ReadmeAnyFromPod]
-    type = markdown
-    filename = README.md
-    location = build
-
     <specified installer(s)>
     [InstallGuide]
 

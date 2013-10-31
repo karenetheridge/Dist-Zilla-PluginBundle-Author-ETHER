@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.034     2013-10-31 02:05:20Z (Karen Etheridge)
           - more tweaks to CONTRIBUTING text
 
 0.033     2013-10-24 01:47:28Z (Karen Etheridge)

@@ -118,7 +118,6 @@ sub configure
         # Prune Files
         'PruneCruft',
         'ManifestSkip',
-        # (ReadmeAnyFromPod)
 
         # Munge Files
         # (Authority)
@@ -126,6 +125,7 @@ sub configure
         [ PkgVersion            => { ':version' => '4.300036', die_on_existing_version => 1 } ],
         'PodWeaver',
         [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8V  %{yyyy-MM-dd HH:mm:ss\'Z\'}d (%U)' } ],
+        [ 'ReadmeAnyFromPod'    => { type => 'markdown', filename => 'README.md', location => 'build' } ],
 
         # MetaData
         $self->server eq 'github'
@@ -168,7 +168,6 @@ sub configure
         'RunExtraTests',
 
         # Install Tool
-        [ 'ReadmeAnyFromPod'    => { type => 'markdown', filename => 'README.md', location => 'build' } ],
         ( map { [ $_ => $installer_args{$_} // () ] } $self->installer ),
         'InstallGuide',
 
@@ -318,6 +317,10 @@ following F<dist.ini> (following the preamble):
     :version = 4.300018
     time_zone = UTC
     format = %-8V  %{yyyy-MM-dd HH:mm:ss'Z'}d (%U)
+    [ReadmeAnyFromPod]
+    type = markdown
+    filename = README.md
+    location = build
 
 
     ;;; MetaData
@@ -361,11 +364,6 @@ following F<dist.ini> (following the preamble):
 
 
     ;;; Install Tool
-    [ReadmeAnyFromPod]
-    type = markdown
-    filename = README.md
-    location = build
-
     <specified installer(s)>
     [InstallGuide]
 

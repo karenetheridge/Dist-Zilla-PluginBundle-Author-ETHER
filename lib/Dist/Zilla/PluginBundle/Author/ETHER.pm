@@ -120,7 +120,7 @@ sub configure
         'ManifestSkip',
 
         # Munge Files
-        # (Authority)
+        [ 'Authority'           => { authority => 'cpan:ETHER' } ],
         'Git::Describe',
         [ PkgVersion            => { ':version' => '4.300036', die_on_existing_version => 1 } ],
         'PodWeaver',
@@ -136,7 +136,7 @@ sub configure
             : $self->server eq 'catagits' ? ( 'repository.catagits' => 1 )
             : ()
         } ],
-        [ 'Authority'           => { authority => 'cpan:ETHER' } ],
+        # (Authority)
         [ 'MetaNoIndex'         => { directory => [ qw(t xt examples) ] } ],
         [ 'MetaProvides::Package' => { meta_noindex => 1 } ],
         'MetaConfig',
@@ -306,7 +306,8 @@ following F<dist.ini> (following the preamble):
 
 
     ;;; Munge Files
-    ; (Authority)
+    [Authority]
+    authority = cpan:ETHER
     [Git::Describe]
     [PkgVersion]
     :version = 4.300036
@@ -329,8 +330,7 @@ following F<dist.ini> (following the preamble):
     bugtracker.rt = 1
     ; (plus repository.* = 1 if server = 'gitmo' or 'p5sagit')
 
-    [Authority]
-    authority = cpan:ETHER
+    ; (Authority)
 
     [MetaNoIndex]
     directory = t

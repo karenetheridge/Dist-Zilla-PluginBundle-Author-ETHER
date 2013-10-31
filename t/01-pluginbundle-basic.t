@@ -45,6 +45,7 @@ my @git_plugins =
 
 cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');
 
+$tzil->chrome->logger->set_debug(1);
 $tzil->build;
 
 # check that everything we loaded is in the pluginbundle's run-requires
@@ -102,5 +103,11 @@ cmp_deeply(
     bag(@expected_files),
     'the right files are created by the pluginbundle',
 );
+
+is(
+    (grep { /someone tried to munge .* after we read from it. Making modifications again.../ } @{ $tzil->log_messages }),
+    0,
+    'no files were re-munged needlessly',
+) or diag 'found messages:' . join("\n", @{ $tzil->log_messages });
 
 done_testing;

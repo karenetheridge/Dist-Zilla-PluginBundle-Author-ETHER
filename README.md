@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.034
+version 0.035
 
 # SYNOPSIS
 
@@ -95,7 +95,8 @@ following `dist.ini` (following the preamble):
 
 
     ;;; Munge Files
-    ; (Authority)
+    [Authority]
+    authority = cpan:ETHER
     [Git::Describe]
     [PkgVersion]
     :version = 4.300036
@@ -105,7 +106,7 @@ following `dist.ini` (following the preamble):
     [NextRelease]
     :version = 4.300018
     time_zone = UTC
-    format = %-8V  %{yyyy-MM-dd HH:mm:ss'Z'}d (%U)
+    format = %-8V  %{yyyy-MM-dd HH:mm:ss'Z'}d
     [ReadmeAnyFromPod]
     type = markdown
     filename = README.md
@@ -119,8 +120,7 @@ following `dist.ini` (following the preamble):
     bugtracker.rt = 1
     ; (plus repository.* = 1 if server = 'gitmo' or 'p5sagit')
 
-    [Authority]
-    authority = cpan:ETHER
+    ; (Authority)
 
     [MetaNoIndex]
     directory = t

@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - drop the ego tag in Changes on every release
 
 0.034     2013-10-31 02:05:20Z (Karen Etheridge)
           - more tweaks to CONTRIBUTING text

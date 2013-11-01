@@ -177,12 +177,13 @@ sub configure
 
 
         # Before Release
-        [ 'Git::Check'          => { allow_dirty => [] } ],
+        [ 'Git::Check'          => 'git_check_1' => { allow_dirty => [] } ],
         'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
         [ 'Git::Remote::Check'  => { branch => 'master', remote_branch => 'master' } ],
         'CheckPrereqsIndexed',
         'TestRelease',
+        [ 'Git::Check'          => 'git_check_2' => { allow_dirty => [] } ],
         # (ConfirmRelease)
 
         # Releaser
@@ -190,7 +191,7 @@ sub configure
 
         # After Release
         [ 'CopyFilesFromRelease' => { filename => [ qw(README.md LICENSE CONTRIBUTING) ] } ],
-        [ 'Git::Commit'         => { allow_dirty => [ qw(Changes README.md LICENSE CONTRIBUTING) ], commit_msg => '%N-%v%t%n%n%c' } ],
+        [ 'Git::Commit'         => { add_files_in => '.', allow_dirty => [ qw(Changes README.md LICENSE CONTRIBUTING) ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? (
             [ 'GitHub::Update' => { metacpan => 1 } ],
@@ -376,7 +377,7 @@ following F<dist.ini> (following the preamble):
 
 
     ;;; Before Release
-    [Git::Check]
+    [Git::Check / git_check_1]
     allow_dirty =
 
     [Git::CheckFor::MergeConflicts]
@@ -391,6 +392,8 @@ following F<dist.ini> (following the preamble):
 
     [CheckPrereqsIndexed]
     [TestRelease]
+    [Git::Check / git_check_2]
+    allow_dirty =
     ;(ConfirmRelease)
 
 
@@ -405,6 +408,7 @@ following F<dist.ini> (following the preamble):
     copy = CONTRIBUTING
 
     [Git::Commit]
+    add_files_in = .
     allow_dirty = Changes
     allow_dirty = README.md
     allow_dirty = LICENSE

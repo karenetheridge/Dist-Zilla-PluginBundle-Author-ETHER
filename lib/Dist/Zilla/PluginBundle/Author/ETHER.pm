@@ -124,7 +124,7 @@ sub configure
         'Git::Describe',
         [ PkgVersion            => { ':version' => '4.300036', die_on_existing_version => 1 } ],
         'PodWeaver',
-        [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8V  %{yyyy-MM-dd HH:mm:ss\'Z\'}d' } ],
+        [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
         [ 'ReadmeAnyFromPod'    => { type => 'markdown', filename => 'README.md', location => 'build' } ],
 
         # MetaData
@@ -317,7 +317,7 @@ following F<dist.ini> (following the preamble):
     [NextRelease]
     :version = 4.300018
     time_zone = UTC
-    format = %-8V  %{yyyy-MM-dd HH:mm:ss'Z'}d
+    format = %-8v  %{uyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
     [ReadmeAnyFromPod]
     type = markdown
     filename = README.md

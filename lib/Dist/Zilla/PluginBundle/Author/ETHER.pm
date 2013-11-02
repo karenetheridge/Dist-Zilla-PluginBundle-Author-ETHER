@@ -105,7 +105,7 @@ sub configure
         [ 'Test::CPAN::Changes' => { ':version' => '0.008' } ],
         'Test::ChangesHasContent',
         'Test::UnusedVars',
-        [ 'Test::MinimumVersion' => { ':version' => '2.000003', max_target_perl => '5.008008' } ],
+        [ 'Test::MinimumVersion' => { ':version' => '2.000003', max_target_perl => '5.008001' } ],
         'PodSyntaxTests',
         'PodCoverageTests',
         'Test::PodSpelling',

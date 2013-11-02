@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix regexp error while creating CONTRIBUTING file
 
 0.036     2013-11-02 20:54:09Z
           - version format in Changes file altered from appending -TRIAL to

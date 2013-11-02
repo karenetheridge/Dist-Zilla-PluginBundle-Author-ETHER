@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.037     2013-11-02 20:58:18Z
           - fix regexp error while creating CONTRIBUTING file
 
 0.036     2013-11-02 20:54:09Z

@@ -178,7 +178,7 @@ sub configure
 
         # Before Release
         [ 'Git::Check'          => 'git_check_1' => { allow_dirty => [] } ],
-        'Git::CheckFor::MergeConflicts',
+        #'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
         [ 'Git::Remote::Check'  => { branch => 'master', remote_branch => 'master' } ],
         'CheckPrereqsIndexed',
@@ -380,7 +380,7 @@ following F<dist.ini> (following the preamble):
     [Git::Check / git_check_1]
     allow_dirty =
 
-    [Git::CheckFor::MergeConflicts]
+    ;[Git::CheckFor::MergeConflicts]
 
     [Git::CheckFor::CorrectBranch]
     :version = 0.004

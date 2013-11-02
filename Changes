@@ -4,6 +4,7 @@ Revision history for {{$dist->name}}
           - version format in Changes file altered from appending -TRIAL to
             the version (which violates CPAN::Meta::Spec) to adding
             ' (TRIAL RELEASE)' after the timestamp
+          - temporarily (?) disable broken [Git::CheckFor::MergeConflicts]
 
 0.035     2013-10-31 05:50:52Z
           - drop the ego tag in Changes on every release

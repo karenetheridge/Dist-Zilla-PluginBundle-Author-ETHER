@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.036     2013-11-02 20:54:09Z
           - version format in Changes file altered from appending -TRIAL to
             the version (which violates CPAN::Meta::Spec) to adding
             ' (TRIAL RELEASE)' after the timestamp

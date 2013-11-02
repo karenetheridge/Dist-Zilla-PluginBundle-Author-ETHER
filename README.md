@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.035
+version 0.036
 
 # SYNOPSIS
 
@@ -106,7 +106,7 @@ following `dist.ini` (following the preamble):
     [NextRelease]
     :version = 4.300018
     time_zone = UTC
-    format = %-8V  %{yyyy-MM-dd HH:mm:ss'Z'}d
+    format = %-8v  %{uyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
     [ReadmeAnyFromPod]
     type = markdown
     filename = README.md
@@ -170,10 +170,10 @@ following `dist.ini` (following the preamble):
 
 
     ;;; Before Release
-    [Git::Check]
+    [Git::Check / git_check_1]
     allow_dirty =
 
-    [Git::CheckFor::MergeConflicts]
+    ;[Git::CheckFor::MergeConflicts]
 
     [Git::CheckFor::CorrectBranch]
     :version = 0.004
@@ -185,6 +185,8 @@ following `dist.ini` (following the preamble):
 
     [CheckPrereqsIndexed]
     [TestRelease]
+    [Git::Check / git_check_2]
+    allow_dirty =
     ;(ConfirmRelease)
 
 
@@ -201,6 +203,7 @@ following `dist.ini` (following the preamble):
     copy = CONTRIBUTING
 
     [Git::Commit]
+    add_files_in = .
     allow_dirty = Changes
     allow_dirty = README.md
     allow_dirty = LICENSE

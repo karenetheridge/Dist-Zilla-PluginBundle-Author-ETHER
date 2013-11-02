@@ -6,6 +6,9 @@ Revision history for {{$dist->name}}
             ' (TRIAL RELEASE)' after the timestamp
           - temporarily (?) disable broken [Git::CheckFor::MergeConflicts]
           - more tweaks to CONTRIBUTING text
+          - plugins which are only used in certain conditions are now also
+            declared as runtime requirements, to make it easier for
+            contributors (requested by haarg)
 
 0.035     2013-10-31 05:50:52Z
           - drop the ego tag in Changes on every release

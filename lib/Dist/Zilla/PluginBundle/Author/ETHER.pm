@@ -177,13 +177,13 @@ sub configure
 
 
         # Before Release
-        [ 'Git::Check'          => 'git_check_1' => { allow_dirty => [] } ],
+        [ 'Git::Check'          => 'initial check' => { allow_dirty => [] } ],
         #'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
         [ 'Git::Remote::Check'  => { branch => 'master', remote_branch => 'master' } ],
         'CheckPrereqsIndexed',
         'TestRelease',
-        [ 'Git::Check'          => 'git_check_2' => { allow_dirty => [] } ],
+        [ 'Git::Check'          => 'after tests' => { allow_dirty => [] } ],
         # (ConfirmRelease)
 
         # Releaser
@@ -377,7 +377,7 @@ following F<dist.ini> (following the preamble):
 
 
     ;;; Before Release
-    [Git::Check / git_check_1]
+    [Git::Check / initial check]
     allow_dirty =
 
     ;[Git::CheckFor::MergeConflicts]
@@ -392,7 +392,7 @@ following F<dist.ini> (following the preamble):
 
     [CheckPrereqsIndexed]
     [TestRelease]
-    [Git::Check / git_check_2]
+    [Git::Check / after tests]
     allow_dirty =
     ;(ConfirmRelease)
 

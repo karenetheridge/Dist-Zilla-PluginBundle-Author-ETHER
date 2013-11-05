@@ -19,7 +19,7 @@ patches you have.
 
 You may need to satisfy some dependencies.  The easiest way to satisfy
 dependencies is to install the last release -- this is available at
-http::/metacpan.org/release/{{ $dist->name }}.
+https://metacpan.org/release/{{ $dist->name }}.
 
 If you use cpanminus, you can do it without downloading the tarball first:
 

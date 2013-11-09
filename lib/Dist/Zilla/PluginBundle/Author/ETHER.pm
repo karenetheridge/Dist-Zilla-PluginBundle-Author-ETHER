@@ -145,6 +145,7 @@ sub configure
         # Register Prereqs
         # (MakeMaker or other installer)
         'AutoPrereqs',
+        'Prereqs::AuthorDeps',
         'MinimumPerl',
         [ 'Prereqs' => installer_requirements => {
                 '-phase' => 'develop', '-relationship' => 'requires',

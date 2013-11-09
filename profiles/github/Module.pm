@@ -23,13 +23,9 @@ __END__
 
 =head1 FUNCTIONS/METHODS
 
-=over 4
-
-=item * C<foo>
+=head2 C<foo>
 
 ...
-
-=back
 
 =head1 SUPPORT
 

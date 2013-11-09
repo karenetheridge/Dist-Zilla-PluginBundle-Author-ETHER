@@ -445,21 +445,22 @@ The version and other metadata is derived directly from the local git repository
 
 =head1 OPTIONS / OVERRIDES
 
-=for stopwords Stopwords
-
 =head2 version
 
-Use C<< V=<version> >> to override the version of the distribution being built;
+Use C<< V=<version> >> in the shell to override the version of the distribution being built;
 otherwise the version is
 incremented from the last git tag.
 
 =head2 pod coverage
 
-Subs can be considered "covered" for pod coverage tests by adding a directive to pod:
+Subs can be considered "covered" for pod coverage tests by adding a directive to pod,
+as described in L<Pod::Coverage::TrustPod>:
 
     =for Pod::Coverage foo bar baz
 
 =head2 spelling stopwords
+
+=for stopwords Stopwords
 
 Stopwords for spelling tests can be added by adding a directive to pod (as
 many as you'd like), as described in L<Pod::Spell/ADDING STOPWORDS>:
@@ -471,8 +472,9 @@ many as you'd like), as described in L<Pod::Spell/ADDING STOPWORDS>:
 =for stopwords ModuleBuildTiny
 
 The installer back-end(s) to use (can be specified more than once); defaults
-to C<MakeMaker::Fallback>
-and C<ModuleBuildTiny> (which generates a F<Build.PL> for normal use, and
+to L<C<MakeMaker::Fallback>|Dist::Zilla::Plugin::MakeMaker::Fallback>
+and L<C<ModuleBuildTiny>|Dist::Zilla::Plugin::ModuleBuildTiny>
+(which generates a F<Build.PL> for normal use, and
 F<Makefile.PL> as a fallback, containing an upgrade warning).
 
 You can select other backends (by plugin name, without the C<[]>), with the
@@ -487,6 +489,8 @@ Encouraged choices are:
     installer = none (if you are including your own later on, with configs)
 
 =head2 server
+
+If provided, must be one of:
 
 =begin :list
 

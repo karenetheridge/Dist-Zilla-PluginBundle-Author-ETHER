@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.037
+version 0.038
 
 # SYNOPSIS
 
@@ -170,7 +170,7 @@ following `dist.ini` (following the preamble):
 
 
     ;;; Before Release
-    [Git::Check / git_check_1]
+    [Git::Check / initial check]
     allow_dirty =
 
     ;[Git::CheckFor::MergeConflicts]
@@ -185,7 +185,7 @@ following `dist.ini` (following the preamble):
 
     [CheckPrereqsIndexed]
     [TestRelease]
-    [Git::Check / git_check_2]
+    [Git::Check / after tests]
     allow_dirty =
     ;(ConfirmRelease)
 
@@ -238,13 +238,14 @@ The version and other metadata is derived directly from the local git repository
 
 ## version
 
-Use `V=<version>` to override the version of the distribution being built;
+Use `V=<version>` in the shell to override the version of the distribution being built;
 otherwise the version is
 incremented from the last git tag.
 
 ## pod coverage
 
-Subs can be considered "covered" for pod coverage tests by adding a directive to pod:
+Subs can be considered "covered" for pod coverage tests by adding a directive to pod,
+as described in [Pod::Coverage::TrustPod](http://search.cpan.org/perldoc?Pod::Coverage::TrustPod):
 
     =for Pod::Coverage foo bar baz
 
@@ -258,8 +259,9 @@ many as you'd like), as described in ["ADDING STOPWORDS" in Pod::Spell](http://s
 ## installer
 
 The installer back-end(s) to use (can be specified more than once); defaults
-to `MakeMaker::Fallback`
-and `ModuleBuildTiny` (which generates a `Build.PL` for normal use, and
+to [`MakeMaker::Fallback`](http://search.cpan.org/perldoc?Dist::Zilla::Plugin::MakeMaker::Fallback)
+and [`ModuleBuildTiny`](http://search.cpan.org/perldoc?Dist::Zilla::Plugin::ModuleBuildTiny)
+(which generates a `Build.PL` for normal use, and
 `Makefile.PL` as a fallback, containing an upgrade warning).
 
 You can select other backends (by plugin name, without the `[]`), with the
@@ -274,6 +276,8 @@ Encouraged choices are:
     installer = none (if you are including your own later on, with configs)
 
 ## server
+
+If provided, must be one of:
 
 - `github`
 
@@ -329,3 +333,7 @@ This software is copyright (c) 2013 by Karen Etheridge.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
+
+# CONTRIBUTOR
+
+Sergey Romanov <complefor@rambler.ru>

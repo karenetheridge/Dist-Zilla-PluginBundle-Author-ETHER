@@ -3,6 +3,8 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - fix config for [Git::Commit], to properly commit files that were
             newly added to the dist
+          - now generating full starting content for CONTRIBUTING, README.md,
+            LICENSE when minting a new distribution
 
 0.038     2013-11-09 22:46:12Z
           - fixed typo in CONTRIBUTING file (thanks, Сергей Романов!)

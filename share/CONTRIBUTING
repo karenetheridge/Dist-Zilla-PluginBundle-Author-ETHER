@@ -77,4 +77,8 @@ $dist->distmeta->{resources}{x_MailingList}
 
 
 This file was generated via {{ ref($plugin) . ' ' . ($plugin->VERSION || '<self>') }} from a
-template file originating in {{ $plugin->dist . '-' . ($plugin->dist =~ s/-/::/gr)->VERSION }}.
+template file originating in {{
+    my $module = $plugin->dist =~ s/-/::/gr;
+    eval "require $module";
+    $plugin->dist . '-' . $module->VERSION
+}}.

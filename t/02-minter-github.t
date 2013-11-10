@@ -24,6 +24,7 @@ my $tzil = Minter->_new_from_profile(
 # we need to stop the git plugins from doing their thing
 foreach my $plugin (grep { /Git/ } map { ref } @{$tzil->plugins})
 {
+    next unless $plugin->can('after_mint');
     my $meta = find_meta($plugin);
     $meta->make_mutable;
     $meta->add_around_method_modifier(after_mint => sub { Test::More::note("in $plugin after_mint...") });

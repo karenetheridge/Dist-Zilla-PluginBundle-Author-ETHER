@@ -192,7 +192,7 @@ sub configure
 
         # After Release
         [ 'CopyFilesFromRelease' => { filename => [ qw(README.md LICENSE CONTRIBUTING) ] } ],
-        [ 'Git::Commit'         => { add_files_in => '.', allow_dirty => [ qw(Changes README.md LICENSE CONTRIBUTING) ], commit_msg => '%N-%v%t%n%n%c' } ],
+        [ 'Git::Commit'         => { add_files_in => [''], allow_dirty => [ qw(Changes README.md LICENSE CONTRIBUTING) ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? (
             [ 'GitHub::Update' => { metacpan => 1 } ],

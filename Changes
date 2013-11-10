@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix config for [Git::Commit], to properly commit files that were
+            newly added to the dist
 
 0.038     2013-11-09 22:46:12Z
           - fixed typo in CONTRIBUTING file (thanks, Сергей Романов!)

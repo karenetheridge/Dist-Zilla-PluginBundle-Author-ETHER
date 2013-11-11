@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.039     2013-11-11 02:30:24Z
           - fix config for [Git::Commit], to properly commit files that were
             newly added to the dist
           - now generating full starting content for CONTRIBUTING, README.md,

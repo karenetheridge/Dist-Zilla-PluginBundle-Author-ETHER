@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.040     2013-11-12 17:50:39Z
           - [Git::CheckFor::MergeConflicts] is working again
           - work around failure of minting test where a development release of
             a plugin is required to generate all expected files

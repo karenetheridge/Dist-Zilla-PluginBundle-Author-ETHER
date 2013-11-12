@@ -7,6 +7,11 @@ use Moose;
 with 'Dist::Zilla::Role::MintingProfile::ShareDir';
 use namespace::autoclean;
 
+use Module::Runtime 'use_module';
+die 'Dist::Zilla::Plugin::ReadmeAnyFromPod is not new enough'
+    if not $INC{'Test/Builder.pm'}
+        and not use_module('Dist::Zilla::Plugin::ReadmeAnyFromPod')->does('Dist::Zilla::Role::FileGatherer');
+
 __PACKAGE__->meta->make_immutable;
 __END__
 

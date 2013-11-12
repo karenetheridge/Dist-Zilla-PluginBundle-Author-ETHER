@@ -10,6 +10,7 @@ use Path::Tiny;
 use File::Find;
 use File::Spec;
 use Moose::Util 'find_meta';
+use Module::Runtime 'use_module';
 
 # we need the profiles dir to have gone through file munging first (for
 # profile.ini)
@@ -45,6 +46,12 @@ my @expected_files = qw(
     t/01-basic.t
     xt/release/clean-namespaces.t
 );
+
+# workaround for failures like
+# http://www.cpantesters.org/cpan/report/8d6b2a4a-4ae0-11e3-bf3e-b51f7bc94557
+# where this plugin doesn't run at the right phase yet
+@expected_files = grep { $_ ne 'README.md' } @expected_files
+    if not use_module('Dist::Zilla::Plugin::ReadmeAnyFromPod')->does('Dist::Zilla::Role::FileGatherer');
 
 my @found_files;
 find({

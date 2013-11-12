@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - [Git::CheckFor::MergeConflicts] is working again
 
 0.039     2013-11-11 02:30:24Z
           - fix config for [Git::Commit], to properly commit files that were

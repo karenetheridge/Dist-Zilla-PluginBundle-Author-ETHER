@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - add explicit dep on Pod::Markdown, to get the version that creates
+            metacpan hyperlinks
 
 0.040     2013-11-12 17:50:39Z
           - [Git::CheckFor::MergeConflicts] is working again

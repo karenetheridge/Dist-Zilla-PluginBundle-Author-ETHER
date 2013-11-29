@@ -86,6 +86,7 @@ my @expected_files = qw(
     xt/release/pod-coverage.t
     xt/release/pod-no404s.t
     xt/release/pod-syntax.t
+    xt/release/portability.t
     xt/release/test-version.t
     xt/release/unused-vars.t
 );

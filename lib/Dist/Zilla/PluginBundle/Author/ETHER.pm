@@ -114,6 +114,8 @@ sub configure
         'Test::Kwalitee',
         'MojibakeTests',
         [ 'Test::ReportPrereqs' => { verify_prereqs => 1 } ],
+        'Test::Portability',
+
 
         # Prune Files
         'PruneCruft',
@@ -305,6 +307,7 @@ following F<dist.ini> (following the preamble):
     [MojibakeTests]
     [Test::ReportPrereqs]
     verify_prereqs = 1
+    [Test::Portability]
 
 
     ;;; Munge Files

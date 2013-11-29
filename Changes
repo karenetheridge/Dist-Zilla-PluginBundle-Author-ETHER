@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.041     2013-11-29 06:02:08Z
           - add explicit dep on Pod::Markdown, to get the version that creates
             metacpan hyperlinks
           - add [Test::Portability]

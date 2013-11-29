@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.040
+version 0.041
 
 # SYNOPSIS
 
@@ -14,7 +14,7 @@ In your `dist.ini`:
 
 # DESCRIPTION
 
-This is a [Dist::Zilla](http://search.cpan.org/perldoc?Dist::Zilla) plugin bundle. It is approximately equivalent to the
+This is a [Dist::Zilla](https://metacpan.org/pod/Dist::Zilla) plugin bundle. It is approximately equivalent to the
 following `dist.ini` (following the preamble):
 
     ;;; VersionProvider
@@ -28,7 +28,13 @@ following `dist.ini` (following the preamble):
     [PromptIfStale / release]
     phase = release
     check_all_plugins = 1
-    ; requires :version = 0.004, but we will be checking ourselves)
+    skip = Dist::Zilla::Plugin::Git::Check
+    skip = Dist::Zilla::Plugin::Git::Commit
+    skip = Dist::Zilla::Plugin::Git::GatherDir
+    skip = Dist::Zilla::Plugin::Git::NextVersion
+    skip = Dist::Zilla::Plugin::Git::Push
+    skip = Dist::Zilla::Plugin::Git::Tag
+    skip = Dist::Zilla::Plugin::Git::Init
     check_all_prereqs = 1
 
 
@@ -91,6 +97,7 @@ following `dist.ini` (following the preamble):
     [MojibakeTests]
     [Test::ReportPrereqs]
     verify_prereqs = 1
+    [Test::Portability]
 
 
 
@@ -245,22 +252,22 @@ incremented from the last git tag.
 ## pod coverage
 
 Subs can be considered "covered" for pod coverage tests by adding a directive to pod,
-as described in [Pod::Coverage::TrustPod](http://search.cpan.org/perldoc?Pod::Coverage::TrustPod):
+as described in [Pod::Coverage::TrustPod](https://metacpan.org/pod/Pod::Coverage::TrustPod):
 
     =for Pod::Coverage foo bar baz
 
 ## spelling stopwords
 
 Stopwords for spelling tests can be added by adding a directive to pod (as
-many as you'd like), as described in ["ADDING STOPWORDS" in Pod::Spell](http://search.cpan.org/perldoc?Pod::Spell#ADDING STOPWORDS):
+many as you'd like), as described in ["ADDING STOPWORDS" in Pod::Spell](https://metacpan.org/pod/Pod::Spell#ADDING-STOPWORDS):
 
     =for stopwords foo bar baz
 
 ## installer
 
 The installer back-end(s) to use (can be specified more than once); defaults
-to [`MakeMaker::Fallback`](http://search.cpan.org/perldoc?Dist::Zilla::Plugin::MakeMaker::Fallback)
-and [`ModuleBuildTiny`](http://search.cpan.org/perldoc?Dist::Zilla::Plugin::ModuleBuildTiny)
+to [`MakeMaker::Fallback`](https://metacpan.org/pod/Dist::Zilla::Plugin::MakeMaker::Fallback)
+and [`ModuleBuildTiny`](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuildTiny)
 (which generates a `Build.PL` for normal use, and
 `Makefile.PL` as a fallback, containing an upgrade warning).
 
@@ -287,17 +294,17 @@ If provided, must be one of:
 - `gitmo`
 
     metadata and release plugins are tailored to
-    [http://git.moose.perl.org](http://search.cpan.org/perldoc?gitmo@git.moose.perl.org).
+    [http://git.moose.perl.org](https://metacpan.org/pod/gitmo@git.moose.perl.org).
 
 - `p5sagit`
 
     metadata and release plugins are tailored to
-    [http://git.shadowcat.co.uk](http://search.cpan.org/perldoc?p5sagit@git.shadowcat.co.uk).
+    [http://git.shadowcat.co.uk](https://metacpan.org/pod/p5sagit@git.shadowcat.co.uk).
 
 - `catagits`
 
     metadata and release plugins are tailored to
-    [http://git.shadowcat.co.uk](http://search.cpan.org/perldoc?catagits@git.shadowcat.co.uk).
+    [http://git.shadowcat.co.uk](https://metacpan.org/pod/catagits@git.shadowcat.co.uk).
 
 - `none`
 
@@ -306,8 +313,8 @@ If provided, must be one of:
 
 ## other customizations
 
-This bundle makes use of [Dist::Zilla::Role::PluginBundle::PluginRemover](http://search.cpan.org/perldoc?Dist::Zilla::Role::PluginBundle::PluginRemover) and
-[Dist::Zilla::Role::PluginBundle::Config::Slicer](http://search.cpan.org/perldoc?Dist::Zilla::Role::PluginBundle::Config::Slicer) to allow further customization.
+This bundle makes use of [Dist::Zilla::Role::PluginBundle::PluginRemover](https://metacpan.org/pod/Dist::Zilla::Role::PluginBundle::PluginRemover) and
+[Dist::Zilla::Role::PluginBundle::Config::Slicer](https://metacpan.org/pod/Dist::Zilla::Role::PluginBundle::Config::Slicer) to allow further customization.
 Plugins are not loaded until they are actually needed, so it is possible to
 `--force`\-install this plugin bundle and `-remove` some plugins that do not
 install or are otherwise problematic.
@@ -315,7 +322,7 @@ install or are otherwise problematic.
 # NAMING SCHEME
 
 This distribution follows best practices for author-oriented plugin bundles; for more information,
-see [KENTNL's distribution](http://search.cpan.org/perldoc?Dist::Zilla::PluginBundle::Author::KENTNL#NAMING-SCHEME).
+see [KENTNL's distribution](https://metacpan.org/pod/Dist::Zilla::PluginBundle::Author::KENTNL#NAMING-SCHEME).
 
 # SUPPORT
 

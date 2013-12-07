@@ -4,7 +4,8 @@ Revision history for {{$dist->name}}
           - drop use of [-Encoding] Pod::Weaver plugin - no longer needed with
             Pod::Weaver 4
           - update generated CONTRIBUTING file to filter out local plugins
-            when running 'dzil authordeps --missing'
+            when running 'dzil authordeps --missing', and to mention the irc
+            channel when available
 
 0.041     2013-11-29 06:02:08Z
           - add explicit dep on Pod::Markdown, to get the version that creates

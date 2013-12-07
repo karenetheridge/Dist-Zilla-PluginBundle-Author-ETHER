@@ -70,9 +70,14 @@ can submit an issue report here:
 {{ $dist->distmeta->{resources}{bugtracker}{web} // 'WARNING: bugtracker data not set!' }}
 or via {{ $dist->distmeta->{resources}{bugtracker}{mailto} // 'WARNING: bugtracker data not set!' }}.
 {{
-$dist->distmeta->{resources}{x_MailingList}
+my $extra = $dist->distmeta->{resources}{x_MailingList}
     ? "\n" . 'There is also a mailing list available for users of this distribution, at' . "\n" . $dist->distmeta->{resources}{x_MailingList} . '.'
-    : 'This is also a good place to send your questions about the usage of this distribution.';
+    : '';
+$extra .= $dist->distmeta->{resources}{x_IRC}
+    ? "\n" . 'There is also an irc channel available for users of this distribution, at' . "\n" . $dist->distmeta->{resources}{x_IRC} . '.'
+    : '';
+# send questions to the bugtracker if nowhere better
+$extra ||= 'This is a good place to send your questions about the usage of this distribution.';
 }}
 
 

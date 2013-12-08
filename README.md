@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.041
+version 0.042
 
 # SYNOPSIS
 
@@ -310,6 +310,12 @@ If provided, must be one of:
 
     no special configuration of metadata (relating to repositories etc) is done --
     you'll need to provide this yourself.
+
+## airplane
+
+A boolean option, that when set, removes the use of all plugins that use the
+network (generally for comparing metadata against PAUSE, and querying the
+remote git server), as well as blocking the use of the `release` command.
 
 ## other customizations
 

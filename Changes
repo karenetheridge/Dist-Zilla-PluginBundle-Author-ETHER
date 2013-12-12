@@ -49,15 +49,15 @@ Revision history for {{$dist->name}}
 0.035     2013-10-31 05:50:52Z
           - drop the ego tag in Changes on every release
 
-0.034     2013-10-31 02:05:20Z (Karen Etheridge)
+0.034     2013-10-31 02:05:20Z
           - more tweaks to CONTRIBUTING text
 
-0.033     2013-10-24 01:47:28Z (Karen Etheridge)
+0.033     2013-10-24 01:47:28Z
           - now only generating README.md, LICENSE and CONTRIBUTING in the
             build directory, and copying back to the repository (and
             committing) only at release time
 
-0.032     2013-10-17 02:26:03Z (Karen Etheridge)
+0.032     2013-10-17 02:26:03Z
           - fix some bad templates for files used in the minting profile
           - added [CheckSelfDependency]
           - all prereqs that are used based on config settings are now
@@ -66,16 +66,16 @@ Revision history for {{$dist->name}}
             develop requirements (RT#89530)
           - more tweaks to CONTRIBUTING text
 
-0.031     2013-10-13 17:43:37Z (Karen Etheridge)
+0.031     2013-10-13 17:43:37Z
           - fix discrepancy for [Test::Compile] between prereq versions in
             metadata, and runtime required version (RT#89429)
 
-0.030     2013-10-12 22:09:46Z (Karen Etheridge)
+0.030     2013-10-12 22:09:46Z
           - xt_mode must be used in [Test::Compile] when xt/ tests run before
             t/ (because 'make'/'Build' has not been run yet)
           - fixed broken gathering of sharedir
 
-0.029     2013-10-12 21:27:40Z (Karen Etheridge)
+0.029     2013-10-12 21:27:40Z
           --- a.k.a. "the ribasushi release"
           - dropped [Test::CheckDeps]
           - xt/ tests are now run before t/
@@ -84,7 +84,7 @@ Revision history for {{$dist->name}}
             t/00-report-prereqs.t
           - now generating a custom CONTRIBUTING file
 
-0.028     2013-10-06 06:17:12Z (Karen Etheridge)
+0.028     2013-10-06 06:17:12Z
           - injected t/00-check-deps.t no longer bails out when failures are
             encountered
           - the shell command used to update the local .ackrc is now POSIX
@@ -93,17 +93,17 @@ Revision history for {{$dist->name}}
             1.200001 was released (which retroactively broke the 0.027
             release)
 
-0.027     2013-09-27 03:50:26Z (Karen Etheridge)
+0.027     2013-09-27 03:50:26Z
           - minted dists once again use the default 'installer' value (now
             [MakeMaker::Fallback] and [ModuleBuildTiny], since 0.025)
           - added missing required prereqs, and now properly skipping relevant
             tests when optional dependencies are not installed (with guard
             tests to verify that all prereqs are properly declared) (RT#88977)
 
-0.026     2013-09-25 02:00:04Z (Karen Etheridge)
+0.026     2013-09-25 02:00:04Z
           - skip relevant tests when optional dependencies are not installed
 
-0.025     2013-09-22 22:04:46Z (Karen Etheridge)
+0.025     2013-09-22 22:04:46Z
           - added missing dependency on [MojibakeTests] (RT#88807)
           - fixed bad dependency for NoTabs tester that changed names
           - make tests run without git again (broken in 0.024) by removing all
@@ -114,7 +114,7 @@ Revision history for {{$dist->name}}
           - new installer default: MakeMaker::Fallback and ModuleBuildTiny
             (RT#88642)
 
-0.024     2013-09-19 02:29:14Z (Karen Etheridge)
+0.024     2013-09-19 02:29:14Z
           - now also support the server = catagits option, for Catalyst
             repositories hosted at Shadowcat Systems
           - switch to [Test::NoTabs], also testing examples/ files
@@ -125,10 +125,10 @@ Revision history for {{$dist->name}}
             consumers to explicitly state a preference; minted dists specify
             ModuleBuildTiny, the previous default (RT#88642)
 
-0.023     2013-09-11 01:43:22Z (Karen Etheridge)
+0.023     2013-09-11 01:43:22Z
           - now checking for stale prereqs at dist release time
 
-0.022     2013-09-10 01:48:53Z (Karen Etheridge)
+0.022     2013-09-10 01:48:53Z
           - warnings tests bypassed during installation, to prevent
             installation issues in the presence of deprecation warnings from
             upstream dependencies (in this case, via Moose 2.1100) - and
@@ -136,16 +136,16 @@ Revision history for {{$dist->name}}
           - bumped dependency version for [Test::PodSpelling] and wordlists
           - bumped dependency on Dist::Zilla, for yaml encoding fixes
 
-0.021     2013-09-07 19:41:06Z (Karen Etheridge)
+0.021     2013-09-07 19:41:06Z
           - disable invocation of cpanm-reporter (see RT#88367)
           - added [MojibakeTests], for testing file encoding at release time
 
-0.020     2013-09-02 23:50:35Z (Karen Etheridge)
+0.020     2013-09-02 23:50:35Z
           - set new die_on_existing_version option in [PkgVersion]
           - after releasing and we install the dist, submit a cpantesters
             report
 
-0.019     2013-08-21 19:16:27Z (Karen Etheridge)
+0.019     2013-08-21 19:16:27Z
           - now supporting dists hosted elsewhere than github (currently
             gitmo, p5sagit, or other), via the 'server' option
           - Test::Version now runs in strict mode
@@ -153,7 +153,7 @@ Revision history for {{$dist->name}}
           - [Test::Kwalitee] now included in bundle, rather than adding it
             into the minted dist.ini separately
 
-0.018     2013-08-16 05:11:06Z (Karen Etheridge)
+0.018     2013-08-16 05:11:06Z
           - now using [PromptIfStale] to ensure the plugin bundle is always
             the latest version, and all plugins are checked at release time
           - bring back [Test::CPAN::Changes], now that the spec has become a
@@ -161,28 +161,28 @@ Revision history for {{$dist->name}}
           - Changes entries are now made with times in UTC, with a trailing
             'Z' rather than the CLDR 'ZZZZ' format code
 
-0.017     2013-08-04 09:12:17 PDT-0700 (Karen Etheridge)
+0.017     2013-08-04 16:12:17Z
           - update minimum version of perl required, re syntax used in
             templates applied during minting
           - inject a forced dependency on a fixed CPAN::Meta::Check
           - skip pluginbundle tests if .git dir is not present (too many
             plugins rely on git data)
 
-0.016     2013-08-03 12:44:15 PDT-0700 (Karen Etheridge)
+0.016     2013-08-03 19:44:15Z
           - added basic tests for the pluginbundle and minter
           - clean up .ackrc editing at build time
 
-0.015     2013-08-01 16:02:32 PDT-0700 (Karen Etheridge)
+0.015     2013-08-01 23:02:32Z
           - [Test::CPAN::Changes] omitted if its version >= 0.21, pending
             resolution of too-strict datetime formats (e.g. RT#87499)
 
-0.014     2013-07-29 17:25:48 PDT-0700 (Karen Etheridge)
+0.014     2013-07-30 00:25:48Z
           - fix dist.ini munging done at release time (v0.013)
           - injected compile test now also checks files in examples/
           - ExecDir now looks for installable executables in script/, for
             compatibility with Module::Build::Tiny
 
-0.013     2013-07-28 16:59:41 PDT-0700 (Karen Etheridge)
+0.013     2013-07-28 23:59:41Z
           - inserts --ignore-dir line into .ackrc at build time
           - when releasing this pluginbundle, dist.ini is edited (and
             committed) to force a dependency on the newly-released version, and
@@ -190,30 +190,30 @@ Revision history for {{$dist->name}}
             (without committing)
           - issue tracking is disabled in newly-created github repositories
 
-0.012     2013-07-16 18:32:35 PDT-0700 (Karen Etheridge)
+0.012     2013-07-17 01:32:35Z
           - do not require trial versions of [Test::Compile], allowing
             flexibility as which we choose to build with
 
-0.011     2013-07-05 17:59:57 PDT-0700 (Karen Etheridge)
+0.011     2013-07-06 00:59:57Z
           - compile test will also check for warnings, when author is testing
 
-0.010     2013-06-28 11:28:01 PDT-0700 (Karen Etheridge)
+0.010     2013-06-28 18:28:01Z
           - t/00-check-deps.t test now has TODO tests for 'recommends' and
             'suggests' prereqs
           - release test for unused variables reinstated
 
-0.009     2013-06-20 10:18:12 PDT-0700 (Karen Etheridge)
+0.009     2013-06-20 17:18:12Z
           - 'installer' now defaults to ModuleBuildTiny
           - (experimental) namespaces-are-clean release test added to minting
             profile, although this won't pass for many types of dists as many
             things are sloppy about modifying the package stash
 
-0.008     2013-06-11 15:59:23 PDT-0700 (Karen Etheridge)
+0.008     2013-06-11 22:59:23Z
           - fix bad templating in minted module
           - during minting, push the initial commit to github after creating
             the remote
 
-0.007     2013-05-29 18:48:34 PDT-0700 (Karen Etheridge)
+0.007     2013-05-30 01:48:34Z
           - minting profile updates:
             - extra kwalitee tests enabled by default
             - test now has 'use <main module>;', prefers done_testing,
@@ -223,7 +223,7 @@ Revision history for {{$dist->name}}
           - config option added for changing the installer backend (still
             defaults to MakeMaker, for now)
 
-0.006     2013-05-10 17:06:41 PDT-0700 (Karen Etheridge)
+0.006     2013-05-11 00:06:41Z
           - support dropped for directly passing stopwords via a mvp argument
             -- it's easier to just use a directive right in pod (and they can
             be added via ConfigSlicer too, if needed)
@@ -238,11 +238,11 @@ Revision history for {{$dist->name}}
             distribution's abstract as its description, and the metacpan page
             as its homepage.
 
-0.005     2013-04-28 08:47:40 PDT-0700 (Karen Etheridge)
+0.005     2013-04-28 15:47:40Z
           - bump version for [Test::Compile] and [Test::CheckDeps] (RT#84900,
             RT#84904, RT#84905)
 
-0.004     2013-04-26 20:56:11 PDT-0700 (Karen Etheridge)
+0.004     2013-04-27 03:56:11Z
           - fix missing .gitignore in minted dists
           - [-Encoding] podweaver plugin added to this distribution and
             minted dists
@@ -250,7 +250,7 @@ Revision history for {{$dist->name}}
           - Pod::Weaver plugins used in this bundle are added as runtime
             prerequisites
 
-0.003     2013-04-21 10:22:48 PDT-0700 (Karen Etheridge)
+0.003     2013-04-21 17:22:48Z
           - now building ourself with ourselves, [@Author::ETHER].
           - [Test::UnusedVars] added
           - RT mail link cleaned up
@@ -259,11 +259,11 @@ Revision history for {{$dist->name}}
           - document the multiple mechanisms for adding stopwords (and add the
             [-Stopwords] weaver plugin, which seems to be needed sometimes)
 
-0.002     2013-04-14 15:40:08 PDT-0700 (Karen Etheridge)
+0.002     2013-04-14 22:40:08Z
           - do not index our profiles/, to avoid its contents from showing up
             under "Documentation" on metacpan
           - users of [@Author::ETHER] can now -remove plugins
 
-0.001     2013-04-14 13:52:50 PDT-0700 (Karen Etheridge)
+0.001     2013-04-14 20:52:50Z
           - Initial release.
 

@@ -23,7 +23,7 @@ __END__
 =head1 SYNOPSIS
 
 In your F<dist.ini>:
-    
+
     [BlockRelease]
 
 =head1 DESCRIPTION

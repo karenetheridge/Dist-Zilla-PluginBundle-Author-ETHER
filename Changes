@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - stale [@Git] modules now being checked for again
 
 0.042     2013-12-08 00:24:09Z
           - drop use of [-Encoding] Pod::Weaver plugin - no longer needed with

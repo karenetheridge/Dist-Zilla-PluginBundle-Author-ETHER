@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.043     2013-12-14 17:34:14Z
           - stale [@Git] modules now being checked for again
 
 0.042     2013-12-08 00:24:09Z

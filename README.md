@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.042
+version 0.043
 
 # SYNOPSIS
 
@@ -28,13 +28,6 @@ following `dist.ini` (following the preamble):
     [PromptIfStale / release]
     phase = release
     check_all_plugins = 1
-    skip = Dist::Zilla::Plugin::Git::Check
-    skip = Dist::Zilla::Plugin::Git::Commit
-    skip = Dist::Zilla::Plugin::Git::GatherDir
-    skip = Dist::Zilla::Plugin::Git::NextVersion
-    skip = Dist::Zilla::Plugin::Git::Push
-    skip = Dist::Zilla::Plugin::Git::Tag
-    skip = Dist::Zilla::Plugin::Git::Init
     check_all_prereqs = 1
 
 

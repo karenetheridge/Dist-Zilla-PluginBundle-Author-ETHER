@@ -20,11 +20,29 @@ my @warnings = warnings {
                     [ '@Author::ETHER' => {
                         # our files are copied into source, so Git::GatherDir doesn't see them
                         # and besides, we would like to run these tests at install time too!
-                        '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'PromptIfStale' ],
+                        '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'Git::Tag',
+                            'PromptIfStale',
+                            'CheckPrereqsIndexed',  # we will trip up on ourselves (it got a version bump,
+                                                    # but obviously is not yet indexed)
+                                                    # FIXME - update when the plugin gets smarter
+                            'UploadToCPAN', # removed just in case!
+                        ],
                         airplane => 1,
                     } ],
+                    'FakeRelease',  # replaces UploadToCPAN
                 ),
-                path(qw(source lib Foo Bar.pm)) => "package Foo::Bar;\n1;\n",
+                path(qw(source lib Foo Bar.pm)) => <<MODULE,
+package Foo::Bar;
+use strict;
+use warnings;
+1;
+MODULE
+                path(qw(source Changes)) => <<'CHANGES',
+Revision history for {{$dist->name}}
+
+{{$NEXT}}
+        - some changelog entry
+CHANGES
             },
         },
     );

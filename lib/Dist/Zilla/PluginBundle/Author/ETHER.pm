@@ -225,9 +225,6 @@ sub configure
         ) : (),
         'Git::Push',
         [ 'InstallRelease'      => { install_command => 'cpanm .' } ],
-
-        # listed late, to allow all other plugins which do BeforeRelease checks to run first.
-        'ConfirmRelease',
     );
 
     push @plugins, (
@@ -247,9 +244,14 @@ sub configure
             not grep { $_ eq $plugin } @network_plugins;
         } @plugins;
 
-        # halt release before any pre-release checks
-        unshift @plugins, 'BlockRelease';
+        # halt release after pre-release checks, but before ConfirmRelease
+        push @plugins, 'BlockRelease';
     }
+
+    push @plugins, (
+        # listed late, to allow all other plugins which do BeforeRelease checks to run first.
+        'ConfirmRelease',
+    );
 
     $self->add_plugins(@plugins);
 

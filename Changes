@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - adjust airplane mode so it performs all (non-network) pre-release
+            checks first, before aborting the release
 
 0.043     2013-12-14 17:34:14Z
           - stale [@Git] modules now being checked for again

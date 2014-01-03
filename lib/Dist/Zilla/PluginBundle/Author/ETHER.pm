@@ -236,7 +236,7 @@ sub configure
 
     if ($self->airplane)
     {
-        warn 'building in airplane mode - plugins requiring the network are skipped, and releases are not permitted';
+        warn "building in airplane mode - plugins requiring the network are skipped, and releases are not permitted\n";
         @plugins = grep {
             my $plugin = Dist::Zilla::Util->expand_config_package_name(
                 !ref($_) ? $_ : ref eq 'ARRAY' ? $_->[0] : die 'wtf'

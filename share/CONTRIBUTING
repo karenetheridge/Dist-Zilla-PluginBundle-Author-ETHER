@@ -55,8 +55,8 @@ Once installed, here are some dzil commands you might try:
 You can learn more about Dist::Zilla at http://dzil.org/.
 {{
 if ((my $link = $dist->distmeta->{resources}{repository}{web}) =~ /github/) {
-"\n" . 'The code for this distribution is hosted at GitHub. The main repository is:
-' . $link . '.
+"\n" . 'The code for this distribution is hosted at GitHub. The repository is:
+' . $link . '
 You can submit code changes by forking the repository, pushing your code
 changes to your clone, and then submitting a pull request. Detailed
 instructions for doing that is available here:

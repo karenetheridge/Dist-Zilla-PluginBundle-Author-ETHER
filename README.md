@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.043
+version 0.044
 
 # SYNOPSIS
 
@@ -31,13 +31,11 @@ following `dist.ini` (following the preamble):
     check_all_prereqs = 1
 
 
-
     ;;; ExecFiles, ShareDir
     [ExecDir]
     dir = script
 
     [ShareDir]
-
 
 
     ;;; Gather Files
@@ -93,7 +91,6 @@ following `dist.ini` (following the preamble):
     [Test::Portability]
 
 
-
     ;;; Munge Files
     [Authority]
     authority = cpan:ETHER
@@ -113,7 +110,6 @@ following `dist.ini` (following the preamble):
     location = build
 
 
-
     ;;; MetaData
     [GithubMeta]    ; (if server = 'github' or omitted)
     [AutoMetaResources]
@@ -131,7 +127,6 @@ following `dist.ini` (following the preamble):
     meta_noindex = 1
 
     [MetaConfig]
-
 
 
     ;;; Register Prereqs
@@ -154,11 +149,9 @@ following `dist.ini` (following the preamble):
     # <specified installer(s)>
 
 
-
     ;;; Install Tool
     <specified installer(s)>
     [InstallGuide]
-
 
 
     ;;; After Build
@@ -166,7 +159,6 @@ following `dist.ini` (following the preamble):
 
     [Run::AfterBuild]
     run => if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
-
 
 
     ;;; Before Release
@@ -190,10 +182,8 @@ following `dist.ini` (following the preamble):
     ;(ConfirmRelease)
 
 
-
     ;;; Releaser
     [UploadToCPAN]
-
 
 
     ;;; AfterRelease
@@ -221,7 +211,6 @@ following `dist.ini` (following the preamble):
 
     [InstallRelease]
     install_command = cpanm .
-
 
 
     ; listed late, to allow all other plugins which do BeforeRelease checks to run first.
@@ -287,17 +276,17 @@ If provided, must be one of:
 - `gitmo`
 
     metadata and release plugins are tailored to
-    [http://git.moose.perl.org](https://metacpan.org/pod/gitmo@git.moose.perl.org).
+    [http://git.moose.perl.org|gitmo@git.moose.perl.org](http://git.moose.perl.org|gitmo@git.moose.perl.org).
 
 - `p5sagit`
 
     metadata and release plugins are tailored to
-    [http://git.shadowcat.co.uk](https://metacpan.org/pod/p5sagit@git.shadowcat.co.uk).
+    [http://git.shadowcat.co.uk|p5sagit@git.shadowcat.co.uk](http://git.shadowcat.co.uk|p5sagit@git.shadowcat.co.uk).
 
 - `catagits`
 
     metadata and release plugins are tailored to
-    [http://git.shadowcat.co.uk](https://metacpan.org/pod/catagits@git.shadowcat.co.uk).
+    [http://git.shadowcat.co.uk|catagits@git.shadowcat.co.uk](http://git.shadowcat.co.uk|catagits@git.shadowcat.co.uk).
 
 - `none`
 
@@ -315,7 +304,7 @@ remote git server), as well as blocking the use of the `release` command.
 This bundle makes use of [Dist::Zilla::Role::PluginBundle::PluginRemover](https://metacpan.org/pod/Dist::Zilla::Role::PluginBundle::PluginRemover) and
 [Dist::Zilla::Role::PluginBundle::Config::Slicer](https://metacpan.org/pod/Dist::Zilla::Role::PluginBundle::Config::Slicer) to allow further customization.
 Plugins are not loaded until they are actually needed, so it is possible to
-`--force`\-install this plugin bundle and `-remove` some plugins that do not
+`--force`-install this plugin bundle and `-remove` some plugins that do not
 install or are otherwise problematic.
 
 # NAMING SCHEME

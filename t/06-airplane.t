@@ -52,7 +52,7 @@ cmp_deeply(
     \@warnings,
     [ re(qr/^building in airplane mode - plugins requiring the network are skipped, and releases are not permitted/) ],
     'we warn when in airplane mode',
-);
+) or diag join("\n", @warnings);
 
 is(
     exception { $tzil->build },

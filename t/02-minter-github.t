@@ -78,7 +78,7 @@ like(
 
 like(
     path($mint_dir, '.gitignore')->slurp_utf8,
-    qr'^/My-New-Dist-\*$'ms,
+    qr'^/My-New-Dist-\*/$'ms,
     '.gitignore file is created properly, with dist name correctly inserted',
 );
 

@@ -11,7 +11,7 @@ with
 
 use Dist::Zilla::Util;
 use Moose::Util::TypeConstraints;
-use List::MoreUtils 'any';
+use List::MoreUtils qw(any first_index);
 use namespace::autoclean;
 
 sub mvp_multivalue_args { qw(installer) }
@@ -243,6 +243,9 @@ sub configure
             );
             not grep { $_ eq $plugin } @network_plugins;
         } @plugins;
+
+        # allow our uncommitted dist.ini edit which sets 'airplane = 1'
+        push @{ $plugins[ first_index { ref eq 'ARRAY' && $_->[0] eq 'Git::Check' } @plugins ][-1]{allow_dirty} }, 'dist.ini';
 
         # halt release after pre-release checks, but before ConfirmRelease
         push @plugins, 'BlockRelease';

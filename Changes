@@ -2,6 +2,7 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
           - fixed transposed link text in documentation (thanks, rwstauner!)
+          - fixed new tests that fail when run outside a git repository
 
 0.044     2014-01-04 18:46:04Z
           - adjust airplane mode so it performs all (non-network) pre-release

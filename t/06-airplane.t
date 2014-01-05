@@ -20,7 +20,9 @@ my @warnings = warnings {
                     [ '@Author::ETHER' => {
                         # our files are copied into source, so Git::GatherDir doesn't see them
                         # and besides, we would like to run these tests at install time too!
-                        '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'Git::Tag',
+                        '-remove' => [ qw(Git::GatherDir Git::NextVersion Git::Describe Git::Tag
+                            Git::Check Git::CheckFor::MergeConflicts
+                            Git::CheckFor::CorrectBranch Git::Remote::Check Git::Push),
                             'PromptIfStale',
                             'CheckPrereqsIndexed',  # we will trip up on ourselves (it got a version bump,
                                                     # but obviously is not yet indexed)

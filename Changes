@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.045     2014-01-06 18:32:05Z
           - fixed transposed link text in documentation (thanks, rwstauner!)
           - fixed new tests that fail when run outside a git repository
 

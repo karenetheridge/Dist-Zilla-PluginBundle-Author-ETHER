@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.044
+version 0.045
 
 # SYNOPSIS
 
@@ -276,17 +276,17 @@ If provided, must be one of:
 - `gitmo`
 
     metadata and release plugins are tailored to
-    [http://git.moose.perl.org|gitmo@git.moose.perl.org](http://git.moose.perl.org|gitmo@git.moose.perl.org).
+    [gitmo@git.moose.perl.org](http://git.moose.perl.org).
 
 - `p5sagit`
 
     metadata and release plugins are tailored to
-    [http://git.shadowcat.co.uk|p5sagit@git.shadowcat.co.uk](http://git.shadowcat.co.uk|p5sagit@git.shadowcat.co.uk).
+    [p5sagit@git.shadowcat.co.uk](http://git.shadowcat.co.uk).
 
 - `catagits`
 
     metadata and release plugins are tailored to
-    [http://git.shadowcat.co.uk|catagits@git.shadowcat.co.uk](http://git.shadowcat.co.uk|catagits@git.shadowcat.co.uk).
+    [catagits@git.shadowcat.co.uk](http://git.shadowcat.co.uk).
 
 - `none`
 
@@ -329,6 +329,7 @@ This software is copyright (c) 2013 by Karen Etheridge.
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-# CONTRIBUTOR
+# CONTRIBUTORS
 
-Sergey Romanov <complefor@rambler.ru>
+- Randy Stauner <randy@magnificent-tears.com>
+- Sergey Romanov <complefor@rambler.ru>

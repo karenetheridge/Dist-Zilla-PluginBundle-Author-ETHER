@@ -544,15 +544,15 @@ metadata and release plugins are tailored to L<github|http://github.com>.
 
 * C<gitmo>
 metadata and release plugins are tailored to
-L<http://git.moose.perl.org|gitmo@git.moose.perl.org>.
+L<gitmo@git.moose.perl.org|http://git.moose.perl.org>.
 
 * C<p5sagit>
 metadata and release plugins are tailored to
-L<http://git.shadowcat.co.uk|p5sagit@git.shadowcat.co.uk>.
+L<p5sagit@git.shadowcat.co.uk|http://git.shadowcat.co.uk>.
 
 * C<catagits>
 metadata and release plugins are tailored to
-L<http://git.shadowcat.co.uk|catagits@git.shadowcat.co.uk>.
+L<catagits@git.shadowcat.co.uk|http://git.shadowcat.co.uk>.
 
 * C<none>
 no special configuration of metadata (relating to repositories etc) is done --

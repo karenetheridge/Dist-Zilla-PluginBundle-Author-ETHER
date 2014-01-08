@@ -12,8 +12,9 @@ use File::Spec;
 use Moose::Util 'find_meta';
 
 # we need the profiles dir to have gone through file munging first (for
-# profile.ini)
-plan skip_all => 'this test requires a built dist' unless -d 'blib/lib/auto/share/module';
+# profile.ini), as well as get installed into a sharedir
+plan skip_all => 'this test requires a built dist'
+    unless -d 'blib/lib/auto/share/dist/Dist-Zilla-PluginBundle-Author-ETHER/profiles';
 
 my $tzil = Minter->_new_from_profile(
     [ 'Author::ETHER' => 'github' ],

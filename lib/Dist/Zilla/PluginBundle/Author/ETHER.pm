@@ -162,7 +162,7 @@ sub configure
             : ()
         } ],
         # (Authority)
-        [ 'MetaNoIndex'         => { directory => [ qw(t xt examples) ] } ],
+        [ 'MetaNoIndex'         => { directory => [ qw(t xt examples share) ] } ],
         [ 'MetaProvides::Package' => { meta_noindex => 1, ':version' => '1.15000002', finder => ':InstallModules' } ],
         'MetaConfig',
         #[ContributorsFromGit]

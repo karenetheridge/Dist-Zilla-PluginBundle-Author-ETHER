@@ -148,7 +148,7 @@ sub configure
         [ 'Authority'           => { authority => 'cpan:ETHER' } ],
         'Git::Describe',
         [ PkgVersion            => { ':version' => '4.300036', die_on_existing_version => 1 } ],
-        'PodWeaver',
+        [ PodWeaver             => { ':version' => '4.005' } ],
         [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
         [ 'ReadmeAnyFromPod'    => { type => 'markdown', filename => 'README.md', location => 'build' } ],
 
@@ -300,8 +300,13 @@ following F<dist.ini> (following the preamble):
     [ShareDir]
 
 
+    ;;; Finders
+    [FileFinder::ByName / Examples]
+    dir = examples
+
     ;;; Gather Files
     [Git::GatherDir]
+    :version = 2.016
     exclude_filename = README.md
     exclude_filename = LICENSE
     exclude_filename = CONTRIBUTING
@@ -315,12 +320,8 @@ following F<dist.ini> (following the preamble):
     -dist = Dist-Zilla-PluginBundle-Author-ETHER
     -filename = CONTRIBUTING
 
-    [FileFinder::ByName / Examples]
-    dir = examples
-
     [Test::Compile]
     :version = 2.036
-    fail_on_warning = author
     bail_out_on_fail = 1
     xt_mode = 1
     script_finder = :ExecFiles
@@ -333,14 +334,14 @@ following F<dist.ini> (following the preamble):
     [EOLTests]
     [MetaTests]
     [Test::Version]
+    is_strict = 1
     [Test::CPAN::Changes]
+    :version = 0.008
     [Test::ChangesHasContent]
     [Test::UnusedVars]
-
     [Test::MinimumVersion]
     :version = 2.000003
-    max_target_perl = 5.008008
-
+    max_target_perl = 5.008001
     [PodSyntaxTests]
     [PodCoverageTests]
     [Test::PodSpelling]
@@ -353,6 +354,11 @@ following F<dist.ini> (following the preamble):
     [Test::Portability]
 
 
+    ;;; Prune Files
+    [PruneCruft]
+    [ManifestSkip]
+
+
     ;;; Munge Files
     [Authority]
     authority = cpan:ETHER
@@ -362,6 +368,8 @@ following F<dist.ini> (following the preamble):
     die_on_existing_version = 1
 
     [PodWeaver]
+    :version = 4.005
+
     [NextRelease]
     :version = 4.300018
     time_zone = UTC
@@ -387,12 +395,15 @@ following F<dist.ini> (following the preamble):
 
     [MetaProvides::Package]
     meta_noindex = 1
+    :version = 1.15000002
+    finder = :InstallModules
 
     [MetaConfig]
 
 
     ;;; Register Prereqs
     [AutoPrereqs]
+    [Prereqs::AuthorDeps]
     [MinimumPerl]
 
     [Prereqs / installer_requirements]
@@ -427,7 +438,7 @@ following F<dist.ini> (following the preamble):
     [Git::Check / initial check]
     allow_dirty =
 
-    ;[Git::CheckFor::MergeConflicts]
+    [Git::CheckFor::MergeConflicts]
 
     [Git::CheckFor::CorrectBranch]
     :version = 0.004
@@ -455,7 +466,7 @@ following F<dist.ini> (following the preamble):
     copy = CONTRIBUTING
 
     [Git::Commit]
-    add_files_in = .
+    add_files_in =
     allow_dirty = Changes
     allow_dirty = README.md
     allow_dirty = LICENSE

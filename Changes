@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.046     2014-01-11 19:23:31Z
           - ensure that .pod files are also eligible for indexing
           - minting profile switched to using a dist sharedir to store
             profiles, so we can now ship using Module::Build::Tiny

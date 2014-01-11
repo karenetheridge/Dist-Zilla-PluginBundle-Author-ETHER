@@ -4,6 +4,8 @@ Revision history for {{$dist->name}}
           - adjusted plugin order so [PkgVersion] gets a chance to insert into
             the first blank line of the package (new in 5.010) before other
             modules insert their code lines
+          - pod removed from in the middle of source is now replaced with a
+            commented-out version of itself, to avoid altering line numbers
 
 0.046     2014-01-11 19:23:31Z
           - ensure that .pod files are also eligible for indexing

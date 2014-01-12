@@ -33,7 +33,7 @@ my $tzil = Builder->from_config(
                     server => 'none',
                 } ],
             ),
-            path(qw(source lib NoOptions.pm)) => 'package NoOptions; 1',
+            path(qw(source lib NoOptions.pm)) => "package NoOptions;\n\n1",
         },
     },
 );

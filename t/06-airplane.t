@@ -34,9 +34,10 @@ my @warnings = warnings {
                     'FakeRelease',  # replaces UploadToCPAN
                 ),
                 path(qw(source lib Foo Bar.pm)) => <<MODULE,
-package Foo::Bar;
 use strict;
 use warnings;
+package Foo::Bar;
+
 1;
 MODULE
                 path(qw(source Changes)) => <<'CHANGES',

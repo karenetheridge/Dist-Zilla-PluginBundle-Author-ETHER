@@ -145,9 +145,9 @@ sub configure
         'ManifestSkip',
 
         # Munge Files
-        [ 'Authority'           => { authority => 'cpan:ETHER' } ],
         'Git::Describe',
-        [ PkgVersion            => { ':version' => '4.300036', die_on_existing_version => 1 } ],
+        [ PkgVersion            => { ':version' => '5.010', die_on_existing_version => 1, die_on_line_insertion => 1 } ],
+        [ 'Authority'           => { authority => 'cpan:ETHER' } ],
         [ PodWeaver             => { ':version' => '4.005' } ],
         [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
         [ 'ReadmeAnyFromPod'    => { type => 'markdown', filename => 'README.md', location => 'build' } ],
@@ -360,12 +360,13 @@ following F<dist.ini> (following the preamble):
 
 
     ;;; Munge Files
-    [Authority]
-    authority = cpan:ETHER
     [Git::Describe]
     [PkgVersion]
-    :version = 4.300036
+    :version = 5.010
     die_on_existing_version = 1
+    die_on_line_insertion = 1
+    [Authority]
+    authority = cpan:ETHER
 
     [PodWeaver]
     :version = 4.005

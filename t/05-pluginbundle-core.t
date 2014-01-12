@@ -29,7 +29,7 @@ use Helper;
                       },
                     ],
                 ),
-                path(qw(source lib MyModule.pm)) => 'package MyModule; 1',
+                path(qw(source lib MyModule.pm)) => "package MyModule;\n\n1",
             },
         },
     );

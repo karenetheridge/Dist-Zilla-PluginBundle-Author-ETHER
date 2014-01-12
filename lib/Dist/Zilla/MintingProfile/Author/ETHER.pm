@@ -2,6 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::MintingProfile::Author::ETHER;
 # ABSTRACT: Mint distributions like ETHER does
+# vim: set ts=8 sw=4 tw=78 et :
 
 use Moose;
 with 'Dist::Zilla::Role::MintingProfile';

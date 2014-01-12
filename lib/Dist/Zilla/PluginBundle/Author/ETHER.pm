@@ -2,6 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::PluginBundle::Author::ETHER;
 # ABSTRACT: A plugin bundle for distributions built by ETHER
+# vim: set ts=8 sw=4 tw=78 et :
 
 use Moose;
 with

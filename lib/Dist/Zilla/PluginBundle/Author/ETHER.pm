@@ -113,7 +113,7 @@ sub configure
         [ 'Git::NextVersion'    => { version_regexp => '^v([\d._]+)(-TRIAL)?$' } ],
 
         # BeforeBuild
-        [ 'PromptIfStale' => 'build' => { phase => 'build', module => [ blessed($self) ] } ],
+        [ 'PromptIfStale' => 'build' => { phase => 'build', module => [ $self->meta->name ] } ],
         [ 'PromptIfStale' => 'release' => { phase => 'release', check_all_plugins => 1, check_all_prereqs => 1 } ],
 
         # ExecFiles, ShareDir
@@ -184,7 +184,7 @@ sub configure
         [ 'Prereqs' => installer_requirements => {
                 '-phase' => 'develop', '-relationship' => 'requires',
                 'Dist::Zilla' => Dist::Zilla->VERSION,
-                blessed($self) => $self->_requested_version,
+                $self->meta->name => $self->_requested_version,
 
                 # this is useless for "dzil authordeps", as by the time this
                 # runs, we're already trying to load the installer plugin --
@@ -196,7 +196,7 @@ sub configure
             } ],
         [ 'Prereqs' => pluginbundle_version => {
                 '-phase' => 'develop', '-relationship' => 'recommends',
-                blessed($self) => $self->VERSION,
+                $self->meta->name => $self->VERSION,
             } ],
 
         # Test Runner

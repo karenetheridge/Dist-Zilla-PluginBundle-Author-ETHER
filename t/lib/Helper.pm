@@ -6,7 +6,6 @@ our @EXPORT = qw(all_plugins_in_prereqs);
 
 use Test::More;
 use List::MoreUtils 'uniq';
-use Scalar::Util 'blessed';
 use Path::Tiny;
 use JSON;
 
@@ -29,7 +28,7 @@ sub all_plugins_in_prereqs
     my $dist_meta = $tzil->distmeta;
 
     subtest 'all plugins in use are specified as *required* runtime prerequisites by the plugin bundle, or develop prerequisites by the distribution' => sub {
-        foreach my $plugin (uniq map { blessed $_ } @{$tzil->plugins})
+        foreach my $plugin (uniq map { $_->meta->name } @{$tzil->plugins})
         {
             note($plugin . ' is explicitly exempted; skipping'), next
                 if exists $exempt{$plugin};

@@ -15,7 +15,7 @@ use Moose::Util::TypeConstraints;
 use List::MoreUtils qw(any first_index);
 use namespace::autoclean;
 
-sub mvp_multivalue_args { qw(installer) }
+sub mvp_multivalue_args { qw(installer copy_file_from_release) }
 
 # Note: no support yet for depending on a specific version of the plugin --
 # but [PromptIfStale] generally makes that unnecessary
@@ -49,6 +49,18 @@ has airplane => (
             ? $_[0]->payload->{airplane}
             : 0;
     },
+);
+
+has copy_file_from_release => (
+    isa => 'ArrayRef[Str]',
+    lazy => 1,
+    default => sub {
+        exists $_[0]->payload->{copy_file_from_release}
+            ? $_[0]->payload->{copy_file_from_release}
+            : [ qw(README.md LICENSE CONTRIBUTING) ];
+    },
+    traits => ['Array'],
+    handles => { copy_files_from_release => 'elements' },
 );
 
 has _requested_version => (
@@ -112,7 +124,7 @@ sub configure
         [ 'FileFinder::ByName' => Examples => { dir => 'examples' } ],
 
         # Gather Files
-        [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ qw(README.md LICENSE CONTRIBUTING) ] } ],
+        [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ $self->copy_files_from_release ] } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
         [ 'GenerateFile::ShareDir' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING' } ],
 
@@ -213,8 +225,8 @@ sub configure
         'UploadToCPAN',
 
         # After Release
-        [ 'CopyFilesFromRelease' => { filename => [ qw(README.md LICENSE CONTRIBUTING) ] } ],
-        [ 'Git::Commit'         => { add_files_in => [''], allow_dirty => [ qw(Changes README.md LICENSE CONTRIBUTING) ], commit_msg => '%N-%v%t%n%n%c' } ],
+        [ 'CopyFilesFromRelease' => { filename => [ $self->copy_files_from_release ] } ],
+        [ 'Git::Commit'         => { add_files_in => [''], allow_dirty => [ 'Changes', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? (
             [ 'GitHub::Update' => { metacpan => 1 } ],
@@ -456,9 +468,9 @@ following F<dist.ini> (following the preamble):
 
     ;;; AfterRelease
     [CopyFilesFromRelease]
-    copy = README.md
-    copy = LICENSE
-    copy = CONTRIBUTING
+    filename = README.md
+    filename = LICENSE
+    filename = CONTRIBUTING
 
     [Git::Commit]
     add_files_in =
@@ -574,6 +586,12 @@ you'll need to provide this yourself.
 A boolean option, that when set, removes the use of all plugins that use the
 network (generally for comparing metadata against PAUSE, and querying the
 remote git server), as well as blocking the use of the C<release> command.
+
+=head2 copy_file_from_release
+
+A file, to be present in the build, which is copied back to the source
+repository at release time and committed to git. Can be repeated more than
+once. Defaults to: F<README.md>, F<LICENSE>, F<CONTRIBUTING>.
 
 =head2 other customizations
 

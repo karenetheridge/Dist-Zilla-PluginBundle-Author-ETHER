@@ -5,6 +5,8 @@ Revision history for {{$dist->name}}
             [Git::GatherDir]
           - removed [ManifestSkip] which does nothing useful when there is no
             MANIFEST.SKIP file
+          - add an option for what files to copy from the release, for easier
+            customization
 
 0.047     2014-01-14 05:34:39Z
           - adjusted plugin order so [PkgVersion] gets a chance to insert into

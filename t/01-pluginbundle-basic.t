@@ -3,7 +3,7 @@ use warnings FATAL => 'all';
 
 use Test::More;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
-use Test::Deep;
+use Test::Deep '!blessed';
 use Test::DZil;
 use File::Find;
 use File::Spec;
@@ -29,7 +29,10 @@ my $tzil = Builder->from_config(
                 # our files are copied into source, so Git::GatherDir doesn't see them
                 # and besides, we would like to run these tests at install time too!
                 [ '@Author::ETHER' => {
-                    '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'PromptIfStale' ],
+                    '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe',
+                        'Git::Check', 'Git::Commit', 'Git::Tag', 'Git::Push',
+                        'Git::CheckFor::MergeConflicts', 'Git::CheckFor::CorrectBranch',
+                        'Git::Remote::Check', 'PromptIfStale' ],
                     server => 'none',
                 } ],
             ),

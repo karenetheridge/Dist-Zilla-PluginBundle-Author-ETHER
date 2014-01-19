@@ -141,10 +141,6 @@ sub configure
         'Test::Portability',
 
 
-        # Prune Files
-        'PruneCruft',
-        'ManifestSkip',
-
         # Munge Files
         'Git::Describe',
         [ PkgVersion            => { ':version' => '5.010', die_on_existing_version => 1, die_on_line_insertion => 1 } ],
@@ -353,11 +349,6 @@ following F<dist.ini> (following the preamble):
     [Test::ReportPrereqs]
     verify_prereqs = 1
     [Test::Portability]
-
-
-    ;;; Prune Files
-    [PruneCruft]
-    [ManifestSkip]
 
 
     ;;; Munge Files

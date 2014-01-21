@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.048     2014-01-21 04:07:40Z
           - removed [PruneCruft], which does nothing useful with
             [Git::GatherDir]
           - removed [ManifestSkip] which does nothing useful when there is no

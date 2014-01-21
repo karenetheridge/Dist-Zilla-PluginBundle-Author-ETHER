@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.047
+version 0.048
 
 # SYNOPSIS
 
@@ -90,11 +90,6 @@ following `dist.ini` (following the preamble):
     [Test::ReportPrereqs]
     verify_prereqs = 1
     [Test::Portability]
-
-
-    ;;; Prune Files
-    [PruneCruft]
-    [ManifestSkip]
 
 
     ;;; Munge Files
@@ -202,9 +197,9 @@ following `dist.ini` (following the preamble):
 
     ;;; AfterRelease
     [CopyFilesFromRelease]
-    copy = README.md
-    copy = LICENSE
-    copy = CONTRIBUTING
+    filename = README.md
+    filename = LICENSE
+    filename = CONTRIBUTING
 
     [Git::Commit]
     add_files_in =
@@ -312,6 +307,12 @@ If provided, must be one of:
 A boolean option, that when set, removes the use of all plugins that use the
 network (generally for comparing metadata against PAUSE, and querying the
 remote git server), as well as blocking the use of the `release` command.
+
+## copy\_file\_from\_release
+
+A file, to be present in the build, which is copied back to the source
+repository at release time and committed to git. Can be repeated more than
+once. Defaults to: `README.md`, `LICENSE`, `CONTRIBUTING`.
 
 ## other customizations
 

@@ -126,7 +126,7 @@ sub configure
         # Gather Files
         [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ $self->copy_files_from_release ] } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
-        [ 'GenerateFile::ShareDir' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING' } ],
+        [ 'GenerateFile::ShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING' } ],
 
         [ 'Test::Compile'       => {
             ':version' => '2.036',

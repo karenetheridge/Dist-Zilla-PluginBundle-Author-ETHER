@@ -15,9 +15,7 @@ sub profile_dir
 {
     my ($self, $profile_name) = @_;
 
-    # I'd template this as '{{ $dist->name }}', except [GatherDir::Template]
-    # uses FromCode files, which prevents other munging, e.g. PodWeaver
-    my $dist_name = 'Dist-Zilla-PluginBundle-Author-ETHER';
+    my $dist_name = '{{ $dist->name }}';
     my $profile_dir = dir( File::ShareDir::dist_dir($dist_name) )
                       ->subdir( 'profiles', $profile_name );
 

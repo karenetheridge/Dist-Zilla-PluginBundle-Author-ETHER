@@ -28,6 +28,7 @@ my @warnings = warnings {
                                                     # but obviously is not yet indexed)
                                                     # FIXME - update when the plugin gets smarter
                             'UploadToCPAN', # removed just in case!
+                            'RunExtraTests',  # some release tests might fail (e.g. spelling)
                         ],
                         airplane => 1,
                     } ],

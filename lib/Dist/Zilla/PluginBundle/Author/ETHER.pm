@@ -533,8 +533,8 @@ many as you'd like), as described in L<Pod::Spell/ADDING STOPWORDS>:
 =for stopwords ModuleBuildTiny
 
 The installer back-end(s) to use (can be specified more than once); defaults
-to L<C<MakeMaker::Fallback>|Dist::Zilla::Plugin::MakeMaker::Fallback>
-and L<C<ModuleBuildTiny>|Dist::Zilla::Plugin::ModuleBuildTiny>
+to L<C<ModuleBuildTiny>|Dist::Zilla::Plugin::ModuleBuildTiny>
+and L<C<MakeMaker::Fallback>|Dist::Zilla::Plugin::MakeMaker::Fallback>
 (which generates a F<Build.PL> for normal use, and
 F<Makefile.PL> as a fallback, containing an upgrade warning).
 

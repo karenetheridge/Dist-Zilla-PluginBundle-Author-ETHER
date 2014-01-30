@@ -208,13 +208,13 @@ sub configure
 
 
         # Before Release
-        [ 'Git::Check'          => 'initial check' => { allow_dirty => ['foo'] } ],
+        [ 'Git::Check'          => 'initial check' => { allow_dirty => [''] } ],
         'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
         [ 'Git::Remote::Check'  => { branch => 'master', remote_branch => 'master' } ],
         'CheckPrereqsIndexed',
         'TestRelease',
-        [ 'Git::Check'          => 'after tests' => { allow_dirty => ['foo'] } ],
+        [ 'Git::Check'          => 'after tests' => { allow_dirty => [''] } ],
         # (ConfirmRelease)
 
         # Releaser

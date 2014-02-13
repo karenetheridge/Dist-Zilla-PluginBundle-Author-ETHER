@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.050     2014-02-13 17:39:49Z
           - adjusted CONTRIBUTING content for XS-based dists - I promise to
             include a token Makefile.PL to allow development without dzil.
 

@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.049
+version 0.050
 
 # SYNOPSIS
 
@@ -257,8 +257,8 @@ many as you'd like), as described in ["ADDING STOPWORDS" in Pod::Spell](https://
 ## installer
 
 The installer back-end(s) to use (can be specified more than once); defaults
-to [`MakeMaker::Fallback`](https://metacpan.org/pod/Dist::Zilla::Plugin::MakeMaker::Fallback)
-and [`ModuleBuildTiny`](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuildTiny)
+to [`ModuleBuildTiny`](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuildTiny)
+and [`MakeMaker::Fallback`](https://metacpan.org/pod/Dist::Zilla::Plugin::MakeMaker::Fallback)
 (which generates a `Build.PL` for normal use, and
 `Makefile.PL` as a fallback, containing an upgrade warning).
 

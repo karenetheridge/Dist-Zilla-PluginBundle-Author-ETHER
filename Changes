@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - adjusted CONTRIBUTING content for XS-based dists - I promise to
+            include a token Makefile.PL to allow development without dzil.
 
 0.049     2014-01-29 02:56:31Z
           - fixed tests that can fail on systems with no spelling dictionaries

@@ -222,7 +222,7 @@ sub configure
 
         # After Release
         [ 'CopyFilesFromRelease' => { filename => [ $self->copy_files_from_release ] } ],
-        [ 'Git::Commit'         => { add_files_in => [''], allow_dirty => [ 'Changes', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
+        [ 'Git::Commit'         => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ 'Changes', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? (
             [ 'GitHub::Update' => { metacpan => 1 } ],
@@ -469,7 +469,8 @@ following F<dist.ini> (following the preamble):
     filename = CONTRIBUTING
 
     [Git::Commit]
-    add_files_in =
+    :version = 2.020
+    add_files_in = .
     allow_dirty = Changes
     allow_dirty = README.md
     allow_dirty = LICENSE

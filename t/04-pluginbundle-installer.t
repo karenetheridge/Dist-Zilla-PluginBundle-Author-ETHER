@@ -49,7 +49,7 @@ use Helper;
         additional => [ 'Dist::Zilla::Plugin::MakeMaker' ], # via installer option
     );
 
-    my $build_dir = $tzil->tempdir->subdir('build');
+    my $build_dir = path($tzil->tempdir)->child('build');
     my @found_files;
     find({
             wanted => sub { push @found_files, File::Spec->abs2rel($_, $build_dir) if -f  },

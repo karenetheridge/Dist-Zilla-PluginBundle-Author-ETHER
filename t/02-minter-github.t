@@ -19,7 +19,7 @@ plan skip_all => 'this test requires a built dist'
 my $tzil = Minter->_new_from_profile(
     [ 'Author::ETHER' => 'github' ],
     { name => 'My-New-Dist', },
-    { global_config_root => dir('t/corpus/global')->absolute },
+    { global_config_root => dir('t/corpus/global')->absolute }, # sadly, this must quack like a Path::Class
 );
 
 # we need to stop the git plugins from doing their thing
@@ -32,7 +32,7 @@ foreach my $plugin (grep { /Git/ } map { ref } @{$tzil->plugins})
 }
 
 $tzil->mint_dist;
-my $mint_dir = $tzil->tempdir->subdir('mint');
+my $mint_dir = path($tzil->tempdir)->child('mint');
 
 my @expected_files = qw(
     .gitignore

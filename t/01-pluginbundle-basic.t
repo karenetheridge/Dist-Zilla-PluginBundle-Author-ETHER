@@ -60,7 +60,7 @@ all_plugins_in_prereqs($tzil,
     ],
 );
 
-my $build_dir = $tzil->tempdir->subdir('build');
+my $build_dir = path($tzil->tempdir)->child('build');
 
 my @expected_files = qw(
     Build.PL

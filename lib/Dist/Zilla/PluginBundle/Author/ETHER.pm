@@ -162,7 +162,7 @@ sub configure
             do {
                 my $weaver = $self->surgical_podweaver ? 'SurgicalPodWeaver' : 'PodWeaver';
                 $weaver => {
-                    %{$extra_args{$weaver}},
+                    %{$extra_args{$weaver} // {}},
                     replacer => 'replace_with_comment',
                     post_code_replacer => 'replace_with_nothing',
                 }

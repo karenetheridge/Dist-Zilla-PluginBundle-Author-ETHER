@@ -583,6 +583,7 @@ you'll need to provide this yourself.
 A boolean option, that when set, removes the use of all plugins that use the
 network (generally for comparing metadata against PAUSE, and querying the
 remote git server), as well as blocking the use of the C<release> command.
+Defaults to false.
 
 =head2 copy_file_from_release
 

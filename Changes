@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - fix argument passed to [Git::Commit] that no longer works now that
             it uses Path::Tiny instead of Path::Class
+          - new "surgical_podweaver" configuration option
 
 0.050     2014-02-13 17:39:49Z
           - adjusted CONTRIBUTING content for XS-based dists - I promise to

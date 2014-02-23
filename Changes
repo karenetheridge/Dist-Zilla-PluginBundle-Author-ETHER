@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - [VerifyPhases] added (another information-only plugin)
 
 0.051     2014-02-23 01:10:45Z
           - fix argument passed to [Git::Commit] that no longer works now that

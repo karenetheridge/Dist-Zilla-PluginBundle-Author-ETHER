@@ -273,6 +273,9 @@ sub configure
     push @plugins, (
         # listed late, to allow all other plugins which do BeforeRelease checks to run first.
         'ConfirmRelease',
+
+        # listed last, to be sure we run at the very end of each phase
+        [ 'VerifyPhases' => 'PHASE VERIFICATION' ],
     );
 
     $self->add_plugins(@plugins);
@@ -506,6 +509,9 @@ following F<dist.ini> (following the preamble):
 
     ; listed late, to allow all other plugins which do BeforeRelease checks to run first.
     [ConfirmRelease]
+
+    ; listed last, to be sure we run at the very end of each phase
+    [VerifyPhases]
 
 
 =for Pod::Coverage configure mvp_multivalue_args

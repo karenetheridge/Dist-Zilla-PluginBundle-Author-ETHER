@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.050
+version 0.051
 
 # SYNOPSIS
 
@@ -101,7 +101,7 @@ following `dist.ini` (following the preamble):
     [Authority]
     authority = cpan:ETHER
 
-    [PodWeaver]
+    [PodWeaver] (or [SurgicalPodWeaver])
     :version = 4.005
     replacer = replace_with_comment
     post_code_replacer = replace_with_nothing
@@ -202,7 +202,8 @@ following `dist.ini` (following the preamble):
     filename = CONTRIBUTING
 
     [Git::Commit]
-    add_files_in =
+    :version = 2.020
+    add_files_in = .
     allow_dirty = Changes
     allow_dirty = README.md
     allow_dirty = LICENSE
@@ -307,12 +308,20 @@ If provided, must be one of:
 A boolean option, that when set, removes the use of all plugins that use the
 network (generally for comparing metadata against PAUSE, and querying the
 remote git server), as well as blocking the use of the `release` command.
+Defaults to false.
 
 ## copy\_file\_from\_release
 
 A file, to be present in the build, which is copied back to the source
 repository at release time and committed to git. Can be repeated more than
 once. Defaults to: `README.md`, `LICENSE`, `CONTRIBUTING`.
+
+## surgical\_podweaver
+
+A boolean option, that when set, uses
+[\[SurgicalPodWeaver\]](https://metacpan.org/pod/Dist::Zilla::Plugin::SurgicalPodWeaver) instead of
+[\[PodWeaver\]](https://metacpan.org/pod/Dist::Zilla::Plugin::SurgicalPodWeaver), but with all the same
+options. Defaults to false.
 
 ## other customizations
 

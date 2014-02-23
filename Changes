@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.051     2014-02-23 01:10:45Z
           - fix argument passed to [Git::Commit] that no longer works now that
             it uses Path::Tiny instead of Path::Class
           - new "surgical_podweaver" configuration option

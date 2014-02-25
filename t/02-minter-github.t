@@ -96,10 +96,4 @@ STRING
     'Changes file is created properly, with templates and whitespace preserved',
 );
 
-like(
-    path($mint_dir, 'xt/release/clean-namespaces.t')->slurp_utf8,
-    qr{namespaces_clean\(grep { !/\^My::New::Dist::Conflicts\$/ } Test::CleanNamespaces->find_modules\);}m,
-    'Test::CleanNamespaces skips the ::Conflicts module',
-);
-
 done_testing;

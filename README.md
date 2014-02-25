@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.051
+version 0.052
 
 # SYNOPSIS
 
@@ -225,6 +225,9 @@ following `dist.ini` (following the preamble):
 
     ; listed late, to allow all other plugins which do BeforeRelease checks to run first.
     [ConfirmRelease]
+
+    ; listed last, to be sure we run at the very end of each phase
+    [VerifyPhases]
 
 The distribution's code is assumed to be hosted at [github](http://github.com);
 [RT](http://rt.cpan.org) is used as the issue tracker.

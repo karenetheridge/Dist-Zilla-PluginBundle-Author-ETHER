@@ -511,7 +511,7 @@ following F<dist.ini> (following the preamble):
     [ConfirmRelease]
 
     ; listed last, to be sure we run at the very end of each phase
-    [VerifyPhases]
+    [VerifyPhases / PHASE VERIFICATION]
 
 
 =for Pod::Coverage configure mvp_multivalue_args

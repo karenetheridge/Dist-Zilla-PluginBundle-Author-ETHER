@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - now using [Test::CleanNamespaces] to build this distribution
 
 0.052     2014-02-25 04:56:32Z
           - [VerifyPhases] added (another information-only plugin)

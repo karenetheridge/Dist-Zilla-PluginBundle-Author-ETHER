@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - now using [Test::CleanNamespaces] to build this distribution as
             well as in newly-minted distributions
+          - make airplane mode actually work (doh!)
 
 0.052     2014-02-25 04:56:32Z
           - [VerifyPhases] added (another information-only plugin)

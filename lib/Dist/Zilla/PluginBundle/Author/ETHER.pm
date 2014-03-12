@@ -260,7 +260,9 @@ sub configure
             my $plugin = Dist::Zilla::Util->expand_config_package_name(
                 !ref($_) ? $_ : ref eq 'ARRAY' ? $_->[0] : die 'wtf'
             );
-            not grep { $_ eq $plugin } @network_plugins;
+            not grep { $_ eq $plugin }
+            map { Dist::Zilla::Util->expand_config_package_name($_) }
+            @network_plugins;
         } @plugins;
 
         # allow our uncommitted dist.ini edit which sets 'airplane = 1'

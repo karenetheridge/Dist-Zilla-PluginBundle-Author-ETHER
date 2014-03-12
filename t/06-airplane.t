@@ -5,9 +5,11 @@ use Test::More;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Warnings 0.005 ':no_end_test', ':all';
 use Test::DZil;
-use Test::Deep;
+use Test::Deep '!any';
 use Test::Fatal;
 use Path::Tiny;
+use List::MoreUtils 'any';
+use PadWalker 'peek_sub';
 
 my $tzil;
 my @warnings = warnings {
@@ -22,11 +24,7 @@ my @warnings = warnings {
                         # and besides, we would like to run these tests at install time too!
                         '-remove' => [ qw(Git::GatherDir Git::NextVersion Git::Describe Git::Tag
                             Git::Check Git::CheckFor::MergeConflicts
-                            Git::CheckFor::CorrectBranch Git::Remote::Check Git::Push),
-                            'PromptIfStale',
-                            'CheckPrereqsIndexed',  # we will trip up on ourselves (it got a version bump,
-                                                    # but obviously is not yet indexed)
-                                                    # FIXME - update when the plugin gets smarter
+                            Git::CheckFor::CorrectBranch Git::Push),
                             'UploadToCPAN', # removed just in case!
                             'RunExtraTests',  # some release tests might fail (e.g. spelling)
                         ],
@@ -62,6 +60,22 @@ is(
     exception { $tzil->build },
     undef,
     'build proceeds normally',
+);
+
+my @network_plugins =
+    map { Dist::Zilla::Util->expand_config_package_name($_) } @{
+        peek_sub(\&Dist::Zilla::PluginBundle::Author::ETHER::configure)->{'@network_plugins'}
+    };
+
+my @found_network_plugins = grep {
+    my $plugin = $_;
+    any { $_ eq $plugin } @network_plugins
+} $tzil->plugins;
+
+cmp_deeply(
+    \@found_network_plugins,
+    [],
+    'no network-using plugins were actually loaded',
 );
 
 like(

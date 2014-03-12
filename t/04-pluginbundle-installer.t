@@ -25,7 +25,7 @@ use Helper;
         { dist_root => 't/does_not_exist' },
         {
             add_files => {
-                'source/dist.ini' => simple_ini(
+                path(qw(source dist.ini)) => simple_ini(
                     'GatherDir',
                     # our files are copied into source, so Git::GatherDir doesn't see them
                     # and besides, we would like to run these tests at install time too!
@@ -77,7 +77,7 @@ SKIP: {
         { dist_root => 't/does_not_exist' },
         {
             add_files => {
-                'source/dist.ini' => simple_ini(
+                path(qw(source dist.ini)) => simple_ini(
                     'GatherDir',
                     # our files are copied into source, so Git::GatherDir doesn't see them
                     # and besides, we would like to run these tests at install time too!
@@ -104,7 +104,7 @@ SKIP: {
         ],
     );
 
-    my $build_dir = $tzil->tempdir->subdir('build');
+    my $build_dir = path($tzil->tempdir)->child('build');
     my @found_files;
     find({
             wanted => sub { push @found_files, File::Spec->abs2rel($_, $build_dir) if -f  },

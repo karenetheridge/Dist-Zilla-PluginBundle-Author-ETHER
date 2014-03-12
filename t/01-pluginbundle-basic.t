@@ -24,7 +24,7 @@ my $tzil = Builder->from_config(
     { dist_root => 't/does_not_exist' },
     {
         add_files => {
-            'source/dist.ini' => simple_ini(
+            path(qw(source dist.ini)) => simple_ini(
                 'GatherDir',
                 # our files are copied into source, so Git::GatherDir doesn't see them
                 # and besides, we would like to run these tests at install time too!

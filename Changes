@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.053     2014-03-12 15:01:19Z
           - now using [Test::CleanNamespaces] to build this distribution as
             well as in newly-minted distributions
           - make airplane mode actually work (doh!)

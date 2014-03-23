@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.053
+version 0.054
 
 # SYNOPSIS
 
@@ -155,6 +155,8 @@ following `dist.ini` (following the preamble):
 
     ;;; Test Runner
     [RunExtraTests]
+    :version = 0.019
+    default_jobs = 9
     # <specified installer(s)>
 
 

@@ -13,6 +13,7 @@ with
 use Dist::Zilla::Util;
 use Moose::Util::TypeConstraints;
 use List::MoreUtils qw(any first_index);
+use Module::Runtime 'use_module';
 use namespace::autoclean;
 
 sub mvp_multivalue_args { qw(installer copy_file_from_release) }
@@ -76,9 +77,12 @@ has _requested_version => (
     },
 );
 
-# when these plugins are used, use these options
+# configs are applied when plugins match ->isa($key) or ->does($key)
 my %extra_args = (
-    ModuleBuildTiny => { ':version' => '0.004' },
+    'Dist::Zilla::Plugin::ModuleBuildTiny' => { ':version' => '0.004' },
+    'Dist::Zilla::Plugin::MakeMaker::Fallback' => { ':version' => '0.008' },
+    # default_jobs is no-op until Dist::Zilla 5.014
+    'Dist::Zilla::Role::TestRunner' => { default_jobs => 9 },
 );
 
 # plugins that use the network when they run
@@ -195,8 +199,12 @@ sub configure
                 # runs, we're already trying to load the installer plugin --
                 # but it is useful for people doing "cpanm --with-develop"
                 ( map {
-                    Dist::Zilla::Util->expand_config_package_name($_) =>
-                        ($extra_args{$_} // {})->{':version'} // 0
+                    my $plugin = Dist::Zilla::Util->expand_config_package_name($_);
+                    my $args = $self->_extra_plugin_args($plugin);
+                    $plugin => 0,    # plugin at version 0, if nothing more specific found
+                    map {
+                        defined $args->{$_}{':version'} ? ( $_ => $args->{$_}{':version'} ) : ()
+                    } keys %$args;
                 } $self->installer ),
             } ],
         [ 'Prereqs' => pluginbundle_version => {
@@ -205,10 +213,16 @@ sub configure
             } ],
 
         # Test Runner
-        'RunExtraTests',
+        [ 'RunExtraTests' => { ':version' => '0.019', %{ $extra_args{'Dist::Zilla::Role::TestRunner'} } } ],
 
         # Install Tool
-        ( map { [ $_ => $extra_args{$_} // () ] } $self->installer ),
+        ( map {
+            [ $_ => +{
+                map { %$_ }
+                values %{ $self->_extra_plugin_args(Dist::Zilla::Util->expand_config_package_name($_)) }
+              }
+            ]
+         } $self->installer ),
         'InstallGuide',
 
         # After Build
@@ -280,6 +294,18 @@ sub configure
     # check for a bin/ that should probably be renamed to script/
     warn 'bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?'
         if -d 'bin' and any { $_ eq 'ModuleBuildTiny' } $self->installer;
+}
+
+# returns a subhash of %extra_args where keys match isa or does checks
+sub _extra_plugin_args
+{
+    my ($self, $plugin) = @_;
+    use_module($plugin);
+    my @keys = grep { $plugin->isa($_) or $plugin->does($_) } keys %extra_args;
+
+    my %slice;
+    @slice{@keys} = @extra_args{@keys};
+    \%slice;
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -436,6 +462,8 @@ following F<dist.ini> (following the preamble):
 
     ;;; Test Runner
     [RunExtraTests]
+    :version = 0.019
+    default_jobs = 9
     # <specified installer(s)>
 
 

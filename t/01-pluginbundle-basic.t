@@ -8,6 +8,7 @@ use Test::DZil;
 use File::Find;
 use File::Spec;
 use Path::Tiny;
+use Test::Deep::JSON;
 
 # these are used by our default 'installer' setting
 use Test::Requires qw(
@@ -35,6 +36,7 @@ my $tzil = Builder->from_config(
                         'Git::Remote::Check', 'PromptIfStale' ],
                     server => 'none',
                 } ],
+                'MetaConfig',
             ),
             path(qw(source lib NoOptions.pm)) => "package NoOptions;\n\n1",
         },
@@ -113,5 +115,37 @@ is(
     0,
     'no files were re-munged needlessly',
 ) or diag 'found messages:' . join("\n", @{ $tzil->log_messages });
+
+SKIP: {
+    skip 'need recent Dist::Zilla to test default_jobs option', 1
+        if not eval { Dist::Zilla->VERSION('5.014'); 1 };
+
+    my $json = $tzil->slurp_file('build/META.json');
+    cmp_deeply(
+        $json,
+        json(superhashof({
+            prereqs => superhashof({
+                develop => superhashof({
+                    requires => superhashof({ 'Dist::Zilla::Plugin::ModuleBuildTiny' => '0.004' }),
+                })
+            }),
+            x_Dist_Zilla => superhashof({
+                plugins => supersetof(
+                    map {
+                        +{
+                            class => 'Dist::Zilla::Plugin::' . $_,
+                            config => superhashof({
+                                'Dist::Zilla::Role::TestRunner' => superhashof({default_jobs => 9 }),
+                            }),
+                            name => ignore,
+                            version => ignore,
+                        }
+                    } qw(MakeMaker::Fallback ModuleBuildTiny RunExtraTests)
+                ),
+            })
+        })),
+        'config is properly included in metadata',
+    );
+}
 
 done_testing;

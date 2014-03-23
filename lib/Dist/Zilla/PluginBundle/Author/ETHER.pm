@@ -180,7 +180,7 @@ sub configure
             : ()
         } ],
         # (Authority)
-        [ 'MetaNoIndex'         => { directory => [ qw(t xt examples share) ] } ],
+        [ 'MetaNoIndex'         => { directory => [ qw(t xt), grep { -d } qw(examples share corpus) ] } ],
         [ 'MetaProvides::Package' => { meta_noindex => 1, ':version' => '1.15000002', finder => ':InstallModules' } ],
         'MetaConfig',
         #[ContributorsFromGit]

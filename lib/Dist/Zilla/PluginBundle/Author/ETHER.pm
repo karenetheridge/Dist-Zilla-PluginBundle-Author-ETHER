@@ -79,7 +79,6 @@ has _requested_version => (
 # when these plugins are used, use these options
 my %extra_args = (
     ModuleBuildTiny => { ':version' => '0.004' },
-    PodWeaver => { ':version' => '4.005' },
 );
 
 # plugins that use the network when they run
@@ -159,13 +158,9 @@ sub configure
         [ PkgVersion            => { ':version' => '5.010', die_on_existing_version => 1, die_on_line_insertion => 1 } ],
         [ 'Authority'           => { authority => 'cpan:ETHER' } ],
         [
-            do {
-                my $weaver = $self->surgical_podweaver ? 'SurgicalPodWeaver' : 'PodWeaver';
-                $weaver => {
-                    %{$extra_args{$weaver} // {}},
-                    replacer => 'replace_with_comment',
-                    post_code_replacer => 'replace_with_nothing',
-                }
+            ($self->surgical_podweaver ? 'SurgicalPodWeaver' : 'PodWeaver') => {
+                replacer => 'replace_with_comment',
+                post_code_replacer => 'replace_with_nothing',
             }
         ],
         [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],

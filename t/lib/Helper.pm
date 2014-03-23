@@ -53,7 +53,8 @@ sub all_plugins_in_prereqs
                 );
             }
         }
-    };
+    }
+    or diag 'got metadata: ', explain $pluginbundle_meta;
 } }
 
 1;

@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix missing prereq declaration needed from last release
 
 0.054     2014-03-23 04:49:15Z
           - pass default_jobs => 9 option to all installer tools in use, and

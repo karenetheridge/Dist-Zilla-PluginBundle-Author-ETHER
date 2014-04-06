@@ -2,6 +2,7 @@ use strict;
 use warnings;
 package Dist::Zilla::PluginBundle::Author::ETHER;
 # ABSTRACT: A plugin bundle for distributions built by ETHER
+# KEYWORDS: author bundle distribution tool
 # vim: set ts=8 sw=4 tw=78 et :
 
 use Moose;
@@ -183,6 +184,7 @@ sub configure
         [ 'MetaNoIndex'         => { directory => [ qw(t xt), grep { -d } qw(examples share corpus) ] } ],
         [ 'MetaProvides::Package' => { meta_noindex => 1, ':version' => '1.15000002', finder => ':InstallModules' } ],
         'MetaConfig',
+        [ 'Keywords'            => { ':version' => '0.004' } ],
         #[ContributorsFromGit]
 
         # Register Prereqs
@@ -442,7 +444,8 @@ following F<dist.ini> (following the preamble):
     finder = :InstallModules
 
     [MetaConfig]
-
+    [Keywords]
+    :version = 0.004
 
     ;;; Register Prereqs
     [AutoPrereqs]

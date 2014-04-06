@@ -142,7 +142,6 @@ sub configure
         [ 'Test::NoTabs'        => { script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
         'EOLTests',
         'MetaTests',
-        [ 'Test::Version'       => { is_strict => 1 } ],
         [ 'Test::CPAN::Changes' => { ':version' => '0.008' } ],
         'Test::ChangesHasContent',
         'Test::UnusedVars',
@@ -233,6 +232,7 @@ sub configure
 
 
         # Before Release
+        [ 'CheckStrictVersion' => { decimal_only => 1 } ],
         [ 'Git::Check'          => 'initial check' => { allow_dirty => [''] } ],
         'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
@@ -380,8 +380,6 @@ following F<dist.ini> (following the preamble):
 
     [EOLTests]
     [MetaTests]
-    [Test::Version]
-    is_strict = 1
     [Test::CPAN::Changes]
     :version = 0.008
     [Test::ChangesHasContent]
@@ -495,6 +493,9 @@ following F<dist.ini> (following the preamble):
     [Git::Remote::Check]
     branch = master
     remote_branch = master
+
+    [CheckStrictVersion]
+    decimal_only = 1
 
     [CheckPrereqsIndexed]
     [TestRelease]

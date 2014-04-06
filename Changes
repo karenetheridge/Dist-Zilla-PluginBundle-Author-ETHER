@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - automatically add keywords to metadata, extracted from # KEYWORDS:
             comment in main module
+          - switch from [Test::Version] to [CheckStrictVersion]
 
 0.055     2014-03-24 04:03:47Z
           - fix missing prereq declaration needed from last release

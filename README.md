@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.055
+version 0.056
 
 # SYNOPSIS
 
@@ -71,8 +71,6 @@ following `dist.ini` (following the preamble):
 
     [EOLTests]
     [MetaTests]
-    [Test::Version]
-    is_strict = 1
     [Test::CPAN::Changes]
     :version = 0.008
     [Test::ChangesHasContent]
@@ -135,7 +133,8 @@ following `dist.ini` (following the preamble):
     finder = :InstallModules
 
     [MetaConfig]
-
+    [Keywords]
+    :version = 0.004
 
     ;;; Register Prereqs
     [AutoPrereqs]
@@ -185,6 +184,9 @@ following `dist.ini` (following the preamble):
     [Git::Remote::Check]
     branch = master
     remote_branch = master
+
+    [CheckStrictVersion]
+    decimal_only = 1
 
     [CheckPrereqsIndexed]
     [TestRelease]

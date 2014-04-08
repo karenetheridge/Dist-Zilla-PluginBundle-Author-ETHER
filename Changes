@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.056     2014-04-08 02:43:13Z
           - automatically add keywords to metadata, extracted from # KEYWORDS:
             comment in main module
           - switch from [Test::Version] to [CheckStrictVersion]

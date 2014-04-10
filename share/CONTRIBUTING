@@ -4,11 +4,10 @@ CONTRIBUTING
 Thank you for considering contributing to this distribution.  This file
 contains instructions that will help you work with the source code.
 
-The distribution is managed with Dist::Zilla.  {{
-    if ($has_xs = glob('*.xs')) { <<'HAS_XS'
-However, you can still compile
-and test the code with a small Makefile.PL specifically for use in the
-repository.  You can do:
+The distribution is managed with Dist::Zilla (https://metacpan.org/release/Dist-Zilla).
+{{ if ($has_xs = glob('*.xs')) { <<'HAS_XS'
+However, you can still compile and test the code with a small Makefile.PL
+specifically for use in the repository.  You can do:
 
     perl Makefile.PL
     make
@@ -19,9 +18,8 @@ As well as:
   $ prove -lv t/some_test_file.t
 HAS_XS
 } else { <<'NO_XS'
-This means than many of the
-usual files you might expect are not in the repository, but are generated
-at release time (e.g. Makefile.PL).
+This means than many of the usual files you might expect are not in the
+repository, but are generated at release time (e.g. Makefile.PL).
 
 However, you can run tests directly using the 'prove' tool:
 

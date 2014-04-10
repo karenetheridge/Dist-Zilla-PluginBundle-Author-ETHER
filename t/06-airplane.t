@@ -84,4 +84,5 @@ like(
     'release halts',
 );
 
+had_no_warnings if $ENV{AUTHOR_TESTING};
 done_testing;

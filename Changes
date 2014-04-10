@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - minimum perl version really softened to 5.10.1, except when
+            minting distributions (which should have happened in v0.051)
 
 0.056     2014-04-08 02:43:13Z
           - automatically add keywords to metadata, extracted from # KEYWORDS:

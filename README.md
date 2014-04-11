@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.056
+version 0.057
 
 # SYNOPSIS
 
@@ -168,7 +168,7 @@ following `dist.ini` (following the preamble):
     [CheckSelfDependency]
 
     [Run::AfterBuild]
-    run => if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi
+    run = if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; ln -sf %d .latest ; fi
 
 
     ;;; Before Release
@@ -362,5 +362,5 @@ the same terms as the Perl 5 programming language system itself.
 
 # CONTRIBUTORS
 
-- Randy Stauner <randy@magnificent-tears.com>
-- Sergey Romanov <complefor@rambler.ru>
+- Randy Stauner <rwstauner@cpan.org>
+- Сергей Романов <sromanov@cpan.org>

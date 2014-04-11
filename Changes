@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.057     2014-04-11 01:04:20Z
           - minimum perl version really softened to 5.10.1, except when
             minting distributions (which should have happened in v0.051)
           - when building as 'dzil build' or 'dzil release', add a .latest

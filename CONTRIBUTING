@@ -4,9 +4,9 @@ CONTRIBUTING
 Thank you for considering contributing to this distribution.  This file
 contains instructions that will help you work with the source code.
 
-The distribution is managed with Dist::Zilla.  This means than many of the
-usual files you might expect are not in the repository, but are generated
-at release time (e.g. Makefile.PL).
+The distribution is managed with Dist::Zilla (https://metacpan.org/release/Dist-Zilla).
+This means than many of the usual files you might expect are not in the
+repository, but are generated at release time (e.g. Makefile.PL).
 
 However, you can run tests directly using the 'prove' tool:
 
@@ -75,4 +75,4 @@ irc://irc.perl.org/#distzilla.
 
 
 This file was generated via Dist::Zilla::Plugin::GenerateFile::ShareDir 0.005 from a
-template file originating in Dist-Zilla-PluginBundle-Author-ETHER-0.056.
+template file originating in Dist-Zilla-PluginBundle-Author-ETHER-0.057.

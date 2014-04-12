@@ -38,7 +38,8 @@ my $tzil = Builder->from_config(
                 } ],
                 'MetaConfig',
             ),
-            path(qw(source lib NoOptions.pm)) => "package NoOptions;\n\n1",
+            path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\n\n1",
+            path(qw(source lib DZT Sample2.pm)) => "package DZT::Sample2;\n\n1",
         },
     },
 );
@@ -69,7 +70,8 @@ my @expected_files = qw(
     Makefile.PL
     dist.ini
     INSTALL
-    lib/NoOptions.pm
+    lib/DZT/Sample.pm
+    lib/DZT/Sample2.pm
     CONTRIBUTING
     LICENSE
     MANIFEST
@@ -146,5 +148,20 @@ SKIP: {
         'config is properly included in metadata',
     );
 }
+
+my $contributing = $tzil->slurp_file('build/CONTRIBUTING');
+unlike($contributing, qr/[^\S\n]\n/m, 'no trailing whitespace in generated CONTRIBUTING');
+like(
+    $contributing,
+    qr/^  \$ cpanm --reinstall --installdeps --with-develop --with-recommends DZT::Sample$/m,
+    'name of main module properly inserted into CONTRIBUTING',
+);
+
+my $version = Dist::Zilla::PluginBundle::Author::ETHER->VERSION // '';
+like(
+    $contributing,
+    qr/^template file originating in Dist-Zilla-PluginBundle-Author-ETHER-$version\.$/m,
+    'name of this bundle dist and its version properly inserted into CONTRIBUTING',
+);
 
 done_testing;

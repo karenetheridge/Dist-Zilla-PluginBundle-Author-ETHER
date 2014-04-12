@@ -37,7 +37,12 @@ https://metacpan.org/release/{{ $dist->name }}.
 
 If you use cpanminus, you can do it without downloading the tarball first:
 
-  $ cpanm --reinstall --installdeps --with-recommends {{ $dist->name =~ s/-/::/gr }}
+  $ cpanm --reinstall --installdeps --with-recommends {{
+  $main_package = $dist->main_module->name;
+  $main_package =~ s{^lib/}{};
+  $main_package =~ s{\.pm$}{};
+  $main_package =~ s{/}{::}g;
+}}
 
 Dist::Zilla is a very powerful authoring tool, but requires a number of
 author-specific plugins.  If you would like to use it for contributing,
@@ -55,7 +60,7 @@ dzil build but may be needed by tests or other development:
 
 You can also do this via cpanm directly:
 
-  $ cpanm --reinstall --installdeps --with-develop --with-recommends {{ $dist->name =~ s/-/::/gr }}
+  $ cpanm --reinstall --installdeps --with-develop --with-recommends {{ $main_package }}
 
 Once installed, here are some dzil commands you might try:
 
@@ -97,7 +102,7 @@ $extra ||= 'This is a good place to send your questions about the usage of this 
 
 This file was generated via {{ ref($plugin) . ' ' . ($plugin->VERSION || '<self>') }} from a
 template file originating in {{
-    my $module = $plugin->dist =~ s/-/::/gr;
+    (my $module = $plugin->dist) =~ s/-/::/g;
     eval "require $module";
     $plugin->dist . '-' . $module->VERSION
 }}.

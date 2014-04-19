@@ -285,10 +285,12 @@ sub configure
     push @plugins, (
         # listed late, to allow all other plugins which do BeforeRelease checks to run first.
         'ConfirmRelease',
+    );
 
+    push @plugins, (
         # listed last, to be sure we run at the very end of each phase
         [ 'VerifyPhases' => 'PHASE VERIFICATION' ],
-    );
+    ) if ($ENV{USER} // '') eq 'ether';
 
     $self->add_plugins(@plugins);
 

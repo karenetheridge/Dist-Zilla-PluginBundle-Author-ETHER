@@ -67,10 +67,47 @@ cmp_deeply(
     'the correct files are created',
 );
 
+my $module = path($mint_dir, 'lib/My/New/Dist.pm')->slurp_utf8;
+
 like(
-    path($mint_dir, 'lib/My/New/Dist.pm')->slurp_utf8,
+    $module,
     qr/^use strict;\nuse warnings;\npackage My::New::Dist;/m,
     'our new module has a valid package declaration',
+);
+
+like(
+    $module,
+    qr/\n\n\n1;\n__END__\n/m,
+    'the package code ends in a generic way',
+);
+
+like(
+    $module,
+    do {
+        my $pattern = <<SYNOPSIS;
+=head1 SYNOPSIS
+
+    use My::New::Dist;
+
+    ...
+
+=head1 DESCRIPTION
+SYNOPSIS
+        qr/\Q$pattern\E/
+    },
+    'our new module has a brief generic synopsis',
+);
+
+like(
+    $module,
+    qr{=head1 FUNCTIONS/METHODS},
+    'our new module has a pod section for functions and methods',
+);
+
+like(
+    path($mint_dir, 't', '01-basic.t')->slurp_utf8,
+    qr/^use My::New::Dist;\n\nfail\('this test is TODO!'\);$/m,
+    'test gets generic content',
 );
 
 like(

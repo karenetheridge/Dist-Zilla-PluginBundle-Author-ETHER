@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.058     2014-04-19 05:38:04Z
           - minimum perl version really really fixed now
           - drop [Test::UnusedVars] - too many false positives; perl-critic is
             better suited to address these sorts of issues

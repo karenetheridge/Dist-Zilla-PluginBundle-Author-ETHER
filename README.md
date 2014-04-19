@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.057
+version 0.058
 
 # SYNOPSIS
 
@@ -74,7 +74,6 @@ following `dist.ini` (following the preamble):
     [Test::CPAN::Changes]
     :version = 0.008
     [Test::ChangesHasContent]
-    [Test::UnusedVars]
     [Test::MinimumVersion]
     :version = 2.000003
     max_target_perl = 5.008001

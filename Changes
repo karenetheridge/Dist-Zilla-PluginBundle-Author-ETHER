@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
           - minimum perl version really really fixed now
+          - drop [Test::UnusedVars] - too many false positives; perl-critic is
+            better suited to address these sorts of issues
 
 0.057     2014-04-11 01:04:20Z
           - minimum perl version really softened to 5.10.1, except when

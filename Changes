@@ -7,6 +7,7 @@ Revision history for {{$dist->name}}
           - Makefile.PL now checks for 'git' command, so we can get NA reports
             for every smoker that tried to look at us (before attempting to
             install all the prerequisites)
+          - customized minting output if the dist is a Dist::Zilla plugin
 
 0.057     2014-04-11 01:04:20Z
           - minimum perl version really softened to 5.10.1, except when

@@ -4,24 +4,43 @@ package {{ $name }};
 # ABSTRACT: ...
 # vim: set ts=8 sw=4 tw=78 et :
 
+{{
+    ($zilla_plugin) = ($name =~ /^Dist::Zilla::Plugin::(.+)$/g);
+
+$zilla_plugin ? <<PLUGIN
+use Moose;
+with 'Dist::Zilla::Role::...';
+
+use namespace::autoclean;
 
 
-1;
-__END__
+
+__PACKAGE__->meta->make_immutable;
+PLUGIN
+: "\n1;\n"
+}}__END__
 
 =pod
 
 =head1 SYNOPSIS
 
-    use {{ $name }};
+{{
+$zilla_plugin ? <<SYNOPSIS
+In your F<dist.ini>:
+
+    [$zilla_plugin]
+SYNOPSIS
+: <<SYNOPSIS
+    use $name;
 
     ...
-
+SYNOPSIS
+}}
 =head1 DESCRIPTION
 
-...
+{{ $zilla_plugin ? 'This is a L<Dist::Zilla> plugin that' : '' }}...
 
-=head1 FUNCTIONS/METHODS
+=head1 {{ $zilla_plugin ? 'CONFIGURATION OPTIONS' : 'FUNCTIONS/METHODS' }}
 
 =head2 C<foo>
 

@@ -4,6 +4,9 @@ Revision history for {{$dist->name}}
           - minimum perl version really really fixed now
           - drop [Test::UnusedVars] - too many false positives; perl-critic is
             better suited to address these sorts of issues
+          - Makefile.PL now checks for 'git' command, so we can get NA reports
+            for every smoker that tried to look at us (before attempting to
+            install all the prerequisites)
 
 0.057     2014-04-11 01:04:20Z
           - minimum perl version really softened to 5.10.1, except when

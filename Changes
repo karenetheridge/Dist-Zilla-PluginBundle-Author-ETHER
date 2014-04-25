@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - revisions to generated CONTRIBUTING document
 
 0.058     2014-04-19 05:38:04Z
           - minimum perl version really really fixed now

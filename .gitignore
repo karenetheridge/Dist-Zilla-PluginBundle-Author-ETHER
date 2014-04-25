@@ -1,6 +1,6 @@
 /.ackrc
 /.build/
-!.gitignore
+!/.gitignore
 /.latest
 /Dist-Zilla-PluginBundle-Author-ETHER-*/
 /Dist-Zilla-PluginBundle-Author-ETHER-*.tar.gz

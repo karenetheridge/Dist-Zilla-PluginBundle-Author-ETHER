@@ -152,7 +152,7 @@ my $contributing = $tzil->slurp_file('build/CONTRIBUTING');
 unlike($contributing, qr/[^\S\n]\n/m, 'no trailing whitespace in generated CONTRIBUTING');
 like(
     $contributing,
-    qr/^  \$ cpanm --reinstall --installdeps --with-develop --with-recommends DZT::Sample$/m,
+    qr/^  \$ cpanm --reinstall --installdeps --with-recommends DZT::Sample\n.*^  \$ cpanm --reinstall --installdeps --with-develop --with-recommends DZT::Sample$/ms,
     'name of main module properly inserted into CONTRIBUTING',
 );
 

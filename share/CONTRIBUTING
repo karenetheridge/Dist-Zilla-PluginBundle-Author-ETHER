@@ -42,6 +42,7 @@ If you use cpanminus, you can do it without downloading the tarball first:
   $main_package =~ s{^lib/}{};
   $main_package =~ s{\.pm$}{};
   $main_package =~ s{/}{::}g;
+  $main_package
 }}
 
 Dist::Zilla is a very powerful authoring tool, but requires a number of

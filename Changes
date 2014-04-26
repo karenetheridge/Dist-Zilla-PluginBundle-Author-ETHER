@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.059     2014-04-26 22:32:12Z
           - revisions to and fixes for generated CONTRIBUTING document
 
 0.058     2014-04-19 05:38:04Z

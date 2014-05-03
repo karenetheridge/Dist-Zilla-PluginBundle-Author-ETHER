@@ -4,6 +4,8 @@ Revision history for {{$dist->name}}
           - fix adjustment of existing .latest symlink at build time
           - added use of [EnsurePrereqsInstalled], to check ; authordeps are
             satisfied
+          - Dist::Zilla::Plugin::BlockRelease (used by airplane mode) has been
+            broken out into its own distribution
 
 0.059     2014-04-26 22:32:12Z
           - revisions to and fixes for generated CONTRIBUTING document

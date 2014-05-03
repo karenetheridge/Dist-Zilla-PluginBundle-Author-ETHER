@@ -11,6 +11,12 @@ use Path::Tiny;
 use List::MoreUtils 'any';
 use PadWalker 'peek_sub';
 
+use lib 't/lib';
+use Helper;
+
+# used by the 'airplane' config
+use Test::Requires 'Dist::Zilla::Plugin::BlockRelease';
+
 my $tzil;
 my @warnings = warnings {
     $tzil = Builder->from_config(
@@ -30,7 +36,7 @@ my @warnings = warnings {
                         ],
                         airplane => 1,
                     } ],
-                    'FakeRelease',  # replaces UploadToCPAN
+                    'FakeRelease',  # replaces UploadToCPAN, just in case!
                 ),
                 path(qw(source lib Foo Bar.pm)) => <<MODULE,
 use strict;
@@ -60,6 +66,17 @@ is(
     exception { $tzil->build },
     undef,
     'build proceeds normally',
+);
+
+# check that everything we loaded is in the pluginbundle's run-requires, etc
+all_plugins_in_prereqs($tzil,
+    exempt => [
+        'Dist::Zilla::Plugin::GatherDir',       # used by us here
+        'Dist::Zilla::Plugin::FakeRelease',     # ""
+    ],
+    additional => [
+        'Dist::Zilla::Plugin::BlockRelease',    # via airplane option
+    ],
 );
 
 my @network_plugins =

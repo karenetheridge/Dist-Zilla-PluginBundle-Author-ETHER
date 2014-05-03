@@ -257,13 +257,6 @@ sub configure
         [ 'InstallRelease'      => { install_command => 'cpanm .' } ],
     );
 
-    push @plugins, (
-        [ 'Prereqs' => via_options => {
-            '-phase' => 'develop', '-relationship' => 'requires',
-            %extra_develop_requires
-          } ]
-    ) if keys %extra_develop_requires;
-
     if ($self->airplane)
     {
         warn "building in airplane mode - plugins requiring the network are skipped, and releases are not permitted\n";
@@ -279,9 +272,18 @@ sub configure
         # allow our uncommitted dist.ini edit which sets 'airplane = 1'
         push @{ $plugins[ first_index { ref eq 'ARRAY' && $_->[0] eq 'Git::Check' } @plugins ][-1]{allow_dirty} }, 'dist.ini';
 
+        $extra_develop_requires{'Dist::Zilla::Plugin::BlockRelease'} = 0;
+
         # halt release after pre-release checks, but before ConfirmRelease
         push @plugins, 'BlockRelease';
     }
+
+    push @plugins, (
+        [ 'Prereqs' => via_options => {
+            '-phase' => 'develop', '-relationship' => 'requires',
+            %extra_develop_requires
+          } ]
+    ) if keys %extra_develop_requires;
 
     push @plugins, (
         # listed late, to allow all other plugins which do BeforeRelease checks to run first.

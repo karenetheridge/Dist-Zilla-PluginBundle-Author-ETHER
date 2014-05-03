@@ -122,6 +122,7 @@ sub configure
         [ 'Git::NextVersion'    => { version_regexp => '^v([\d._]+)(-TRIAL)?$' } ],
 
         # BeforeBuild
+        [ 'EnsurePrereqsInstalled' ],
         [ 'PromptIfStale' => 'build' => { phase => 'build', module => [ $self->meta->name ] } ],
         [ 'PromptIfStale' => 'release' => { phase => 'release', check_all_plugins => 1, check_all_prereqs => 1 } ],
 

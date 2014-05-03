@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
           - fix adjustment of existing .latest symlink at build time
+          - added use of [EnsurePrereqsInstalled], to check ; authordeps are
+            satisfied
 
 0.059     2014-04-26 22:32:12Z
           - revisions to and fixes for generated CONTRIBUTING document

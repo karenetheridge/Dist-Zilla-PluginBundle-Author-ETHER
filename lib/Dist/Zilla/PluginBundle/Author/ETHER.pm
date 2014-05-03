@@ -652,9 +652,9 @@ L<[SurgicalPodWeaver]|Dist::Zilla::Plugin::SurgicalPodWeaver> instead of
 L<[PodWeaver]|Dist::Zilla::Plugin::SurgicalPodWeaver>, but with all the same
 options. Defaults to false.
 
-=head2 other customizations
-
 =for stopwords customizations
+
+=head2 other customizations
 
 This bundle makes use of L<Dist::Zilla::Role::PluginBundle::PluginRemover> and
 L<Dist::Zilla::Role::PluginBundle::Config::Slicer> to allow further customization.

@@ -6,6 +6,8 @@ Revision history for {{$dist->name}}
             satisfied
           - Dist::Zilla::Plugin::BlockRelease (used by airplane mode) has been
             broken out into its own distribution
+          - removed unnecessary use of StopWords in this dist, dists being
+            built and dists being minted
 
 0.059     2014-04-26 22:32:12Z
           - revisions to and fixes for generated CONTRIBUTING document

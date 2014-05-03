@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.060     2014-05-03 22:52:01Z
           - fix adjustment of existing .latest symlink at build time
           - added use of [EnsurePrereqsInstalled], to check ; authordeps are
             satisfied

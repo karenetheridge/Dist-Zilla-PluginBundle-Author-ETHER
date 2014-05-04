@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix ln flags for linux
 
 0.060     2014-05-03 22:52:01Z
           - fix adjustment of existing .latest symlink at build time

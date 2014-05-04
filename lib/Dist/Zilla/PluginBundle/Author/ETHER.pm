@@ -228,7 +228,7 @@ sub configure
 
         # After Build
         'CheckSelfDependency',
-        [ 'Run::AfterBuild' => { run => q{if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; ln -sFhn %d .latest; fi} } ],
+        [ 'Run::AfterBuild' => { run => q{if [ `basename %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; ln -sFn %d .latest; fi} } ],
 
 
         # Before Release
@@ -481,7 +481,7 @@ following F<dist.ini> (following the preamble):
     [CheckSelfDependency]
 
     [Run::AfterBuild]
-    run = if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; ln -sFhn %d .latest ; fi
+    run = if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; ln -sFn %d .latest ; fi
 
 
     ;;; Before Release

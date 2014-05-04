@@ -132,6 +132,7 @@ sub configure
 
         # Finders
         [ 'FileFinder::ByName' => Examples => { dir => 'examples' } ],
+        [ 'FileFinder::ByName' => ExtraTestFiles => { dir => 'xt' } ],
 
         # Gather Files
         [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ $self->copy_files_from_release ] } ],
@@ -140,7 +141,7 @@ sub configure
 
         [ 'Test::Compile'       => { ':version' => '2.039', bail_out_on_fail => 1, xt_mode => 1,
             script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
-        [ 'Test::NoTabs'        => { script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
+        [ 'Test::NoTabs'        => { 'version' => '0.08', finder => [qw(:InstallModules :ExecFiles @Author::ETHER/Examples :TestFiles @Author::ETHER/ExtraTestFiles)] } ],
         'EOLTests',
         'MetaTests',
         [ 'Test::CPAN::Changes' => { ':version' => '0.008' } ],
@@ -355,6 +356,8 @@ following F<dist.ini> (following the preamble):
     ;;; Finders
     [FileFinder::ByName / Examples]
     dir = examples
+    [FileFinder::ByName / ExtraTestFiles]
+    dir = xt
 
     ;;; Gather Files
     [Git::GatherDir]
@@ -380,8 +383,12 @@ following F<dist.ini> (following the preamble):
     script_finder = Examples
 
     [Test::NoTabs]
-    script_finder = :ExecFiles
-    script_finder = Examples
+    :version = 0.08
+    finder = :InstallModules
+    finder = :ExecFiles
+    finder = Examples
+    finder = :TestFiles
+    finder = ExtraTestFiles
 
     [EOLTests]
     [MetaTests]

@@ -2,6 +2,7 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
           - fix ln flags for linux
+          - fix filefinders used in no-tabs tests
 
 0.060     2014-05-03 22:52:01Z
           - fix adjustment of existing .latest symlink at build time

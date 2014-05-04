@@ -138,7 +138,7 @@ sub configure
         qw(MetaYAML MetaJSON License Readme Manifest),
         [ 'GenerateFile::ShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING' } ],
 
-        [ 'Test::Compile'       => { ':version' => '2.036', bail_out_on_fail => 1, xt_mode => 1,
+        [ 'Test::Compile'       => { ':version' => '2.039', bail_out_on_fail => 1, xt_mode => 1,
             script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
         [ 'Test::NoTabs'        => { script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
         'EOLTests',
@@ -373,7 +373,7 @@ following F<dist.ini> (following the preamble):
     -filename = CONTRIBUTING
 
     [Test::Compile]
-    :version = 2.036
+    :version = 2.039
     bail_out_on_fail = 1
     xt_mode = 1
     script_finder = :ExecFiles

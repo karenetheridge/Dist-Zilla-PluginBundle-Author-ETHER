@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.060
+version 0.061
 
 # SYNOPSIS
 
@@ -22,6 +22,7 @@ following `dist.ini` (following the preamble):
     version_regexp = ^v([\d._]+)(-TRIAL)?$
 
     ;;; BeforeBuild
+    [EnsurePrereqsInstalled]
     [PromptIfStale / build]
     phase = build
     module = Dist::Zilla::Plugin::Author::ETHER
@@ -41,6 +42,8 @@ following `dist.ini` (following the preamble):
     ;;; Finders
     [FileFinder::ByName / Examples]
     dir = examples
+    [FileFinder::ByName / ExtraTestFiles]
+    dir = xt
 
     ;;; Gather Files
     [Git::GatherDir]
@@ -59,15 +62,19 @@ following `dist.ini` (following the preamble):
     -filename = CONTRIBUTING
 
     [Test::Compile]
-    :version = 2.036
+    :version = 2.039
     bail_out_on_fail = 1
     xt_mode = 1
     script_finder = :ExecFiles
     script_finder = Examples
 
     [Test::NoTabs]
-    script_finder = :ExecFiles
-    script_finder = Examples
+    :version = 0.08
+    finder = :InstallModules
+    finder = :ExecFiles
+    finder = Examples
+    finder = :TestFiles
+    finder = ExtraTestFiles
 
     [EOLTests]
     [MetaTests]
@@ -167,7 +174,7 @@ following `dist.ini` (following the preamble):
     [CheckSelfDependency]
 
     [Run::AfterBuild]
-    run = if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; ln -sFhn %d .latest ; fi
+    run = if [ `dirname %d` != .build ]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; ln -sFn %d .latest ; fi
 
 
     ;;; Before Release

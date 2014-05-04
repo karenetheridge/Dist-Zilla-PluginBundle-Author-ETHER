@@ -335,6 +335,7 @@ following F<dist.ini> (following the preamble):
     version_regexp = ^v([\d._]+)(-TRIAL)?$
 
     ;;; BeforeBuild
+    [EnsurePrereqsInstalled]
     [PromptIfStale / build]
     phase = build
     module = Dist::Zilla::Plugin::Author::ETHER

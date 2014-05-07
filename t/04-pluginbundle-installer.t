@@ -31,7 +31,8 @@ use Helper;
                     # our files are copied into source, so Git::GatherDir doesn't see them
                     # and besides, we would like to run these tests at install time too!
                     [ '@Author::ETHER' => {
-                        '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'PromptIfStale' ],
+                        '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe',
+                            'PromptIfStale', 'EnsurePrereqsInstalled' ],
                         server => 'none',
                         installer => 'MakeMaker',
                       },

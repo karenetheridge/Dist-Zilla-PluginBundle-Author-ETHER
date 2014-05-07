@@ -34,7 +34,7 @@ my $tzil = Builder->from_config(
                     '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe',
                         'Git::Check', 'Git::Commit', 'Git::Tag', 'Git::Push',
                         'Git::CheckFor::MergeConflicts', 'Git::CheckFor::CorrectBranch',
-                        'Git::Remote::Check', 'PromptIfStale' ],
+                        'Git::Remote::Check', 'PromptIfStale', 'EnsurePrereqsInstalled' ],
                     server => 'none',
                 } ],
                 'MetaConfig',

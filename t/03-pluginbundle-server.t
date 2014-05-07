@@ -76,7 +76,8 @@ foreach my $server (keys %server_to_resources)
                     [ '@Author::ETHER' => {
                         server => $server,
                         installer => 'MakeMaker',
-                        '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'PromptIfStale' ],
+                        '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe',
+                            'PromptIfStale', 'EnsurePrereqsInstalled' ],
                       },
                     ],
                 ),

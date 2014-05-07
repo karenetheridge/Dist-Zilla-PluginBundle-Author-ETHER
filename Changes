@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - remove using plugins in tests that will cause the test build to
+            fail if users don't have develop prereqs installed
 
 0.061     2014-05-04 21:28:33Z
           - fix ln flags for linux

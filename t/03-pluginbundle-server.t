@@ -6,6 +6,7 @@ use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep;
 use Test::Deep::JSON;
 use Test::DZil;
+use Test::Fatal;
 use Path::Tiny;
 
 use Test::Requires qw(
@@ -84,7 +85,12 @@ foreach my $server (keys %server_to_resources)
         },
     );
 
-    $tzil->build;
+    $tzil->chrome->logger->set_debug(1);
+    is(
+        exception { $tzil->build },
+        undef,
+        'build proceeds normally',
+    ) or diag 'log messages:' . join("\n", @{ $tzil->log_messages });
 
     # check that everything we loaded is properly declared as prereqs
     all_plugins_in_prereqs($tzil,

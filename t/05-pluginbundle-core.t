@@ -4,6 +4,7 @@ use warnings FATAL => 'all';
 use Test::More;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::DZil;
+use Test::Fatal;
 use Path::Tiny;
 
 use Test::File::ShareDir -share => { -dist => { 'Dist-Zilla-PluginBundle-Author-ETHER' => 'share' } };
@@ -34,7 +35,11 @@ use Helper;
         },
     );
 
-    $tzil->build;
+    is(
+        exception { $tzil->build },
+        undef,
+        'build proceeds normally',
+    ) or diag 'log messages:' . join("\n", @{ $tzil->log_messages });
 
     # check that everything we loaded is properly declared as prereqs
     all_plugins_in_prereqs($tzil,

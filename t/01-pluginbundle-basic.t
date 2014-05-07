@@ -5,6 +5,7 @@ use Test::More;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep '!blessed';
 use Test::DZil;
+use Test::Fatal;
 use File::Find;
 use File::Spec;
 use Path::Tiny;
@@ -52,7 +53,11 @@ my @git_plugins =
 cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');
 
 $tzil->chrome->logger->set_debug(1);
-$tzil->build;
+is(
+    exception { $tzil->build },
+    undef,
+    'build proceeds normally',
+) or diag 'log messages:' . join("\n", @{ $tzil->log_messages });
 
 # check that everything we loaded is in the pluginbundle's run-requires
 all_plugins_in_prereqs($tzil,

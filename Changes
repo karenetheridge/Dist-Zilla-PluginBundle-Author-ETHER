@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.062     2014-05-08 17:02:13Z
           - remove using plugins in tests that will cause the test build to
             fail if users don't have develop prereqs installed
 

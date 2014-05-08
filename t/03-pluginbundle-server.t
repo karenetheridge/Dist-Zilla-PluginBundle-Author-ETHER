@@ -18,6 +18,7 @@ use Test::File::ShareDir -share => { -dist => { 'Dist-Zilla-PluginBundle-Author-
 
 use lib 't/lib';
 use Helper;
+use NoNetworkHits;
 
 # this data should be constant across all server types
 my %bugtracker = (

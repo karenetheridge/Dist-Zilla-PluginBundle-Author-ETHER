@@ -21,6 +21,7 @@ use Test::File::ShareDir -share => { -dist => { 'Dist-Zilla-PluginBundle-Author-
 
 use lib 't/lib';
 use Helper;
+use NoNetworkHits;
 
 my $tzil = Builder->from_config(
     { dist_root => 't/does_not_exist' },

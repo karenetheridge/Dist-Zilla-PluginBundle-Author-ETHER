@@ -9,6 +9,9 @@ use Path::Class;
 use Path::Tiny;
 use Moose::Util 'find_meta';
 
+use lib 't/lib';
+use NoNetworkHits;
+
 # we need the profiles dir to have gone through file munging first (for
 # profile.ini), as well as get installed into a sharedir
 plan skip_all => 'this test requires a built dist'

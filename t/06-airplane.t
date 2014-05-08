@@ -13,6 +13,7 @@ use PadWalker 'peek_sub';
 
 use lib 't/lib';
 use Helper;
+use NoNetworkHits;
 
 # used by the 'airplane' config
 use Test::Requires 'Dist::Zilla::Plugin::BlockRelease';

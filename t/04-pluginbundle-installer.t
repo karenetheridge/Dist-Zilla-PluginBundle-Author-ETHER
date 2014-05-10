@@ -21,6 +21,7 @@ use Test::File::ShareDir -share => { -dist => { 'Dist-Zilla-PluginBundle-Author-
 use lib 't/lib';
 use Helper;
 use NoNetworkHits;
+use NoPrereqChecks;
 
 {
     my $tzil = Builder->from_config(
@@ -90,7 +91,8 @@ SKIP: {
                     # our files are copied into source, so Git::GatherDir doesn't see them
                     # and besides, we would like to run these tests at install time too!
                     [ '@Author::ETHER' => {
-                        '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe', 'PromptIfStale' ],
+                        '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe',
+                            'PromptIfStale', 'EnsurePrereqsInstalled' ],
                         server => 'none',
                         installer => [ qw(MakeMaker ModuleBuildTiny) ],
                       },
@@ -101,7 +103,13 @@ SKIP: {
         },
     );
 
-    $tzil->build;
+    $tzil->chrome->logger->set_debug(1);
+    is(
+        exception { $tzil->build },
+        undef,
+        'build proceeds normally',
+    ) or diag 'log messages:' . join("\n", @{ $tzil->log_messages });
+
 
     # check that everything we loaded is properly declared as prereqs
     all_plugins_in_prereqs($tzil,

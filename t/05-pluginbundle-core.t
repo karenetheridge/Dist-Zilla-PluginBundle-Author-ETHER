@@ -12,6 +12,7 @@ use Test::File::ShareDir -share => { -dist => { 'Dist-Zilla-PluginBundle-Author-
 use lib 't/lib';
 use Helper;
 use NoNetworkHits;
+use NoPrereqChecks;
 
 # tests the core plugin - with all options disabled
 

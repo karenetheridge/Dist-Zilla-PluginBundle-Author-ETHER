@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - really fix failing tests this time (from v0.060)
 
 0.062     2014-05-08 17:02:13Z
           - remove using plugins in tests that will cause the test build to

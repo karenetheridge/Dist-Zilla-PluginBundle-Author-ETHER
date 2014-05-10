@@ -14,6 +14,7 @@ use PadWalker 'peek_sub';
 use lib 't/lib';
 use Helper;
 use NoNetworkHits;
+use NoPrereqChecks;
 
 # used by the 'airplane' config
 use Test::Requires 'Dist::Zilla::Plugin::BlockRelease';
@@ -32,6 +33,7 @@ my @warnings = warnings {
                         '-remove' => [ qw(Git::GatherDir Git::NextVersion Git::Describe Git::Tag
                             Git::Check Git::CheckFor::MergeConflicts
                             Git::CheckFor::CorrectBranch Git::Push),
+                            'EnsurePrereqsInstalled',
                             'UploadToCPAN', # removed just in case!
                             'RunExtraTests',  # some release tests might fail (e.g. spelling)
                         ],

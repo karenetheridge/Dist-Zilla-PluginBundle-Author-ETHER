@@ -38,11 +38,12 @@ use NoPrereqChecks;
         },
     );
 
+    $tzil->chrome->logger->set_debug(1);
     is(
         exception { $tzil->build },
         undef,
         'build proceeds normally',
-    ) or diag 'log messages:' . join("\n", @{ $tzil->log_messages });
+    ) or diag 'saw log messages: ', explain $tzil->log_messages;
 
     # check that everything we loaded is properly declared as prereqs
     all_plugins_in_prereqs($tzil,

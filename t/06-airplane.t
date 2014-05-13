@@ -35,7 +35,7 @@ my @warnings = warnings {
                             Git::CheckFor::CorrectBranch Git::Push),
                             'EnsurePrereqsInstalled',
                             'UploadToCPAN', # removed just in case!
-                            'RunExtraTests',  # some release tests might fail (e.g. spelling)
+                            'RunExtraTests', 'TestRelease', # why waste the time?
                         ],
                         airplane => 1,
                     } ],
@@ -65,8 +65,7 @@ cmp_deeply(
     'we warn when in airplane mode',
 ) or diag join("\n", @warnings);
 
-# FIXME: including this line breaks TAP?!
-# $tzil->chrome->logger->set_debug(1);
+$tzil->chrome->logger->set_debug(1);
 is(
     exception { $tzil->build },
     undef,

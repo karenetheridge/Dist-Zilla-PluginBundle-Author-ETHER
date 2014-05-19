@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - one more .latest symlink fix
 
 0.063     2014-05-11 17:53:12Z
           - really fix failing tests this time (from v0.060)

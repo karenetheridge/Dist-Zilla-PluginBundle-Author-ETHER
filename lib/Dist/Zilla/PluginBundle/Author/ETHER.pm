@@ -93,6 +93,7 @@ my @network_plugins = qw(
     Test::Pod::No404s
     Git::Remote::Check
     CheckPrereqsIndexed
+    CheckIssues
     UploadToCPAN
     Git::Push
 );
@@ -240,6 +241,7 @@ sub configure
         'CheckPrereqsIndexed',
         'TestRelease',
         [ 'Git::Check'          => 'after tests' => { allow_dirty => [''] } ],
+        [ 'CheckIssues' ],
         # (ConfirmRelease)
 
         # Releaser
@@ -511,6 +513,7 @@ following F<dist.ini> (following the preamble):
     [TestRelease]
     [Git::Check / after tests]
     allow_dirty =
+    [CheckIssues]
     ;(ConfirmRelease)
 
 

@@ -195,7 +195,6 @@ sub configure
         'MinimumPerl',
         [ 'Prereqs' => installer_requirements => {
                 '-phase' => 'develop', '-relationship' => 'requires',
-                'Dist::Zilla' => Dist::Zilla->VERSION,
                 $self->meta->name => $self->_requested_version,
 
                 # this is useless for "dzil authordeps", as by the time this

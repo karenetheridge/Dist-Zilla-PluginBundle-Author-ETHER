@@ -101,6 +101,7 @@ like(
     do {
         my $pattern = <<'TEST';
 use Test::DZil;
+use Test::Fatal;
 use Path::Tiny;
 
 my $tzil = Builder->from_config(
@@ -116,8 +117,14 @@ my $tzil = Builder->from_config(
     },
 );
 
-$tzil->build;
+$tzil->chrome->logger->set_debug(1);
+is(
+    exception { $tzil->build },
+    undef,
+    'build proceeds normally',
+) or diag 'saw log messages: ', explain $tzil->log_messages;
 
+done_testing;
 TEST
         qr/\Q$pattern\E/m,
     },

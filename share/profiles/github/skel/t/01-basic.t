@@ -11,6 +11,7 @@ use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
     $zilla_plugin
         ? <<PLUGIN
 use Test::DZil;
+use Test::Fatal;
 use Path::Tiny;
 
 my \$tzil = Builder->from_config(
@@ -26,11 +27,14 @@ my \$tzil = Builder->from_config(
     },
 );
 
-\$tzil->build;
-
+\$tzil->chrome->logger->set_debug(1);
+is(
+    exception { \$tzil->build },
+    undef,
+    'build proceeds normally',
+) or diag 'saw log messages: ', explain \$tzil->log_messages;
 PLUGIN
         : 'use ' . $dist->name =~ s/-/::/gr . ';'
             . "\n\nfail('this test is TODO!');"
 }}
-
 done_testing;

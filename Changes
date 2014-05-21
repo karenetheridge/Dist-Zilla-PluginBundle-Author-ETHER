@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.064     2014-05-21 16:56:30Z
           - one more .latest symlink fix
           - add [CheckIssues]
           - drop automatic develop prereq on Dist::Zilla <what I have>

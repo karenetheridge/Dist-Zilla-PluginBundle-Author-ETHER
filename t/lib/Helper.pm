@@ -7,7 +7,7 @@ our @EXPORT = qw(all_plugins_in_prereqs);
 use Test::More;
 use List::MoreUtils 'uniq';
 use Path::Tiny;
-use JSON;
+use JSON::MaybeXS;
 
 # checks that all plugins in use are in the plugin bundle dist's runtime
 # requires list
@@ -24,7 +24,7 @@ sub all_plugins_in_prereqs
     my %additional = map { $_ => undef } @{ $options{additional} // [] };
     my %exempt = map { $_ => undef } @{ $options{exempt} // [] };
 
-    my $pluginbundle_meta = JSON->new->decode(path('META.json')->slurp_raw);
+    my $pluginbundle_meta = decode_json(path('META.json')->slurp_raw);
     my $dist_meta = $tzil->distmeta;
 
     subtest 'all plugins in use are specified as *required* runtime prerequisites by the plugin bundle, or develop prerequisites by the distribution' => sub {

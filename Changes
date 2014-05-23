@@ -2,6 +2,7 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
           - fix dist.ini in minted dzil plugin dist (v0.064)
+          - include tailored [MetaResources] for minted dzil plugin's dist.ini
 
 0.064     2014-05-21 16:56:30Z
           - one more .latest symlink fix

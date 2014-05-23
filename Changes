@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix dist.ini in minted dzil plugin dist (v0.064)
 
 0.064     2014-05-21 16:56:30Z
           - one more .latest symlink fix

@@ -6,8 +6,6 @@ use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep '!blessed';
 use Test::DZil;
 use Test::Fatal;
-use File::Find;
-use File::Spec;
 use Path::Tiny;
 use Test::Deep::JSON;
 
@@ -104,12 +102,11 @@ my @expected_files = qw(
 );
 
 my @found_files;
-find({
-        wanted => sub { push @found_files, File::Spec->abs2rel($_, $build_dir) if -f  },
-        no_chdir => 1,
-     },
-    $build_dir,
-);
+my $iter = $build_dir->iterator({ recurse => 1 });
+while (my $path = $iter->())
+{
+    push @found_files, $path->relative($build_dir)->stringify if -f $path;
+}
 
 cmp_deeply(
     \@found_files,

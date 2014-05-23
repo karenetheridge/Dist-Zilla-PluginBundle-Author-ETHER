@@ -7,8 +7,6 @@ use Test::Deep;
 use Test::DZil;
 use Path::Class;
 use Path::Tiny;
-use File::Find;
-use File::Spec;
 use Moose::Util 'find_meta';
 
 use lib 't/lib';
@@ -54,16 +52,11 @@ my @expected_files = qw(
 );
 
 my @found_files;
-find({
-        wanted => sub {
-            my $file = File::Spec->abs2rel($_, $mint_dir);
-            return $File::Find::prune = 1 if $file eq '.git';
-            push @found_files, $file if -f;     # ignore directories
-        },
-        no_chdir => 1,
-     },
-    $mint_dir,
-);
+my $iter = $mint_dir->iterator({ recurse => 1 });
+while (my $path = $iter->())
+{
+    push @found_files, $path->relative($mint_dir)->stringify if -f $path;     # ignore directories
+}
 
 cmp_deeply(
     \@found_files,

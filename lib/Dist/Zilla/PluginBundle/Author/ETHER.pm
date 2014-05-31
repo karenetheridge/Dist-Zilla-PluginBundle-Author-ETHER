@@ -213,6 +213,10 @@ sub configure
                 '-phase' => 'develop', '-relationship' => 'recommends',
                 $self->meta->name => $self->VERSION,
             } ],
+        ($self->surgical_podweaver ? [ 'Prereqs' => pod_weaving => {
+                '-phase' => 'develop', '-relationship' => 'requires',
+                'Dist::Zilla::Plugin::SurgicalPodWeaver' => 0
+            } ] : ()),
 
         # Test Runner
         [ 'RunExtraTests' => { ':version' => '0.019', %{ $extra_args{'Dist::Zilla::Role::TestRunner'} } } ],

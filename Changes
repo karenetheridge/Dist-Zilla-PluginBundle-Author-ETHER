@@ -5,6 +5,7 @@ Revision history for {{$dist->name}}
           - include tailored [MetaResources] for minted dzil plugin's dist.ini
           - inject [SurgicalPodWeaver] in develop prereqs, if selected via the
             surgical_podweaver option
+          - include placeholder for keyword declarations in minted modules
 
 0.064     2014-05-21 16:56:30Z
           - one more .latest symlink fix

@@ -2,8 +2,7 @@ use strict;
 use warnings FATAL => 'all';
 
 use Test::More;
-use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
-use Test::Warnings 0.005 ':no_end_test', ':all';
+use Test::Warnings 0.009 ':no_end_test', ':all';
 use Test::DZil;
 use Test::Deep '!any';
 use Test::Fatal;

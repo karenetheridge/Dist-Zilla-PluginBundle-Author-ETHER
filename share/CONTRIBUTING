@@ -15,7 +15,9 @@ specifically for use in the repository.  You can do:
 
 As well as:
 
-  $ prove -lv t/some_test_file.t
+  $ prove -bvr t
+or
+  $ perl -Mblib t/some_test_file.t
 HAS_XS
 } else { <<'NO_XS'
 This means than many of the usual files you might expect are not in the

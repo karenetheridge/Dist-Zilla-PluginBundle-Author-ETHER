@@ -6,6 +6,7 @@ Revision history for {{$dist->name}}
           - inject [SurgicalPodWeaver] in develop prereqs, if selected via the
             surgical_podweaver option
           - include placeholder for keyword declarations in minted modules
+          - xt/ tests are now once again run after t/
 
 0.064     2014-05-21 16:56:30Z
           - one more .latest symlink fix

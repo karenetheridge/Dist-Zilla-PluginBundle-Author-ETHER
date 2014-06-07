@@ -218,10 +218,7 @@ sub configure
                 'Dist::Zilla::Plugin::SurgicalPodWeaver' => 0
             } ] : ()),
 
-        # Test Runner
-        [ 'RunExtraTests' => { ':version' => '0.019', %{ $extra_args{'Dist::Zilla::Role::TestRunner'} } } ],
-
-        # Install Tool
+        # Install Tool (some are also Test Runners)
         ( map {
             [ $_ => +{
                 map { %$_ }
@@ -230,6 +227,9 @@ sub configure
             ]
          } $self->installer ),
         'InstallGuide',
+
+        # Test Runners
+        [ 'RunExtraTests' => { ':version' => '0.019', %{ $extra_args{'Dist::Zilla::Role::TestRunner'} } } ],
 
         # After Build
         'CheckSelfDependency',
@@ -476,16 +476,17 @@ following F<dist.ini> (following the preamble):
     -relationship = recommends
     Dist::Zilla::PluginBundle::Author::ETHER = <current installed version>
 
-    ;;; Test Runner
-    [RunExtraTests]
-    :version = 0.019
-    default_jobs = 9
-    # <specified installer(s)>
-
 
     ;;; Install Tool
     <specified installer(s)>
     [InstallGuide]
+
+
+    ;;; Test Runner
+    # <specified installer(s)>
+    [RunExtraTests]
+    :version = 0.019
+    default_jobs = 9
 
 
     ;;; After Build

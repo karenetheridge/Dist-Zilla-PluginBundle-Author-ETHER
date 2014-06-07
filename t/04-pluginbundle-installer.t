@@ -75,7 +75,7 @@ use NoPrereqChecks;
 }
 
 SKIP: {
-    # MBT is already in our runtime recommends list
+    # MBT is already a prereq of things in our runtime recommends list
     skip('[ModuleBuildTiny] not installed', 1)
         if not eval { use_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 1 };
 

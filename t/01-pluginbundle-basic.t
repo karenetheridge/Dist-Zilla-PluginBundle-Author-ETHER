@@ -63,8 +63,8 @@ is(
 all_plugins_in_prereqs($tzil,
     exempt => [ 'Dist::Zilla::Plugin::GatherDir' ],     # used by us here
     additional => [
-        'Dist::Zilla::Plugin::MakeMaker::Fallback',     # via installer option
-        'Dist::Zilla::Plugin::ModuleBuildTiny',         # ""
+        'Dist::Zilla::Plugin::MakeMaker::Fallback',     # via default installer option
+        'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback', # ""
     ],
 );
 
@@ -130,7 +130,10 @@ SKIP: {
         json(superhashof({
             prereqs => superhashof({
                 develop => superhashof({
-                    requires => superhashof({ 'Dist::Zilla::Plugin::ModuleBuildTiny' => '0.004' }),
+                    requires => superhashof({
+                        'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => '0.005',
+                        'Dist::Zilla::Plugin::MakeMaker::Fallback' => '0.008',
+                    }),
                 })
             }),
             x_Dist_Zilla => superhashof({
@@ -144,7 +147,7 @@ SKIP: {
                             name => ignore,
                             version => ignore,
                         }
-                    } qw(MakeMaker::Fallback ModuleBuildTiny RunExtraTests)
+                    } qw(MakeMaker::Fallback ModuleBuildTiny::Fallback RunExtraTests)
                 ),
             })
         })),

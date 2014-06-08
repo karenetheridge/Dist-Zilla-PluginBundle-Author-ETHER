@@ -15,6 +15,7 @@ use Dist::Zilla::Util;
 use Moose::Util::TypeConstraints;
 use List::MoreUtils qw(any first_index);
 use Module::Runtime 'use_module';
+use Devel::CheckBin;
 use namespace::autoclean;
 
 sub mvp_multivalue_args { qw(installer copy_file_from_release) }
@@ -103,6 +104,8 @@ my @network_plugins = qw(
 my %network_plugins;
 @network_plugins{ map { Dist::Zilla::Util->expand_config_package_name($_) } @network_plugins } = () x @network_plugins;
 
+my $has_bash = can_run('bash');
+
 around BUILDARGS => sub
 {
     my $orig = shift;
@@ -120,6 +123,9 @@ sub configure
     my $self = shift;
 
     my %extra_develop_requires;
+
+    warn 'no "bash" executable found; skipping Run::AfterBuild commands to update .ackrc and .latest symlink'
+        if not $has_bash;
 
     my @plugins = (
         # VersionProvider
@@ -236,7 +242,10 @@ sub configure
 
         # After Build
         'CheckSelfDependency',
-        [ 'Run::AfterBuild' => { run => q{if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi; if [[ %d =~ ^%n-[.[:xdigit:]]+$ ]]; then ln -sFn %d .latest; fi} } ],
+
+        ( $has_bash ?
+            [ 'Run::AfterBuild' => { run => q{bash -c "if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi; if [[ %d =~ ^%n-[.[:xdigit:]]+$ ]]; then ln -sFn %d .latest; fi"} } ]
+            : ()),
 
         # Before Release
         [ 'CheckStrictVersion' => { decimal_only => 1 } ],

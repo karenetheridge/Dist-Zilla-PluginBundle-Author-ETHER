@@ -22,6 +22,14 @@ use Helper;
 use NoNetworkHits;
 use NoPrereqChecks;
 
+SKIP: {
+    skip('we only insist that the author have bash installed', 1)
+        unless $ENV{AUTHOR_TESTING};
+
+    require Devel::CheckBin;
+    ok(Devel::CheckBin::can_run('bash'), 'the bash executable is available');
+}
+
 my $tzil = Builder->from_config(
     { dist_root => 't/does_not_exist' },
     {

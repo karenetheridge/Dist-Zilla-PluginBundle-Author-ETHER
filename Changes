@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.065     2014-06-09 20:36:31Z
           - fix dist.ini in minted dzil plugin dist (v0.064)
           - include tailored [MetaResources] for minted dzil plugin's dist.ini
           - inject [SurgicalPodWeaver] in develop prereqs, if selected via the

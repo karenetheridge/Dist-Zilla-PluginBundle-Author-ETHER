@@ -4,7 +4,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 # VERSION
 
-version 0.064
+version 0.065
 
 # SYNOPSIS
 
@@ -158,16 +158,17 @@ following `dist.ini` (following the preamble):
     -relationship = recommends
     Dist::Zilla::PluginBundle::Author::ETHER = <current installed version>
 
-    ;;; Test Runner
-    [RunExtraTests]
-    :version = 0.019
-    default_jobs = 9
-    # <specified installer(s)>
-
 
     ;;; Install Tool
     <specified installer(s)>
     [InstallGuide]
+
+
+    ;;; Test Runner
+    # <specified installer(s)>
+    [RunExtraTests]
+    :version = 0.019
+    default_jobs = 9
 
 
     ;;; After Build
@@ -272,10 +273,10 @@ many as you'd like), as described in ["ADDING STOPWORDS" in Pod::Spell](https://
 ## installer
 
 The installer back-end(s) to use (can be specified more than once); defaults
-to [`ModuleBuildTiny`](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuildTiny)
+to [`ModuleBuildTiny`](https://metacpan.org/pod/Dist::Zilla::Plugin::ModuleBuildTiny::Fallback)
 and [`MakeMaker::Fallback`](https://metacpan.org/pod/Dist::Zilla::Plugin::MakeMaker::Fallback)
-(which generates a `Build.PL` for normal use, and
-`Makefile.PL` as a fallback, containing an upgrade warning).
+(which generates a `Build.PL` for normal use with no-configure-requires
+protection, and `Makefile.PL` as a fallback, containing an upgrade warning).
 
 You can select other backends (by plugin name, without the `[]`), with the
 `installer` option, or 'none' if you are supplying your own, as a separate

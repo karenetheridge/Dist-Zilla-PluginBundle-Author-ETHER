@@ -8,6 +8,7 @@ use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
 use Test::Deep::JSON;
+use List::Util 'first';
 
 # these are used by our default 'installer' setting
 use Test::Requires qw(
@@ -76,6 +77,17 @@ all_plugins_in_prereqs($tzil,
         'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback', # ""
     ],
 );
+
+is(
+    $_->default_jobs,
+    9,
+    'default_jobs was set for ' . $_->meta->name . ' (via installer option and extra_args',
+) foreach
+    map {
+        my $plugin = $_;
+        first { $_->meta->name eq $plugin } @{$tzil->plugins};
+    } ( 'Dist::Zilla::Plugin::MakeMaker::Fallback', 'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' );
+
 
 my $build_dir = path($tzil->tempdir)->child('build');
 

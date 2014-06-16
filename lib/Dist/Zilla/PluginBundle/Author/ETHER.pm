@@ -14,7 +14,7 @@ with
 use Dist::Zilla::Util;
 use Moose::Util::TypeConstraints;
 use List::MoreUtils qw(any first_index);
-use Module::Runtime 'use_module';
+use Module::Runtime 'require_module';
 use Devel::CheckBin;
 use namespace::autoclean;
 
@@ -312,7 +312,7 @@ sub configure
 sub _extra_plugin_args
 {
     my ($self, $plugin) = @_;
-    use_module($plugin);
+    require_module($plugin);
     my @keys = grep { $plugin->isa($_) or $plugin->does($_) } keys %extra_args;
 
     my %slice;

@@ -7,7 +7,7 @@ use Test::Deep;
 use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
-use Module::Runtime 'use_module';
+use Module::Runtime 'require_module';
 use List::MoreUtils 'none';
 
 use Test::Requires qw(
@@ -77,7 +77,7 @@ use NoPrereqChecks;
 SKIP: {
     # MBT is already a prereq of things in our runtime recommends list
     skip('[ModuleBuildTiny] not installed', 1)
-        if not eval { use_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 1 };
+        if not eval { require_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 1 };
 
     my $tzil = Builder->from_config(
         { dist_root => 't/does_not_exist' },

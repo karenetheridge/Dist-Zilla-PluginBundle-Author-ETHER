@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - internally-hardcoded extra arguments to be passed to optional
+            plugins are now handled in a more generic way, now encompassing
+            all plugins that might be used
 
 0.065     2014-06-09 20:36:31Z
           - fix dist.ini in minted dzil plugin dist (v0.064)

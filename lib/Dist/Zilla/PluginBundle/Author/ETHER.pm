@@ -70,7 +70,6 @@ has copy_file_from_release => (
 );
 
 # configs are applied when plugins match ->isa($key) or ->does($key)
-# (currently only used for processing 'installer' and TestRunner options)
 my %extra_args = (
     'Dist::Zilla::Plugin::ModuleBuildTiny' => { ':version' => '0.004' },
     'Dist::Zilla::Plugin::MakeMaker::Fallback' => { ':version' => '0.008' },
@@ -112,10 +111,10 @@ sub configure
 {
     my $self = shift;
 
-    my %extra_develop_requires;
-
     warn 'no "bash" executable found; skipping Run::AfterBuild commands to update .ackrc and .latest symlink'
         if not $has_bash;
+
+    my %plugin_versions;
 
     my @plugins = (
         # VersionProvider
@@ -173,7 +172,7 @@ sub configure
 
         # MetaData
         $self->server eq 'github'
-            ? ( 'GithubMeta', do { $extra_develop_requires{'Dist::Zilla::Plugin::GithubMeta'} = 0; () }) : (),
+            ? ( 'GithubMeta', do { $plugin_versions{'Dist::Zilla::Plugin::GithubMeta'} = 0; () }) : (),
         [ 'AutoMetaResources'   => { 'bugtracker.rt' => 1,
               $self->server eq 'gitmo' ? ( 'repository.gitmo' => 1 )
             : $self->server eq 'p5sagit' ? ( 'repository.p5sagit' => 1 )
@@ -192,21 +191,6 @@ sub configure
         'AutoPrereqs',
         'Prereqs::AuthorDeps',
         'MinimumPerl',
-        [ 'Prereqs' => installer_requirements => {
-                '-phase' => 'develop', '-relationship' => 'requires',
-
-                # this is useless for "dzil authordeps", as by the time this
-                # runs, we're already trying to load the installer plugin --
-                # but it is useful for people doing "cpanm --with-develop"
-                ( map {
-                    my $plugin = Dist::Zilla::Util->expand_config_package_name($_);
-                    my $args = $self->_extra_plugin_args($plugin);
-                    $plugin => 0,    # plugin at version 0, if nothing more specific found
-                    map {
-                        defined $args->{$_}{':version'} ? ( $_ => $args->{$_}{':version'} ) : ()
-                    } keys %$args;
-                } $self->installer ),
-            } ],
         [ 'Prereqs' => pluginbundle_version => {
                 '-phase' => 'develop', '-relationship' => 'recommends',
                 $self->meta->name => $self->VERSION,
@@ -217,17 +201,12 @@ sub configure
             } ] : ()),
 
         # Install Tool (some are also Test Runners)
-        ( map {
-            [ $_ => +{
-                map { %$_ }
-                values %{ $self->_extra_plugin_args(Dist::Zilla::Util->expand_config_package_name($_)) }
-              }
-            ]
-         } $self->installer ),
+        (map { [ $_ => { ':version' => 0 } ] }
+            $self->installer), # ensure an entry in develop prereqs
         'InstallGuide',
 
         # Test Runners
-        [ 'RunExtraTests' => { ':version' => '0.019', %{ $extra_args{'Dist::Zilla::Role::TestRunner'} } } ],
+        [ 'RunExtraTests' => { ':version' => '0.019' } ],
 
         # After Build
         'CheckSelfDependency',
@@ -257,7 +236,7 @@ sub configure
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? (
             [ 'GitHub::Update' => { metacpan => 1 } ],
-            do { $extra_develop_requires{'Dist::Zilla::Plugin::GitHub::Update'} = 0; () },
+            do { $plugin_versions{'Dist::Zilla::Plugin::GitHub::Update'} = 0; () },
         ) : (),
         'Git::Push',
         [ 'InstallRelease'      => { install_command => 'cpanm .' } ],
@@ -278,18 +257,11 @@ sub configure
         # allow our uncommitted dist.ini edit which sets 'airplane = 1'
         push @{( first { ref eq 'ARRAY' && $_->[0] eq 'Git::Check' } @plugins )->[-1]{allow_dirty}}, 'dist.ini';
 
-        $extra_develop_requires{'Dist::Zilla::Plugin::BlockRelease'} = 0;
+        $plugin_versions{'Dist::Zilla::Plugin::BlockRelease'} = 0;
 
         # halt release after pre-release checks, but before ConfirmRelease
         push @plugins, 'BlockRelease';
     }
-
-    push @plugins, (
-        [ 'Prereqs' => via_options => {
-            '-phase' => 'develop', '-relationship' => 'requires',
-            %extra_develop_requires
-          } ]
-    ) if keys %extra_develop_requires;
 
     push @plugins, (
         # listed late, to allow all other plugins which do BeforeRelease checks to run first.
@@ -301,23 +273,39 @@ sub configure
         [ 'VerifyPhases' => 'PHASE VERIFICATION' ],
     ) if ($ENV{USER} // '') eq 'ether';
 
+    foreach my $plugin_spec (@plugins)
+    {
+        next if not ref $plugin_spec or @$plugin_spec == 1;             # 'Foo' or [ 'Foo' ]
+        next if @$plugin_spec == 2 and not ref $plugin_spec->[1];       # [ 'Foo' => 'Bar' ]
+
+        my $plugin = Dist::Zilla::Util->expand_config_package_name($plugin_spec->[0]);
+        require_module($plugin);
+        my $payload = $plugin_spec->[-1];
+
+        if (my @keys = grep { $plugin->isa($_) or $plugin->does($_) } keys %extra_args)
+        {
+            # combine all the relevant configs together
+            my %configs = map { %{ $extra_args{$_} } } @keys;
+
+            # and add to the payload of this plugin
+            @{$payload}{keys %configs} = values %configs;
+        }
+
+        # also grab :version
+        $plugin_versions{$plugin} = $payload->{':version'} if exists $payload->{':version'};
+    }
+
+    # ensure that additional optional plugins are declared in prereqs
+    push @plugins,
+        [ 'Prereqs' => bundle_options =>
+            { '-phase' => 'develop', '-relationship' => 'requires', %plugin_versions } ]
+                if keys %plugin_versions;
+
     $self->add_plugins(@plugins);
 
     # check for a bin/ that should probably be renamed to script/
     warn 'bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?'
         if -d 'bin' and any { $_ eq 'ModuleBuildTiny' } $self->installer;
-}
-
-# returns a subhash of %extra_args where keys match isa or does checks
-sub _extra_plugin_args
-{
-    my ($self, $plugin) = @_;
-    require_module($plugin);
-    my @keys = grep { $plugin->isa($_) or $plugin->does($_) } keys %extra_args;
-
-    my %slice;
-    @slice{@keys} = @extra_args{@keys};
-    \%slice;
 }
 
 __PACKAGE__->meta->make_immutable;

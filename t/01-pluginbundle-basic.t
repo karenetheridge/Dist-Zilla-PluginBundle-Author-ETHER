@@ -57,10 +57,7 @@ my $tzil = Builder->from_config(
     },
 );
 
-my @git_plugins =
-    grep { /Git/ }
-    map { $_->meta->name }
-    @{$tzil->plugins};
+my @git_plugins = grep { $_->meta->name =~ /Git/ } @{$tzil->plugins};
 
 cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');
 

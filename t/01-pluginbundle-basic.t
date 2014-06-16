@@ -30,6 +30,9 @@ SKIP: {
     ok(Devel::CheckBin::can_run('bash'), 'the bash executable is available');
 }
 
+require Dist::Zilla::PluginBundle::Author::ETHER;
+$Dist::Zilla::PluginBundle::Author::ETHER::VERSION //= '1.000';
+
 my $tzil = Builder->from_config(
     { dist_root => 't/does_not_exist' },
     {
@@ -44,6 +47,7 @@ my $tzil = Builder->from_config(
                         'Git::CheckFor::MergeConflicts', 'Git::CheckFor::CorrectBranch',
                         'Git::Remote::Check', 'PromptIfStale', 'EnsurePrereqsInstalled' ],
                     server => 'none',
+                    ':version' => '0.002',
                 } ],
                 'MetaConfig',
             ),
@@ -141,6 +145,7 @@ SKIP: {
                     requires => superhashof({
                         'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => '0.005',
                         'Dist::Zilla::Plugin::MakeMaker::Fallback' => '0.008',
+                        'Dist::Zilla::PluginBundle::Author::ETHER' => '0.002',
                     }),
                 })
             }),

@@ -69,16 +69,6 @@ has copy_file_from_release => (
     handles => { copy_files_from_release => 'elements' },
 );
 
-has _requested_version => (
-    is => 'ro', isa => 'Str',
-    lazy => 1,
-    default => sub {
-        exists $_[0]->payload->{':version'}
-            ? $_[0]->payload->{':version'}
-            : '0';
-    },
-);
-
 # configs are applied when plugins match ->isa($key) or ->does($key)
 # (currently only used for processing 'installer' and TestRunner options)
 my %extra_args = (
@@ -204,7 +194,6 @@ sub configure
         'MinimumPerl',
         [ 'Prereqs' => installer_requirements => {
                 '-phase' => 'develop', '-relationship' => 'requires',
-                $self->meta->name => $self->_requested_version,
 
                 # this is useless for "dzil authordeps", as by the time this
                 # runs, we're already trying to load the installer plugin --

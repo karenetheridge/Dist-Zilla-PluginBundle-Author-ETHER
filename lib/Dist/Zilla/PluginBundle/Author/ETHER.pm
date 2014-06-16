@@ -13,7 +13,7 @@ with
 
 use Dist::Zilla::Util;
 use Moose::Util::TypeConstraints;
-use List::MoreUtils qw(any first_index);
+use List::Util qw(first any);
 use Module::Runtime 'require_module';
 use Devel::CheckBin;
 use namespace::autoclean;
@@ -276,7 +276,7 @@ sub configure
         } @plugins;
 
         # allow our uncommitted dist.ini edit which sets 'airplane = 1'
-        push @{ $plugins[ first_index { ref eq 'ARRAY' && $_->[0] eq 'Git::Check' } @plugins ][-1]{allow_dirty} }, 'dist.ini';
+        push @{( first { ref eq 'ARRAY' && $_->[0] eq 'Git::Check' } @plugins )->[-1]{allow_dirty}}, 'dist.ini';
 
         $extra_develop_requires{'Dist::Zilla::Plugin::BlockRelease'} = 0;
 

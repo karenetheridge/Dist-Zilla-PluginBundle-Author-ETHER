@@ -8,7 +8,7 @@ use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
 use Module::Runtime 'require_module';
-use List::MoreUtils 'none';
+use List::Util 1.33 'none';
 
 use Test::Requires qw(
     Dist::Zilla::Plugin::ModuleBuildTiny

@@ -7,7 +7,7 @@ use Test::DZil;
 use Test::Deep '!any';
 use Test::Fatal;
 use Path::Tiny;
-use List::MoreUtils 'any';
+use List::Util 1.33 'any';
 use PadWalker 'peek_sub';
 
 use lib 't/lib';

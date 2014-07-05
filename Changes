@@ -4,6 +4,8 @@ Revision history for {{$dist->name}}
           - internally-hardcoded extra arguments to be passed to optional
             plugins are now handled in a more generic way, now encompassing
             all plugins that might be used
+          - minted Dist::Zilla plugins now contain an extra bit of needed
+            prereq declaration, for valid metadata production
 
 0.065     2014-06-09 20:36:31Z
           - fix dist.ini in minted dzil plugin dist (v0.064)

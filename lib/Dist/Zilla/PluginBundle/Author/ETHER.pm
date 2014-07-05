@@ -38,14 +38,17 @@ has server => (
     default => sub { $_[0]->payload->{server} // 'github' },
 );
 
-foreach my $option (qw(airplane surgical_podweaver))
-{
-    has $option => (
-        is => 'ro', isa => 'Bool',
-        lazy => 1,
-        default => sub { $_[0]->payload->{$option} // 0 },
-    );
-}
+has surgical_podweaver => (
+    is => 'ro', isa => 'Bool',
+    lazy => 1,
+    default => sub { $_[0]->payload->{surgical_podweaver} // 0 },
+);
+
+has airplane => (
+    is => 'ro', isa => 'Bool',
+    lazy => 1,
+    default => sub { $ENV{DZIL_AIRPLANE} // $_[0]->payload->{airplane} // 0 },
+);
 
 has copy_file_from_release => (
     isa => 'ArrayRef[Str]',
@@ -626,7 +629,7 @@ you'll need to provide this yourself.
 A boolean option, that when set, removes the use of all plugins that use the
 network (generally for comparing metadata against PAUSE, and querying the
 remote git server), as well as blocking the use of the C<release> command.
-Defaults to false.
+Defaults to false; can also be set with the environment variable C<DZIL_AIRPLANE>.
 
 =head2 copy_file_from_release
 

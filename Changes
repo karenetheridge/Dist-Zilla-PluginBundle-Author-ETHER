@@ -6,6 +6,8 @@ Revision history for {{$dist->name}}
             all plugins that might be used
           - minted Dist::Zilla plugins now contain an extra bit of needed
             prereq declaration, for valid metadata production
+          - airplane mode can now also be enabled via the DZIL_AIRPLANE
+            environment variable
 
 0.065     2014-06-09 20:36:31Z
           - fix dist.ini in minted dzil plugin dist (v0.064)

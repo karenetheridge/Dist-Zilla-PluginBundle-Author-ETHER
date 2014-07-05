@@ -26,9 +26,7 @@ has installer => (
     isa => 'ArrayRef[Str]',
     lazy => 1,
     default => sub {
-        exists $_[0]->payload->{installer}
-            ? $_[0]->payload->{installer}
-            : [ 'MakeMaker::Fallback', 'ModuleBuildTiny::Fallback' ];
+        $_[0]->payload->{installer} // [ 'MakeMaker::Fallback', 'ModuleBuildTiny::Fallback' ];
     },
     traits => ['Array'],
     handles => { installer => 'elements' },
@@ -37,11 +35,7 @@ has installer => (
 has server => (
     is => 'ro', isa => enum([qw(github gitmo p5sagit catagits none)]),
     lazy => 1,
-    default => sub {
-        exists $_[0]->payload->{server}
-            ? $_[0]->payload->{server}
-            : 'github';
-    },
+    default => sub { $_[0]->payload->{server} // 'github' },
 );
 
 foreach my $option (qw(airplane surgical_podweaver))
@@ -49,11 +43,7 @@ foreach my $option (qw(airplane surgical_podweaver))
     has $option => (
         is => 'ro', isa => 'Bool',
         lazy => 1,
-        default => sub {
-            exists $_[0]->payload->{$option}
-                ? $_[0]->payload->{$option}
-                : 0;
-        },
+        default => sub { $_[0]->payload->{$option} // 0 },
     );
 }
 
@@ -61,9 +51,7 @@ has copy_file_from_release => (
     isa => 'ArrayRef[Str]',
     lazy => 1,
     default => sub {
-        exists $_[0]->payload->{copy_file_from_release}
-            ? $_[0]->payload->{copy_file_from_release}
-            : [ qw(README.md LICENSE CONTRIBUTING) ];
+            $_[0]->payload->{copy_file_from_release} // [ qw(README.md LICENSE CONTRIBUTING) ];
     },
     traits => ['Array'],
     handles => { copy_files_from_release => 'elements' },

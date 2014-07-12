@@ -113,8 +113,8 @@ sub configure
 
         # BeforeBuild
         [ 'EnsurePrereqsInstalled' ],
-        [ 'PromptIfStale' => 'build' => { phase => 'build', module => [ $self->meta->name ] } ],
-        [ 'PromptIfStale' => 'release' => { phase => 'release', check_all_plugins => 1, check_all_prereqs => 1 } ],
+        [ 'PromptIfStale' => 'stale modules, build' => { phase => 'build', module => [ $self->meta->name ] } ],
+        [ 'PromptIfStale' => 'stale modules, release' => { phase => 'release', check_all_plugins => 1, check_all_prereqs => 1 } ],
 
         # ExecFiles, ShareDir
         [ 'ExecDir'             => { dir => 'script' } ],
@@ -321,10 +321,10 @@ following F<dist.ini> (following the preamble):
 
     ;;; BeforeBuild
     [EnsurePrereqsInstalled]
-    [PromptIfStale / build]
+    [PromptIfStale / stale modules, build]
     phase = build
     module = Dist::Zilla::Plugin::Author::ETHER
-    [PromptIfStale / release]
+    [PromptIfStale / stale modules, release]
     phase = release
     check_all_plugins = 1
     check_all_prereqs = 1

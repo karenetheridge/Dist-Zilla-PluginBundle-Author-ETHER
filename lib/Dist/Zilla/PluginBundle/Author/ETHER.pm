@@ -54,7 +54,7 @@ has copy_file_from_release => (
     isa => 'ArrayRef[Str]',
     lazy => 1,
     default => sub {
-            $_[0]->payload->{copy_file_from_release} // [ qw(README.md LICENSE CONTRIBUTING) ];
+            $_[0]->payload->{copy_file_from_release} // [ qw(README.pod LICENSE CONTRIBUTING) ];
     },
     traits => ['Array'],
     handles => { copy_files_from_release => 'elements' },
@@ -159,7 +159,7 @@ sub configure
             }
         ],
         [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
-        [ 'ReadmeAnyFromPod'    => { type => 'markdown', filename => 'README.md', location => 'build' } ],
+        [ 'ReadmeAnyFromPod'    => { type => 'pod', filename => 'README.pod', location => 'build' } ],
 
         # MetaData
         $self->server eq 'github'
@@ -346,7 +346,7 @@ following F<dist.ini> (following the preamble):
     ;;; Gather Files
     [Git::GatherDir]
     :version = 2.016
-    exclude_filename = README.md
+    exclude_filename = README.pod
     exclude_filename = LICENSE
     exclude_filename = CONTRIBUTING
 
@@ -414,7 +414,7 @@ following F<dist.ini> (following the preamble):
     format = %-8v  %{uyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
     [ReadmeAnyFromPod]
     type = markdown
-    filename = README.md
+    filename = README.pod
     location = build
 
 
@@ -507,7 +507,7 @@ following F<dist.ini> (following the preamble):
 
     ;;; AfterRelease
     [CopyFilesFromRelease]
-    filename = README.md
+    filename = README.pod
     filename = LICENSE
     filename = CONTRIBUTING
 
@@ -515,7 +515,7 @@ following F<dist.ini> (following the preamble):
     :version = 2.020
     add_files_in = .
     allow_dirty = Changes
-    allow_dirty = README.md
+    allow_dirty = README.pod
     allow_dirty = LICENSE
     allow_dirty = CONTRIBUTING
     commit_msg = %N-%v%t%n%n%c
@@ -635,7 +635,7 @@ Defaults to false; can also be set with the environment variable C<DZIL_AIRPLANE
 
 A file, to be present in the build, which is copied back to the source
 repository at release time and committed to git. Can be repeated more than
-once. Defaults to: F<README.md>, F<LICENSE>, F<CONTRIBUTING>.
+once. Defaults to: F<README.pod>, F<LICENSE>, F<CONTRIBUTING>.
 
 =head2 surgical_podweaver
 

@@ -45,7 +45,7 @@ my @expected_files = qw(
     dist.ini
     CONTRIBUTING
     LICENSE
-    README.md
+    README.pod
     weaver.ini
     lib/My/New/Dist.pm
     t/01-basic.t

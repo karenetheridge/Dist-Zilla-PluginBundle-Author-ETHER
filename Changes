@@ -12,6 +12,8 @@ Revision history for {{$dist->name}}
             markdown) for committing to the repository
           - fix test of expected files produced by bundle to handle the new
             data file put out by [Test::ReportPrereqs] 0.014.
+          - XS-based distributions (*.xs files found in repository root) must
+            now have a basic Makefile.PL provided to assist development
 
 0.065     2014-06-09 20:36:31Z
           - fix dist.ini in minted dzil plugin dist (v0.064)

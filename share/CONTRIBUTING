@@ -5,7 +5,7 @@ Thank you for considering contributing to this distribution.  This file
 contains instructions that will help you work with the source code.
 
 The distribution is managed with Dist::Zilla (https://metacpan.org/release/Dist-Zilla).
-{{ if ($has_xs = glob('*.xs')) { <<'HAS_XS'
+{{ if ($has_xs) { <<'HAS_XS'
 However, you can still compile and test the code with a small Makefile.PL
 specifically for use in the repository.  You can do:
 

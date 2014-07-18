@@ -105,6 +105,11 @@ sub configure
     warn 'no "bash" executable found; skipping Run::AfterBuild commands to update .ackrc and .latest symlink'
         if not $has_bash;
 
+    my $has_xs =()= glob('*.xs');
+    warn 'XS-based distribution detected.' if $has_xs;
+    die 'no Makefile.PL found in the repository root: this is not very nice for contributors!'
+        if $has_xs and not -e 'Makefile.PL';
+
     my %plugin_versions;
 
     my @plugins = (
@@ -127,7 +132,7 @@ sub configure
         # Gather Files
         [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ 'README.md', $self->copy_files_from_release ] } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
-        [ 'GenerateFile::ShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING' } ],
+        [ 'GenerateFile::ShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING', has_xs => $has_xs } ],
 
         [ 'Test::Compile'       => { ':version' => '2.039', bail_out_on_fail => 1, xt_mode => 1,
             script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],

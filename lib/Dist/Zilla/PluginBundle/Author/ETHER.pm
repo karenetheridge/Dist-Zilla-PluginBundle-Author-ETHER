@@ -121,8 +121,8 @@ sub configure
         'ShareDir',
 
         # Finders
-        [ 'FileFinder::ByName' => Examples => { dir => 'examples' } ],
-        [ 'FileFinder::ByName' => ExtraTestFiles => { dir => 'xt' } ],
+        [ 'FileFinder::ByName'  => Examples => { dir => 'examples' } ],
+        [ 'FileFinder::ByName'  => ExtraTestFiles => { dir => 'xt' } ],
 
         # Gather Files
         [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ 'README.md', $self->copy_files_from_release ] } ],
@@ -197,7 +197,7 @@ sub configure
         'InstallGuide',
 
         # Test Runners
-        [ 'RunExtraTests' => { ':version' => '0.019' } ],
+        [ 'RunExtraTests'       => { ':version' => '0.019' } ],
 
         # After Build
         'CheckSelfDependency',
@@ -207,7 +207,7 @@ sub configure
             : ()),
 
         # Before Release
-        [ 'CheckStrictVersion' => { decimal_only => 1 } ],
+        [ 'CheckStrictVersion'  => { decimal_only => 1 } ],
         [ 'Git::Check'          => 'initial check' => { allow_dirty => [''] } ],
         'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
@@ -227,7 +227,7 @@ sub configure
         [ 'Git::Commit'         => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ 'Changes', 'README.md', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? (
-            [ 'GitHub::Update' => { metacpan => 1 } ],
+            [ 'GitHub::Update'  => { metacpan => 1 } ],
             do { $plugin_versions{'Dist::Zilla::Plugin::GitHub::Update'} = 0; () },
         ) : (),
         'Git::Push',

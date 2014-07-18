@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.066     2014-07-18 03:25:10Z
           - internally-hardcoded extra arguments to be passed to optional
             plugins are now handled in a more generic way, now encompassing
             all plugins that might be used

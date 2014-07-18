@@ -121,6 +121,8 @@ my @expected_files = qw(
     xt/release/pod-syntax.t
     xt/release/portability.t
 );
+push @expected_files, 't/00-report-prereqs.dd'
+    if Dist::Zilla::Plugin::Test::ReportPrereqs->VERSION >= 0.014;
 
 my @found_files;
 my $iter = $build_dir->iterator({ recurse => 1 });

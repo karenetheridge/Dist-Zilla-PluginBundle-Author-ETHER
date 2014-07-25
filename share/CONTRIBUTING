@@ -4,6 +4,11 @@ CONTRIBUTING
 Thank you for considering contributing to this distribution.  This file
 contains instructions that will help you work with the source code.
 
+PLEASE NOTE that if you have any questions or difficulties, you can reach me
+through the bug queue described later in this document, or by emailing me
+directly. You are not required to follow any of the steps in this document to
+submit a patch or bug report; these are just guidelines, intended to help you.
+
 The distribution is managed with Dist::Zilla (https://metacpan.org/release/Dist-Zilla).
 {{ if ($has_xs) { <<'HAS_XS'
 However, you can still compile and test the code with a small Makefile.PL

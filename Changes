@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - disabled [EnsurePrereqsInstalled] for now - it is too annoying
+            getting travis to install everything soon enough!
 
 0.066     2014-07-18 03:25:10Z
           - internally-hardcoded extra arguments to be passed to optional

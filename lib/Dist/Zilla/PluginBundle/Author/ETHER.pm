@@ -117,7 +117,7 @@ sub configure
         [ 'Git::NextVersion'    => { version_regexp => '^v([\d._]+)(-TRIAL)?$' } ],
 
         # BeforeBuild
-        [ 'EnsurePrereqsInstalled' ],
+        # [ 'EnsurePrereqsInstalled' ], # FIXME: use options to make this less annoying!
         [ 'PromptIfStale' => 'stale modules, build' => { phase => 'build', module => [ $self->meta->name ] } ],
         [ 'PromptIfStale' => 'stale modules, release' => { phase => 'release', check_all_plugins => 1, check_all_prereqs => 1 } ],
 
@@ -326,7 +326,6 @@ following F<dist.ini> (following the preamble):
     version_regexp = ^v([\d._]+)(-TRIAL)?$
 
     ;;; BeforeBuild
-    [EnsurePrereqsInstalled]
     [PromptIfStale / stale modules, build]
     phase = build
     module = Dist::Zilla::Plugin::Author::ETHER

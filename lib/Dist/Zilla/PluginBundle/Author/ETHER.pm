@@ -351,6 +351,7 @@ following F<dist.ini> (following the preamble):
     ;;; Gather Files
     [Git::GatherDir]
     :version = 2.016
+    exclude_filename = README.md
     exclude_filename = README.pod
     exclude_filename = LICENSE
     exclude_filename = CONTRIBUTING
@@ -360,9 +361,10 @@ following F<dist.ini> (following the preamble):
     [License]
     [Readme]
     [Manifest]
-    [GenerateFile::ShareDir]
+    [GenerateFile::ShareDir / generate CONTRIBUTING]
     -dist = Dist-Zilla-PluginBundle-Author-ETHER
     -filename = CONTRIBUTING
+    has_xs => <dynamically-determined flag>
 
     [Test::Compile]
     :version = 2.039
@@ -418,7 +420,7 @@ following F<dist.ini> (following the preamble):
     time_zone = UTC
     format = %-8v  %{uyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
     [ReadmeAnyFromPod]
-    type = markdown
+    type = pod
     filename = README.pod
     location = build
 
@@ -435,6 +437,8 @@ following F<dist.ini> (following the preamble):
     directory = t
     directory = xt
     directory = examples
+    directory = share
+    directory = corpus
 
     [MetaProvides::Package]
     meta_noindex = 1
@@ -453,7 +457,6 @@ following F<dist.ini> (following the preamble):
     [Prereqs / installer_requirements]
     -phase = develop
     -relationship = requires
-    Dist::Zilla = <version used to built the pluginbundle>
     Dist::Zilla::PluginBundle::Author::ETHER = <version specified in dist.ini>
 
     [Prereqs / pluginbundle_version]
@@ -482,6 +485,9 @@ following F<dist.ini> (following the preamble):
 
 
     ;;; Before Release
+    [CheckStrictVersion]
+    decimal_only = 1
+
     [Git::Check / initial check]
     allow_dirty =
 
@@ -494,9 +500,6 @@ following F<dist.ini> (following the preamble):
     [Git::Remote::Check]
     branch = master
     remote_branch = master
-
-    [CheckStrictVersion]
-    decimal_only = 1
 
     [CheckPrereqsIndexed]
     [TestRelease]
@@ -546,6 +549,7 @@ following F<dist.ini> (following the preamble):
     [ConfirmRelease]
 
     ; listed last, to be sure we run at the very end of each phase
+    ; only performed if $ENV{USER} eq 'ether'
     [VerifyPhases / PHASE VERIFICATION]
 
 

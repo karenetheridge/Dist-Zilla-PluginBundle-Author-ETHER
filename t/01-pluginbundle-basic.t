@@ -104,7 +104,6 @@ my @expected_files = qw(
     META.json
     META.yml
     README
-    README.pod
     t/00-report-prereqs.t
     xt/author/00-compile.t
     xt/author/pod-spell.t
@@ -123,6 +122,8 @@ my @expected_files = qw(
 );
 push @expected_files, 't/00-report-prereqs.dd'
     if Dist::Zilla::Plugin::Test::ReportPrereqs->VERSION >= 0.014;
+push @expected_files, 'README.pod'
+    if Dist::Zilla::Plugin::ReadmeAnyFromPod->VERSION < 0.142170;
 
 my @found_files;
 my $iter = $build_dir->iterator({ recurse => 1 });

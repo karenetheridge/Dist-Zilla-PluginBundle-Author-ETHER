@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - README.pod is now generated only in the repository, after
+            release, so it never shows up in the shipped dist
 
 0.067     2014-07-25 01:09:13Z
           - disabled [EnsurePrereqsInstalled] for now - it is too annoying

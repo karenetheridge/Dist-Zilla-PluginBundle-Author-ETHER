@@ -16,6 +16,7 @@ use Moose::Util::TypeConstraints;
 use List::Util qw(first any);
 use Module::Runtime 'require_module';
 use Devel::CheckBin;
+use Dist::Zilla::Plugin::ReadmeAnyFromPod;  # temporary
 use namespace::autoclean;
 
 sub mvp_multivalue_args { qw(installer copy_file_from_release) }
@@ -54,7 +55,11 @@ has copy_file_from_release => (
     isa => 'ArrayRef[Str]',
     lazy => 1,
     default => sub {
-            $_[0]->payload->{copy_file_from_release} // [ qw(README.pod LICENSE CONTRIBUTING) ];
+        $_[0]->payload->{copy_file_from_release}
+            // [
+                qw(LICENSE CONTRIBUTING),
+                (Dist::Zilla::Plugin::ReadmeAnyFromPod->VERSION < 0.142180 ? 'README.pod' : ())
+               ];
     },
     traits => ['Array'],
     handles => { copy_files_from_release => 'elements' },
@@ -130,7 +135,7 @@ sub configure
         [ 'FileFinder::ByName'  => ExtraTestFiles => { dir => 'xt' } ],
 
         # Gather Files
-        [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ 'README.md', $self->copy_files_from_release ] } ],
+        [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ 'README.md', 'README.pod', $self->copy_files_from_release ] } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
         [ 'GenerateFile::ShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING', has_xs => $has_xs } ],
 
@@ -164,7 +169,11 @@ sub configure
             }
         ],
         [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
-        [ 'ReadmeAnyFromPod'    => { type => 'pod', location => 'build' } ],
+        [ 'ReadmeAnyFromPod'    => { type => 'pod',
+                                     (Dist::Zilla::Plugin::ReadmeAnyFromPod->VERSION < 0.142180
+                                        ? ( location => 'build' )
+                                        : ( location => 'root', phase => 'release' ))
+                                   } ],
 
         # MetaData
         $self->server eq 'github'
@@ -229,7 +238,7 @@ sub configure
         # After Release
         [ 'CopyFilesFromRelease' => { filename => [ $self->copy_files_from_release ] } ],
         [ 'Run::AfterRelease'   => { run => 'rm -f README.md' } ],
-        [ 'Git::Commit'         => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ 'Changes', 'README.md', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
+        [ 'Git::Commit'         => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ 'Changes', 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? (
             [ 'GitHub::Update'  => { metacpan => 1 } ],
@@ -421,7 +430,8 @@ following F<dist.ini> (following the preamble):
     format = %-8v  %{uyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
     [ReadmeAnyFromPod]
     type = pod
-    location = build
+    location = root
+    phase = release
 
 
     ;;; MetaData
@@ -514,7 +524,6 @@ following F<dist.ini> (following the preamble):
 
     ;;; AfterRelease
     [CopyFilesFromRelease]
-    filename = README.pod
     filename = LICENSE
     filename = CONTRIBUTING
 

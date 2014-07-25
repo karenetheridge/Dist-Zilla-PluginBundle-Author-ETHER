@@ -164,7 +164,7 @@ sub configure
             }
         ],
         [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
-        [ 'ReadmeAnyFromPod'    => { type => 'pod', filename => 'README.pod', location => 'build' } ],
+        [ 'ReadmeAnyFromPod'    => { type => 'pod', location => 'build' } ],
 
         # MetaData
         $self->server eq 'github'
@@ -421,7 +421,6 @@ following F<dist.ini> (following the preamble):
     format = %-8v  %{uyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
     [ReadmeAnyFromPod]
     type = pod
-    filename = README.pod
     location = build
 
 

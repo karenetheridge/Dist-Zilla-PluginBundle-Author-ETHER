@@ -117,6 +117,12 @@ $extra .= $dist->distmeta->{resources}{x_IRC}
 $extra ||= 'This is a good place to send your questions about the usage of this distribution.';
 }}
 
+If you send me a patch or pull request, your name and email address will be
+included in the documentation as a contributor, unless you specifically
+request for it not to be (using the attribution on the commit or patch).
+If you wish to be listed under a different name, you should submit a pull
+request to the .mailmap file to contain the correct mapping.
+
 
 This file was generated via {{ ref($plugin) . ' ' . ($plugin->VERSION || '<self>') }} from a
 template file originating in {{

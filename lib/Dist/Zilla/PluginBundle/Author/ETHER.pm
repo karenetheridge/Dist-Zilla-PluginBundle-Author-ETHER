@@ -107,12 +107,12 @@ sub configure
 {
     my $self = shift;
 
-    warn 'no "bash" executable found; skipping Run::AfterBuild commands to update .ackrc and .latest symlink'
+    warn 'no "bash" executable found; skipping Run::AfterBuild commands to update .ackrc and .latest symlink', "\n"
         if not $has_bash;
 
     my $has_xs =()= glob('*.xs');
-    warn 'XS-based distribution detected.' if $has_xs;
-    die 'no Makefile.PL found in the repository root: this is not very nice for contributors!'
+    warn "XS-based distribution detected.\n" if $has_xs;
+    die "no Makefile.PL found in the repository root: this is not very nice for contributors!\n"
         if $has_xs and not -e 'Makefile.PL';
 
     my %plugin_versions;
@@ -310,7 +310,7 @@ sub configure
     $self->add_plugins(@plugins);
 
     # check for a bin/ that should probably be renamed to script/
-    warn 'bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?'
+    warn "bin/ detected - should this be moved to script/, so its contents can be installed into \$PATH?\n"
         if -d 'bin' and any { $_ eq 'ModuleBuildTiny' } $self->installer;
 }
 

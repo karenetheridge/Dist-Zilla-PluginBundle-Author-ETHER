@@ -11,6 +11,8 @@ Revision history for {{$dist->name}}
           - now instead of installing release with [InstallRelease], switch to
             [Run::AfterRelease] with an author-specific PAUSE URL, to help out
             cpanm-reporter
+          - adjust the command that updates the .latest symlink, to account
+            for @#$!@#$ incompatibilities between implementations of `ln`
 
 0.067     2014-07-25 01:09:13Z
           - disabled [EnsurePrereqsInstalled] for now - it is too annoying

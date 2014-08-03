@@ -185,7 +185,7 @@ sub configure
             : ()
         } ],
         # (Authority)
-        [ 'MetaNoIndex'         => { directory => [ qw(t xt), grep { -d } qw(examples share corpus) ] } ],
+        [ 'MetaNoIndex'         => { directory => [ qw(t xt), grep { -d } qw(inc local perl5 fatlib examples share corpus) ] } ],
         [ 'MetaProvides::Package' => { meta_noindex => 1, ':version' => '1.15000002', finder => ':InstallModules' } ],
         'MetaConfig',
         [ 'Keywords'            => { ':version' => '0.004' } ],
@@ -445,6 +445,10 @@ following F<dist.ini> (following the preamble):
     [MetaNoIndex]
     directory = t
     directory = xt
+    directory = inc
+    directory = local
+    directory = perl5
+    directory = fatlib
     directory = examples
     directory = share
     directory = corpus

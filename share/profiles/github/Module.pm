@@ -8,12 +8,23 @@ package {{ $name }};
 {{
     ($zilla_plugin) = ($name =~ /^Dist::Zilla::Plugin::(.+)$/g);
 
-$zilla_plugin ? <<PLUGIN
+$zilla_plugin ? <<'PLUGIN'
 use Moose;
 with 'Dist::Zilla::Role::...';
 
 use namespace::autoclean;
 
+around dump_config => sub
+{
+    my ($orig, $self) = @_;
+    my $config = $self->$orig;
+
+    $config->{+__PACKAGE__} = {
+        ...
+    };
+
+    return $config;
+};
 
 
 __PACKAGE__->meta->make_immutable;

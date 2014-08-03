@@ -117,6 +117,7 @@ my $tzil = Builder->from_config(
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
                 [ GatherDir => ],
+                [ MetaConfig => ],
                 [ 'Foo::Bar' => ... ],
             ),
             path(qw(source lib Foo.pm)) => "package Foo;\n1;\n",
@@ -130,6 +131,27 @@ is(
     undef,
     'build proceeds normally',
 ) or diag 'saw log messages: ', explain $tzil->log_messages;
+
+cmp_deeply(
+    $tzil->distmeta,
+    superhashof({
+        x_Dist_Zilla => superhashof({
+            plugins => supersetof(
+                {
+                    class => 'Dist::Zilla::Plugin::Foo::Bar',
+                    config => {
+                        'Dist::Zilla::Plugin::Foo::Bar' => {
+                            ...
+                        },
+                    },
+                    name => 'Foo::Bar',
+                    version => ignore,
+                },
+            ),
+        }),
+    }),
+    'plugin metadata, including dumped configs',
+);
 
 done_testing;
 TEST

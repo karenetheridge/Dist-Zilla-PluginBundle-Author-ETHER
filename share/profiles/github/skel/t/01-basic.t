@@ -20,6 +20,7 @@ my \$tzil = Builder->from_config(
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
                 [ GatherDir => ],
+                [ MetaConfig => ],
                 [ '$zilla_plugin' => ... ],
             ),
             path(qw(source lib Foo.pm)) => "package Foo;\\n1;\\n",
@@ -33,6 +34,27 @@ is(
     undef,
     'build proceeds normally',
 ) or diag 'saw log messages: ', explain \$tzil->log_messages;
+
+cmp_deeply(
+    \$tzil->distmeta,
+    superhashof({
+        x_Dist_Zilla => superhashof({
+            plugins => supersetof(
+                {
+                    class => 'Dist::Zilla::Plugin::$zilla_plugin',
+                    config => {
+                        'Dist::Zilla::Plugin::$zilla_plugin' => {
+                            ...
+                        },
+                    },
+                    name => '$zilla_plugin',
+                    version => ignore,
+                },
+            ),
+        }),
+    }),
+    'plugin metadata, including dumped configs',
+);
 PLUGIN
         : 'use ' . $dist->name =~ s/-/::/gr . ';'
             . "\n\nfail('this test is TODO!');"

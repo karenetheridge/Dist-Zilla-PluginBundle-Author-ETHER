@@ -7,7 +7,6 @@ use Test::Deep '!blessed';
 use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
-use Test::Deep::JSON;
 use List::Util 'first';
 
 # these are used by our default 'installer' setting
@@ -148,10 +147,9 @@ SKIP: {
     skip 'need recent Dist::Zilla to test default_jobs option', 1
         if not eval { Dist::Zilla->VERSION('5.014'); 1 };
 
-    my $json = path($tzil->tempdir, qw(build META.json))->slurp_raw;
     cmp_deeply(
-        $json,
-        json(superhashof({
+        $tzil->distmeta,
+        superhashof({
             prereqs => superhashof({
                 develop => superhashof({
                     requires => superhashof({
@@ -175,7 +173,7 @@ SKIP: {
                     } qw(MakeMaker::Fallback ModuleBuildTiny::Fallback RunExtraTests)
                 ),
             })
-        })),
+        }),
         'config is properly included in metadata',
     );
 }

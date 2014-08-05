@@ -4,7 +4,6 @@ use warnings FATAL => 'all';
 use Test::More;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep;
-use Test::Deep::JSON;
 use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
@@ -106,10 +105,10 @@ foreach my $server (keys %server_to_resources)
     );
 
     cmp_deeply(
-        path($tzil->tempdir->file('build', 'META.json'))->slurp_raw,
-        json(superhashof({
+        $tzil->distmeta,
+        superhashof({
             resources => $server_to_resources{$server},
-        })),
+        }),
         'server ' . $server . ': all meta resources are correct',
     );
 } }

@@ -54,7 +54,7 @@ cmp_deeply(
         }),
     }),
     'plugin metadata, including dumped configs',
-);
+) or diag 'got distmeta: ', explain \$tzil->distmeta;
 PLUGIN
         : 'use ' . $dist->name =~ s/-/::/gr . ';'
             . "\n\nfail('this test is TODO!');"

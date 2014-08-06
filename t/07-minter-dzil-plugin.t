@@ -151,7 +151,7 @@ cmp_deeply(
         }),
     }),
     'plugin metadata, including dumped configs',
-);
+) or diag 'got distmeta: ', explain $tzil->distmeta;
 
 done_testing;
 TEST

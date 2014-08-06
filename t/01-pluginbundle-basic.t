@@ -188,7 +188,8 @@ SKIP: {
             })
         }),
         'config is properly included in metadata',
-    );
+    )
+    or diag 'got distmeta: ', explain $tzil->distmeta;
 }
 
 # I'd like to test the release installation command here, but there's no nice

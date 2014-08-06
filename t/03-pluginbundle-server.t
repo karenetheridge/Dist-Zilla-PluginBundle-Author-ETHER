@@ -110,7 +110,7 @@ foreach my $server (keys %server_to_resources)
             resources => $server_to_resources{$server},
         }),
         'server ' . $server . ': all meta resources are correct',
-    );
+    ) or diag 'got distmeta: ', explain $tzil->distmeta;
 } }
 
 done_testing;

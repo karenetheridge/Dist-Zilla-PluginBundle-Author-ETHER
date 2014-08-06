@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.067
+version 0.068
 
 =head1 SYNOPSIS
 
@@ -51,6 +51,7 @@ following F<dist.ini> (following the preamble):
     ;;; Gather Files
     [Git::GatherDir]
     :version = 2.016
+    exclude_filename = README.md
     exclude_filename = README.pod
     exclude_filename = LICENSE
     exclude_filename = CONTRIBUTING
@@ -60,9 +61,10 @@ following F<dist.ini> (following the preamble):
     [License]
     [Readme]
     [Manifest]
-    [GenerateFile::ShareDir]
+    [GenerateFile::ShareDir / generate CONTRIBUTING]
     -dist = Dist-Zilla-PluginBundle-Author-ETHER
     -filename = CONTRIBUTING
+    has_xs => <dynamically-determined flag>
 
     [Test::Compile]
     :version = 2.039
@@ -118,9 +120,9 @@ following F<dist.ini> (following the preamble):
     time_zone = UTC
     format = %-8v  %{uyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
     [ReadmeAnyFromPod]
-    type = markdown
-    filename = README.pod
-    location = build
+    type = pod
+    location = root
+    phase = release
 
 
     ;;; MetaData
@@ -134,7 +136,13 @@ following F<dist.ini> (following the preamble):
     [MetaNoIndex]
     directory = t
     directory = xt
+    directory = inc
+    directory = local
+    directory = perl5
+    directory = fatlib
     directory = examples
+    directory = share
+    directory = corpus
 
     [MetaProvides::Package]
     meta_noindex = 1
@@ -144,6 +152,7 @@ following F<dist.ini> (following the preamble):
     [MetaConfig]
     [Keywords]
     :version = 0.004
+    [Git::Contributors]
 
     ;;; Register Prereqs
     [AutoPrereqs]
@@ -153,7 +162,6 @@ following F<dist.ini> (following the preamble):
     [Prereqs / installer_requirements]
     -phase = develop
     -relationship = requires
-    Dist::Zilla = <version used to built the pluginbundle>
     Dist::Zilla::PluginBundle::Author::ETHER = <version specified in dist.ini>
 
     [Prereqs / pluginbundle_version]
@@ -178,10 +186,13 @@ following F<dist.ini> (following the preamble):
     [CheckSelfDependency]
 
     [Run::AfterBuild]
-    run = if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi; if [[ %d =~ ^%n-[.[:xdigit:]]+$ ]]; then ln -sFn %d .latest; fi
+    run = if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi; if [[ %d =~ ^%n-[.[:xdigit:]]+$ ]]; then rm -f .latest; ln -s %d .latest; fi
 
 
     ;;; Before Release
+    [CheckStrictVersion]
+    decimal_only = 1
+
     [Git::Check / initial check]
     allow_dirty =
 
@@ -194,9 +205,6 @@ following F<dist.ini> (following the preamble):
     [Git::Remote::Check]
     branch = master
     remote_branch = master
-
-    [CheckStrictVersion]
-    decimal_only = 1
 
     [CheckPrereqsIndexed]
     [TestRelease]
@@ -212,11 +220,10 @@ following F<dist.ini> (following the preamble):
 
     ;;; AfterRelease
     [CopyFilesFromRelease]
-    filename = README.pod
     filename = LICENSE
     filename = CONTRIBUTING
 
-    [Run::AfterRelease]
+    [Run::AfterRelease / remove old READMEs]
     run = rm -f README.md
 
     [Git::Commit]
@@ -238,14 +245,15 @@ following F<dist.ini> (following the preamble):
 
     [Git::Push]
 
-    [InstallRelease]
-    install_command = cpanm .
+    [Run::AfterRelease / install release]
+    run = cpanm http://URMOM:mysekritpassword@pause.perl.org/pub/PAUSE/authors/id/U/UR/URMOM/%a
 
 
     ; listed late, to allow all other plugins which do BeforeRelease checks to run first.
     [ConfirmRelease]
 
     ; listed last, to be sure we run at the very end of each phase
+    ; only performed if $ENV{USER} eq 'ether'
     [VerifyPhases / PHASE VERIFICATION]
 
 =for Pod::Coverage configure mvp_multivalue_args
@@ -406,6 +414,8 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =head1 CONTRIBUTORS
+
+=for stopwords Randy Stauner Сергей Романов
 
 =over 4
 

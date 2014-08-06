@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.068     2014-08-06 04:15:24Z
           - README.pod is now generated only in the repository, after
             release, so it never shows up in the shipped dist
           - include a default .mailmap in the minted dist; invite the user to

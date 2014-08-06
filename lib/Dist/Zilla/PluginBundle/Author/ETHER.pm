@@ -190,7 +190,7 @@ sub configure
         [ 'MetaProvides::Package' => { meta_noindex => 1, ':version' => '1.15000002', finder => ':InstallModules' } ],
         'MetaConfig',
         [ 'Keywords'            => { ':version' => '0.004' } ],
-        #[ContributorsFromGit]
+        'Git::Contributors',
 
         # Register Prereqs
         # (MakeMaker or other installer)
@@ -478,6 +478,7 @@ following F<dist.ini> (following the preamble):
     [MetaConfig]
     [Keywords]
     :version = 0.004
+    [Git::Contributors]
 
     ;;; Register Prereqs
     [AutoPrereqs]

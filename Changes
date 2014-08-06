@@ -13,6 +13,7 @@ Revision history for {{$dist->name}}
             cpanm-reporter
           - adjust the command that updates the .latest symlink, to account
             for @#$!@#$ incompatibilities between implementations of `ln`
+          - at last! add [Git::Contributors]
 
 0.067     2014-07-25 01:09:13Z
           - disabled [EnsurePrereqsInstalled] for now - it is too annoying

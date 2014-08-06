@@ -43,7 +43,7 @@ my $tzil = Builder->from_config(
                 # and besides, we would like to run these tests at install time too!
                 [ '@Author::ETHER' => {
                     '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe',
-                        'Git::Check', 'Git::Commit', 'Git::Tag', 'Git::Push',
+                        'Git::Contributors', 'Git::Check', 'Git::Commit', 'Git::Tag', 'Git::Push',
                         'Git::CheckFor::MergeConflicts', 'Git::CheckFor::CorrectBranch',
                         'Git::Remote::Check', 'PromptIfStale', 'EnsurePrereqsInstalled' ],
                     server => 'none',

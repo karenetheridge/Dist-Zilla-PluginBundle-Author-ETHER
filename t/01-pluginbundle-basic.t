@@ -121,8 +121,6 @@ my @expected_files = qw(
 );
 push @expected_files, 't/00-report-prereqs.dd'
     if Dist::Zilla::Plugin::Test::ReportPrereqs->VERSION >= 0.014;
-push @expected_files, 'README.pod'
-    if Dist::Zilla::Plugin::ReadmeAnyFromPod->VERSION < 0.142170;
 
 my @found_files;
 my $iter = $build_dir->iterator({ recurse => 1 });

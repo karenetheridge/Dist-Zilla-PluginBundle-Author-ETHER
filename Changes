@@ -3,6 +3,8 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - bump prereq on [Git::Contributors] to allow tests to pass when
             running outside of a git repository
+          - remove hacks for [ReadmeAnyFromPod], now that the stable release
+            is out supporting phase=release
 
 0.068     2014-08-06 04:15:24Z
           - README.pod is now generated only in the repository, after

@@ -16,7 +16,6 @@ use Moose::Util::TypeConstraints;
 use List::Util qw(first any);
 use Module::Runtime 'require_module';
 use Devel::CheckBin;
-use Dist::Zilla::Plugin::ReadmeAnyFromPod;  # temporary
 use Path::Tiny;
 use namespace::autoclean;
 
@@ -56,11 +55,7 @@ has copy_file_from_release => (
     isa => 'ArrayRef[Str]',
     lazy => 1,
     default => sub {
-        $_[0]->payload->{copy_file_from_release}
-            // [
-                qw(LICENSE CONTRIBUTING),
-                (Dist::Zilla::Plugin::ReadmeAnyFromPod->VERSION < 0.142180 ? 'README.pod' : ())
-               ];
+        $_[0]->payload->{copy_file_from_release} // [ qw(LICENSE CONTRIBUTING) ];
     },
     traits => ['Array'],
     handles => { copy_files_from_release => 'elements' },
@@ -170,11 +165,7 @@ sub configure
             }
         ],
         [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
-        [ 'ReadmeAnyFromPod'    => { type => 'pod',
-                                     (Dist::Zilla::Plugin::ReadmeAnyFromPod->VERSION < 0.142180
-                                        ? ( location => 'build' )
-                                        : ( location => 'root', phase => 'release' ))
-                                   } ],
+        [ 'ReadmeAnyFromPod'    => { ':version' => '0.142180', type => 'pod', location => 'root', phase => 'release' } ],
 
         # MetaData
         $self->server eq 'github'
@@ -446,6 +437,7 @@ following F<dist.ini> (following the preamble):
     time_zone = UTC
     format = %-8v  %{uyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
     [ReadmeAnyFromPod]
+    :version = 0.142180
     type = pod
     location = root
     phase = release

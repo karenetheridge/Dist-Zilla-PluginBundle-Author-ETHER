@@ -169,16 +169,18 @@ SKIP: {
                             version => ignore,
                         }
                     } qw(MakeMaker::Fallback ModuleBuildTiny::Fallback RunExtraTests) ),
-                    subhashof({
-                        class => 'Dist::Zilla::Plugin::Run::AfterRelease',
-                        config => { # this may or may not be included, depending on the plugin version
-                            'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                run => 'REDACTED',  # password detected!
+                    ( $tzil->plugin_named('@Author::ETHER/install release')
+                        ? subhashof({
+                            class => 'Dist::Zilla::Plugin::Run::AfterRelease',
+                            config => { # this may or may not be included, depending on the plugin version
+                                'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                                    run => 'REDACTED',  # password detected!
+                                },
                             },
-                        },
-                        'name' => '@Author::ETHER/install release',
-                        version => ignore,
-                    }),
+                            'name' => '@Author::ETHER/install release',
+                            version => ignore,
+                        }) : ()
+                    ),
                 ),
             })
         }),

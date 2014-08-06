@@ -162,10 +162,13 @@ SKIP: {
                     ( map {
                         +{
                             class => 'Dist::Zilla::Plugin::' . $_,
-                            config => superhashof({
-                                'Dist::Zilla::Role::TestRunner' => superhashof({default_jobs => 9 }),
-                            }),
-                            name => ignore,
+                            # TestRunner added default_jobs and started adding to dump_config in 5.014
+                            ("Dist::Zilla::Plugin::$_"->can('default_jobs')
+                                ? (config => superhashof({
+                                    'Dist::Zilla::Role::TestRunner' => superhashof({ default_jobs => 9 }),
+                                  }))
+                                : ()),
+                            name => '@Author::ETHER/' . $_,
                             version => ignore,
                         }
                     } qw(MakeMaker::Fallback ModuleBuildTiny::Fallback RunExtraTests) ),
@@ -177,7 +180,7 @@ SKIP: {
                                     run => 'REDACTED',  # password detected!
                                 },
                             },
-                            'name' => '@Author::ETHER/install release',
+                            name => '@Author::ETHER/install release',
                             version => ignore,
                         }) : ()
                     ),

@@ -6,6 +6,8 @@ Revision history for {{$dist->name}}
           - remove hacks for [ReadmeAnyFromPod], now that the stable release
             is out supporting phase=release
           - fix test failure when installer's ~/.pause cannot be parsed
+          - fix test failure on older Dist::Zilla where TestRunners did not
+            dump their configuration into metadata
 
 0.068     2014-08-06 04:15:24Z
           - README.pod is now generated only in the repository, after

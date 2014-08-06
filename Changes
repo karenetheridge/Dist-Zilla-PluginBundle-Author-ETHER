@@ -8,6 +8,9 @@ Revision history for {{$dist->name}}
           - avoid errors from in XS-based distributions where a token Makefile.PL
             is included and we try to generate our own over top
           - more directories added to no_index
+          - now instead of installing release with [InstallRelease], switch to
+            [Run::AfterRelease] with an author-specific PAUSE URL, to help out
+            cpanm-reporter
 
 0.067     2014-07-25 01:09:13Z
           - disabled [EnsurePrereqsInstalled] for now - it is too annoying

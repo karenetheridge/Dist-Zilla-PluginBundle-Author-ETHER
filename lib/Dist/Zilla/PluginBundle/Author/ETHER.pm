@@ -17,6 +17,7 @@ use List::Util qw(first any);
 use Module::Runtime 'require_module';
 use Devel::CheckBin;
 use Dist::Zilla::Plugin::ReadmeAnyFromPod;  # temporary
+use Path::Tiny;
 use namespace::autoclean;
 
 sub mvp_multivalue_args { qw(installer copy_file_from_release) }
@@ -245,8 +246,13 @@ sub configure
             do { $plugin_versions{'Dist::Zilla::Plugin::GitHub::Update'} = 0; () },
         ) : (),
         'Git::Push',
-        [ 'InstallRelease'      => { install_command => 'cpanm .' } ],
     );
+
+    # install with an author-specific URL from PAUSE, so cpanm-reporter knows where to submit the report
+    # hopefully the file is available at this location soonish after release!
+    my ($username, $password) = $self->_pause_config;
+    push @plugins,
+        [ 'Run::AfterRelease' => 'install release' => { run => 'cpanm http://' . $username . ':' . $password . '@pause.perl.org/pub/PAUSE/authors/id/' . substr($username, 0, 1).'/'.substr($username,0,2).'/'.$username.'/%a' } ] if $username and $password;
 
     if ($self->airplane)
     {
@@ -312,6 +318,17 @@ sub configure
     # check for a bin/ that should probably be renamed to script/
     warn "bin/ detected - should this be moved to script/, so its contents can be installed into \$PATH?\n"
         if -d 'bin' and any { $_ eq 'ModuleBuildTiny' } $self->installer;
+}
+
+# return username, password from ~/.pause
+sub _pause_config
+{
+    my $self = shift;
+
+    my $file = path($ENV{HOME} // 'oops', '.pause');
+    return if not -e $file;
+
+    my ($username, $password) = map { my (undef, $val) = split ' ', $_; $val } $file->lines;
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -553,8 +570,8 @@ following F<dist.ini> (following the preamble):
 
     [Git::Push]
 
-    [InstallRelease]
-    install_command = cpanm .
+    [Run::AfterRelease / install release]
+    run = cpanm http://URMOM:mysekritpassword@pause.perl.org/pub/PAUSE/authors/id/U/UR/URMOM/%a
 
 
     ; listed late, to allow all other plugins which do BeforeRelease checks to run first.

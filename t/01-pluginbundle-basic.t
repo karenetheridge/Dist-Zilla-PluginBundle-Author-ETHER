@@ -161,7 +161,7 @@ SKIP: {
             }),
             x_Dist_Zilla => superhashof({
                 plugins => supersetof(
-                    map {
+                    ( map {
                         +{
                             class => 'Dist::Zilla::Plugin::' . $_,
                             config => superhashof({
@@ -170,13 +170,27 @@ SKIP: {
                             name => ignore,
                             version => ignore,
                         }
-                    } qw(MakeMaker::Fallback ModuleBuildTiny::Fallback RunExtraTests)
+                    } qw(MakeMaker::Fallback ModuleBuildTiny::Fallback RunExtraTests) ),
+                    subhashof({
+                        class => 'Dist::Zilla::Plugin::Run::AfterRelease',
+                        config => { # this may or may not be included, depending on the plugin version
+                            'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                                run => 'REDACTED',  # password detected!
+                            },
+                        },
+                        'name' => '@Author::ETHER/install release',
+                        version => ignore,
+                    }),
                 ),
             })
         }),
         'config is properly included in metadata',
     );
 }
+
+# I'd like to test the release installation command here, but there's no nice
+# way of doing that without risking leaking my (or someone else's!) PAUSE
+# password in the failure output of like(). Can you imagine my embarrassment!
 
 my $contributing = $tzil->slurp_file('build/CONTRIBUTING');
 unlike($contributing, qr/[^\S\n]\n/m, 'no trailing whitespace in generated CONTRIBUTING');

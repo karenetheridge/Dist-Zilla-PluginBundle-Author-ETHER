@@ -8,6 +8,8 @@ Revision history for {{$dist->name}}
           - fix test failure when installer's ~/.pause cannot be parsed
           - fix test failure on older Dist::Zilla where TestRunners did not
             dump their configuration into metadata
+          - now including authors in contributor lists, except for the
+            releaser herself
 
 0.068     2014-08-06 04:15:24Z
           - README.pod is now generated only in the repository, after

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.069     2014-08-07 02:44:38Z
           - bump prereq on [Git::Contributors] to allow tests to pass when
             running outside of a git repository
           - remove hacks for [ReadmeAnyFromPod], now that the stable release

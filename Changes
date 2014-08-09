@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - revert git contributor change from v0.069; opened
+            (github) karenetheridge/Test-Fatal/pull/1 instead!
 
 0.069     2014-08-07 02:44:38Z
           - bump prereq on [Git::Contributors] to allow tests to pass when

@@ -60,7 +60,7 @@ CHANGES
 
 cmp_deeply(
     \@warnings,
-    superbagof(re(qr/^building in airplane mode - plugins requiring the network are skipped, and releases are not permitted/)),
+    superbagof(re(qr'^\[@Author::ETHER\] building in airplane mode - plugins requiring the network are skipped, and releases are not permitted')),
     'we warn when in airplane mode',
 ) or diag join("\n", @warnings);
 

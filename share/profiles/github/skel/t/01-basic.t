@@ -33,7 +33,7 @@ is(
     exception { \$tzil->build },
     undef,
     'build proceeds normally',
-) or diag 'saw log messages: ', explain \$tzil->log_messages;
+);
 
 cmp_deeply(
     \$tzil->distmeta,
@@ -55,6 +55,9 @@ cmp_deeply(
     }),
     'plugin metadata, including dumped configs',
 ) or diag 'got distmeta: ', explain \$tzil->distmeta;
+
+diag 'got log messages: ', explain \$tzil->log_messages
+    if not Test::Builder->new->is_passing;
 PLUGIN
         : 'use ' . $dist->name =~ s/-/::/gr . ';'
             . "\n\nfail('this test is TODO!');"

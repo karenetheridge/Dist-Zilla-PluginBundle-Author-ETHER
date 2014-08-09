@@ -35,6 +35,7 @@ foreach my $plugin (grep { ref =~ /Git/ } @{$tzil->plugins})
     $meta->add_around_method_modifier(after_mint => sub { Test::More::note("in $plugin after_mint...") });
 }
 
+$tzil->chrome->logger->set_debug(1);
 $tzil->mint_dist;
 my $mint_dir = path($tzil->tempdir)->child('mint');
 
@@ -130,5 +131,8 @@ Revision history for {{$dist->name}}
 STRING
     'Changes file is created properly, with templates and whitespace preserved',
 );
+
+diag 'got log messages: ', explain $tzil->log_messages
+    if not Test::Builder->new->is_passing;
 
 done_testing;

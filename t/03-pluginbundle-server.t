@@ -92,7 +92,7 @@ foreach my $server (keys %server_to_resources)
         exception { $tzil->build },
         undef,
         'build proceeds normally',
-    ) or diag 'saw log messages: ', explain $tzil->log_messages;
+    );
 
     # check that everything we loaded is properly declared as prereqs
     all_plugins_in_prereqs($tzil,
@@ -111,6 +111,9 @@ foreach my $server (keys %server_to_resources)
         }),
         'server ' . $server . ': all meta resources are correct',
     ) or diag 'got distmeta: ', explain $tzil->distmeta;
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
 } }
 
 done_testing;

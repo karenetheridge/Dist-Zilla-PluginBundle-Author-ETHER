@@ -66,7 +66,7 @@ is(
     exception { $tzil->build },
     undef,
     'build proceeds normally',
-) or diag 'saw log messages: ', explain $tzil->log_messages;
+);
 
 # check that everything we loaded is in the pluginbundle's run-requires
 all_plugins_in_prereqs($tzil,
@@ -139,7 +139,7 @@ is(
     (grep { /someone tried to munge .* after we read from it. Making modifications again.../ } @{ $tzil->log_messages }),
     0,
     'no files were re-munged needlessly',
-) or diag 'saw log messages: ', explain $tzil->log_messages;
+);
 
 SKIP: {
     skip 'need recent Dist::Zilla to test default_jobs option', 1
@@ -210,5 +210,8 @@ like(
     qr/^template file originating in Dist-Zilla-PluginBundle-Author-ETHER-$version\.$/m,
     'name of this bundle dist and its version properly inserted into CONTRIBUTING',
 );
+
+diag 'got log messages: ', explain $tzil->log_messages
+    if not Test::Builder->new->is_passing;
 
 done_testing;

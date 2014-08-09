@@ -35,6 +35,7 @@ foreach my $plugin (grep { ref =~ /Git/ } @{$tzil->plugins})
     $meta->add_around_method_modifier(after_mint => sub { Test::More::note("in $plugin after_mint...") });
 }
 
+$tzil->chrome->logger->set_debug(1);
 $tzil->mint_dist;
 my $mint_dir = path($tzil->tempdir)->child('mint');
 
@@ -130,7 +131,7 @@ is(
     exception { $tzil->build },
     undef,
     'build proceeds normally',
-) or diag 'saw log messages: ', explain $tzil->log_messages;
+);
 
 cmp_deeply(
     $tzil->distmeta,
@@ -152,6 +153,9 @@ cmp_deeply(
     }),
     'plugin metadata, including dumped configs',
 ) or diag 'got distmeta: ', explain $tzil->distmeta;
+
+diag 'got log messages: ', explain $tzil->log_messages
+    if not Test::Builder->new->is_passing;
 
 done_testing;
 TEST

@@ -69,7 +69,7 @@ is(
     exception { $tzil->build },
     undef,
     'build proceeds normally',
-) or diag 'saw log messages: ', explain $tzil->log_messages;
+);
 
 # check that everything we loaded is in the pluginbundle's run-requires, etc
 all_plugins_in_prereqs($tzil,
@@ -103,6 +103,9 @@ like(
     qr{\[\@Author::ETHER/BlockRelease\] halting release},
     'release halts',
 );
+
+diag 'got log messages: ', explain $tzil->log_messages
+    if not Test::Builder->new->is_passing;
 
 had_no_warnings if $ENV{AUTHOR_TESTING};
 done_testing;

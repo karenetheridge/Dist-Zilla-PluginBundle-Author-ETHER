@@ -157,7 +157,7 @@ sub configure
         # Munge Files
         'Git::Describe',
         [ PkgVersion            => { ':version' => '5.010', die_on_existing_version => 1, die_on_line_insertion => 1 } ],
-        [ 'Authority'           => { authority => 'cpan:ETHER' } ],
+        [ 'Authority'           => { authority => 'cpan:ETHER', do_munging => 0 } ],
         [
             ($self->surgical_podweaver ? 'SurgicalPodWeaver' : 'PodWeaver') => {
                 replacer => 'replace_with_comment',
@@ -426,6 +426,7 @@ following F<dist.ini> (following the preamble):
     die_on_line_insertion = 1
     [Authority]
     authority = cpan:ETHER
+    do_munging = 0
 
     [PodWeaver] (or [SurgicalPodWeaver])
     :version = 4.005

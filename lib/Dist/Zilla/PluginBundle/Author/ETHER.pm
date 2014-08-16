@@ -275,11 +275,6 @@ sub configure
         'ConfirmRelease',
     );
 
-    push @plugins, (
-        # listed last, to be sure we run at the very end of each phase
-        [ 'VerifyPhases' => 'PHASE VERIFICATION' ],
-    ) if ($ENV{USER} // '') eq 'ether';
-
     foreach my $plugin_spec (@plugins)
     {
         next if not ref $plugin_spec or @$plugin_spec == 1;             # 'Foo' or [ 'Foo' ]
@@ -303,10 +298,15 @@ sub configure
     }
 
     # ensure that additional optional plugins are declared in prereqs
-    push @plugins,
+    unshift @plugins,
         [ 'Prereqs' => bundle_options =>
             { '-phase' => 'develop', '-relationship' => 'requires', %plugin_versions } ]
                 if keys %plugin_versions;
+
+    push @plugins, (
+        # listed last, to be sure we run at the very end of each phase
+        [ 'VerifyPhases' => 'PHASE VERIFICATION' ],
+    ) if ($ENV{USER} // '') eq 'ether';
 
     $self->add_plugins(@plugins);
 }

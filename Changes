@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.070     2014-08-16 18:48:19Z
           - revert git contributor change from v0.069; opened
             (github) CPAN-API/metacpan-web#1270 instead.
           - order contributors by number of commits, descending

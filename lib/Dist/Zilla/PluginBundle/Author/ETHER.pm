@@ -111,6 +111,10 @@ sub configure
     die '[@Author::ETHER] no Makefile.PL found in the repository root: this is not very nice for contributors!', "\n"
         if $has_xs and not -e 'Makefile.PL';
 
+    # check for a bin/ that should probably be renamed to script/
+    warn '[@Author::ETHER] bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?', "\n"
+        if -d 'bin' and any { $_ eq 'ModuleBuildTiny' } $self->installer;
+
     my %plugin_versions;
 
     my @plugins = (
@@ -305,10 +309,6 @@ sub configure
                 if keys %plugin_versions;
 
     $self->add_plugins(@plugins);
-
-    # check for a bin/ that should probably be renamed to script/
-    warn '[@Author::ETHER] bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?', "\n"
-        if -d 'bin' and any { $_ eq 'ModuleBuildTiny' } $self->installer;
 }
 
 # return username, password from ~/.pause

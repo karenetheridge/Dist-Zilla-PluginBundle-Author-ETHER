@@ -113,12 +113,16 @@ my @expected_files = qw(
     xt/release/kwalitee.t
     xt/release/minimum-version.t
     xt/release/mojibake.t
-    xt/release/no-tabs.t
     xt/release/pod-coverage.t
     xt/release/pod-no404s.t
     xt/release/pod-syntax.t
     xt/release/portability.t
 );
+
+push @expected_files, eval { Dist::Zilla::Plugin::Test::NoTabs->VERSION('0.09'); 1 }
+    ? 'xt/author/no-tabs.t'
+    : 'xt/release/no-tabs.t';
+
 push @expected_files, 't/00-report-prereqs.dd'
     if Dist::Zilla::Plugin::Test::ReportPrereqs->VERSION >= 0.014;
 

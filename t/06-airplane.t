@@ -60,9 +60,9 @@ CHANGES
 
 cmp_deeply(
     \@warnings,
-    superbagof(re(qr'^\[@Author::ETHER\] building in airplane mode - plugins requiring the network are skipped, and releases are not permitted')),
+    [ re(qr'^\[@Author::ETHER\] building in airplane mode - plugins requiring the network are skipped, and releases are not permitted') ],
     'we warn when in airplane mode',
-) or diag join("\n", @warnings);
+) or diag explain @warnings;
 
 $tzil->chrome->logger->set_debug(1);
 is(

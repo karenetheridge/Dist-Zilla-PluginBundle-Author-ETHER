@@ -9,6 +9,8 @@ use List::MoreUtils 'uniq';
 use Path::Tiny;
 use JSON::MaybeXS;
 
+$ENV{USER} = 'notether';
+
 # checks that all plugins in use are in the plugin bundle dist's runtime
 # requires list
 # - some plugins can be marked 'additional' - must be in recommended prereqs

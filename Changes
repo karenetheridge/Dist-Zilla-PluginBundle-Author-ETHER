@@ -5,6 +5,9 @@ Revision history for {{$dist->name}}
             Dist::Zilla::Plugin::Test::NoTabs
           - remove prereq declaration for plugin that is only actually ever
             used for ether herself
+          - now adding all plugins pulled in by the plugin bundle to the built
+            distribution's develop prereqs (to add to the plugins outside the
+            bundle, that were already being added by [Prereqs::AuthorDeps])
 
 0.070     2014-08-16 18:48:19Z
           - revert git contributor change from v0.069; opened

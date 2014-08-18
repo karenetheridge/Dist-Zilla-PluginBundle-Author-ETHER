@@ -56,6 +56,12 @@ use NoPrereqChecks;
         additional => [ 'Dist::Zilla::Plugin::MakeMaker' ], # via installer option
     );
 
+    cmp_deeply(
+        [ $tzil->plugin_named('@Author::ETHER/MakeMaker') ],
+        [ methods(default_jobs => 9) ],
+        'installer configuration settings are properly added to the payload',
+    );
+
     my $build_dir = path($tzil->tempdir)->child('build');
     my @found_files;
     my $iter = $build_dir->iterator({ recurse => 1 });
@@ -117,6 +123,26 @@ SKIP: {
             'Dist::Zilla::Plugin::MakeMaker',       # via installer option
             'Dist::Zilla::Plugin::ModuleBuildTiny', # ""
         ],
+    );
+
+    cmp_deeply(
+        $tzil->distmeta->{prereqs}{develop}{requires},
+        superhashof({
+            'Dist::Zilla::Plugin::ModuleBuildTiny' => '0.004',
+        }),
+        'installer prereq version is added',
+    ) or diag 'got dist metadata: ', explain $tzil->distmeta;
+
+    cmp_deeply(
+        [
+            $tzil->plugin_named('@Author::ETHER/MakeMaker'),
+            $tzil->plugin_named('@Author::ETHER/ModuleBuildTiny'),
+        ],
+        [
+            methods(default_jobs => 9),
+            methods(default_jobs => 9),
+        ],
+        'installer configuration settings are properly added to the payload',
     );
 
     my $build_dir = path($tzil->tempdir)->child('build');

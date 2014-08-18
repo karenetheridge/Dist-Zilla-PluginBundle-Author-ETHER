@@ -91,7 +91,7 @@ around BUILDARGS => sub
 {
     my $orig = shift;
     my $self = shift;
-    my $args = $self->$orig(@_);
+    my ($args) = $self->$orig(@_);
 
     # remove 'none' from installer list
     return $args if not exists $args->{payload}{installer};

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.071     2014-08-19 01:11:20Z
           - fix test that broke when I released version 0.09 of
             Dist::Zilla::Plugin::Test::NoTabs
           - remove prereq declaration for plugin that is only actually ever

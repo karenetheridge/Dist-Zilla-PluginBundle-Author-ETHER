@@ -49,7 +49,7 @@ has surgical_podweaver => (
 has airplane => (
     is => 'ro', isa => 'Bool',
     lazy => 1,
-    default => sub { $ENV{DZIL_AIRPLANE} // $_[0]->payload->{airplane} // 0 },
+    default => sub { $ENV{DZIL_AIRPLANE} || $_[0]->payload->{airplane} // 0 },
 );
 
 has copy_file_from_release => (

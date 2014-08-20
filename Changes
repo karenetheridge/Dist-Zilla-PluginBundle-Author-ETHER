@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.072     2014-08-20 04:33:59Z
           - fix syntax that parses badly on all perls before 5.21.1 - hey
             that's new enough for everyone, right?
 

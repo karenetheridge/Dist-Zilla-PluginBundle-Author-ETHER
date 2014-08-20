@@ -268,7 +268,7 @@ sub configure
     );
 
     my $plugin_requirements = CPAN::Meta::Requirements->new;
-    foreach my $plugin_spec (@plugins = map { ref ? $_ : [ $_ ] } @plugins)
+    foreach my $plugin_spec (@plugins = map { ref $_ ? $_ : [ $_ ] } @plugins)
     {
         my $plugin = Dist::Zilla::Util->expand_config_package_name($plugin_spec->[0]);
         require_module($plugin);

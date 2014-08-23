@@ -153,7 +153,7 @@ sub configure
         'Test::Pod::No404s',
         'Test::Kwalitee',
         'MojibakeTests',
-        [ 'Test::ReportPrereqs' => { verify_prereqs => 1 } ],
+        [ 'Test::ReportPrereqs' => { ':version' => '0.019', verify_prereqs => 1 } ],
         'Test::Portability',
 
 
@@ -406,6 +406,7 @@ following F<dist.ini> (following the preamble):
     [Test::Kwalitee]
     [MojibakeTests]
     [Test::ReportPrereqs]
+    :version = 0.019
     verify_prereqs = 1
     [Test::Portability]
 

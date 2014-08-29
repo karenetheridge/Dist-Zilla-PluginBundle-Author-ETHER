@@ -11,6 +11,7 @@ use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
     $zilla_plugin
         ? <<PLUGIN
 use Test::DZil;
+use Test::Deep;
 use Test::Fatal;
 use Path::Tiny;
 

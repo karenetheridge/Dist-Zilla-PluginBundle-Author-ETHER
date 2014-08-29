@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fixed a few small omissions in the minting profile for new
+            Dist::Zilla plugin distributions
 
 0.072     2014-08-20 04:33:59Z
           - fix syntax that parses badly on all perls before 5.21.1 - hey

@@ -109,6 +109,7 @@ like(
     do {
         my $pattern = <<'TEST';
 use Test::DZil;
+use Test::Deep;
 use Test::Fatal;
 use Path::Tiny;
 

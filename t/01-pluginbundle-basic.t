@@ -158,7 +158,7 @@ is(
                         'Dist::Zilla::Plugin::MakeMaker::Fallback' => '0.012',
                         'Dist::Zilla::PluginBundle::Author::ETHER' => '0.002',
                     }),
-                })
+                }),
             }),
             x_Dist_Zilla => superhashof({
                 plugins => supersetof(
@@ -188,7 +188,7 @@ is(
                         }) : ()
                     ),
                 ),
-            })
+            }),
         }),
         'config is properly included in metadata',
     )

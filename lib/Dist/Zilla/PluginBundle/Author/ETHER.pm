@@ -267,9 +267,14 @@ sub configure
         'ConfirmRelease',
     );
 
+    my $remove = $self->payload->{ $self->plugin_remover_attribute } // [];
+    my %remove; @remove{@$remove} = (!!1) x @$remove;
+
     my $plugin_requirements = CPAN::Meta::Requirements->new;
     foreach my $plugin_spec (@plugins = map { ref $_ ? $_ : [ $_ ] } @plugins)
     {
+        next if $remove{$plugin_spec->[0]};
+
         my $plugin = Dist::Zilla::Util->expand_config_package_name($plugin_spec->[0]);
         require_module($plugin);
 

@@ -8,6 +8,7 @@ use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
 use List::Util 'first';
+use Module::Runtime 'module_notional_filename';
 
 # these are used by our default 'installer' setting
 use Test::Requires qw(
@@ -193,6 +194,28 @@ is(
     )
     or diag 'got distmeta: ', explain $tzil->distmeta;
 }
+
+cmp_deeply(
+    $tzil->distmeta,
+    superhashof({
+        prereqs => superhashof({
+            develop => superhashof({
+                requires =>
+                    # TODO: replace with Test::Deep::notexists($key)
+                    code(sub {
+                        !exists $_[0]->{'Dist::Zilla::Plugin::Git::Commit'} ? 1 : (0, 'Dist::Zilla::Plugin::Git::Commit exists');
+                    }),
+            }),
+        }),
+    }),
+    "a -remove'd plugin does not have a prereq injected into the dist",
+);
+
+is(
+    $INC{ module_notional_filename('Dist::Zilla::Plugin::Git::Commit') },
+    undef,
+    "a -remove'd plugin has not been loaded",
+);
 
 # I'd like to test the release installation command here, but there's no nice
 # way of doing that without risking leaking my (or someone else's!) PAUSE

@@ -146,10 +146,7 @@ is(
     'no files were re-munged needlessly',
 );
 
-SKIP: {
-    skip 'need recent Dist::Zilla to test default_jobs option', 1
-        if not eval { Dist::Zilla->VERSION('5.014'); 1 };
-
+{
     cmp_deeply(
         $tzil->distmeta,
         superhashof({

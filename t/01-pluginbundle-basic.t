@@ -77,16 +77,17 @@ all_plugins_in_prereqs($tzil,
     ],
 );
 
-is(
-    $_->default_jobs,
-    9,
-    'default_jobs was set for ' . $_->meta->name . ' (via installer option and extra_args',
-) foreach
-    map {
-        my $plugin = $_;
-        first { $_->meta->name eq $plugin } @{$tzil->plugins};
-    } ( 'Dist::Zilla::Plugin::MakeMaker::Fallback', 'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' );
-
+SKIP:
+foreach my $plugin ('Dist::Zilla::Plugin::MakeMaker::Fallback', 'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback')
+{
+    skip "need recent $plugin to test default_jobs option", 1 if not $plugin->can('default_jobs');
+    my $obj = first { $_->meta->name eq $plugin } @{$tzil->plugins};
+    is(
+        $obj->default_jobs,
+        9,
+        'default_jobs was set for ' . $obj->meta->name . ' (via installer option and extra_args',
+    )
+}
 
 my $build_dir = path($tzil->tempdir)->child('build');
 

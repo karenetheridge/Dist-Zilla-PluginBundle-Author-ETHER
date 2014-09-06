@@ -7,6 +7,8 @@ Revision history for {{$dist->name}}
             in the final configuration
           - added [AuthorityFromModule] (twinned for now with [Authority],
             until supported is added in PAUSE)
+          - bump prereq on [ModuleBuildTiny::Fallback], to get fixes for
+            interaction with [CheckBin], [CheckLib]
 
 0.072     2014-08-20 04:33:59Z
           - fix syntax that parses badly on all perls before 5.21.1 - hey

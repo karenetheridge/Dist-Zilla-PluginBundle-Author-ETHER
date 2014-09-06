@@ -154,7 +154,7 @@ is(
             prereqs => superhashof({
                 develop => superhashof({
                     requires => superhashof({
-                        'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => '0.005',
+                        'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => '0.006',
                         'Dist::Zilla::Plugin::MakeMaker::Fallback' => '0.012',
                         'Dist::Zilla::PluginBundle::Author::ETHER' => '0.002',
                     }),

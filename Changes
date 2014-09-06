@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.073     2014-09-06 02:07:00Z
           - fixed a few small omissions in the minting profile for new
             Dist::Zilla plugin distributions
           - no longer performing side effects for plugins that are -remove'd

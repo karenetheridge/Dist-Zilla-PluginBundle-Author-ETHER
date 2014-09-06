@@ -211,8 +211,10 @@ sub configure
         'CheckSelfDependency',
 
         ( $has_bash ?
-            [ 'Run::AfterBuild' => { run => q{bash -c "if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi; if [[ %d =~ ^%n-[.[:xdigit:]]+$ ]]; then rm -f .latest; ln -s %d .latest; fi"} } ]
+            [ 'Run::AfterBuild' => '.ackrc' => { run => q{bash -c "if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi"} } ]
             : ()),
+        [ 'Run::AfterBuild'     => '.latest' => { ':version' => '0.024', eval => q!if ('%d' =~ /^%n-[.[:xdigit:]]+$/) { unlink '.latest'; symlink '%d', '.latest'; }! } ],
+
 
         # Before Release
         [ 'CheckStrictVersion'  => { decimal_only => 1 } ],
@@ -231,7 +233,7 @@ sub configure
 
         # After Release
         [ 'CopyFilesFromRelease' => { filename => [ $self->copy_files_from_release ] } ],
-        [ 'Run::AfterRelease'   => 'remove old READMEs' => { run => 'rm -f README.md' } ],
+        [ 'Run::AfterRelease'   => 'remove old READMEs' => { ':version' => 0.024, eval => q!unlink 'README.md'! } ],
         [ 'Git::Commit'         => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ 'Changes', 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { metacpan => 1 } ] : (),
@@ -507,8 +509,11 @@ following F<dist.ini> (following the preamble):
     ;;; After Build
     [CheckSelfDependency]
 
-    [Run::AfterBuild]
+    [Run::AfterBuild / .ackrc]
     run = if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi; if [[ %d =~ ^%n-[.[:xdigit:]]+$ ]]; then rm -f .latest; ln -s %d .latest; fi
+    [Run::AfterBuild / .latest]
+    :version = 0.024
+    eval = if ('%d' =~ /^%n-[.[:xdigit:]]+$/) { unlink '.latest'; symlink '%d', '.latest'; }
 
 
     ;;; Before Release
@@ -546,7 +551,8 @@ following F<dist.ini> (following the preamble):
     filename = CONTRIBUTING
 
     [Run::AfterRelease / remove old READMEs]
-    run = rm -f README.md
+    :version = 0.024
+    eval = unlink 'README.md'
 
     [Git::Commit]
     :version = 2.020

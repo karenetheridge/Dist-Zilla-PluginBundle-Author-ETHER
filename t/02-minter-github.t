@@ -84,6 +84,8 @@ like(
     $module,
     do {
         my $pattern = <<SYNOPSIS;
+=pod
+
 =head1 SYNOPSIS
 
     use My::New::Dist;
@@ -94,7 +96,7 @@ like(
 SYNOPSIS
         qr/\Q$pattern\E/
     },
-    'our new module has a brief generic synopsis',
+    'our new module has a brief generic synopsis and description',
 );
 
 like(
@@ -123,13 +125,56 @@ like(
 
 is(
     path($mint_dir, 'Changes')->slurp_utf8,
-    <<'STRING',
+    <<'CHANGES',
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
           - Initial release.
-STRING
+CHANGES
     'Changes file is created properly, with templates and whitespace preserved',
+);
+
+is(
+    path($mint_dir, 'README.pod')->slurp_utf8,
+    <<'README',
+=pod
+
+=head1 SYNOPSIS
+
+    use My::New::Dist;
+
+    ...
+
+=head1 DESCRIPTION
+
+...
+
+=head1 FUNCTIONS/METHODS
+
+=head2 C<foo>
+
+...
+
+=head1 SUPPORT
+
+=for stopwords irc
+
+Bugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Dist/Display.html?Name=My-New-Dist>
+(or L<bug-My-New-Dist@rt.cpan.org|mailto:bug-My-New-Dist@rt.cpan.org>).
+I am also usually active on irc, as 'ether' at C<irc.perl.org>.
+
+=head1 ACKNOWLEDGEMENTS
+
+...
+
+=head1 SEE ALSO
+
+=for :list
+* L<foo>
+
+=cut
+README
+    'README.pod is generated and contains pod',
 );
 
 diag 'got log messages: ', explain $tzil->log_messages

@@ -165,4 +165,47 @@ TEST
     'test gets custom content for testing dzil plugins',
 );
 
+is(
+    path($mint_dir, 'README.pod')->slurp_utf8,
+    <<'README',
+=pod
+
+=head1 SYNOPSIS
+
+In your F<dist.ini>:
+
+    [Foo::Bar]
+
+=head1 DESCRIPTION
+
+This is a L<Dist::Zilla> plugin that...
+
+=head1 CONFIGURATION OPTIONS
+
+=head2 C<foo>
+
+...
+
+=head1 SUPPORT
+
+=for stopwords irc
+
+Bugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-Foo-Bar>
+(or L<bug-Dist-Zilla-Plugin-Foo-Bar@rt.cpan.org|mailto:bug-Dist-Zilla-Plugin-Foo-Bar@rt.cpan.org>).
+I am also usually active on irc, as 'ether' at C<irc.perl.org>.
+
+=head1 ACKNOWLEDGEMENTS
+
+...
+
+=head1 SEE ALSO
+
+=for :list
+* L<foo>
+
+=cut
+README
+    'README.pod is generated and contains pod',
+);
+
 done_testing;

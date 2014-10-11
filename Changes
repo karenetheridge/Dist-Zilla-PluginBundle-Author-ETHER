@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - refer to "the maintainer(s)", rather than "me", in generated
             CONTRIBUTING file
+          - use new build_warnings option in [Git::Check]
 
 0.073     2014-09-06 02:07:00Z
           - fixed a few small omissions in the minting profile for new

@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.073
+version 0.074
 
 =head1 SYNOPSIS
 
@@ -192,8 +192,11 @@ following F<dist.ini> (following the preamble):
     ;;; After Build
     [CheckSelfDependency]
 
-    [Run::AfterBuild]
+    [Run::AfterBuild / .ackrc]
     run = if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi; if [[ %d =~ ^%n-[.[:xdigit:]]+$ ]]; then rm -f .latest; ln -s %d .latest; fi
+    [Run::AfterBuild / .latest]
+    :version = 0.024
+    eval = if ('%d' =~ /^%n-[.[:xdigit:]]+$/) { unlink '.latest'; symlink '%d', '.latest'; }
 
 
     ;;; Before Release
@@ -201,6 +204,8 @@ following F<dist.ini> (following the preamble):
     decimal_only = 1
 
     [Git::Check / initial check]
+    :version = 2.025
+    build_warnings = 1
     allow_dirty =
 
     [Git::CheckFor::MergeConflicts]
@@ -231,7 +236,8 @@ following F<dist.ini> (following the preamble):
     filename = CONTRIBUTING
 
     [Run::AfterRelease / remove old READMEs]
-    run = rm -f README.md
+    :version = 0.024
+    eval = unlink 'README.md'
 
     [Git::Commit]
     :version = 2.020

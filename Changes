@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.074     2014-10-12 00:01:59Z
           - refer to "the maintainer(s)", rather than "me", in generated
             CONTRIBUTING file
           - use new build_warnings option in [Git::Check]

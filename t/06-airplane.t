@@ -29,9 +29,9 @@ my @warnings = warnings {
                     [ '@Author::ETHER' => {
                         # our files are copied into source, so Git::GatherDir doesn't see them
                         # and besides, we would like to run these tests at install time too!
-                        '-remove' => [ qw(Git::GatherDir Git::NextVersion Git::Describe Git::Tag
-                            Git::Check Git::CheckFor::MergeConflicts
-                            Git::CheckFor::CorrectBranch Git::Push),
+                        '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe',
+                            'Git::Contributors', 'Git::Check', 'Git::Commit', 'Git::Tag', 'Git::Push',
+                            'Git::CheckFor::MergeConflicts', 'Git::CheckFor::CorrectBranch',
                             'EnsurePrereqsInstalled',
                             'UploadToCPAN', # removed just in case!
                             'RunExtraTests', 'TestRelease', # why waste the time?
@@ -63,6 +63,9 @@ cmp_deeply(
     [ re(qr'^\[@Author::ETHER\] building in airplane mode - plugins requiring the network are skipped, and releases are not permitted') ],
     'we warn when in airplane mode',
 ) or diag explain @warnings;
+
+my @git_plugins = grep { $_->meta->name =~ /Git(?!(?:hubMeta|Hub::Update))/ } @{$tzil->plugins};
+cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');
 
 $tzil->chrome->logger->set_debug(1);
 is(

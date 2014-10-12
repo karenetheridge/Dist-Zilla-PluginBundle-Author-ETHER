@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix tests that died when run outside a git repository
 
 0.074     2014-10-12 00:01:59Z
           - refer to "the maintainer(s)", rather than "me", in generated

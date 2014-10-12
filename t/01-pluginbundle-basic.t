@@ -58,8 +58,7 @@ my $tzil = Builder->from_config(
     },
 );
 
-my @git_plugins = grep { $_->meta->name =~ /Git/ } @{$tzil->plugins};
-
+my @git_plugins = grep { $_->meta->name =~ /Git(?!(?:hubMeta|Hub::Update))/ } @{$tzil->plugins};
 cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');
 
 $tzil->chrome->logger->set_debug(1);

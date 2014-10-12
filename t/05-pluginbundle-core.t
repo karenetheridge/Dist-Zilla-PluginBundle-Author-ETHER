@@ -6,6 +6,7 @@ use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
+use Test::Deep;
 
 use Test::File::ShareDir -share => { -dist => { 'Dist-Zilla-PluginBundle-Author-ETHER' => 'share' } };
 
@@ -27,7 +28,9 @@ use NoPrereqChecks;
                     # and besides, we would like to run these tests at install time too!
                     [ '@Author::ETHER' => {
                         '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe',
-                            'PromptIfStale', 'EnsurePrereqsInstalled' ],
+                            'Git::Contributors', 'Git::Check', 'Git::Commit', 'Git::Tag', 'Git::Push',
+                            'Git::CheckFor::MergeConflicts', 'Git::CheckFor::CorrectBranch',
+                            'Git::Remote::Check', 'PromptIfStale', 'EnsurePrereqsInstalled' ],
                         server => 'none',
                         installer => 'MakeMaker',
                       },
@@ -37,6 +40,9 @@ use NoPrereqChecks;
             },
         },
     );
+
+    my @git_plugins = grep { $_->meta->name =~ /Git(?!(?:hubMeta|Hub::Update))/ } @{$tzil->plugins};
+    cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');
 
     $tzil->chrome->logger->set_debug(1);
     is(

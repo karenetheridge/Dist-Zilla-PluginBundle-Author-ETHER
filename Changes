@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.075     2014-10-12 01:02:55Z
           - fix tests that died when run outside a git repository
 
 0.074     2014-10-12 00:01:59Z

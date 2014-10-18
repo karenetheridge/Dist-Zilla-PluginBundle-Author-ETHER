@@ -66,6 +66,12 @@ around copy_files_from_release => sub {
     uniq $self->$orig(@_), qw(LICENSE CONTRIBUTING);
 };
 
+has changes_version_columns => (
+    is => 'ro', isa => subtype('Int', where { $_ > 0 && $_ < 20 }),
+    lazy => 1,
+    default => sub { $_[0]->payload->{changes_version_columns} // 10 },
+);
+
 # configs are applied when plugins match ->isa($key) or ->does($key)
 my %extra_args = (
     'Dist::Zilla::Plugin::MakeMaker' => { 'eumm_version' => '0' },
@@ -173,7 +179,7 @@ sub configure
                 post_code_replacer => 'replace_with_nothing',
             }
         ],
-        [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-8v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
+        [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-' . ($self->changes_version_columns - 2) . 'v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
         [ 'ReadmeAnyFromPod'    => { ':version' => '0.142180', type => 'pod', location => 'root', phase => 'release' } ],
 
         # MetaData
@@ -698,6 +704,11 @@ A boolean option, that when set, uses
 L<[SurgicalPodWeaver]|Dist::Zilla::Plugin::SurgicalPodWeaver> instead of
 L<[PodWeaver]|Dist::Zilla::Plugin::SurgicalPodWeaver>, but with all the same
 options. Defaults to false.
+
+=head2 changes_version_columns
+
+An integer that specifies how many columns (right-padded with whitespace) are
+allocated in Changes entries to the version string. Defaults to 10.
 
 =for stopwords customizations
 

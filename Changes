@@ -10,6 +10,8 @@ Revision history for {{$dist->name}}
             [MakeMaker] version 5.020
           - fix ModuleBuildTiny::Fallback.mb_version to 0.28, as done in
             [ModuleBuild] version 5.020
+          - new 'changes_version_columns' configuration option, for
+            tweaking [NextRelease] format strings
 
 0.075     2014-10-12 01:02:55Z
           - fix tests that died when run outside a git repository

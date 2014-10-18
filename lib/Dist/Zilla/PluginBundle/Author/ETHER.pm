@@ -14,6 +14,7 @@ with
 use Dist::Zilla::Util;
 use Moose::Util::TypeConstraints;
 use List::Util qw(first any);
+use List::MoreUtils 'uniq';
 use Module::Runtime 'require_module';
 use Devel::CheckBin;
 use Path::Tiny;
@@ -55,12 +56,15 @@ has airplane => (
 has copy_file_from_release => (
     isa => 'ArrayRef[Str]',
     lazy => 1,
-    default => sub {
-        $_[0]->payload->{copy_file_from_release} // [ qw(LICENSE CONTRIBUTING) ];
-    },
+    default => sub { $_[0]->payload->{copy_file_from_release} // [] },
     traits => ['Array'],
     handles => { copy_files_from_release => 'elements' },
 );
+
+around copy_files_from_release => sub {
+    my $orig = shift; my $self = shift;
+    uniq $self->$orig(@_), qw(LICENSE CONTRIBUTING);
+};
 
 # configs are applied when plugins match ->isa($key) or ->does($key)
 my %extra_args = (
@@ -134,7 +138,7 @@ sub configure
         [ 'FileFinder::ByName'  => ExtraTestFiles => { dir => 'xt' } ],
 
         # Gather Files
-        [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ ($has_xs ? 'Makefile.PL' : ()), 'README.md', 'README.pod', $self->copy_files_from_release ] } ],
+        [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ uniq ($has_xs ? 'Makefile.PL' : ()), 'README.md', 'README.pod', $self->copy_files_from_release ] } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
         [ 'GenerateFile::ShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING', has_xs => $has_xs } ],
 
@@ -234,7 +238,7 @@ sub configure
         # After Release
         [ 'CopyFilesFromRelease' => { filename => [ $self->copy_files_from_release ] } ],
         [ 'Run::AfterRelease'   => 'remove old READMEs' => { ':version' => 0.024, eval => q!unlink 'README.md'! } ],
-        [ 'Git::Commit'         => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ 'Changes', 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
+        [ 'Git::Commit'         => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ uniq 'Changes', 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { metacpan => 1 } ] : (),
         'Git::Push',
@@ -682,7 +686,8 @@ Defaults to false; can also be set with the environment variable C<DZIL_AIRPLANE
 
 A file, to be present in the build, which is copied back to the source
 repository at release time and committed to git. Can be repeated more than
-once. Defaults to: F<README.pod>, F<LICENSE>, F<CONTRIBUTING>.
+once. Defaults to: F<LICENSE>, F<CONTRIBUTING>; defaults are appended to,
+rather than overwritten.
 
 =head2 surgical_podweaver
 

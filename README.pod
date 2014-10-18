@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.075
+version 0.076
 
 =head1 SYNOPSIS
 
@@ -379,7 +379,8 @@ Defaults to false; can also be set with the environment variable C<DZIL_AIRPLANE
 
 A file, to be present in the build, which is copied back to the source
 repository at release time and committed to git. Can be repeated more than
-once. Defaults to: F<README.pod>, F<LICENSE>, F<CONTRIBUTING>.
+once. Defaults to: F<LICENSE>, F<CONTRIBUTING>; defaults are appended to,
+rather than overwritten.
 
 =head2 surgical_podweaver
 
@@ -389,6 +390,11 @@ A boolean option, that when set, uses
 L<[SurgicalPodWeaver]|Dist::Zilla::Plugin::SurgicalPodWeaver> instead of
 L<[PodWeaver]|Dist::Zilla::Plugin::SurgicalPodWeaver>, but with all the same
 options. Defaults to false.
+
+=head2 changes_version_columns
+
+An integer that specifies how many columns (right-padded with whitespace) are
+allocated in Changes entries to the version string. Defaults to 10.
 
 =for stopwords customizations
 

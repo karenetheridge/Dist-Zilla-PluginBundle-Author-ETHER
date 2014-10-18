@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - bump optional dependency on [MakeMaker::Awesome] to avoid old bug
+            with loaded modules
 
 0.075     2014-10-12 01:02:55Z
           - fix tests that died when run outside a git repository

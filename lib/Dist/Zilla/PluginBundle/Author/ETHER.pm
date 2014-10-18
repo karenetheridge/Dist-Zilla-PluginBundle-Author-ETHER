@@ -68,6 +68,7 @@ around copy_files_from_release => sub {
 
 # configs are applied when plugins match ->isa($key) or ->does($key)
 my %extra_args = (
+    'Dist::Zilla::Plugin::MakeMaker' => { 'eumm_version' => '0' },
     'Dist::Zilla::Plugin::ModuleBuildTiny' => { ':version' => '0.004' },
     'Dist::Zilla::Plugin::MakeMaker::Fallback' => { ':version' => '0.012' },
     # default_jobs is no-op until Dist::Zilla 5.014

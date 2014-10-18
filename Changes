@@ -6,6 +6,8 @@ Revision history for {{$dist->name}}
           - copy_file_from_release option now appends to, rather than
             overshadowing, the defaults, so users do not need to repeat the
             defaults (which may change over time)
+          - reset default eumm_version in MakeMaker plugins to 0, as done in
+            [MakeMaker] version 5.020
 
 0.075     2014-10-12 01:02:55Z
           - fix tests that died when run outside a git repository

@@ -106,11 +106,11 @@ my @expected_files = qw(
     README
     t/00-report-prereqs.t
     xt/author/00-compile.t
+    xt/author/eol.t
     xt/author/pod-spell.t
     xt/release/changes_has_content.t
     xt/release/cpan-changes.t
     xt/release/distmeta.t
-    xt/release/eol.t
     xt/release/kwalitee.t
     xt/release/minimum-version.t
     xt/release/mojibake.t

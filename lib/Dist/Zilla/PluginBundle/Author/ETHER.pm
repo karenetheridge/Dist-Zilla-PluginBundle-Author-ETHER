@@ -152,7 +152,7 @@ sub configure
         [ 'Test::Compile'       => { ':version' => '2.039', bail_out_on_fail => 1, xt_mode => 1,
             script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
         [ 'Test::NoTabs'        => { 'version' => '0.08', finder => [qw(:InstallModules :ExecFiles @Author::ETHER/Examples :TestFiles @Author::ETHER/ExtraTestFiles)] } ],
-        'EOLTests',
+        [ 'Test::EOL'           => { ':version' => '0.14' } ],
         'MetaTests',
         [ 'Test::CPAN::Changes' => { ':version' => '0.008' } ],
         'Test::ChangesHasContent',
@@ -409,7 +409,8 @@ following F<dist.ini> (following the preamble):
     finder = :TestFiles
     finder = ExtraTestFiles
 
-    [EOLTests]
+    [Test::EOL]
+    :version = 0.14
     [MetaTests]
     [Test::CPAN::Changes]
     :version = 0.008

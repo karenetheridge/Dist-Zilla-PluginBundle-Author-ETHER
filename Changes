@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - switch from [EOLTests] to [Test::EOL]
 
 0.076     2014-10-18 22:07:58Z
           - bump optional dependency on [MakeMaker::Awesome] to avoid old bug

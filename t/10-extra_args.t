@@ -8,6 +8,9 @@ use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
 
+use lib 't/lib';
+use Helper;
+
 use Dist::Zilla::Plugin::MakeMaker;
 plan skip_all => 'need recent [MakeMaker] to test use of default_jobs option'
     if not Dist::Zilla::Plugin::MakeMaker->can('default_jobs');

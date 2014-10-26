@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - documented the first version each configuration option was first
+            available
 
 0.077     2014-10-26 21:16:11Z
           - switch from [EOLTests] to [Test::EOL]

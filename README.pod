@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.076
+version 0.077
 
 =head1 SYNOPSIS
 
@@ -81,7 +81,8 @@ following F<dist.ini> (following the preamble):
     finder = :TestFiles
     finder = ExtraTestFiles
 
-    [EOLTests]
+    [Test::EOL]
+    :version = 0.14
     [MetaTests]
     [Test::CPAN::Changes]
     :version = 0.008
@@ -132,6 +133,9 @@ following F<dist.ini> (following the preamble):
 
     ;;; MetaData
     [GithubMeta]    ; (if server = 'github' or omitted)
+    homepage = 0
+    issues = 0
+
     [AutoMetaResources]
     bugtracker.rt = 1
     ; (plus repository.* = 1 if server = 'gitmo' or 'p5sagit')
@@ -148,6 +152,7 @@ following F<dist.ini> (following the preamble):
     directory = examples
     directory = share
     directory = corpus
+    directory = demo
 
     [MetaProvides::Package]
     meta_noindex = 1

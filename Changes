@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.077     2014-10-26 21:16:11Z
           - switch from [EOLTests] to [Test::EOL]
 
 0.076     2014-10-18 22:07:58Z

@@ -3,6 +3,8 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - documented the first version each configuration option was first
             available
+          - remove duplicate [MetaConfig] in tests, to avoid issues with meta
+            merging in Dist::Zilla 5.022 (RT#99852)
 
 0.077     2014-10-26 21:16:11Z
           - switch from [EOLTests] to [Test::EOL]

@@ -34,7 +34,6 @@ my $tzil = Builder->from_config(
                     installer => 'MakeMaker',
                     'MakeMaker.default_jobs' => '8',
                 } ],
-                'MetaConfig',
             ),
             path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\n\n1",
         },

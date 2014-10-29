@@ -22,7 +22,6 @@ my $tzil = Builder->from_config(
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
                 'GatherDir',
-                'MetaConfig',
                 # our files are copied into source, so Git::GatherDir doesn't see them
                 # and besides, we would like to run these tests at install time too!
                 [ '@Author::ETHER' => {

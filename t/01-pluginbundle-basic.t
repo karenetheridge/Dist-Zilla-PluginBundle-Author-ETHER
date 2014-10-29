@@ -50,7 +50,6 @@ my $tzil = Builder->from_config(
                     server => 'none',
                     ':version' => '0.002',
                 } ],
-                'MetaConfig',
             ),
             path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\n\n1",
             path(qw(source lib DZT Sample2.pm)) => "package DZT::Sample2;\n\n1",

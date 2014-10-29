@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.078     2014-10-29 00:47:46Z
           - documented the first version each configuration option was first
             available
           - remove duplicate [MetaConfig] in tests, to avoid issues with meta

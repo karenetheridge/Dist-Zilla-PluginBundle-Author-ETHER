@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.077
+version 0.078
 
 =head1 SYNOPSIS
 
@@ -313,6 +313,8 @@ many as you'd like), as described in L<Pod::Spell/ADDING STOPWORDS>:
 
 =for stopwords ModuleBuildTiny
 
+Available since 0.007.
+
 The installer back-end(s) to use (can be specified more than once); defaults
 to L<C<ModuleBuildTiny>|Dist::Zilla::Plugin::ModuleBuildTiny::Fallback>
 and L<C<MakeMaker::Fallback>|Dist::Zilla::Plugin::MakeMaker::Fallback>
@@ -331,6 +333,8 @@ Encouraged choices are:
     installer = none (if you are including your own later on, with configs)
 
 =head2 server
+
+Available since 0.019.
 
 If provided, must be one of:
 
@@ -375,12 +379,16 @@ you'll need to provide this yourself.
 
 =head2 airplane
 
+Available since 0.053.
+
 A boolean option, that when set, removes the use of all plugins that use the
 network (generally for comparing metadata against PAUSE, and querying the
 remote git server), as well as blocking the use of the C<release> command.
 Defaults to false; can also be set with the environment variable C<DZIL_AIRPLANE>.
 
 =head2 copy_file_from_release
+
+Available in this form since 0.076.
 
 A file, to be present in the build, which is copied back to the source
 repository at release time and committed to git. Can be repeated more than
@@ -391,12 +399,16 @@ rather than overwritten.
 
 =for stopwords PodWeaver SurgicalPodWeaver
 
+Available since 0.051.
+
 A boolean option, that when set, uses
 L<[SurgicalPodWeaver]|Dist::Zilla::Plugin::SurgicalPodWeaver> instead of
 L<[PodWeaver]|Dist::Zilla::Plugin::SurgicalPodWeaver>, but with all the same
 options. Defaults to false.
 
 =head2 changes_version_columns
+
+Available since 0.076.
 
 An integer that specifies how many columns (right-padded with whitespace) are
 allocated in Changes entries to the version string. Defaults to 10.

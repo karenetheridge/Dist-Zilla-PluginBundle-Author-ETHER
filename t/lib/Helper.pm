@@ -10,6 +10,7 @@ use Path::Tiny;
 use JSON::MaybeXS;
 
 $ENV{USER} = 'notether';
+delete $ENV{DZIL_AIRPLANE};
 
 # checks that all plugins in use are in the plugin bundle dist's runtime
 # requires list

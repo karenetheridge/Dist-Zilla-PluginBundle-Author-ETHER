@@ -151,7 +151,7 @@ sub configure
 
         [ 'Test::Compile'       => { ':version' => '2.039', bail_out_on_fail => 1, xt_mode => 1,
             script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
-        [ 'Test::NoTabs'        => { 'version' => '0.08', finder => [qw(:InstallModules :ExecFiles @Author::ETHER/Examples :TestFiles @Author::ETHER/ExtraTestFiles)] } ],
+        [ 'Test::NoTabs'        => { ':version' => '0.08', finder => [qw(:InstallModules :ExecFiles @Author::ETHER/Examples :TestFiles @Author::ETHER/ExtraTestFiles)] } ],
         [ 'Test::EOL'           => { ':version' => '0.14' } ],
         'MetaTests',
         [ 'Test::CPAN::Changes' => { ':version' => '0.008' } ],
@@ -159,10 +159,10 @@ sub configure
         [ 'Test::MinimumVersion' => { ':version' => '2.000003', max_target_perl => '5.008001' } ],
         'PodSyntaxTests',
         'PodCoverageTests',
-        'Test::PodSpelling',
+        [ 'Test::PodSpelling'   => { ':version' => '2.006001' } ],
         #[Test::Pod::LinkCheck]     many outstanding bugs
         'Test::Pod::No404s',
-        'Test::Kwalitee',
+        [ 'Test::Kwalitee'      => { ':version' => '2.06' } ],
         'MojibakeTests',
         [ 'Test::ReportPrereqs' => { ':version' => '0.019', verify_prereqs => 1 } ],
         'Test::Portability',
@@ -175,6 +175,7 @@ sub configure
         [ 'Authority'           => { authority => 'cpan:ETHER', do_munging => 0 } ],
         [
             ($self->surgical_podweaver ? 'SurgicalPodWeaver' : 'PodWeaver') => {
+                $self->surgical_podweaver ? () : ( ':version' => '4.005' ),
                 replacer => 'replace_with_comment',
                 post_code_replacer => 'replace_with_nothing',
             }

@@ -9,6 +9,7 @@ use Test::Fatal;
 use Path::Tiny;
 use List::Util 1.33 'any';
 use PadWalker 'peek_sub';
+use Term::ANSIColor 2.01 'colorstrip';
 
 use lib 't/lib';
 use Helper;
@@ -59,7 +60,7 @@ CHANGES
 };
 
 cmp_deeply(
-    \@warnings,
+    [ map { colorstrip($_) } @warnings ],
     [ re(qr'^\[@Author::ETHER\] building in airplane mode - plugins requiring the network are skipped, and releases are not permitted') ],
     'we warn when in airplane mode',
 ) or diag explain @warnings;

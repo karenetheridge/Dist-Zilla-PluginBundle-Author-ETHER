@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - now using colours in diagnostic mesages
 
 0.078     2014-10-29 00:47:46Z
           - documented the first version each configuration option was first

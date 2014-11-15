@@ -19,6 +19,7 @@ use Module::Runtime 'require_module';
 use Devel::CheckBin;
 use Path::Tiny;
 use CPAN::Meta::Requirements;
+use Term::ANSIColor;
 use namespace::autoclean;
 
 sub mvp_multivalue_args { qw(installer copy_file_from_release) }
@@ -124,7 +125,7 @@ sub configure
         if $has_xs and not -e 'Makefile.PL';
 
     # check for a bin/ that should probably be renamed to script/
-    warn '[@Author::ETHER] bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?', "\n"
+    warn '[@Author::ETHER] ' . colored('bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?', 'bright_red') . "\n"
         if -d 'bin' and any { $_ eq 'ModuleBuildTiny' } $self->installer;
 
     my @plugins = (
@@ -260,7 +261,7 @@ sub configure
 
     if ($self->airplane)
     {
-        warn '[@Author::ETHER] building in airplane mode - plugins requiring the network are skipped, and releases are not permitted', "\n";
+        warn '[@Author::ETHER] ' . colored('building in airplane mode - plugins requiring the network are skipped, and releases are not permitted', 'yellow') . "\n";
         @plugins = grep {
             my $plugin = Dist::Zilla::Util->expand_config_package_name(
                 !ref($_) ? $_ : ref eq 'ARRAY' ? $_->[0] : die 'wtf'

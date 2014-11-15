@@ -393,7 +393,7 @@ following F<dist.ini> (following the preamble):
     [GenerateFile::ShareDir / generate CONTRIBUTING]
     -dist = Dist-Zilla-PluginBundle-Author-ETHER
     -filename = CONTRIBUTING
-    has_xs => <dynamically-determined flag>
+    has_xs = <dynamically-determined flag>
     [InstallGuide]
 
     [Test::Compile]

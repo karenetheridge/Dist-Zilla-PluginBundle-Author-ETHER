@@ -216,7 +216,7 @@ sub configure
         # Install Tool (some are also Test Runners)
         $self->installer,
 
-        # Test Runners
+        # Test Runners (load after installers to avoid a rebuild)
         [ 'RunExtraTests'       => { ':version' => '0.024' } ],
 
         # After Build

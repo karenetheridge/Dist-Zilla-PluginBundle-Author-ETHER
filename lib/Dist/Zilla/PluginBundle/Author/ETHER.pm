@@ -172,8 +172,6 @@ sub configure
         # Munge Files
         'Git::Describe',
         [ PkgVersion            => { ':version' => '5.010', die_on_existing_version => 1, die_on_line_insertion => 1 } ],
-        [ 'AuthorityFromModule' => { ':version' => '0.002' } ],
-        [ 'Authority'           => { authority => 'cpan:ETHER', do_munging => 0 } ],
         [
             ($self->surgical_podweaver ? 'SurgicalPodWeaver' : 'PodWeaver') => {
                 $self->surgical_podweaver ? () : ( ':version' => '4.005' ),
@@ -192,7 +190,8 @@ sub configure
             : $self->server eq 'catagits' ? ( 'repository.catagits' => 1 )
             : ()
         } ],
-        # (Authority)
+        [ 'AuthorityFromModule' => { ':version' => '0.002' } ],
+        [ 'Authority'           => { authority => 'cpan:ETHER', do_munging => 0 } ],
         [ 'MetaNoIndex'         => { directory => [ qw(t xt), grep { -d } qw(inc local perl5 fatlib examples share corpus demo) ] } ],
         [ 'MetaProvides::Package' => { meta_noindex => 1, ':version' => '1.15000002', finder => ':InstallModules' } ],
         'MetaConfig',
@@ -439,11 +438,6 @@ following F<dist.ini> (following the preamble):
     :version = 5.010
     die_on_existing_version = 1
     die_on_line_insertion = 1
-    [AuthorityFromModule]
-    :version = 0.002
-    [Authority]
-    authority = cpan:ETHER
-    do_munging = 0
 
     [PodWeaver] (or [SurgicalPodWeaver])
     :version = 4.005
@@ -470,7 +464,11 @@ following F<dist.ini> (following the preamble):
     bugtracker.rt = 1
     ; (plus repository.* = 1 if server = 'gitmo' or 'p5sagit')
 
-    ; (Authority)
+    [AuthorityFromModule]
+    :version = 0.002
+    [Authority]
+    authority = cpan:ETHER
+    do_munging = 0
 
     [MetaNoIndex]
     directory = t

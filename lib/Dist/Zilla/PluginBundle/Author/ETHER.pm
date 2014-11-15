@@ -217,7 +217,7 @@ sub configure
         'InstallGuide',
 
         # Test Runners
-        [ 'RunExtraTests'       => { ':version' => '0.019' } ],
+        [ 'RunExtraTests'       => { ':version' => '0.024' } ],
 
         # After Build
         'CheckSelfDependency',
@@ -519,7 +519,7 @@ following F<dist.ini> (following the preamble):
     ;;; Test Runner
     # <specified installer(s)>
     [RunExtraTests]
-    :version = 0.019
+    :version = 0.024
     default_jobs = 9
 
 

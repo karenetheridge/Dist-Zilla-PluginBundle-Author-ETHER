@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.079     2014-11-15 08:27:51Z
           - now using colours in diagnostic mesages
 
 0.078     2014-10-29 00:47:46Z

@@ -149,6 +149,7 @@ sub configure
         [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ uniq ($has_xs ? 'Makefile.PL' : ()), 'README.md', 'README.pod', $self->copy_files_from_release ] } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
         [ 'GenerateFile::ShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING', has_xs => $has_xs } ],
+        'InstallGuide',
 
         [ 'Test::Compile'       => { ':version' => '2.039', bail_out_on_fail => 1, xt_mode => 1,
             script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
@@ -214,7 +215,6 @@ sub configure
 
         # Install Tool (some are also Test Runners)
         $self->installer,
-        'InstallGuide',
 
         # Test Runners
         [ 'RunExtraTests'       => { ':version' => '0.024' } ],
@@ -394,6 +394,7 @@ following F<dist.ini> (following the preamble):
     -dist = Dist-Zilla-PluginBundle-Author-ETHER
     -filename = CONTRIBUTING
     has_xs => <dynamically-determined flag>
+    [InstallGuide]
 
     [Test::Compile]
     :version = 2.039
@@ -513,7 +514,6 @@ following F<dist.ini> (following the preamble):
 
     ;;; Install Tool
     <specified installer(s)>
-    [InstallGuide]
 
 
     ;;; Test Runner

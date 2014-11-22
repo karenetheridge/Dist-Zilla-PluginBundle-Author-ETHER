@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.080     2014-11-22 04:53:32Z
           - avoid failing on perl 5.21.6 where aliased.pm is warning
 
 0.079     2014-11-15 08:27:51Z

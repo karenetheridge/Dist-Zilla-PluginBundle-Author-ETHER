@@ -19,6 +19,8 @@ use NoPrereqChecks;
 # used by the 'airplane' config
 use Test::Requires 'Dist::Zilla::Plugin::BlockRelease';
 
+use Test::File::ShareDir -share => { -dist => { 'Dist-Zilla-PluginBundle-Author-ETHER' => 'share' } };
+
 my $tzil;
 my @warnings = warnings {
     $tzil = Builder->from_config(

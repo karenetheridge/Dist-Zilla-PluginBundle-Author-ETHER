@@ -61,11 +61,12 @@ CHANGES
     );
 };
 
-cmp_deeply(
+my $ok = cmp_deeply(
     [ map { colorstrip($_) } @warnings ],
-    [ re(qr'^\[@Author::ETHER\] building in airplane mode - plugins requiring the network are skipped, and releases are not permitted') ],
+    superbagof(re(qr'^\[@Author::ETHER\] building in airplane mode - plugins requiring the network are skipped, and releases are not permitted')),
     'we warn when in airplane mode',
 ) or diag explain @warnings;
+diag explain grep { !m'building in airplane mode - plugins requiring the network are skipped, and releases are not permitted' } @warnings if $ok;
 
 my @git_plugins = grep { $_->meta->name =~ /Git(?!(?:hubMeta|Hub::Update))/ } @{$tzil->plugins};
 cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');

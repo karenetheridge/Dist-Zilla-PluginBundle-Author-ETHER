@@ -225,7 +225,7 @@ sub configure
         ( $has_bash ?
             [ 'Run::AfterBuild' => '.ackrc' => { run => q{bash -c "if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi"} } ]
             : ()),
-        [ 'Run::AfterBuild'     => '.latest' => { ':version' => '0.024', eval => q!if ('%d' =~ /^%n-[.[:xdigit:]]+$/) { unlink '.latest'; symlink '%d', '.latest'; }! } ],
+        [ 'Run::AfterBuild'     => '.latest' => { ':version' => '0.028', eval => q!if ('%d' =~ /^%n-[.[:xdigit:]]+$/) { unlink '.latest'; symlink '%d', '.latest'; }! } ],
 
 
         # Before Release
@@ -529,7 +529,7 @@ following F<dist.ini> (following the preamble):
     [Run::AfterBuild / .ackrc]
     run = if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi; if [[ %d =~ ^%n-[.[:xdigit:]]+$ ]]; then rm -f .latest; ln -s %d .latest; fi
     [Run::AfterBuild / .latest]
-    :version = 0.024
+    :version = 0.028
     eval = if ('%d' =~ /^%n-[.[:xdigit:]]+$/) { unlink '.latest'; symlink '%d', '.latest'; }
 
 

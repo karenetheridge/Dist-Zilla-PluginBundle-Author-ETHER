@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - $VERSION statements inserted into modules now use 'our' syntax
+            rather than fully-qualfied variable names
 
 0.080     2014-11-22 04:53:32Z
           - avoid failing on perl 5.21.6 where aliased.pm is warning

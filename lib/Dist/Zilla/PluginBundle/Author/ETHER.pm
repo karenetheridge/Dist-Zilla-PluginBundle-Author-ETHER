@@ -146,7 +146,7 @@ sub configure
         [ 'FileFinder::ByName'  => ExtraTestFiles => { dir => 'xt' } ],
 
         # Gather Files
-        [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ uniq ($has_xs ? 'Makefile.PL' : ()), 'README.md', 'README.pod', $self->copy_files_from_release ] } ],
+        [ 'Git::GatherDir'      => { ':version' => '2.016', exclude_filename => [ grep { -e } uniq 'Makefile.PL', 'README.md', 'README.pod', 'META.json', 'cpanfile', $self->copy_files_from_release ] } ],
         qw(MetaYAML MetaJSON License Readme Manifest),
         [ 'GenerateFile::ShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING', has_xs => $has_xs } ],
         'InstallGuide',

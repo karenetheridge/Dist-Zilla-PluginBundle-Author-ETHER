@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.080
+version 0.081
 
 =head1 SYNOPSIS
 
@@ -107,9 +107,10 @@ following F<dist.ini> (following the preamble):
     ;;; Munge Files
     [Git::Describe]
     [PkgVersion]
-    :version = 5.010
+    :version = 5.026
     die_on_existing_version = 1
     die_on_line_insertion = 1
+    use_our = 1
 
     [PodWeaver] (or [SurgicalPodWeaver])
     :version = 4.005
@@ -200,7 +201,7 @@ following F<dist.ini> (following the preamble):
     [Run::AfterBuild / .ackrc]
     run = if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi; if [[ %d =~ ^%n-[.[:xdigit:]]+$ ]]; then rm -f .latest; ln -s %d .latest; fi
     [Run::AfterBuild / .latest]
-    :version = 0.024
+    :version = 0.028
     eval = if ('%d' =~ /^%n-[.[:xdigit:]]+$/) { unlink '.latest'; symlink '%d', '.latest'; }
 
 

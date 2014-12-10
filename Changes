@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.081     2014-12-10 02:09:34Z
           - $VERSION statements inserted into modules now use 'our' syntax
             rather than fully-qualfied variable names
           - added more files to the list of things we will never gather from

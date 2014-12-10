@@ -13,7 +13,7 @@ with
 
 use Dist::Zilla::Util;
 use Moose::Util::TypeConstraints;
-use List::Util qw(first any);
+use List::Util 1.33 qw(first any);
 use List::MoreUtils 'uniq';
 use Module::Runtime 'require_module';
 use Devel::CheckBin;

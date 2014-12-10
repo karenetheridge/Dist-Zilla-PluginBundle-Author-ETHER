@@ -16,10 +16,10 @@ use Moose::Util::TypeConstraints;
 use List::Util 1.33 qw(first any);
 use List::MoreUtils 'uniq';
 use Module::Runtime 'require_module';
-use Devel::CheckBin;
+use Devel::CheckBin 'can_run';
 use Path::Tiny;
 use CPAN::Meta::Requirements;
-use Term::ANSIColor;
+use Term::ANSIColor 'colored';
 use namespace::autoclean;
 
 sub mvp_multivalue_args { qw(installer copy_file_from_release) }

@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - use [Git::Describe]'s new on_package_line feature
 
 0.081     2014-12-10 02:09:34Z
           - $VERSION statements inserted into modules now use 'our' syntax

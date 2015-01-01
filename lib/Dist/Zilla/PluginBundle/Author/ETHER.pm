@@ -235,7 +235,7 @@ sub configure
 
         # Before Release
         [ 'CheckStrictVersion'  => { decimal_only => 1 } ],
-        [ 'Git::Check'          => 'initial check' => { ':version' => 2.025, build_warnings => 1, allow_dirty => [''] } ],
+        [ 'Git::Check'          => 'initial check' => { ':version' => '2.025', build_warnings => 1, allow_dirty => [''] } ],
         'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
         [ 'Git::Remote::Check'  => { branch => 'master', remote_branch => 'master' } ],
@@ -250,7 +250,7 @@ sub configure
 
         # After Release
         [ 'CopyFilesFromRelease' => { filename => [ $self->copy_files_from_release ] } ],
-        [ 'Run::AfterRelease'   => 'remove old READMEs' => { ':version' => 0.024, eval => q!unlink 'README.md'! } ],
+        [ 'Run::AfterRelease'   => 'remove old READMEs' => { ':version' => '0.024', eval => q!unlink 'README.md'! } ],
         [ 'Git::Commit'         => { allow_dirty => [ uniq 'Changes', 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { metacpan => 1 } ] : (),

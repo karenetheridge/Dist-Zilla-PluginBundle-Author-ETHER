@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.082     2015-01-03 20:15:37Z
           - use [Git::Describe]'s new on_package_line feature
           - (temporarily?) revert use of 'our' syntax for $VERSION
             declarations (see RT#101095)

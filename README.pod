@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.081
+version 0.082
 
 =head1 SYNOPSIS
 
@@ -106,11 +106,13 @@ following F<dist.ini> (following the preamble):
 
     ;;; Munge Files
     [Git::Describe]
+    :version = 0.004
+    on_package_line = 1
+
     [PkgVersion]
-    :version = 5.026
+    :version = 5.010
     die_on_existing_version = 1
     die_on_line_insertion = 1
-    use_our = 1
 
     [PodWeaver] (or [SurgicalPodWeaver])
     :version = 4.005
@@ -246,8 +248,6 @@ following F<dist.ini> (following the preamble):
     eval = unlink 'README.md'
 
     [Git::Commit]
-    :version = 2.020
-    add_files_in = .
     allow_dirty = Changes
     allow_dirty = README.md
     allow_dirty = README.pod

@@ -177,7 +177,7 @@ sub configure
 
         # Munge Files
         [ 'Git::Describe'       => { ':version' => '0.004', on_package_line => 1 } ],
-        [ PkgVersion            => { ':version' => '5.026', die_on_existing_version => 1, die_on_line_insertion => 1, use_our => 1 } ],
+        [ PkgVersion            => { ':version' => '5.010', die_on_existing_version => 1, die_on_line_insertion => 1 } ],
         [
             ($self->surgical_podweaver ? 'SurgicalPodWeaver' : 'PodWeaver') => {
                 $self->surgical_podweaver ? () : ( ':version' => '4.005' ),
@@ -444,10 +444,9 @@ following F<dist.ini> (following the preamble):
     on_package_line = 1
 
     [PkgVersion]
-    :version = 5.026
+    :version = 5.010
     die_on_existing_version = 1
     die_on_line_insertion = 1
-    use_our = 1
 
     [PodWeaver] (or [SurgicalPodWeaver])
     :version = 4.005

@@ -8,7 +8,7 @@ package Dist::Zilla::PluginBundle::Author::ETHER;
 use Moose;
 with
     'Dist::Zilla::Role::PluginBundle::Easy',
-    'Dist::Zilla::Role::PluginBundle::PluginRemover' => { -version => '0.102' },
+    'Dist::Zilla::Role::PluginBundle::PluginRemover' => { -version => '0.103' },
     'Dist::Zilla::Role::PluginBundle::Config::Slicer';
 
 use Dist::Zilla::Util;

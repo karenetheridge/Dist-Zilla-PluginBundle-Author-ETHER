@@ -3,6 +3,8 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - fix regression in 0.082 that caused new generated files not to be
             commited to git after a release
+          - -remove = <plugin> now also accepts the unique plugin name, not
+            just the class, for more targeted plugin removal
 
 0.082     2015-01-03 20:15:37Z
           - use [Git::Describe]'s new on_package_line feature

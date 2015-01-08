@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.083     2015-01-08 04:24:23Z
           - fix regression in 0.082 that caused new generated files not to be
             commited to git after a release
           - -remove = <plugin> now also accepts the unique plugin name, not

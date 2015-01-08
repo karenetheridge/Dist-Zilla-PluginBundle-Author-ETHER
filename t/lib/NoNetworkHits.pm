@@ -5,7 +5,8 @@ use warnings FATAL => 'all';
 # testing.
 {
     use HTTP::Tiny;
-    package HTTP::Tiny;
+    package # hide from AutoPrereqs-provides heuristic
+        HTTP::Tiny;
     no warnings 'redefine';
     sub get { die "HTTP::Tiny::get called for $_[1]" }
     sub mirror { die "HTTP::Tiny::mirror called for $_[1]" }

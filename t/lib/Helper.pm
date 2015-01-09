@@ -63,7 +63,6 @@ sub all_plugins_in_prereqs
                 cmp_deeply(
                     $pluginbundle_meta->{prereqs}{runtime}{requires},
                     superhashof({ $plugin => $required_version }),
-
                     $plugin . ' is a runtime prereq of the plugin bundle',
                 ) or diag 'got plugin bundle metadata: ', explain $pluginbundle_meta;
             }

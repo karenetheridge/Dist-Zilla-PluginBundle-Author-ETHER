@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix tests that failed in 0.083 for anyone who did not have a
+            ~/.pause file
 
 0.083     2015-01-08 04:24:23Z
           - fix regression in 0.082 that caused new generated files not to be

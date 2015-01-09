@@ -13,6 +13,12 @@ use JSON::MaybeXS;
 $ENV{USER} = 'notether';
 delete $ENV{DZIL_AIRPLANE};
 
+{
+    use Dist::Zilla::PluginBundle::Author::ETHER;
+    package Dist::Zilla::PluginBundle::Author::ETHER;
+    sub _pause_config { 'URMOM', 'mysekritpassword' }
+}
+
 # checks that all plugins in use are in the plugin bundle dist's runtime
 # requires list
 # - some plugins can be marked 'additional' - must be in recommended prereqs

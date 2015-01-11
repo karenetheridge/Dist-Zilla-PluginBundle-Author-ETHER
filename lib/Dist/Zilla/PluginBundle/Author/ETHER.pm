@@ -253,7 +253,7 @@ sub configure
         ( -e 'README.md' ?
             [ 'Run::AfterRelease' => 'remove old READMEs' => { ':version' => '0.024', eval => q!unlink 'README.md'! } ]
             : ()),
-        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ uniq 'Changes', 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
+        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } uniq 'Changes', 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { metacpan => 1 } ] : (),
         'Git::Push',

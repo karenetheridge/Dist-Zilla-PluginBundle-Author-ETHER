@@ -283,6 +283,7 @@ sub configure
     }
 
     push @plugins, (
+        [ 'Run::AfterRelease'   => 'release complete' => { ':version' => '0.024', eval => [ qq{print "release complete!\n"} ] } ],
         # listed late, to allow all other plugins which do BeforeRelease checks to run first.
         'ConfirmRelease',
     );
@@ -605,6 +606,9 @@ following F<dist.ini> (following the preamble):
     fatal_errors = 0
     run = cpanm http://URMOM:mysekritpassword@pause.perl.org/pub/PAUSE/authors/id/U/UR/URMOM/%a
 
+    [Run::AfterRelease / release complete]
+    :version = 0.024
+    eval = print "release complete!\n"
 
     ; listed late, to allow all other plugins which do BeforeRelease checks to run first.
     [ConfirmRelease]

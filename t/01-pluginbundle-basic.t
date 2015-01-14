@@ -178,7 +178,8 @@ is(
                             class => 'Dist::Zilla::Plugin::Run::AfterRelease',
                             config => { # this may or may not be included, depending on the plugin version
                                 'Dist::Zilla::Plugin::Run::Role::Runner' => {
-                                    run => 'REDACTED',  # password detected!
+                                    fatal_errors => 0,
+                                    run => [ 'REDACTED' ],  # password detected!
                                 },
                             },
                             name => '@Author::ETHER/install release',

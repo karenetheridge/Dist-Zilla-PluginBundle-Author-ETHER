@@ -261,7 +261,7 @@ sub configure
     # hopefully the file is available at this location soonish after release!
     my ($username, $password) = $self->_pause_config;
     push @plugins,
-        [ 'Run::AfterRelease' => 'install release' => { ':version' => '0.029', fatal_errors => 0, run => 'cpanm http://' . $username . ':' . $password . '@pause.perl.org/pub/PAUSE/authors/id/' . substr($username, 0, 1).'/'.substr($username,0,2).'/'.$username.'/%a' } ] if $username and $password;
+        [ 'Run::AfterRelease' => 'install release' => { ':version' => '0.031', fatal_errors => 0, run => 'cpanm http://' . $username . ':' . $password . '@pause.perl.org/pub/PAUSE/authors/id/' . substr($username, 0, 1).'/'.substr($username,0,2).'/'.$username.'/%a' } ] if $username and $password;
 
     if ($self->airplane)
     {
@@ -601,7 +601,7 @@ following F<dist.ini> (following the preamble):
     [Git::Push]
 
     [Run::AfterRelease / install release]
-    :version = 0.029
+    :version = 0.031
     fatal_errors = 0
     run = cpanm http://URMOM:mysekritpassword@pause.perl.org/pub/PAUSE/authors/id/U/UR/URMOM/%a
 

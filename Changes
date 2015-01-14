@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - fix test failure with metadata mismatch created by [Run::*] 0.031
 
 0.084     2015-01-09 21:46:59Z
           - fix tests that failed in 0.083 for anyone who did not have a

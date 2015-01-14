@@ -49,10 +49,11 @@ my $tzil = Builder->from_config(
                         'Git::Remote::Check', 'PromptIfStale', 'EnsurePrereqsInstalled' ],
                     server => 'none',
                     ':version' => '0.002',
+                    'RewriteVersion::Transitional.skip_version_provider' => 1,
                 } ],
             ),
-            path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\n\n1",
-            path(qw(source lib DZT Sample2.pm)) => "package DZT::Sample2;\n\n1",
+            path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\nour \$VERSION = '0.001';\n1",
+            path(qw(source lib DZT Sample2.pm)) => "package DZT::Sample2;\nour \$VERSION = '0.001';\n1",
         },
     },
 );

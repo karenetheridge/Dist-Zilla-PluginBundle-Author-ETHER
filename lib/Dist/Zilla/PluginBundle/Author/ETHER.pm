@@ -133,7 +133,7 @@ sub configure
 
     my @plugins = (
         # VersionProvider
-        [ 'Git::NextVersion'    => { version_regexp => '^v([\d._]+)(-TRIAL)?$' } ],
+        [ 'RewriteVersion::Transitional' => { ':version' => '0.004', fallback_version_provider => 'Git::NextVersion', version_regexp => '^v([\d._]+)(-TRIAL)?$' } ],
 
         # BeforeBuild
         # [ 'EnsurePrereqsInstalled' ], # FIXME: use options to make this less annoying!
@@ -180,7 +180,7 @@ sub configure
 
         # Munge Files
         [ 'Git::Describe'       => { ':version' => '0.004', on_package_line => 1 } ],
-        [ PkgVersion            => { ':version' => '5.010', die_on_existing_version => 1, die_on_line_insertion => 1 } ],
+        # [RewriteVersion::Transitional], for the transitional usecase
         [
             ($self->surgical_podweaver ? 'SurgicalPodWeaver' : 'PodWeaver') => {
                 $self->surgical_podweaver ? () : ( ':version' => '4.005' ),
@@ -259,6 +259,9 @@ sub configure
         [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } uniq 'Changes', 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { ':version' => '0.40', metacpan => 1 } ] : (),
+
+        [ 'BumpVersionAfterRelease::Transitional' => { ':version' => '0.004' } ],
+        [ 'Git::Commit'         => 'post-release commit' => { ':version' => '2.020', allow_dirty_match => '^lib/', commit_msg => 'increment $VERSION after release' } ],
         'Git::Push',
     );
 
@@ -362,7 +365,9 @@ This is a L<Dist::Zilla> plugin bundle. It is approximately equivalent to the
 following F<dist.ini> (following the preamble):
 
     ;;; VersionProvider
-    [Git::NextVersion]
+    [RewriteVersion::Transitional]
+    :version = 0.004
+    fallback_version_provider = Git::NextVersion
     version_regexp = ^v([\d._]+)(-TRIAL)?$
 
     ;;; BeforeBuild
@@ -448,11 +453,6 @@ following F<dist.ini> (following the preamble):
     [Git::Describe]
     :version = 0.004
     on_package_line = 1
-
-    [PkgVersion]
-    :version = 5.010
-    die_on_existing_version = 1
-    die_on_line_insertion = 1
 
     [PodWeaver] (or [SurgicalPodWeaver])
     :version = 4.005
@@ -606,6 +606,12 @@ following F<dist.ini> (following the preamble):
     :version = 0.40
     metacpan = 1
 
+    [BumpVersionAfterRelease::Transitional]
+    :version = 0.004
+    [Git::Commit / post-release commit]
+    :version = 2.020
+    allow_dirty_match = ^lib
+    commit_msg = increment $VERSION after release
     [Git::Push]
 
     [Run::AfterRelease / install release]
@@ -641,8 +647,7 @@ The version and other metadata is derived directly from the local git repository
 =head2 version
 
 Use C<< V=<version> >> in the shell to override the version of the distribution being built;
-otherwise the version is
-incremented from the last git tag.
+otherwise the version is incremented after each release, in the F<*.pm> files.
 
 =head2 pod coverage
 

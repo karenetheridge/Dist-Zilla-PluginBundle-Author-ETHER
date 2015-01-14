@@ -31,6 +31,7 @@ my $tzil = Builder->from_config(
                         'Git::CheckFor::MergeConflicts', 'Git::CheckFor::CorrectBranch',
                         'Git::Remote::Check', 'PromptIfStale', 'EnsurePrereqsInstalled' ],
                     server => 'none',
+                    'RewriteVersion::Transitional.skip_version_provider' => 1,
                 } ],
             ) . "\ncopy_file_from_release = extra_file\n",
             path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\n\n1",

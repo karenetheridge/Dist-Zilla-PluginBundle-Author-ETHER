@@ -40,6 +40,7 @@ my @warnings = warnings {
                             'RunExtraTests', 'TestRelease', # why waste the time?
                         ],
                         airplane => 1,
+                        'RewriteVersion::Transitional.skip_version_provider' => 1,
                     } ],
                     'FakeRelease',  # replaces UploadToCPAN, just in case!
                 ),

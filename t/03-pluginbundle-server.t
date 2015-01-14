@@ -81,6 +81,7 @@ foreach my $server (keys %server_to_resources)
                             'Git::Contributors', 'Git::Check', 'Git::Commit', 'Git::Tag', 'Git::Push',
                             'Git::CheckFor::MergeConflicts', 'Git::CheckFor::CorrectBranch',
                             'Git::Remote::Check', 'PromptIfStale', 'EnsurePrereqsInstalled' ],
+                        'RewriteVersion::Transitional.skip_version_provider' => 1,
                       },
                     ],
                 ),

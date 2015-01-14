@@ -33,6 +33,7 @@ use NoPrereqChecks;
                             'Git::Remote::Check', 'PromptIfStale', 'EnsurePrereqsInstalled' ],
                         server => 'none',
                         installer => 'MakeMaker',
+                        'RewriteVersion::Transitional.skip_version_provider' => 1,
                       },
                     ],
                 ),

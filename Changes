@@ -7,6 +7,10 @@ Revision history for {{$dist->name}}
           - dropped the use of "use warnings FATAL => 'all';' in this
             distribution's tests, and in newly-minted distributions
           - add 'default' minting profile, which is the same as 'github'
+          - switched from using [Git::NextVersion] and [PkgVersion] as the
+            version provider and version inserter (respectively) to
+            [RewriteVersion::Transitional] and
+            [BumpVersionAfterRelease::Transitional]
 
 0.085     2015-01-16 01:45:19Z
           - fix test failure with metadata mismatch created by [Run::*] 0.031

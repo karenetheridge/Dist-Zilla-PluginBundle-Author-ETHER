@@ -33,6 +33,7 @@ my $tzil = Builder->from_config(
                     server => 'none',
                     installer => 'MakeMaker',
                     'MakeMaker.default_jobs' => '8',
+                    'RewriteVersion::Transitional.skip_version_provider' => 1,
                 } ],
             ),
             path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\n\n1",

@@ -255,7 +255,7 @@ sub configure
             : ()),
         [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } uniq 'Changes', 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
-        $self->server eq 'github' ? [ 'GitHub::Update' => { metacpan => 1 } ] : (),
+        $self->server eq 'github' ? [ 'GitHub::Update' => { ':version' => '0.40', metacpan => 1 } ] : (),
         'Git::Push',
     );
 
@@ -599,6 +599,7 @@ following F<dist.ini> (following the preamble):
     tag_message = v%v%t
 
     [GitHub::Update]    ; (if server = 'github' or omitted)
+    :version = 0.40
     metacpan = 1
 
     [Git::Push]

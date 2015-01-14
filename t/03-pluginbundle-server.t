@@ -8,10 +8,10 @@ use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
 
-use Test::Requires qw(
-    Dist::Zilla::Plugin::GithubMeta
-    Dist::Zilla::Plugin::GitHub::Update
-);
+use Test::Requires {
+    'Dist::Zilla::Plugin::GithubMeta' => 0,
+    'Dist::Zilla::Plugin::GitHub::Update' => '0.40',
+};
 
 use Test::File::ShareDir -share => { -dist => { 'Dist-Zilla-PluginBundle-Author-ETHER' => 'share' } };
 

@@ -285,7 +285,7 @@ sub configure
     }
 
     push @plugins, (
-        [ 'Run::AfterRelease'   => 'release complete' => { ':version' => '0.024', eval => [ qq{print "release complete!\n"} ] } ],
+        [ 'Run::AfterRelease'   => 'release complete' => { ':version' => '0.024', eval => [ qq{print "release complete!\\xa"} ] } ],
         # listed late, to allow all other plugins which do BeforeRelease checks to run first.
         'ConfirmRelease',
     );
@@ -611,7 +611,7 @@ following F<dist.ini> (following the preamble):
 
     [Run::AfterRelease / release complete]
     :version = 0.024
-    eval = print "release complete!\n"
+    eval = print "release complete!\\xa"
 
     ; listed late, to allow all other plugins which do BeforeRelease checks to run first.
     [ConfirmRelease]

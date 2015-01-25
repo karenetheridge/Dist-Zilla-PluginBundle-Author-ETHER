@@ -208,7 +208,7 @@ sub configure
         # (MakeMaker or other installer)
         'AutoPrereqs',
         'Prereqs::AuthorDeps',
-        [ 'MinimumPerl'         => { ':version' => '1.006' } ],
+        [ 'MinimumPerl'         => { ':version' => '1.006', configure_finder => ':NoFiles' } ],
         [ 'Prereqs' => pluginbundle_version => {
                 '-phase' => 'develop', '-relationship' => 'recommends',
                 $self->meta->name => $self->VERSION,
@@ -511,6 +511,7 @@ following F<dist.ini> (following the preamble):
     [Prereqs::AuthorDeps]
     [MinimumPerl]
     :version = 1.006
+    configure_finder = :NoFiles
 
     [Prereqs / installer_requirements]
     -phase = develop

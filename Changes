@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - no longer scans inc/ for configure_requires minimum perl version
 
 0.085     2015-01-16 01:45:19Z
           - fix test failure with metadata mismatch created by [Run::*] 0.031

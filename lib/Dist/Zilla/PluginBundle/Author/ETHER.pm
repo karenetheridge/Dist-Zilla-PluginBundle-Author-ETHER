@@ -100,6 +100,9 @@ my %network_plugins;
 
 my $has_bash = can_run('bash');
 
+# files that might be in the repository that should never be gathered
+my @never_ship = qw(Makefile.PL README.md README.pod META.json cpanfile);
+
 around BUILDARGS => sub
 {
     my $orig = shift;
@@ -147,7 +150,7 @@ sub configure
 
         # Gather Files
         [ 'Git::GatherDir'      => { ':version' => '2.016', do {
-                my @filenames = grep { -e } uniq 'Makefile.PL', 'README.md', 'README.pod', 'META.json', 'cpanfile', $self->copy_files_from_release;
+                my @filenames = grep { -e } uniq @never_ship, $self->copy_files_from_release;
                 @filenames ? ( exclude_filename => \@filenames ) : ()
             },
         } ],

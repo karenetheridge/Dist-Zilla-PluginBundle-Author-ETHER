@@ -1,5 +1,5 @@
 use strict;
-use warnings FATAL => 'all';
+use warnings;
 
 # this is just like t/07-minter-dzil-plugin.t except we are minting
 # Dist-Zilla-Plugin-Foo, rather than Dist-Zilla-Plugin-Foo-Bar.

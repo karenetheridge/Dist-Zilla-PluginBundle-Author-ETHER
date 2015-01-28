@@ -1,5 +1,5 @@
 use strict;
-use warnings FATAL => 'all';
+use warnings;
 
 # patch this plugin, to make darned sure it doesn't run for users during
 # tests, because it's going to fail if they haven't satisfied develop prereqs.

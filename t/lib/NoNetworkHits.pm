@@ -1,5 +1,5 @@
 use strict;
-use warnings FATAL => 'all';
+use warnings;
 
 # patch modules that hit the network, to be sure we don't do this during
 # testing.

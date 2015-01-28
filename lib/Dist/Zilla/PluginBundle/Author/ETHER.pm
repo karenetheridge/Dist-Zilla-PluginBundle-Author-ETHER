@@ -101,7 +101,7 @@ my %network_plugins;
 my $has_bash = can_run('bash');
 
 # files that might be in the repository that should never be gathered
-my @never_ship = qw(Makefile.PL README.md README.pod META.json cpanfile);
+my @never_ship = qw(Makefile.PL README.md README.pod META.json cpanfile TODO);
 
 around BUILDARGS => sub
 {

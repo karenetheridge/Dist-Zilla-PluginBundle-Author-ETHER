@@ -6,6 +6,7 @@ Revision history for {{$dist->name}}
             file in the repository (which is never packaged)
           - dropped the use of "use warnings FATAL => 'all';' in this
             distribution's tests, and in newly-minted distributions
+          - add 'default' minting profile, which is the same as 'github'
 
 0.085     2015-01-16 01:45:19Z
           - fix test failure with metadata mismatch created by [Run::*] 0.031

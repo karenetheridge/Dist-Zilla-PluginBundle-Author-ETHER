@@ -31,9 +31,6 @@ SKIP: {
     ok(Devel::CheckBin::can_run('bash'), 'the bash executable is available');
 }
 
-require Dist::Zilla::PluginBundle::Author::ETHER;
-$Dist::Zilla::PluginBundle::Author::ETHER::VERSION //= '1.000';
-
 my $tzil = Builder->from_config(
     { dist_root => 't/does_not_exist' },
     {
@@ -227,7 +224,7 @@ like(
     'name of main module properly inserted into CONTRIBUTING',
 );
 
-my $version = Dist::Zilla::PluginBundle::Author::ETHER->VERSION // '';
+my $version = Dist::Zilla::PluginBundle::Author::ETHER->VERSION;
 like(
     $contributing,
     qr/^template file originating in Dist-Zilla-PluginBundle-Author-ETHER-$version\.$/m,

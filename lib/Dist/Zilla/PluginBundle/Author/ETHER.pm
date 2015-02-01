@@ -4,7 +4,7 @@ package Dist::Zilla::PluginBundle::Author::ETHER;
 # ABSTRACT: A plugin bundle for distributions built by ETHER
 # KEYWORDS: author bundle distribution tool
 # vim: set ts=8 sw=4 tw=78 et :
-
+our $VERSION = '0.087';
 use Moose;
 with
     'Dist::Zilla::Role::PluginBundle::Easy',

@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.085
+version 0.086
 
 =head1 SYNOPSIS
 
@@ -22,7 +22,9 @@ This is a L<Dist::Zilla> plugin bundle. It is approximately equivalent to the
 following F<dist.ini> (following the preamble):
 
     ;;; VersionProvider
-    [Git::NextVersion]
+    [RewriteVersion::Transitional]
+    :version = 0.004
+    fallback_version_provider = Git::NextVersion
     version_regexp = ^v([\d._]+)(-TRIAL)?$
 
     ;;; BeforeBuild
@@ -109,11 +111,6 @@ following F<dist.ini> (following the preamble):
     :version = 0.004
     on_package_line = 1
 
-    [PkgVersion]
-    :version = 5.010
-    die_on_existing_version = 1
-    die_on_line_insertion = 1
-
     [PodWeaver] (or [SurgicalPodWeaver])
     :version = 4.005
     replacer = replace_with_comment
@@ -174,6 +171,7 @@ following F<dist.ini> (following the preamble):
     [Prereqs::AuthorDeps]
     [MinimumPerl]
     :version = 1.006
+    configure_finder = :NoFiles
 
     [Prereqs / installer_requirements]
     -phase = develop
@@ -201,7 +199,7 @@ following F<dist.ini> (following the preamble):
     [CheckSelfDependency]
 
     [Run::AfterBuild / .ackrc]
-    run = if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi; if [[ %d =~ ^%n-[.[:xdigit:]]+$ ]]; then rm -f .latest; ln -s %d .latest; fi
+    run = bash -c "test -e .ackrc && grep -q -- '--ignore-dir=.latest' .ackrc || echo '--ignore-dir=.latest' >> .ackrc; if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi; if [[ %d =~ ^%n-[.[:xdigit:]]+$ ]]; then rm -f .latest; ln -s %d .latest; fi"
     [Run::AfterBuild / .latest]
     :version = 0.028
     eval = if ('%d' =~ /^%n-[.[:xdigit:]]+$/) { unlink '.latest'; symlink '%d', '.latest'; }
@@ -265,6 +263,12 @@ following F<dist.ini> (following the preamble):
     :version = 0.40
     metacpan = 1
 
+    [BumpVersionAfterRelease::Transitional]
+    :version = 0.004
+    [Git::Commit / post-release commit]
+    :version = 2.020
+    allow_dirty_match = ^lib
+    commit_msg = increment $VERSION after release
     [Git::Push]
 
     [Run::AfterRelease / install release]
@@ -274,7 +278,7 @@ following F<dist.ini> (following the preamble):
 
     [Run::AfterRelease / release complete]
     :version = 0.024
-    eval = print "release complete!\n"
+    eval = print "release complete!\\xa"
 
     ; listed late, to allow all other plugins which do BeforeRelease checks to run first.
     [ConfirmRelease]
@@ -299,8 +303,7 @@ The version and other metadata is derived directly from the local git repository
 =head2 version
 
 Use C<< V=<version> >> in the shell to override the version of the distribution being built;
-otherwise the version is
-incremented from the last git tag.
+otherwise the version is incremented after each release, in the F<*.pm> files.
 
 =head2 pod coverage
 

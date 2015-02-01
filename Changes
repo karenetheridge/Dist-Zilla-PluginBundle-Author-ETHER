@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.086     2015-02-01 01:38:17Z
           - no longer scans inc/ for configure_requires minimum perl version
           - generated CONTRIBUTING file now mentions the existence of a TODO
             file in the repository (which is never packaged)

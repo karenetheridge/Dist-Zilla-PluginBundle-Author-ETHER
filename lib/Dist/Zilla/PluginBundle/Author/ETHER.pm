@@ -363,8 +363,10 @@ In your F<dist.ini>:
 
 =head1 DESCRIPTION
 
-This is a L<Dist::Zilla> plugin bundle. It is approximately equivalent to the
-following F<dist.ini> (following the preamble):
+=for stopwords optimizations
+
+This is a L<Dist::Zilla> plugin bundle. It is I<very approximately> equal to the
+following F<dist.ini> (following the preamble), minus some optimizations:
 
     ;;; VersionProvider
     [RewriteVersion::Transitional]

@@ -374,6 +374,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     fallback_version_provider = Git::NextVersion
     version_regexp = ^v([\d._]+)(-TRIAL)?$
 
+
     ;;; BeforeBuild
     [PromptIfStale / stale modules, build]
     phase = build
@@ -396,6 +397,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     dir = examples
     [FileFinder::ByName / ExtraTestFiles]
     dir = xt
+
 
     ;;; Gather Files
     [Git::GatherDir]
@@ -512,6 +514,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Git::Contributors]
     :version = 0.004
     order_by = commits
+
 
     ;;; Register Prereqs
     [AutoPrereqs]

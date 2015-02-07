@@ -31,6 +31,22 @@ SKIP: {
     ok(Devel::CheckBin::can_run('bash'), 'the bash executable is available');
 }
 
+my @removed_plugins = qw(
+    Git::GatherDir
+    Git::NextVersion
+    Git::Describe
+    Git::Contributors
+    Git::Check
+    Git::Commit
+    Git::Tag
+    Git::Push
+    Git::CheckFor::MergeConflicts
+    Git::CheckFor::CorrectBranch
+    Git::Remote::Check
+    PromptIfStale
+    EnsurePrereqsInstalled
+);
+
 my $tzil = Builder->from_config(
     { dist_root => 't/does_not_exist' },
     {
@@ -40,10 +56,7 @@ my $tzil = Builder->from_config(
                 # our files are copied into source, so Git::GatherDir doesn't see them
                 # and besides, we would like to run these tests at install time too!
                 [ '@Author::ETHER' => {
-                    '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe',
-                        'Git::Contributors', 'Git::Check', 'Git::Commit', 'Git::Tag', 'Git::Push',
-                        'Git::CheckFor::MergeConflicts', 'Git::CheckFor::CorrectBranch',
-                        'Git::Remote::Check', 'PromptIfStale', 'EnsurePrereqsInstalled' ],
+                    -remove => \@removed_plugins,
                     server => 'none',
                     ':version' => '0.002',
                     'RewriteVersion::Transitional.skip_version_provider' => 1,
@@ -206,11 +219,15 @@ cmp_deeply(
     "a -remove'd plugin does not have a prereq injected into the dist",
 );
 
-is(
-    $INC{ module_notional_filename('Dist::Zilla::Plugin::Git::Commit') },
-    undef,
-    "a -remove'd plugin has not been loaded",
-);
+subtest "a -remove'd plugin should not be loaded" => sub {
+    foreach my $plugin (map { Dist::Zilla::Util->expand_config_package_name($_) } @removed_plugins) {
+        is(
+            $INC{ module_notional_filename($plugin) },
+            undef,
+            "$plugin was -remove'd and has not been loaded",
+        );
+    }
+};
 
 # I'd like to test the release installation command here, but there's no nice
 # way of doing that without risking leaking my (or someone else's!) PAUSE

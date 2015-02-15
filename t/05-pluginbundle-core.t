@@ -37,8 +37,7 @@ use NoPrereqChecks;
         },
     );
 
-    my @git_plugins = grep { $_->meta->name =~ /Git(?!(?:hubMeta|Hub::Update))/ } @{$tzil->plugins};
-    cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');
+    assert_no_git($tzil);
 
     $tzil->chrome->logger->set_debug(1);
     is(

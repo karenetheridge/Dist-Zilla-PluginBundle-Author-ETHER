@@ -65,8 +65,7 @@ my $ok = cmp_deeply(
 ) or diag explain @warnings;
 diag explain grep { !m'building in airplane mode - plugins requiring the network are skipped, and releases are not permitted' } @warnings if $ok;
 
-my @git_plugins = grep { $_->meta->name =~ /Git(?!(?:hubMeta|Hub::Update))/ } @{$tzil->plugins};
-cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');
+assert_no_git($tzil);
 
 $tzil->chrome->logger->set_debug(1);
 is(

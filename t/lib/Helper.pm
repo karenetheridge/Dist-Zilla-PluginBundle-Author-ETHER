@@ -2,7 +2,7 @@ package # hide from PAUSE
     Helper;
 
 use parent 'Exporter';
-our @EXPORT = qw(@REMOVED_PLUGINS all_plugins_in_prereqs);
+our @EXPORT = qw(@REMOVED_PLUGINS assert_no_git all_plugins_in_prereqs);
 
 use Test::More;
 use Test::Deep;
@@ -37,6 +37,14 @@ our @REMOVED_PLUGINS = qw(
     PromptIfStale
     EnsurePrereqsInstalled
 );
+
+# confirms that no git-based plugins are running.
+sub assert_no_git
+{
+    my $tzil = shift;
+    my @git_plugins = grep { $_->meta->name =~ /Git(?!(?:hubMeta|Hub::Update))/ } @{$tzil->plugins};
+    cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');
+}
 
 # checks that all plugins in use are in the plugin bundle dist's runtime
 # requires list

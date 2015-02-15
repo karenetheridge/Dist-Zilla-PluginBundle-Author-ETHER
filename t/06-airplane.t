@@ -30,12 +30,8 @@ my @warnings = warnings {
                 path(qw(source dist.ini)) => simple_ini(
                     'GatherDir',
                     [ '@Author::ETHER' => {
-                        # our files are copied into source, so Git::GatherDir doesn't see them
-                        # and besides, we would like to run these tests at install time too!
-                        '-remove' => [ 'Git::GatherDir', 'Git::NextVersion', 'Git::Describe',
-                            'Git::Contributors', 'Git::Check', 'Git::Commit', 'Git::Tag', 'Git::Push',
-                            'Git::CheckFor::MergeConflicts', 'Git::CheckFor::CorrectBranch',
-                            'EnsurePrereqsInstalled',
+                        '-remove' => [
+                            @REMOVED_PLUGINS,
                             'UploadToCPAN', # removed just in case!
                             'RunExtraTests', 'TestRelease', # why waste the time?
                         ],

@@ -2,7 +2,7 @@ package # hide from PAUSE
     Helper;
 
 use parent 'Exporter';
-our @EXPORT = qw(all_plugins_in_prereqs);
+our @EXPORT = qw(@REMOVED_PLUGINS all_plugins_in_prereqs);
 
 use Test::More;
 use Test::Deep;
@@ -18,6 +18,25 @@ delete $ENV{DZIL_AIRPLANE};
     package Dist::Zilla::PluginBundle::Author::ETHER;
     sub _pause_config { 'URMOM', 'mysekritpassword' }
 }
+
+# plugins to always remove from test dists, as they use git or the network
+# Our files are copied into source, so Git::GatherDir doesn't see them and
+# besides, we would like to run these tests at install time too!
+our @REMOVED_PLUGINS = qw(
+    Git::GatherDir
+    Git::NextVersion
+    Git::Describe
+    Git::Contributors
+    Git::Check
+    Git::Commit
+    Git::Tag
+    Git::Push
+    Git::CheckFor::MergeConflicts
+    Git::CheckFor::CorrectBranch
+    Git::Remote::Check
+    PromptIfStale
+    EnsurePrereqsInstalled
+);
 
 # checks that all plugins in use are in the plugin bundle dist's runtime
 # requires list

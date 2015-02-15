@@ -31,32 +31,14 @@ SKIP: {
     ok(Devel::CheckBin::can_run('bash'), 'the bash executable is available');
 }
 
-my @removed_plugins = qw(
-    Git::GatherDir
-    Git::NextVersion
-    Git::Describe
-    Git::Contributors
-    Git::Check
-    Git::Commit
-    Git::Tag
-    Git::Push
-    Git::CheckFor::MergeConflicts
-    Git::CheckFor::CorrectBranch
-    Git::Remote::Check
-    PromptIfStale
-    EnsurePrereqsInstalled
-);
-
 my $tzil = Builder->from_config(
     { dist_root => 't/does_not_exist' },
     {
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
                 'GatherDir',
-                # our files are copied into source, so Git::GatherDir doesn't see them
-                # and besides, we would like to run these tests at install time too!
                 [ '@Author::ETHER' => {
-                    -remove => \@removed_plugins,
+                    -remove => \@REMOVED_PLUGINS,
                     server => 'none',
                     ':version' => '0.002',
                     'RewriteVersion::Transitional.skip_version_provider' => 1,
@@ -220,7 +202,7 @@ cmp_deeply(
 );
 
 subtest "a -remove'd plugin should not be loaded" => sub {
-    foreach my $plugin (map { Dist::Zilla::Util->expand_config_package_name($_) } @removed_plugins) {
+    foreach my $plugin (map { Dist::Zilla::Util->expand_config_package_name($_) } @REMOVED_PLUGINS) {
         is(
             $INC{ module_notional_filename($plugin) },
             undef,

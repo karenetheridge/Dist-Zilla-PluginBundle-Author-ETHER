@@ -166,4 +166,39 @@ SKIP: {
         if not Test::Builder->new->is_passing;
 }
 
+{
+    my $tzil = Builder->from_config(
+        { dist_root => 't/does_not_exist' },
+        {
+            add_files => {
+                path(qw(source dist.ini)) => simple_ini(
+                    'GatherDir',
+                    [ '@Author::ETHER' => {
+                        '-remove' => [ @REMOVED_PLUGINS, 'InstallGuide' ],
+                        server => 'none',
+                        installer => 'none',
+                        'RewriteVersion::Transitional.skip_version_provider' => 1,
+                      },
+                    ],
+                ),
+                path(qw(source lib MyDist.pm)) => "package MyDist;\n\n1",
+            },
+        },
+    );
+
+    assert_no_git($tzil);
+
+    $tzil->chrome->logger->set_debug(1);
+    is(
+        exception { $tzil->build },
+        undef,
+        'build proceeds normally',
+    );
+
+    is(@{ $tzil->plugins_with('-InstallerTool') }, 0, 'no installers configured');
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
+}
+
 done_testing;

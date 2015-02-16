@@ -113,8 +113,8 @@ like(
 
 like(
     path($mint_dir, 'dist.ini')->slurp_utf8,
-    qr/\[\@Author::ETHER\]/,
-    'plugin bundle is referenced in dist.ini',
+    qr/\[\@Author::ETHER\]\n:version = [\d.]+\n\n/,
+    'plugin bundle and version is referenced in dist.ini',
 );
 
 like(

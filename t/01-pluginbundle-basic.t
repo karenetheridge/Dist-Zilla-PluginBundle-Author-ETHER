@@ -210,6 +210,12 @@ subtest "a -remove'd plugin should not be loaded" => sub {
     }
 };
 
+is(
+    $tzil->plugin_named('@Author::ETHER/Test::MinimumVersion')->max_target_perl,
+    '5.006',
+    'max_target_perl option defaults to 5.006 (when not overridden with a slice)',
+);
+
 # I'd like to test the release installation command here, but there's no nice
 # way of doing that without risking leaking my (or someone else's!) PAUSE
 # password in the failure output of like(). Can you imagine my embarrassment!

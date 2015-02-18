@@ -29,6 +29,7 @@ my $tzil = Builder->from_config(
                     installer => 'MakeMaker',
                     'MakeMaker.default_jobs' => '8',
                     'RewriteVersion::Transitional.skip_version_provider' => 1,
+                    'Test::MinimumVersion.max_target_perl' => '5.010',
                 } ],
             ),
             path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\n\n1",
@@ -49,6 +50,12 @@ is(
     $tzil->plugin_named('@Author::ETHER/MakeMaker')->default_jobs,
     8,
     'extra arg added to plugin was overridden by the user',
+);
+
+is(
+    $tzil->plugin_named('@Author::ETHER/Test::MinimumVersion')->max_target_perl,
+    '5.010',
+    'max_target_perl option overrides default',
 );
 
 done_testing;

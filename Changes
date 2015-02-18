@@ -4,6 +4,8 @@ Revision history for {{$dist->name}}
           - now requiring a more conservative minimum version for
             Module::Build::Tiny, when it is used.
           - fix the 'default' minting profile
+          - lower the default maximum-allowed minimum perl version in built
+            distributions from 5.008001 to 5.006.
 
 0.086     2015-02-01 01:38:17Z
           - no longer scans inc/ for configure_requires minimum perl version

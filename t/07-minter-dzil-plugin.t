@@ -42,7 +42,15 @@ my $mint_dir = path($tzil->tempdir)->child('mint');
 my $dist_ini = path($mint_dir, 'dist.ini')->slurp_utf8;
 like(
     $dist_ini,
-    qr/\[Bootstrap::lib\]\n\[Foo::Bar\]\n\n\[\@Author::ETHER\]\n:version = [\d.]+\n\n\[MetaResources\]\nx_IRC/m,
+    qr/\[Bootstrap::lib\]
+\[Foo::Bar\]
+
+\[\@Author::ETHER\]
+:version = [\d.]+
+Test::MinimumVersion.max_target_perl = 5.008001
+
+\[MetaResources\]
+x_IRC/m,
     'found dist.ini content',
 );
 

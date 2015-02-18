@@ -68,6 +68,10 @@ bundle).
 You will be prompted to create a repository on github immediately; if you
 decline, you must create one manually before you do your first C<push>.
 
+* C<default>
+
+Presently the same as C<github>. Available since version 0.087.
+
 =end :list
 
 =head1 SUPPORT

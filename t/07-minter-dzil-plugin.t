@@ -21,7 +21,7 @@ plan skip_all => 'this test requires a built dist'
 plan skip_all => 'minting requires perl 5.014' unless $] >= 5.013002;
 
 my $tzil = Minter->_new_from_profile(
-    [ 'Author::ETHER' => 'github' ],
+    [ 'Author::ETHER' => 'default' ],
     { name => 'Dist-Zilla-Plugin-Foo-Bar', },
     { global_config_root => dir('t/corpus/global')->absolute }, # sadly, this must quack like a Path::Class
 );

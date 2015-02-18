@@ -78,7 +78,7 @@ has changes_version_columns => (
 # configs are applied when plugins match ->isa($key) or ->does($key)
 my %extra_args = (
     'Dist::Zilla::Plugin::MakeMaker' => { 'eumm_version' => '0' },
-    'Dist::Zilla::Plugin::ModuleBuildTiny' => { ':version' => '0.004' },
+    'Dist::Zilla::Plugin::ModuleBuildTiny' => { ':version' => '0.009', version_method => 'conservative' },
     'Dist::Zilla::Plugin::MakeMaker::Fallback' => { ':version' => '0.012' },
     # default_jobs is no-op until Dist::Zilla 5.014
     'Dist::Zilla::Role::TestRunner' => { default_jobs => 9 },

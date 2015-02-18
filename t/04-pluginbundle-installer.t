@@ -128,7 +128,7 @@ SKIP: {
     cmp_deeply(
         $tzil->distmeta->{prereqs}{develop}{requires},
         superhashof({
-            'Dist::Zilla::Plugin::ModuleBuildTiny' => '0.004',
+            'Dist::Zilla::Plugin::ModuleBuildTiny' => '0.009',
         }),
         'installer prereq version is added',
     ) or diag 'got dist metadata: ', explain $tzil->distmeta;

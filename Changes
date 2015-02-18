@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - now requiring a more conservative minimum version for
+            Module::Build::Tiny, when it is used.
 
 0.086     2015-02-01 01:38:17Z
           - no longer scans inc/ for configure_requires minimum perl version

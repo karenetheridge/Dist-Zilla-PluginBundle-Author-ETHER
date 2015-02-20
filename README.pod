@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.086
+version 0.087
 
 =head1 SYNOPSIS
 
@@ -18,14 +18,17 @@ In your F<dist.ini>:
 
 =head1 DESCRIPTION
 
-This is a L<Dist::Zilla> plugin bundle. It is approximately equivalent to the
-following F<dist.ini> (following the preamble):
+=for stopwords optimizations
+
+This is a L<Dist::Zilla> plugin bundle. It is I<very approximately> equal to the
+following F<dist.ini> (following the preamble), minus some optimizations:
 
     ;;; VersionProvider
     [RewriteVersion::Transitional]
     :version = 0.004
     fallback_version_provider = Git::NextVersion
     version_regexp = ^v([\d._]+)(-TRIAL)?$
+
 
     ;;; BeforeBuild
     [PromptIfStale / stale modules, build]
@@ -49,6 +52,7 @@ following F<dist.ini> (following the preamble):
     dir = examples
     [FileFinder::ByName / ExtraTestFiles]
     dir = xt
+
 
     ;;; Gather Files
     [Git::GatherDir]
@@ -165,6 +169,7 @@ following F<dist.ini> (following the preamble):
     [Git::Contributors]
     :version = 0.004
     order_by = commits
+
 
     ;;; Register Prereqs
     [AutoPrereqs]

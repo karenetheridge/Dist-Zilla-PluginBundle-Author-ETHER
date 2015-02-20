@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.087     2015-02-20 02:47:43Z
           - now requiring a more conservative minimum version for
             Module::Build::Tiny, when it is used.
           - fix the 'default' minting profile

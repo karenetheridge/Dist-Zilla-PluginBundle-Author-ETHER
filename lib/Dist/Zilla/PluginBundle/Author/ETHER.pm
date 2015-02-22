@@ -66,7 +66,7 @@ has copy_file_from_release => (
 
 around copy_files_from_release => sub {
     my $orig = shift; my $self = shift;
-    uniq $self->$orig(@_), qw(LICENSE CONTRIBUTING);
+    uniq $self->$orig(@_), qw(LICENSE CONTRIBUTING Changes);
 };
 
 has changes_version_columns => (
@@ -192,7 +192,6 @@ sub configure
                 post_code_replacer => 'replace_with_nothing',
             }
         ],
-        [ 'NextRelease'         => { ':version' => '4.300018', time_zone => 'UTC', format => '%-' . ($self->changes_version_columns - 2) . 'v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
         [ 'ReadmeAnyFromPod'    => { ':version' => '0.142180', type => 'pod', location => 'root', phase => 'release' } ],
 
         # MetaData
@@ -260,12 +259,13 @@ sub configure
         ( -e 'README.md' ?
             [ 'Run::AfterRelease' => 'remove old READMEs' => { ':version' => '0.024', eval => q!unlink 'README.md'! } ]
             : ()),
-        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } uniq 'Changes', 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
+        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } uniq 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { ':version' => '0.40', metacpan => 1 } ] : (),
 
         [ 'BumpVersionAfterRelease::Transitional' => { ':version' => '0.004' } ],
-        [ 'Git::Commit'         => 'post-release commit' => { ':version' => '2.020', allow_dirty_match => '^lib/', commit_msg => 'increment $VERSION after release' } ],
+        [ 'NextRelease'         => { ':version' => '5.033', time_zone => 'UTC', format => '%-' . ($self->changes_version_columns - 2) . 'v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
+        [ 'Git::Commit'         => 'post-release commit' => { ':version' => '2.020', allow_dirty => [ 'Changes' ], allow_dirty_match => '^lib/', commit_msg => 'increment $VERSION after release' } ],
         'Git::Push',
     );
 
@@ -467,10 +467,6 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     replacer = replace_with_comment
     post_code_replacer = replace_with_nothing
 
-    [NextRelease]
-    :version = 4.300018
-    time_zone = UTC
-    format = %-8v  %{uyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
     [ReadmeAnyFromPod]
     :version = 0.142180
     type = pod
@@ -592,6 +588,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [CopyFilesFromRelease]
     filename = LICENSE
     filename = CONTRIBUTING
+    filename = Changes
 
     [Run::AfterRelease / remove old READMEs]
     :version = 0.024
@@ -617,8 +614,13 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     [BumpVersionAfterRelease::Transitional]
     :version = 0.004
+    [NextRelease]
+    :version = 5.033
+    time_zone = UTC
+    format = %-8v  %{uyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
     [Git::Commit / post-release commit]
     :version = 2.020
+    allow_dirty = Changes
     allow_dirty_match = ^lib
     commit_msg = increment $VERSION after release
     [Git::Push]

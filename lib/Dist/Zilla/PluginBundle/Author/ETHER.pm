@@ -66,7 +66,7 @@ has copy_file_from_release => (
 
 around copy_files_from_release => sub {
     my $orig = shift; my $self = shift;
-    uniq $self->$orig(@_), qw(LICENSE CONTRIBUTING);
+    uniq $self->$orig(@_), qw(LICENSE CONTRIBUTING.mkdn);
 };
 
 has changes_version_columns => (
@@ -103,7 +103,7 @@ my %network_plugins;
 my $has_bash = can_run('bash');
 
 # files that might be in the repository that should never be gathered
-my @never_ship = qw(Makefile.PL README.md README.pod META.json cpanfile TODO);
+my @never_ship = qw(Makefile.PL README.md README.pod META.json cpanfile TODO CONTRIBUTING);
 
 around BUILDARGS => sub
 {
@@ -158,7 +158,7 @@ sub configure
         } ],
 
         qw(MetaYAML MetaJSON License Readme Manifest),
-        [ 'GenerateFile::ShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING', has_xs => $has_xs } ],
+        [ 'GenerateFile::ShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING.mkdn', has_xs => $has_xs } ],
         'InstallGuide',
 
         [ 'Test::Compile'       => { ':version' => '2.039', bail_out_on_fail => 1, xt_mode => 1,
@@ -258,7 +258,10 @@ sub configure
         ( -e 'README.md' ?
             [ 'Run::AfterRelease' => 'remove old READMEs' => { ':version' => '0.024', eval => q!unlink 'README.md'! } ]
             : ()),
-        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } uniq 'Changes', 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
+        ( -e 'CONTRIBUTING' ?
+            [ 'Run::AfterRelease' => 'remove old CONTRIBUTING' => { ':version' => '0.024', eval => q!unlink 'CONTRIBUTING'! } ]
+            : ()),
+        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } uniq 'Changes', 'README.md', 'README.pod', 'CONTRIBUTING', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { ':version' => '0.40', metacpan => 1 } ] : (),
 
@@ -406,6 +409,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     exclude_filename = README.pod
     exclude_filename = LICENSE
     exclude_filename = CONTRIBUTING
+    exclude_filename = CONTRIBUTING.mkdn
 
     [MetaYAML]
     [MetaJSON]
@@ -414,7 +418,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Manifest]
     [GenerateFile::ShareDir / generate CONTRIBUTING]
     -dist = Dist-Zilla-PluginBundle-Author-ETHER
-    -filename = CONTRIBUTING
+    -filename = CONTRIBUTING.mkdn
     has_xs = <dynamically-determined flag>
     [InstallGuide]
 
@@ -589,11 +593,15 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     ;;; AfterRelease
     [CopyFilesFromRelease]
     filename = LICENSE
-    filename = CONTRIBUTING
+    filename = CONTRIBUTING.mkdn
 
     [Run::AfterRelease / remove old READMEs]
     :version = 0.024
     eval = unlink 'README.md'
+
+    [Run::AfterRelease / remove old CONTRIBUTING]
+    :version = 0.024
+    eval = unlink 'CONTRIBUTING'
 
     [Git::Commit / release snapshot]
     :version = 2.020
@@ -603,6 +611,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     allow_dirty = README.pod
     allow_dirty = LICENSE
     allow_dirty = CONTRIBUTING
+    allow_dirty = CONTRIBUTING.mkdn
     commit_msg = %N-%v%t%n%n%c
 
     [Git::Tag]
@@ -740,7 +749,7 @@ Available in this form since 0.076.
 
 A file, to be present in the build, which is copied back to the source
 repository at release time and committed to git. Can be repeated more than
-once. Defaults to: F<LICENSE>, F<CONTRIBUTING>; defaults are appended to,
+once. Defaults to: F<LICENSE>, F<CONTRIBUTING.mkdn>; defaults are appended to,
 rather than overwritten.
 
 =head2 surgical_podweaver

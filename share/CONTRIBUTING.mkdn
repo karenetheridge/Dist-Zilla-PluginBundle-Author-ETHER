@@ -129,6 +129,9 @@ $extra .= $dist->distmeta->{resources}{x_IRC}
 # send questions to the bugtracker if nowhere better
 $extra ||= 'This is a good place to send your questions about the usage of this distribution.';
 }}
+# XXX todo: convert irc link:
+# irc://irc.perl.org/#distzilla
+# to https://chat.mibbit.com/?channel=%23distzilla&server=irc.perl.org
 
 If you send me a patch or pull request, your name and email address will be
 included in the documentation as a contributor (using the attribution on the
@@ -136,6 +139,9 @@ commit or patch), unless you specifically request for it not to be.  If you
 wish to be listed under a different name or address, you should submit a pull
 request to the .mailmap file to contain the correct mapping.
 
+# XXX link to these releases on cpan.
+# https://metacpan.org/pod/Dist::Zilla::Plugin::GenerateFile::ShareDir
+# https://metacpan.org/release/ETHER/Dist-Zilla-PluginBundle-Author-ETHER-0.086
 
 This file was generated via {{ ref($plugin) . ' ' . ($plugin->VERSION || '<self>') }} from a
 template file originating in {{

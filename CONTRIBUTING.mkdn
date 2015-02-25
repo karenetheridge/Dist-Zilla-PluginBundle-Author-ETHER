@@ -1,17 +1,18 @@
 
 CONTRIBUTING
+============
 
 Thank you for considering contributing to this distribution.  This file
 contains instructions that will help you work with the source code.
 
-PLEASE NOTE that if you have any questions or difficulties, you can reach the
+*PLEASE NOTE* that if you have any questions or difficulties, you can reach the
 maintainer(s) through the bug queue described later in this document
 (preferred), or by emailing the releaser directly. You are not required to
 follow any of the steps in this document to submit a patch or bug report;
 these are just recommendations, intended to help you (and help us help you
 faster).
 
-The distribution is managed with Dist::Zilla (https://metacpan.org/release/Dist-Zilla).
+The distribution is managed with [Dist::Zilla](https://metacpan.org/release/Dist-Zilla).
 This means than many of the usual files you might expect are not in the
 repository, but are generated at release time (e.g. Makefile.PL).
 
@@ -25,8 +26,8 @@ In most cases, 'prove' is entirely sufficent for you to test any
 patches you have.
 
 You may need to satisfy some dependencies.  The easiest way to satisfy
-dependencies is to install the last release -- this is available at
-https://metacpan.org/release/Dist-Zilla-PluginBundle-Author-ETHER.
+dependencies is to install the last release -- this is available on
+[metacpan](https://metacpan.org/release/Dist-Zilla-PluginBundle-Author-ETHER).
 
 If you use cpanminus, you can do it without downloading the tarball first:
 
@@ -69,7 +70,7 @@ Once installed, here are some dzil commands you might try:
   $ dzil listdeps --json
   $ dzil build --notgz
 
-You can learn more about Dist::Zilla at http://dzil.org/.
+You can learn more about Dist::Zilla at [dzil.org](http://dzil.org).
 
 The code for this distribution is hosted at GitHub. The repository is:
 https://github.com/karenetheridge/Dist-Zilla-PluginBundle-Author-ETHER

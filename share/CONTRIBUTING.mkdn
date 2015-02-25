@@ -1,10 +1,11 @@
 
 CONTRIBUTING
+============
 
 Thank you for considering contributing to this distribution.  This file
 contains instructions that will help you work with the source code.
 
-PLEASE NOTE that if you have any questions or difficulties, you can reach the
+*PLEASE NOTE* that if you have any questions or difficulties, you can reach the
 maintainer(s) through the bug queue described later in this document
 (preferred), or by emailing the releaser directly. You are not required to
 follow any of the steps in this document to submit a patch or bug report;
@@ -16,7 +17,7 @@ faster).
 there to see if your issue or patch idea is mentioned.\n"
   : ''
 }}
-The distribution is managed with Dist::Zilla (https://metacpan.org/release/Dist-Zilla).
+The distribution is managed with [Dist::Zilla](https://metacpan.org/release/Dist-Zilla).
 {{ if ($has_xs) { <<'HAS_XS'
 However, you can still compile and test the code with a small Makefile.PL
 specifically for use in the repository.  You can do:
@@ -46,8 +47,8 @@ patches you have.
 NO_XS
 } }}
 You may need to satisfy some dependencies.  The easiest way to satisfy
-dependencies is to install the last release -- this is available at
-https://metacpan.org/release/{{ $dist->name }}.
+dependencies is to install the last release -- this is available on
+[metacpan](https://metacpan.org/release/{{ $dist->name }}).
 
 If you use cpanminus, you can do it without downloading the tarball first:
 
@@ -96,7 +97,7 @@ Once installed, here are some dzil commands you might try:
   $ dzil listdeps --json
   $ dzil build --notgz
 
-You can learn more about Dist::Zilla at http://dzil.org/.
+You can learn more about Dist::Zilla at [dzil.org](http://dzil.org).
 {{
 if ((my $link = $dist->distmeta->{resources}{repository}{web}) =~ /github/) {
 "\n" . 'The code for this distribution is hosted at GitHub. The repository is:

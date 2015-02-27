@@ -157,6 +157,23 @@ sub configure
             },
         } ],
 
+# XXX shoudl I be generating CONTRIBUTING.pod instead, and ship in the dist
+# the CONTRIBUTING which is the pod-to-text version?
+# if so, rewrite the template as pod, then create a new template for the
+# plaintext which does a pod2text filter on everything. not sure how I'd do
+# that but I'm sure you'll figure it out.
+# Pod::Text->new->parse_from_file($input_fh, $output_fh);
+# but we can't easily generate a file into the repo via template.
+
+# so could we do markdown instead? yes, much easier.
+# however, .mkdn files are not shown in the top level for a release. -
+# https://metacpan.org/release/Dist-Zilla-PluginBundle-DAGOLDEN
+# .md is shown however --
+# https://metacpan.org/release/ETHER/Dist-Zilla-PluginBundle-Author-ETHER-0.065
+
+# .md is shown though:
+# https://github.com/CPAN-API/metacpan-web/blob/master/lib/MetaCPAN/Web/Model/API/Release.pm#L312
+
         qw(MetaYAML MetaJSON License Readme Manifest),
         [ 'GenerateFile::ShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING.mkdn', has_xs => $has_xs } ],
         'InstallGuide',

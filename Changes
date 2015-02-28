@@ -2,6 +2,7 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
           - fix use of [Test::CheckBreaks] in dist.ini of minted dists
+          - add mailing list and irc metadata for minted Test distribution
 
 0.087     2015-02-20 02:47:43Z
           - now requiring a more conservative minimum version for

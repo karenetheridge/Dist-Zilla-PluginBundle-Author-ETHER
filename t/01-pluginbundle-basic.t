@@ -42,6 +42,7 @@ my $tzil = Builder->from_config(
                     server => 'none',
                     ':version' => '0.002',
                     'RewriteVersion::Transitional.skip_version_provider' => 1,
+                    'Git::NextVersion.version_regexp' => '^ohhai',
                 } ],
             ),
             path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\nour \$VERSION = '0.001';\n1",
@@ -176,6 +177,17 @@ is(
                         name => '@Author::ETHER/install release',
                         version => ignore,
                     }),
+                    {
+                        class => 'Dist::Zilla::Plugin::RewriteVersion::Transitional',
+                        config => superhashof({
+                            'Dist::Zilla::Plugin::RewriteVersion::Transitional' => {
+                                fallback_version_provider => 'Git::NextVersion',
+                                _fallback_version_provider_args => { version_regexp => '^ohhai' },
+                            },
+                        }),
+                        name => '@Author::ETHER/RewriteVersion::Transitional',
+                        version => ignore,
+                    },
                 ),
             }),
         }),

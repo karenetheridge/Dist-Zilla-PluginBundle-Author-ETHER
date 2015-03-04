@@ -100,6 +100,7 @@ my @expected_files = qw(
     xt/author/00-compile.t
     xt/author/eol.t
     xt/author/pod-spell.t
+    xt/author/clean-namespaces.t
     xt/release/changes_has_content.t
     xt/release/cpan-changes.t
     xt/release/distmeta.t

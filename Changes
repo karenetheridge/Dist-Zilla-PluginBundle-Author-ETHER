@@ -5,6 +5,7 @@ Revision history for {{$dist->name}}
           - add mailing list and irc metadata for minted Test distribution
           - now passing along any payload for [Git::NextVersion] to the
             replacement used by [RewriteVersion::Transitional]
+          - added [Test::CleanNamespaces]
 
 0.087     2015-02-20 02:47:43Z
           - now requiring a more conservative minimum version for

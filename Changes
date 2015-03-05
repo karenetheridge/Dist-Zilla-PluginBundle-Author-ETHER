@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.088     2015-03-05 04:33:03Z
           - fix use of [Test::CheckBreaks] in dist.ini of minted dists
           - add mailing list and irc metadata for minted Test distribution
           - now passing along any payload for [Git::NextVersion] to the

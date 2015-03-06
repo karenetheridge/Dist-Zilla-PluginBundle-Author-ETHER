@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.089     2015-03-06 04:35:28Z
           - ensure correct version of [Test::CleanNamespaces] is used, to ward
             off test failures due to mismatched filenames
 

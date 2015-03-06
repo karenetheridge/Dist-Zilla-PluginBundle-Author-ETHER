@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          - ensure correct version of [Test::CleanNamespaces] is used, to ward
+            off test failures due to mismatched filenames
 
 0.088     2015-03-05 04:33:03Z
           - fix use of [Test::CheckBreaks] in dist.ini of minted dists

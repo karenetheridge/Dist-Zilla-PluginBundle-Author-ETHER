@@ -179,7 +179,7 @@ sub configure
         'MojibakeTests',
         [ 'Test::ReportPrereqs' => { ':version' => '0.019', verify_prereqs => 1 } ],
         'Test::Portability',
-        'Test::CleanNamespaces',
+        [ 'Test::CleanNamespaces' => { ':version' => '0.006' } ],
 
 
         # Munge Files

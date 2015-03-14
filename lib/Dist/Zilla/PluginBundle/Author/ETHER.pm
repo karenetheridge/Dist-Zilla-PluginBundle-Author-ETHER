@@ -261,7 +261,7 @@ sub configure
             [ 'Run::AfterRelease' => 'remove old READMEs' => { ':version' => '0.024', eval => q!unlink 'README.md'! } ]
             : ()),
         [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } uniq 'Changes', 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
-        [ 'Git::Tag'            => { tag_format => 'v%v%t', tag_message => 'v%v%t' } ],
+        [ 'Git::Tag'            => { tag_format => 'v%v', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { ':version' => '0.40', metacpan => 1 } ] : (),
 
         [ 'BumpVersionAfterRelease::Transitional' => { ':version' => '0.004' } ],
@@ -608,7 +608,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     commit_msg = %N-%v%t%n%n%c
 
     [Git::Tag]
-    tag_format = v%v%t
+    tag_format = v%v
     tag_message = v%v%t
 
     [GitHub::Update]    ; (if server = 'github' or omitted)

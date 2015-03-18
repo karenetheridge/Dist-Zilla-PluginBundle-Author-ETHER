@@ -78,7 +78,7 @@ Revision history for {{$dist->name}}
           - bump optional dependency on [MakeMaker::Awesome] to avoid old bug
             with loaded modules
           - copy_file_from_release option now appends to, rather than
-            overshadowing, the defaults, so users do not need to repeat the
+            overshadows, the defaults, so users do not need to repeat the
             defaults (which may change over time)
           - reset default eumm_version in MakeMaker plugins to 0, as done in
             [MakeMaker] version 5.020

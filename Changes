@@ -6,7 +6,7 @@ Revision history for {{$dist->name}}
           - drop annoying -TRIAL suffix on git tag names - tags will now
             always be in the consistent form: v1.234
           - Changes in the release snapshot commit now exactly matches what
-            was in the release (without the {{$NEXT}} template variable)
+            was in the release (without the $NEXT template variable)
 
 0.089     2015-03-06 04:35:28Z
           - ensure correct version of [Test::CleanNamespaces] is used, to ward

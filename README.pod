@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.089
+version 0.090
 
 =head1 SYNOPSIS
 
@@ -120,10 +120,6 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     replacer = replace_with_comment
     post_code_replacer = replace_with_nothing
 
-    [NextRelease]
-    :version = 4.300018
-    time_zone = UTC
-    format = %-8v  %{uyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
     [ReadmeAnyFromPod]
     :version = 0.142180
     type = pod
@@ -245,6 +241,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [CopyFilesFromRelease]
     filename = LICENSE
     filename = CONTRIBUTING
+    filename = Changes
 
     [Run::AfterRelease / remove old READMEs]
     :version = 0.024
@@ -261,7 +258,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     commit_msg = %N-%v%t%n%n%c
 
     [Git::Tag]
-    tag_format = v%v%t
+    tag_format = v%v
     tag_message = v%v%t
 
     [GitHub::Update]    ; (if server = 'github' or omitted)
@@ -270,8 +267,13 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     [BumpVersionAfterRelease::Transitional]
     :version = 0.004
+    [NextRelease]
+    :version = 5.033
+    time_zone = UTC
+    format = %-8v  %{uyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
     [Git::Commit / post-release commit]
     :version = 2.020
+    allow_dirty = Changes
     allow_dirty_match = ^lib
     commit_msg = increment $VERSION after release
     [Git::Push]

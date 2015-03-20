@@ -404,10 +404,15 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     ;;; Gather Files
     [Git::GatherDir]
     :version = 2.016
+    exclude_filename = Makefile.PL
+    exclude_filename = ppport.h
     exclude_filename = README.md
     exclude_filename = README.pod
-    exclude_filename = LICENSE
+    exclude_filename = META.json
+    exclude_filename = cpanfile
+    exclude_filename = TODO
     exclude_filename = CONTRIBUTING
+    exclude_filename = LICENSE
 
     [MetaYAML]
     [MetaJSON]

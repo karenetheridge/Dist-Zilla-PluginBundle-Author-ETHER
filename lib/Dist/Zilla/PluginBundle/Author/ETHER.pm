@@ -14,7 +14,7 @@ with
     'Dist::Zilla::Role::PluginBundle::Config::Slicer';
 
 use Dist::Zilla::Util;
-use Moose::Util::TypeConstraints;
+use Moose::Util::TypeConstraints qw(enum subtype where);
 use List::Util 1.33 qw(first any);
 use List::MoreUtils 'uniq';
 use Module::Runtime 'require_module';

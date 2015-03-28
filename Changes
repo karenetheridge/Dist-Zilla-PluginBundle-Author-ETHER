@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
           - avoid gathering any existing ppport.h, as well as Makefile.PL and
             other files that we regenerate during the build
+          - never gather inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm
 
 0.090     2015-03-19 06:56:54Z
           - drop annoying -TRIAL suffix on git tag names - tags will now

@@ -103,7 +103,10 @@ my %network_plugins;
 my $has_bash = can_run('bash');
 
 # files that might be in the repository that should never be gathered
-my @never_gather = qw(Makefile.PL ppport.h README.md README.pod META.json cpanfile TODO CONTRIBUTING LICENSE);
+my @never_gather = qw(
+    Makefile.PL ppport.h README.md README.pod META.json
+    cpanfile TODO CONTRIBUTING LICENSE inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm
+);
 
 around BUILDARGS => sub
 {
@@ -413,6 +416,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     exclude_filename = TODO
     exclude_filename = CONTRIBUTING
     exclude_filename = LICENSE
+    exclude_filename = inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm
 
     [MetaYAML]
     [MetaJSON]

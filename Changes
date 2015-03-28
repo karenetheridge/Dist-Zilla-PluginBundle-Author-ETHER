@@ -1,6 +1,6 @@
-Revision history for {{$dist->name}}
+Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.091     2015-03-28 04:56:11Z
           - avoid gathering any existing ppport.h, as well as Makefile.PL and
             other files that we regenerate during the build
           - never gather inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm

@@ -136,6 +136,9 @@ sub configure
     warn '[@Author::ETHER] ' . colored('bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?', 'bright_red') . "\n"
         if -d 'bin' and any { $_ eq 'ModuleBuildTiny' } $self->installer;
 
+    my $remove = $self->payload->{ $self->plugin_remover_attribute } // [];
+    my %removed; @removed{@$remove} = (!!1) x @$remove;
+
     my @plugins = (
         # VersionProvider
         [ 'RewriteVersion::Transitional' => { ':version' => '0.004', fallback_version_provider => 'Git::NextVersion', version_regexp => '^v([\d._]+)(-TRIAL)?$',
@@ -180,7 +183,9 @@ sub configure
         'Test::Pod::No404s',
         [ 'Test::Kwalitee'      => { ':version' => '2.06' } ],
         'MojibakeTests',
-        [ 'Test::ReportPrereqs' => { ':version' => '0.019', verify_prereqs => 1 } ],
+        [ 'Test::ReportPrereqs' => { ':version' => '0.019', verify_prereqs => 1,
+            exists $removed{PodCoverageTests} ? () : ( include => [ 'Pod::Coverage' ] ),
+          } ],
         'Test::Portability',
         [ 'Test::CleanNamespaces' => { ':version' => '0.006' } ],
 
@@ -303,13 +308,10 @@ sub configure
         'ConfirmRelease',
     );
 
-    my $remove = $self->payload->{ $self->plugin_remover_attribute } // [];
-    my %remove; @remove{@$remove} = (!!1) x @$remove;
-
     my $plugin_requirements = CPAN::Meta::Requirements->new;
     foreach my $plugin_spec (@plugins = map { ref $_ ? $_ : [ $_ ] } @plugins)
     {
-        next if $remove{$plugin_spec->[0]};
+        next if $removed{$plugin_spec->[0]};
 
         my $plugin = Dist::Zilla::Util->expand_config_package_name($plugin_spec->[0]);
         require_module($plugin);
@@ -463,6 +465,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Test::ReportPrereqs]
     :version = 0.019
     verify_prereqs = 1
+    include = Pod::Coverage
     [Test::Portability]
 
 

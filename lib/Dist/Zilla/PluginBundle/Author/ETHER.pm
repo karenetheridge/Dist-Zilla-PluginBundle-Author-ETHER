@@ -273,7 +273,7 @@ sub configure
 
         [ 'BumpVersionAfterRelease::Transitional' => { ':version' => '0.004' } ],
         [ 'NextRelease'         => { ':version' => '5.033', time_zone => 'UTC', format => '%-' . ($self->changes_version_columns - 2) . 'v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
-        [ 'Git::Commit'         => 'post-release commit' => { ':version' => '2.020', allow_dirty => [ 'Changes' ], allow_dirty_match => '^lib/', commit_msg => 'increment $VERSION after release' } ],
+        [ 'Git::Commit'         => 'post-release commit' => { ':version' => '2.020', allow_dirty => [ 'Changes' ], allow_dirty_match => '^lib/.*\.pm$', commit_msg => 'increment $VERSION after release' } ],
         'Git::Push',
     );
 
@@ -633,7 +633,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Git::Commit / post-release commit]
     :version = 2.020
     allow_dirty = Changes
-    allow_dirty_match = ^lib
+    allow_dirty_match = ^lib/.*\.pm$
     commit_msg = increment $VERSION after release
     [Git::Push]
 

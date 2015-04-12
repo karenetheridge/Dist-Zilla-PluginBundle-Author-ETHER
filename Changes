@@ -1,4 +1,6 @@
-Revision history for Dist-Zilla-PluginBundle-Author-ETHER
+Revision history for {{$dist->name}}
+
+{{$NEXT}}
 
 0.092     2015-04-12 06:18:30Z
           - update all the $VERSION values, not just the first in each file

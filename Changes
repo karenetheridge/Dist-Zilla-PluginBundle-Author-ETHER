@@ -1,6 +1,6 @@
-Revision history for {{$dist->name}}
+Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.092     2015-04-12 06:18:30Z
           - update all the $VERSION values, not just the first in each file
           - generate meta provides data from exactly what is in each file
           - fix whitespace in minted dist.ini for Dist::Zilla plugins

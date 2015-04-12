@@ -213,7 +213,7 @@ sub configure
         [ 'AuthorityFromModule' => { ':version' => '0.002' } ],
         [ 'Authority'           => { authority => 'cpan:ETHER', do_munging => 0 } ],
         [ 'MetaNoIndex'         => { directory => [ qw(t xt), grep { -d } qw(inc local perl5 fatlib examples share corpus demo) ] } ],
-        [ 'MetaProvides::Package' => { ':version' => '1.15000002', finder => ':InstallModules', meta_noindex => 1, inherit_version => 0, inherit_missing => 1 } ],
+        [ 'MetaProvides::Package' => { ':version' => '1.15000002', finder => ':InstallModules', meta_noindex => 1, inherit_version => 0, inherit_missing => 0 } ],
         'MetaConfig',
         [ 'Keywords'            => { ':version' => '0.004' } ],
         [ 'Git::Contributors'   => { ':version' => '0.004', order_by => 'commits' } ],
@@ -519,7 +519,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     finder = :InstallModules
     meta_noindex = 1
     inherit_version = 0
-    inherit_missing = 1
+    inherit_missing = 0
 
     [MetaConfig]
     [Keywords]

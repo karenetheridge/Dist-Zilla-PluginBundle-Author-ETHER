@@ -155,7 +155,7 @@ cmp_deeply(
                         },
                     },
                     name => 'Foo::Bar',
-                    version => ignore,
+                    version => Dist::Zilla::Plugin::Foo::Bar->VERSION,
                 },
             ),
         }),

@@ -49,7 +49,7 @@ cmp_deeply(
                         },
                     },
                     name => '$zilla_plugin',
-                    version => ignore,
+                    version => Dist::Zilla::Plugin::$zilla_plugin->VERSION,
                 },
             ),
         }),

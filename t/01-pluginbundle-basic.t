@@ -164,7 +164,7 @@ is(
                                   }))
                                 : ()),
                             name => '@Author::ETHER/' . $_,
-                            version => ignore,
+                            version => "Dist::Zilla::Plugin::$_"->VERSION,
                         }
                     } qw(MakeMaker::Fallback ModuleBuildTiny::Fallback RunExtraTests) ),
                     subhashof({
@@ -176,7 +176,7 @@ is(
                             },
                         },
                         name => '@Author::ETHER/install release',
-                        version => ignore,
+                        version => Dist::Zilla::Plugin::Run::AfterRelease->VERSION,
                     }),
                     {
                         class => 'Dist::Zilla::Plugin::RewriteVersion::Transitional',
@@ -187,7 +187,7 @@ is(
                             },
                         }),
                         name => '@Author::ETHER/RewriteVersion::Transitional',
-                        version => ignore,
+                        version => Dist::Zilla::Plugin::RewriteVersion::Transitional->VERSION,
                     },
                 ),
             }),

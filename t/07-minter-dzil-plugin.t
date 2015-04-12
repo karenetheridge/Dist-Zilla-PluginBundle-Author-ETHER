@@ -47,7 +47,7 @@ like(
 
 \[\@Author::ETHER\]
 :version = [\d.]+
-Test::MinimumVersion.max_target_perl = 5.008001
+Test::MinimumVersion.max_target_perl = 5.008003
 
 \[MetaResources\]
 x_IRC/m,

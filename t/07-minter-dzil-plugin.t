@@ -54,6 +54,10 @@ x_IRC/m,
     'found dist.ini content',
 );
 
+unlike($dist_ini, qr/^\s/, 'no leading whitespace in dist.ini');
+unlike($dist_ini, qr/[^\S\n]\n/m, 'no trailing whitespace in dist.ini');
+unlike($dist_ini, qr/\n\n\n/, 'no double blank links in dist.ini');
+
 my $module = path($mint_dir, 'lib/Dist/Zilla/Plugin/Foo/Bar.pm')->slurp_utf8;
 
 like(

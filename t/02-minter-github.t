@@ -111,11 +111,16 @@ like(
     'test gets generic content',
 );
 
+my $dist_ini = path($mint_dir, 'dist.ini')->slurp_utf8;
 like(
-    path($mint_dir, 'dist.ini')->slurp_utf8,
+    $dist_ini,
     qr/\[\@Author::ETHER\]\n:version = [\d.]+\n\n/,
     'plugin bundle and version is referenced in dist.ini',
 );
+
+unlike($dist_ini, qr/^\s/, 'no leading whitespace in dist.ini');
+unlike($dist_ini, qr/[^\S\n]\n/m, 'no trailing whitespace in dist.ini');
+unlike($dist_ini, qr/\n\n\n/, 'no double blank links in dist.ini');
 
 like(
     path($mint_dir, '.gitignore')->slurp_utf8,

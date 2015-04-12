@@ -141,7 +141,7 @@ sub configure
 
     my @plugins = (
         # VersionProvider
-        [ 'RewriteVersion::Transitional' => { ':version' => '0.004', fallback_version_provider => 'Git::NextVersion', version_regexp => '^v([\d._]+)(-TRIAL)?$',
+        [ 'RewriteVersion::Transitional' => { ':version' => '0.004', global => 1, fallback_version_provider => 'Git::NextVersion', version_regexp => '^v([\d._]+)(-TRIAL)?$',
                 (map { (my $key = $_) =~ s/Git::NextVersion\.//; $key => $self->payload->{$_} } grep { /^Git::NextVersion\./ } keys %{ $self->payload }) } ],
 
         # BeforeBuild
@@ -271,7 +271,7 @@ sub configure
         [ 'Git::Tag'            => { tag_format => 'v%v', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { ':version' => '0.40', metacpan => 1 } ] : (),
 
-        [ 'BumpVersionAfterRelease::Transitional' => { ':version' => '0.004' } ],
+        [ 'BumpVersionAfterRelease::Transitional' => { ':version' => '0.004', global => 1 } ],
         [ 'NextRelease'         => { ':version' => '5.033', time_zone => 'UTC', format => '%-' . ($self->changes_version_columns - 2) . 'v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
         [ 'Git::Commit'         => 'post-release commit' => { ':version' => '2.020', allow_dirty => [ 'Changes' ], allow_dirty_match => '^lib/.*\.pm$', commit_msg => 'increment $VERSION after release' } ],
         'Git::Push',
@@ -378,6 +378,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     ;;; VersionProvider
     [RewriteVersion::Transitional]
     :version = 0.004
+    global = 1
     fallback_version_provider = Git::NextVersion
     version_regexp = ^v([\d._]+)(-TRIAL)?$
 
@@ -626,6 +627,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     [BumpVersionAfterRelease::Transitional]
     :version = 0.004
+    global = 1
     [NextRelease]
     :version = 5.033
     time_zone = UTC

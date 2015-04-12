@@ -2,6 +2,7 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
           - update all the $VERSION values, not just the first in each file
+          - generate meta provides data from exactly what is in each file
 
 0.091     2015-03-28 04:56:11Z
           - avoid gathering any existing ppport.h, as well as Makefile.PL and

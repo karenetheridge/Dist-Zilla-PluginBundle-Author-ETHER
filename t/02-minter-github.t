@@ -131,12 +131,12 @@ like(
 is(
     path($mint_dir, 'Changes')->slurp_utf8,
     <<'CHANGES',
-Revision history for {{$dist->name}}
+Revision history for My-New-Dist
 
 {{$NEXT}}
           - Initial release.
 CHANGES
-    'Changes file is created properly, with templates and whitespace preserved',
+    'Changes file is created properly, with dist name filled in but version template and whitespace preserved',
 );
 
 is(

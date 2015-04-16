@@ -703,10 +703,11 @@ to L<C<ModuleBuildTiny>|Dist::Zilla::Plugin::ModuleBuildTiny::Fallback>
 and L<C<MakeMaker::Fallback>|Dist::Zilla::Plugin::MakeMaker::Fallback>
 (which generates a F<Build.PL> for normal use with no-configure-requires
 protection, and F<Makefile.PL> as a fallback, containing an upgrade warning).
+For toolchain-grade modules, you should only use F<Makefile.PL>-generating installers.
 
 You can select other backends (by plugin name, without the C<[]>), with the
 C<installer> option, or 'none' if you are supplying your own, as a separate
-plugin.
+plugin(s).
 
 Encouraged choices are:
 

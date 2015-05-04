@@ -455,19 +455,22 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Test::ChangesHasContent]
     [Test::MinimumVersion]
     :version = 2.000003
-    max_target_perl = 5.008001
+    max_target_perl = 5.006
     [PodSyntaxTests]
     [PodCoverageTests]
     [Test::PodSpelling]
     ;[Test::Pod::LinkCheck]     many outstanding bugs
     [Test::Pod::No404s]
     [Test::Kwalitee]
+    :version = 2.06
     [MojibakeTests]
     [Test::ReportPrereqs]
     :version = 0.019
     verify_prereqs = 1
     include = Pod::Coverage
     [Test::Portability]
+    [Test::CleanNamespaces]
+    :version = 0.006
 
 
     ;;; Munge Files

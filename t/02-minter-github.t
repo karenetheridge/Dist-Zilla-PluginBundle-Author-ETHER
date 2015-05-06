@@ -77,6 +77,17 @@ like(
 like(
     $module,
     qr/\n\n1;\n__END__\n/m,
+);
+
+ like(
+     $module,
+    qr/^our \$VERSION = '0.001';$/m,
+    'initial module $VERSION is calculated correctly',
+);
+
+like(
+    $module,
+    qr/\n\n1;\n__END__\n/m,
     'the package code ends in a generic way',
 );
 

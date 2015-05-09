@@ -10,6 +10,8 @@ use Path::Tiny;
 
 use lib 't/lib';
 use Helper;
+use NoNetworkHits;
+use NoPrereqChecks;
 
 use Dist::Zilla::Plugin::MakeMaker;
 plan skip_all => 'need recent [MakeMaker] to test use of default_jobs option'

@@ -9,6 +9,7 @@ use Test::Fatal;
 use Path::Tiny;
 use List::Util 'first';
 use Module::Runtime 'module_notional_filename';
+use Moose::Util 'find_meta';
 
 # these are used by our default 'installer' setting
 use Test::Requires qw(
@@ -73,11 +74,11 @@ SKIP:
 foreach my $plugin ('Dist::Zilla::Plugin::MakeMaker::Fallback', 'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback')
 {
     skip "need recent $plugin to test default_jobs option", 1 if not $plugin->can('default_jobs');
-    my $obj = first { $_->meta->name eq $plugin } @{$tzil->plugins};
+    my $obj = first { find_meta($_)->name eq $plugin } @{$tzil->plugins};
     is(
         $obj->default_jobs,
         9,
-        'default_jobs was set for ' . $obj->meta->name . ' (via installer option and extra_args',
+        'default_jobs was set for ' . find_meta($obj)->name . ' (via installer option and extra_args',
     )
 }
 

@@ -9,6 +9,7 @@ use Test::Deep;
 use List::MoreUtils 'uniq';
 use Path::Tiny;
 use JSON::MaybeXS;
+use Moose::Util 'find_meta';
 
 $ENV{USER} = 'notether';
 delete $ENV{DZIL_AIRPLANE};
@@ -42,7 +43,7 @@ our @REMOVED_PLUGINS = qw(
 sub assert_no_git
 {
     my $tzil = shift;
-    my @git_plugins = grep { $_->meta->name =~ /Git(?!(?:hubMeta|Hub::Update))/ } @{$tzil->plugins};
+    my @git_plugins = grep { find_meta($_)->name =~ /Git(?!(?:hubMeta|Hub::Update))/ } @{$tzil->plugins};
     cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');
 }
 
@@ -67,7 +68,7 @@ sub all_plugins_in_prereqs
     my $bundle_plugin_prereqs = $tzil->plugin_named('@Author::ETHER/bundle_plugins')->_prereq;
 
     subtest 'all plugins in use are specified as *required* runtime prerequisites by the plugin bundle, or develop prerequisites by the distribution' => sub {
-        foreach my $plugin (uniq map { $_->meta->name } @{$tzil->plugins})
+        foreach my $plugin (uniq map { find_meta($_)->name } @{$tzil->plugins})
         {
             note($plugin . ' is explicitly exempted; skipping'), next
                 if exists $exempt{$plugin};
@@ -75,7 +76,7 @@ sub all_plugins_in_prereqs
 
             # the plugin should have been added to develop prereqs - look for
             # an explicit :version requirement there
-            my $required_version = $bundle_plugin_prereqs->{$plugin->meta->name} // 0;
+            my $required_version = $bundle_plugin_prereqs->{find_meta($plugin)->name} // 0;
             $required_version = any($required_version, re(qr/[^\d.]/));
 
             if (exists $additional{$plugin})

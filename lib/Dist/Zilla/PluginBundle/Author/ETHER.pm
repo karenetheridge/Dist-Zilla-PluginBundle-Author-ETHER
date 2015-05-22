@@ -242,9 +242,9 @@ sub configure
         'CheckSelfDependency',
 
         ( $has_bash ?
-            [ 'Run::AfterBuild' => '.ackrc' => { run => q{bash -c "test -e .ackrc && grep -q -- '--ignore-dir=.latest' .ackrc || echo '--ignore-dir=.latest' >> .ackrc; if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi"} } ]
+            [ 'Run::AfterBuild' => '.ackrc' => { ':version' => '0.038', quiet => 1, run => q{bash -c "test -e .ackrc && grep -q -- '--ignore-dir=.latest' .ackrc || echo '--ignore-dir=.latest' >> .ackrc; if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi"} } ]
             : ()),
-        [ 'Run::AfterBuild'     => '.latest' => { ':version' => '0.028', eval => q!if ('%d' =~ /^%n-[.[:xdigit:]]+$/) { unlink '.latest'; symlink '%d', '.latest'; }! } ],
+        [ 'Run::AfterBuild'     => '.latest' => { ':version' => '0.038', quiet => 1, eval => q!if ('%d' =~ /^%n-[.[:xdigit:]]+$/) { unlink '.latest'; symlink '%d', '.latest'; }! } ],
 
 
         # Before Release
@@ -265,7 +265,7 @@ sub configure
         # After Release
         [ 'CopyFilesFromRelease' => { filename => [ $self->copy_files_from_release ] } ],
         ( -e 'README.md' ?
-            [ 'Run::AfterRelease' => 'remove old READMEs' => { ':version' => '0.024', eval => q!unlink 'README.md'! } ]
+            [ 'Run::AfterRelease' => 'remove old READMEs' => { ':version' => '0.038', quiet => 1, eval => q!unlink 'README.md'! } ]
             : ()),
         [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } uniq 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v', tag_message => 'v%v%t' } ],
@@ -303,7 +303,7 @@ sub configure
     }
 
     push @plugins, (
-        [ 'Run::AfterRelease'   => 'release complete' => { ':version' => '0.024', eval => [ qq{print "release complete!\\xa"} ] } ],
+        [ 'Run::AfterRelease'   => 'release complete' => { ':version' => '0.038', quiet => 1, eval => [ qq{print "release complete!\\xa"} ] } ],
         # listed late, to allow all other plugins which do BeforeRelease checks to run first.
         'ConfirmRelease',
     );
@@ -566,9 +566,12 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [CheckSelfDependency]
 
     [Run::AfterBuild / .ackrc]
+    :version = 0.38
+    quiet = 1
     run = bash -c "test -e .ackrc && grep -q -- '--ignore-dir=.latest' .ackrc || echo '--ignore-dir=.latest' >> .ackrc; if [[ `dirname %d` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi; if [[ %d =~ ^%n-[.[:xdigit:]]+$ ]]; then rm -f .latest; ln -s %d .latest; fi"
     [Run::AfterBuild / .latest]
-    :version = 0.028
+    :version = 0.038
+    quiet = 1
     eval = if ('%d' =~ /^%n-[.[:xdigit:]]+$/) { unlink '.latest'; symlink '%d', '.latest'; }
 
 
@@ -610,7 +613,8 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     filename = Changes
 
     [Run::AfterRelease / remove old READMEs]
-    :version = 0.024
+    :version = 0.038
+    quiet = 1
     eval = unlink 'README.md'
 
     [Git::Commit / release snapshot]
@@ -651,7 +655,8 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     run = cpanm http://URMOM:mysekritpassword@pause.perl.org/pub/PAUSE/authors/id/U/UR/URMOM/%a
 
     [Run::AfterRelease / release complete]
-    :version = 0.024
+    :version = 0.038
+    quiet = 1
     eval = print "release complete!\\xa"
 
     ; listed late, to allow all other plugins which do BeforeRelease checks to run first.

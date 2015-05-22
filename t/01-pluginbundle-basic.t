@@ -170,22 +170,23 @@ is(
                     } qw(MakeMaker::Fallback ModuleBuildTiny::Fallback RunExtraTests) ),
                     subhashof({
                         class => 'Dist::Zilla::Plugin::Run::AfterRelease',
-                        config => { # this may or may not be included, depending on the plugin version
-                            'Dist::Zilla::Plugin::Run::Role::Runner' => {
+                        # this may or may not be included, depending on the plugin version
+                        config => superhashof({
+                            'Dist::Zilla::Plugin::Run::Role::Runner' => superhashof({
                                 fatal_errors => 0,
                                 run => [ 'REDACTED' ],  # password detected!
-                            },
-                        },
+                            }),
+                        }),
                         name => '@Author::ETHER/install release',
                         version => Dist::Zilla::Plugin::Run::AfterRelease->VERSION,
                     }),
                     {
                         class => 'Dist::Zilla::Plugin::RewriteVersion::Transitional',
                         config => superhashof({
-                            'Dist::Zilla::Plugin::RewriteVersion::Transitional' => {
+                            'Dist::Zilla::Plugin::RewriteVersion::Transitional' => superhashof({
                                 fallback_version_provider => 'Git::NextVersion',
                                 _fallback_version_provider_args => { version_regexp => '^ohhai' },
-                            },
+                            }),
                         }),
                         name => '@Author::ETHER/RewriteVersion::Transitional',
                         version => Dist::Zilla::Plugin::RewriteVersion::Transitional->VERSION,

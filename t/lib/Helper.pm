@@ -6,7 +6,6 @@ our @EXPORT = qw(@REMOVED_PLUGINS assert_no_git all_plugins_in_prereqs);
 
 use Test::More;
 use Test::Deep;
-use List::MoreUtils 'uniq';
 use Path::Tiny;
 use JSON::MaybeXS;
 use Moose::Util 'find_meta';
@@ -47,6 +46,8 @@ sub assert_no_git
     cmp_deeply(\@git_plugins, [], 'no git-based plugins are running here');
 }
 
+sub _uniq { keys %{ +{ map { $_ => undef } @_ } } }
+
 # checks that all plugins in use are in the plugin bundle dist's runtime
 # requires list
 # - some plugins can be marked 'additional' - must be in recommended prereqs
@@ -68,7 +69,7 @@ sub all_plugins_in_prereqs
     my $bundle_plugin_prereqs = $tzil->plugin_named('@Author::ETHER/bundle_plugins')->_prereq;
 
     subtest 'all plugins in use are specified as *required* runtime prerequisites by the plugin bundle, or develop prerequisites by the distribution' => sub {
-        foreach my $plugin (uniq map { find_meta($_)->name } @{$tzil->plugins})
+        foreach my $plugin (_uniq(map { find_meta($_)->name } @{$tzil->plugins}))
         {
             note($plugin . ' is explicitly exempted; skipping'), next
                 if exists $exempt{$plugin};

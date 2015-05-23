@@ -16,7 +16,6 @@ with
 use Dist::Zilla::Util;
 use Moose::Util::TypeConstraints qw(enum subtype where);
 use List::Util 1.33 qw(first any);
-use List::MoreUtils 'uniq';
 use Module::Runtime 'require_module';
 use Devel::CheckBin 'can_run';
 use Path::Tiny;
@@ -66,7 +65,7 @@ has copy_file_from_release => (
 
 around copy_files_from_release => sub {
     my $orig = shift; my $self = shift;
-    uniq $self->$orig(@_), qw(LICENSE CONTRIBUTING Changes);
+    _uniq($self->$orig(@_), qw(LICENSE CONTRIBUTING Changes));
 };
 
 has changes_version_columns => (
@@ -267,7 +266,7 @@ sub configure
         ( -e 'README.md' ?
             [ 'Run::AfterRelease' => 'remove old READMEs' => { ':version' => '0.038', quiet => 1, eval => q!unlink 'README.md'! } ]
             : ()),
-        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } uniq 'README.md', 'README.pod', $self->copy_files_from_release ], commit_msg => '%N-%v%t%n%n%c' } ],
+        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } _uniq('README.md', 'README.pod', $self->copy_files_from_release) ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { ':version' => '0.40', metacpan => 1 } ] : (),
 
@@ -356,6 +355,8 @@ sub _pause_config
 
     my ($username, $password) = map { my (undef, $val) = split ' ', $_; $val } $file->lines;
 }
+
+sub _uniq { keys %{ +{ map { $_ => undef } @_ } } }
 
 __PACKAGE__->meta->make_immutable;
 __END__

@@ -250,6 +250,11 @@ like(
     'name of this bundle dist and its version properly inserted into CONTRIBUTING',
 );
 
+ok(
+    !$tzil->plugin_named('@Author::ETHER/ExecDir'),
+    'no script dir: no ExecDir plugin added',
+);
+
 diag 'got log messages: ', explain $tzil->log_messages
     if not Test::Builder->new->is_passing;
 

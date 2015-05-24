@@ -149,7 +149,8 @@ sub configure
         [ 'PromptIfStale' => 'stale modules, release' => { phase => 'release', check_all_plugins => 1, check_all_prereqs => 1 } ],
 
         # ExecFiles
-        [ 'ExecDir'             => { dir => 'script' } ],
+        (-d ($self->payload->{'ExecDir.dir'} // 'script') || any { /^ExecDir\./ } keys %{ $self->payload })
+            ? [ 'ExecDir'       => { dir => 'script' } ] : (),
 
         # Finders
         [ 'FileFinder::ByName'  => Examples => { dir => 'examples' } ],
@@ -395,7 +396,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     ;;; ExecFiles
     [ExecDir]
-    dir = script
+    dir = script    ; only if script dir exists
 
 
     ;;; Finders

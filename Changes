@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
           - eliminate remaining uses of List::MoreUtils
+          - remove universal application of [ShareDir] - distributions using
+            sharedirs must add it themselves
 
 0.093     2015-05-22 03:44:45Z
           - move kwalitee.t to xt/author

@@ -148,9 +148,8 @@ sub configure
         [ 'PromptIfStale' => 'stale modules, build' => { phase => 'build', module => [ $self->meta->name ] } ],
         [ 'PromptIfStale' => 'stale modules, release' => { phase => 'release', check_all_plugins => 1, check_all_prereqs => 1 } ],
 
-        # ExecFiles, ShareDir
+        # ExecFiles
         [ 'ExecDir'             => { dir => 'script' } ],
-        'ShareDir',
 
         # Finders
         [ 'FileFinder::ByName'  => Examples => { dir => 'examples' } ],
@@ -394,11 +393,9 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     check_all_prereqs = 1
 
 
-    ;;; ExecFiles, ShareDir
+    ;;; ExecFiles
     [ExecDir]
     dir = script
-
-    [ShareDir]
 
 
     ;;; Finders

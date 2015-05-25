@@ -462,7 +462,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Test::Pod::No404s]
     [Test::Kwalitee]
     :version = 2.06
-    filename => xt/author/kwalitee.t
+    filename = xt/author/kwalitee.t
     [MojibakeTests]
     [Test::ReportPrereqs]
     :version = 0.019
@@ -637,15 +637,18 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [BumpVersionAfterRelease::Transitional]
     :version = 0.004
     global = 1
+
     [NextRelease]
     :version = 5.033
     time_zone = UTC
     format = %-8v  %{uyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
+
     [Git::Commit / post-release commit]
     :version = 2.020
     allow_dirty = Changes
     allow_dirty_match = ^lib/.*\.pm$
     commit_msg = increment $VERSION after %v release
+
     [Git::Push]
 
     [Run::AfterRelease / install release]

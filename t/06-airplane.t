@@ -8,7 +8,7 @@ use Test::Deep '!any';
 use Test::Fatal;
 use Path::Tiny;
 use List::Util 1.33 'any';
-use PadWalker 'peek_sub';
+use PadWalker 'closed_over';
 use Term::ANSIColor 2.01 'colorstrip';
 
 use lib 't/lib';
@@ -87,7 +87,7 @@ all_plugins_in_prereqs($tzil,
 
 my @network_plugins =
     map { Dist::Zilla::Util->expand_config_package_name($_) } @{
-        peek_sub(\&Dist::Zilla::PluginBundle::Author::ETHER::configure)->{'@network_plugins'}
+        closed_over(\&Dist::Zilla::PluginBundle::Author::ETHER::configure)->{'@network_plugins'}
     };
 
 my @found_network_plugins = grep {

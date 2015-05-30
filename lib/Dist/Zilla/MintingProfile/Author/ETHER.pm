@@ -74,6 +74,11 @@ Presently the same as C<github>. Available since version 0.087.
 
 =end :list
 
+=head1 SEE ALSO
+
+=for :list
+* L<Dist::Zilla::PluginBundle::Author::ETHER>
+
 =head1 SUPPORT
 
 =for stopwords irc

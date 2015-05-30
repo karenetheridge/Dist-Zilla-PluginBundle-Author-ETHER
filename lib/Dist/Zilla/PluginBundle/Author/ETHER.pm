@@ -816,6 +816,11 @@ install or are otherwise problematic.
 This distribution follows best practices for author-oriented plugin bundles; for more information,
 see L<KENTNL's distribution|Dist::Zilla::PluginBundle::Author::KENTNL/NAMING-SCHEME>.
 
+=head1 SEE ALSO
+
+=for :list
+* L<Dist::Zilla::MintingProfile::Author::ETHER>
+
 =head1 SUPPORT
 
 =for stopwords irc

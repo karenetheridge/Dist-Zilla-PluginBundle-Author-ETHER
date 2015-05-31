@@ -126,6 +126,11 @@ sub configure
     warn '[@Author::ETHER] no "bash" executable found; skipping Run::AfterBuild commands to update .ackrc and .latest symlink', "\n"
         if not $has_bash;
 
+    # NOTE! since the working directory has not changed to $zilla->root yet,
+    # if running this code via a different mechanism than dzil <command>, file
+    # operations may be looking at the wrong directory! Take this into
+    # consideration when running tests!
+
     my $has_xs =()= glob('*.xs');
     warn '[@Author::ETHER] XS-based distribution detected.', "\n" if $has_xs;
     die '[@Author::ETHER] no Makefile.PL found in the repository root: this is not very nice for contributors!', "\n"
@@ -195,7 +200,7 @@ sub configure
         [
             ($self->surgical_podweaver ? 'SurgicalPodWeaver' : 'PodWeaver') => {
                 $self->surgical_podweaver ? () : ( ':version' => '4.005' ),
-                config_plugin => '@Author::ETHER',
+                -f 'weaver.ini' ? () : ( config_plugin => '@Author::ETHER' ),
                 replacer => 'replace_with_comment',
                 post_code_replacer => 'replace_with_nothing',
             }
@@ -487,7 +492,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     [PodWeaver] (or [SurgicalPodWeaver])
     :version = 4.005
-    config_plugin = @Author::ETHER
+    config_plugin = @Author::ETHER ; unless weaver.ini is present
     replacer = replace_with_comment
     post_code_replacer = replace_with_nothing
 
@@ -810,6 +815,10 @@ L<Dist::Zilla::Role::PluginBundle::Config::Slicer> to allow further customizatio
 Plugins are not loaded until they are actually needed, so it is possible to
 C<--force>-install this plugin bundle and C<-remove> some plugins that do not
 install or are otherwise problematic.
+
+If a F<weaver.ini> is present in the distribution, pod is woven using it;
+otherwise, the behaviour is as with a F<weaver.ini> containing the single line
+C<[@Author::ETHER]>.
 
 =head1 NAMING SCHEME
 

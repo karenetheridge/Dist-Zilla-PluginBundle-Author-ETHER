@@ -17,9 +17,9 @@ use NoPrereqChecks;
 # load this in advance, as we change directories between configuration and building
 use Pod::Weaver::PluginBundle::Author::ETHER;
 
-my $wd = pushd('t/corpus/with_no_weaver_ini');
+my $wd = pushd('t/corpus/with_weaver_ini');
 
-ok(!-e 'weaver.ini', 'a weaver.ini does not exist in this directory');
+ok(-e 'weaver.ini', 'a weaver.ini exists in this directory');
 
 my $tzil = Builder->from_config(
     { dist_root => 'does-not-exist' },
@@ -72,24 +72,28 @@ cmp_deeply(
                 {
                     class => 'Dist::Zilla::Plugin::PodWeaver',
                     config => superhashof({
-                        'Dist::Zilla::Plugin::PodWeaver' => superhashof({
-                            config_plugins => [ '@Author::ETHER' ],
-                            # check that all plugins came from '@Author::ETHER'
-                            plugins => array_each(
-                                # TODO: we can use our bundle name in these
-                                # sections too, by adjusting how we set up the configs
-                                code(sub {
-                                    ref $_[0] eq 'HASH' or return (0, 'not a HASH');
-                                    $_[0]->{name} =~ m{^\@(CorePrep|Author::ETHER)/}
-                                        or $_[0]->{class} =~ /^Pod::Weaver::Section::(Generic|Collect)$/
-                                        or return (0, 'weaver plugin has bad name');
-                                    return 1;
-                                }),
-                            ),
-                            # TODO: Pod::Elemental::PerlMunger does not add these
-                            # replacer => 'replace_with_comment',
-                            # post_code_replacer => 'replace_with_nothing',
-                        }),
+                        'Dist::Zilla::Plugin::PodWeaver' => all(
+                            # TODO: replace with Test::Deep::notexists($key)
+                            code(sub {
+                                !exists $_[0]->{config_plugins} ? 1 : (0, 'config_plugins exists');
+                            }),
+                            superhashof({
+                                # check that all plugins came from '@Default',
+                                # *not* [@Author::ETHER].
+                                plugins => array_each(
+                                    code(sub {
+                                        ref $_[0] eq 'HASH' or return (0, 'not a HASH');
+                                        $_[0]->{name} =~ m{^\@(CorePrep|Default)/}
+                                            or $_[0]->{class} =~ /^Pod::Weaver::Section::(Generic|Collect)$/
+                                            or return (0, 'weaver plugin has bad name');
+                                        return 1;
+                                    }),
+                                ),
+                                # TODO: Pod::Elemental::PerlMunger does not add these
+                                # replacer => 'replace_with_comment',
+                                # post_code_replacer => 'replace_with_nothing',
+                            }),
+                        ),
                     }),
                     name => '@Author::ETHER/PodWeaver',
                     version => Dist::Zilla::Plugin::PodWeaver->VERSION,
@@ -97,7 +101,7 @@ cmp_deeply(
             ),
         }),
     }),
-    'weaver plugin config is properly included in metadata - weaver.ini does not exist, so bundle is used',
+    'weaver plugin config is properly included in metadata - weaver.ini exists, so bundle is NOT used',
 )
 or diag 'got distmeta: ', explain $tzil->distmeta;
 

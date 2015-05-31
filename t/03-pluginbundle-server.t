@@ -67,7 +67,7 @@ foreach my $server (keys %server_to_resources)
         if $server eq 'github' and not (-d '.git' or -d '../../.git' or -d '../../../.git');
 
     my $tzil = Builder->from_config(
-        { dist_root => 't/does_not_exist' },
+        { dist_root => 'does-not-exist' },
         {
             add_files => {
                 path(qw(source dist.ini)) => simple_ini(

@@ -23,7 +23,7 @@ use NoPrereqChecks;
 
 {
     my $tzil = Builder->from_config(
-        { dist_root => 't/does_not_exist' },
+        { dist_root => 'does-not-exist' },
         {
             add_files => {
                 path(qw(source dist.ini)) => simple_ini(
@@ -89,7 +89,7 @@ SKIP: {
         if not eval { require_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 1 };
 
     my $tzil = Builder->from_config(
-        { dist_root => 't/does_not_exist' },
+        { dist_root => 'does-not-exist' },
         {
             add_files => {
                 path(qw(source dist.ini)) => simple_ini(
@@ -168,7 +168,7 @@ SKIP: {
 
 {
     my $tzil = Builder->from_config(
-        { dist_root => 't/does_not_exist' },
+        { dist_root => 'does-not-exist' },
         {
             add_files => {
                 path(qw(source dist.ini)) => simple_ini(

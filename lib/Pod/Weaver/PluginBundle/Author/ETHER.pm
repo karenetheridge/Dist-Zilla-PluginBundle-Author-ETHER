@@ -55,6 +55,11 @@ Or in your F<dist.ini>
     [PodWeaver]
     config_plugin = @Author::ETHER
 
+It is also used automatically when your F<dist.ini> contains:
+
+    [@Author::ETHER]
+    :version = 0.094
+
 =head1 DESCRIPTION
 
 =for stopwords optimizations

@@ -195,6 +195,7 @@ sub configure
         [
             ($self->surgical_podweaver ? 'SurgicalPodWeaver' : 'PodWeaver') => {
                 $self->surgical_podweaver ? () : ( ':version' => '4.005' ),
+                config_plugin => '@Author::ETHER',
                 replacer => 'replace_with_comment',
                 post_code_replacer => 'replace_with_nothing',
             }
@@ -486,6 +487,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     [PodWeaver] (or [SurgicalPodWeaver])
     :version = 4.005
+    config_plugin = @Author::ETHER
     replacer = replace_with_comment
     post_code_replacer = replace_with_nothing
 
@@ -819,6 +821,7 @@ see L<KENTNL's distribution|Dist::Zilla::PluginBundle::Author::KENTNL/NAMING-SCH
 =head1 SEE ALSO
 
 =for :list
+* L<Pod::Weaver::PluginBundle::Author::ETHER>
 * L<Dist::Zilla::MintingProfile::Author::ETHER>
 
 =head1 SUPPORT

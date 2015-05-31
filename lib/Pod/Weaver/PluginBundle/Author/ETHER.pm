@@ -32,7 +32,10 @@ sub mvp_bundle_config {
     [ '@Author::ETHER/postlude',        _exp('Region'),    { region_name => 'postlude' } ],
 
     [ '@Author::ETHER/Authors',         _exp('Authors'),   {} ],
+    [ '@Author::ETHER/Contributors',    _exp('Contributors'), { ':version' => '0.008' } ],
     [ '@Author::ETHER/Legal',           _exp('Legal'),     {} ],
+
+    [ '@Author::ETHER/List',            _exp('-Transformer'), { 'transformer' => 'List' } ],
   )
 }
 
@@ -86,12 +89,20 @@ following F<weaver.ini>, minus some optimizations:
     [Region / postlude]
 
     [Authors]
+    [Contributors]
 
     [Legal]
 
-This is also equivalent to:
+    [-Transformer]
+    transformer = List
+
+This is also equivalent (other than section ordering) to:
 
     [@Default]
+    [Contributors]
+
+    [-Transformer]
+    transformer = List
 
 =head1 OPTIONS / OVERRIDES
 

@@ -9,6 +9,7 @@ use Test::Deep;
 use Path::Tiny;
 use JSON::MaybeXS;
 use Moose::Util 'find_meta';
+use namespace::clean;
 
 $ENV{USER} = 'notether';
 delete $ENV{DZIL_AIRPLANE};

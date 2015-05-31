@@ -51,6 +51,15 @@ cmp_deeply(
     'additional copy_files_from_release file does not overshadow the defaults',
 );
 
+# check that everything we loaded is in the pluginbundle's run-requires
+all_plugins_in_prereqs($tzil,
+    exempt => [ 'Dist::Zilla::Plugin::GatherDir' ],     # used by us here
+    additional => [
+        'Dist::Zilla::Plugin::MakeMaker::Fallback',     # via default installer option
+        'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback', # ""
+    ],
+);
+
 diag 'got log messages: ', explain $tzil->log_messages
     if not Test::Builder->new->is_passing;
 

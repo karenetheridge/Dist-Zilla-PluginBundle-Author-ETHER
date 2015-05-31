@@ -60,4 +60,13 @@ is(
     'max_target_perl option overrides default',
 );
 
+# check that everything we loaded is in the pluginbundle's run-requires
+all_plugins_in_prereqs($tzil,
+    exempt => [ 'Dist::Zilla::Plugin::GatherDir' ],     # used by us here
+    additional => [
+        'Dist::Zilla::Plugin::MakeMaker::Fallback',     # via default installer option
+        'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback', # ""
+    ],
+);
+
 done_testing;

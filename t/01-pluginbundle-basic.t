@@ -37,6 +37,9 @@ my $tzil = Builder->from_config(
     {
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
+                {   # merge into root section
+                    version => '0.005',
+                },
                 'GatherDir',
                 [ '@Author::ETHER' => {
                     -remove => \@REMOVED_PLUGINS,
@@ -254,6 +257,9 @@ ok(
     !$tzil->plugin_named('@Author::ETHER/ExecDir'),
     'no script dir: no ExecDir plugin added',
 );
+
+my $main_module = $tzil->slurp_file('build/lib/DZT/Sample.pm');
+isnt(index($main_module, q{our $VERSION = '0.005';}), -1, '$VERSION was rewritten in module');
 
 diag 'got log messages: ', explain $tzil->log_messages
     if not Test::Builder->new->is_passing;

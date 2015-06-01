@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - switch to my weaver plugin bundle in newly-minted distributions
 
 0.094     2015-06-01 03:30:00Z
           - eliminate remaining uses of List::MoreUtils

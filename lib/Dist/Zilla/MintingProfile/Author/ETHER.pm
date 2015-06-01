@@ -78,6 +78,7 @@ Presently the same as C<github>. Available since version 0.087.
 
 =for :list
 * L<Dist::Zilla::PluginBundle::Author::ETHER>
+* L<Pod::Weaver::PluginBundle::Author::ETHER>
 
 =head1 SUPPORT
 

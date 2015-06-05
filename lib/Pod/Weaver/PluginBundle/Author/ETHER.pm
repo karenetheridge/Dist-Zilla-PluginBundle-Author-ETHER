@@ -95,18 +95,20 @@ following F<weaver.ini>, minus some optimizations:
 
     [Authors]
     [Contributors]
+    :version = 0.008
 
     [Legal]
 
-    [-Transformer]
+    [-Transformer / List]
     transformer = List
 
 This is also equivalent (other than section ordering) to:
 
     [@Default]
     [Contributors]
+    :version = 0.008
 
-    [-Transformer]
+    [-Transformer / List]
     transformer = List
 
 =head1 OPTIONS / OVERRIDES

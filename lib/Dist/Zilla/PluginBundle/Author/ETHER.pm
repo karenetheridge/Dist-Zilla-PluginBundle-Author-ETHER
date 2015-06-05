@@ -21,7 +21,7 @@ use Devel::CheckBin 'can_run';
 use Path::Tiny;
 use CPAN::Meta::Requirements;
 use Term::ANSIColor 'colored';
-use namespace::autoclean;
+use namespace::autoclean -also => ['_uniq'];
 
 sub mvp_multivalue_args { qw(installer copy_file_from_release) }
 

@@ -4,6 +4,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
           - switch to my weaver plugin bundle in newly-minted distributions;
             preventing older sharedir installs from interfering
           - always copy ppport.h from release back to the repository
+          - define weaver plugin bundle config in a more compact and readable
+            syntax
 
 0.094     2015-06-01 03:30:00Z
           - eliminate remaining uses of List::MoreUtils

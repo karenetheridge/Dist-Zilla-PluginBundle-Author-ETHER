@@ -11,32 +11,100 @@ use namespace::autoclean -also => ['_exp'];
 use Pod::Weaver::Config::Assembler;
 sub _exp { Pod::Weaver::Config::Assembler->expand_package($_[0]) }
 
-sub mvp_bundle_config {
-  return (
-    [ '@Author::ETHER/CorePrep',        _exp('@CorePrep'), {} ],
-    [ '@Author::ETHER/SingleEncoding',  _exp('-SingleEncoding'), {} ],
-    [ '@Author::ETHER/Name',            _exp('Name'),      {} ],
-    [ '@Author::ETHER/Version',         _exp('Version'),   {} ],
+sub configure
+{
+    my $self = shift;
 
-    [ '@Author::ETHER/prelude',         _exp('Region'),    { region_name => 'prelude'  } ],
-    [ 'SYNOPSIS',                       _exp('Generic'),   {} ],
-    [ 'DESCRIPTION',                    _exp('Generic'),   {} ],
-    [ 'OVERVIEW',                       _exp('Generic'),   {} ],
+    # this sub behaves somewhat like a Dist::Zilla pluginbundle's configure()
+    # -- it returns a list of strings or 1, 2 or 3-element arrayrefs
+    # containing plugin specifications. The goal is to make this look as close
+    # to what weaver.ini looks like as possible.
 
-    [ 'ATTRIBUTES',                     _exp('Collect'),   { command => 'attr'   } ],
-    [ 'METHODS',                        _exp('Collect'),   { command => 'method' } ],
-    [ 'FUNCTIONS',                      _exp('Collect'),   { command => 'func'   } ],
+    return (
+        '@CorePrep',
+        '-SingleEncoding',
 
-    [ '@Author::ETHER/Leftovers',       _exp('Leftovers'), {} ],
+        'Name',
+        'Version',
+        [ 'Region' => 'prelude' ],
+        [ 'Generic' => 'SYNOPSIS' ],
+        [ 'Generic' => 'DESCRIPTION' ],
+        [ 'Generic' => 'OVERVIEW' ],
+        [ 'Collect' => 'ATTRIBUTES' => { command => 'attr' } ],
+        [ 'Collect' => 'METHODS'    => { command => 'method' } ],
+        [ 'Collect' => 'FUNCTIONS'  => { command => 'func' } ],
+        'Leftovers',
+        [ 'Region' => 'postlude' ],
+        'Authors',
+        [ 'Contributors' => { ':version' => '0.008' } ],
+        'Legal',
 
-    [ '@Author::ETHER/postlude',        _exp('Region'),    { region_name => 'postlude' } ],
+        [ '-Transformer' => List => { transformer => 'List' } ],
+    );
+}
 
-    [ '@Author::ETHER/Authors',         _exp('Authors'),   {} ],
-    [ '@Author::ETHER/Contributors',    _exp('Contributors'), { ':version' => '0.008' } ],
-    [ '@Author::ETHER/Legal',           _exp('Legal'),     {} ],
+sub mvp_bundle_config
+{
+    my $self = shift || __PACKAGE__;
 
-    [ '@Author::ETHER/List',            _exp('-Transformer'), { 'transformer' => 'List' } ],
-  )
+    return map {
+        $self->_expand_config($_)
+    } $self->configure;
+}
+
+my $prefix;
+sub _prefix
+{
+    my $self = shift;
+    return $prefix if defined $prefix;
+    ($prefix = (ref($self) || $self)) =~ s/^Pod::Weaver::PluginBundle:://;
+    $prefix;
+}
+
+sub _expand_config
+{
+    my ($self, $this_spec) = @_;
+
+    die 'undefined config' if not $this_spec;
+    die 'unrecognized config format: ' . ref($this_spec) if ref($this_spec) and ref($this_spec) ne 'ARRAY';
+
+    my ($name, $class, $payload);
+
+    if (not ref $this_spec)
+    {
+        ($name, $class, $payload) = ($this_spec, _exp($this_spec), {});
+    }
+    elsif (@$this_spec == 1)
+    {
+        ($name, $class, $payload) = ($this_spec->[0], _exp($this_spec->[0]), {});
+    }
+    elsif (@$this_spec == 2)
+    {
+        $name = ref $this_spec->[1] ? $this_spec->[0] : $this_spec->[1];
+        $class = _exp(ref $this_spec->[1] ? $this_spec->[0] : $this_spec->[0]);
+        $payload = ref $this_spec->[1] ? $this_spec->[1] : {};
+    }
+    else
+    {
+        ($name, $class, $payload) = ($this_spec->[1], _exp($this_spec->[0]), $this_spec->[2]);
+    }
+
+    $name =~ s/^[@=-]//;
+
+    # Region plugins have the custom plugin name moved to 'region_name' parameter,
+    # because we don't want our bundle name to be part of the region name.
+    if ($class eq _exp('Region'))
+    {
+        $name = $this_spec->[1];
+        $payload = { region_name => $this_spec->[1], %$payload };
+    }
+
+    # prepend '@Author::ETHER/' to each class name,
+    # except for Generic and Collect which are left alone.
+    $name = '@' . $self->_prefix . '/' . $name
+        if $class ne _exp('Generic') and $class ne _exp('Collect');
+
+    return [ $name => $class => $payload ];
 }
 
 1;

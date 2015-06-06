@@ -47,7 +47,7 @@ is(
 
 cmp_deeply(
     $tzil->plugin_named('@Author::ETHER/CopyFilesFromRelease')->filename,
-    bag(qw(CONTRIBUTING LICENSE Changes extra_file)),
+    bag(qw(CONTRIBUTING LICENSE Changes extra_file ppport.h)),
     'additional copy_files_from_release file does not overshadow the defaults',
 );
 

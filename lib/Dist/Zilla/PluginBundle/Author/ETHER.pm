@@ -65,7 +65,7 @@ has copy_file_from_release => (
 
 around copy_files_from_release => sub {
     my $orig = shift; my $self = shift;
-    _uniq($self->$orig(@_), qw(LICENSE CONTRIBUTING Changes));
+    _uniq($self->$orig(@_), qw(LICENSE CONTRIBUTING Changes ppport.h));
 };
 
 has changes_version_columns => (
@@ -624,6 +624,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     filename = LICENSE
     filename = CONTRIBUTING
     filename = Changes
+    filename = ppport.h
 
     [Run::AfterRelease / remove old READMEs]
     :version = 0.038
@@ -638,6 +639,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     allow_dirty = README.pod
     allow_dirty = LICENSE
     allow_dirty = CONTRIBUTING
+    allow_dirty = ppport.h
     commit_msg = %N-%v%t%n%n%c
 
     [Git::Tag]

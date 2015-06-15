@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.094
+version 0.095
 
 =head1 SYNOPSIS
 
@@ -156,6 +156,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [AuthorityFromModule]
     :version = 0.002
     [Authority]
+    :version = 1.009
     authority = cpan:ETHER
     do_munging = 0
 
@@ -233,8 +234,6 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     decimal_only = 1
 
     [Git::Check / initial check]
-    :version = 2.025
-    build_warnings = 1
     allow_dirty =
 
     [Git::CheckFor::MergeConflicts]
@@ -264,6 +263,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     filename = LICENSE
     filename = CONTRIBUTING
     filename = Changes
+    filename = ppport.h
 
     [Run::AfterRelease / remove old READMEs]
     :version = 0.038
@@ -278,6 +278,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     allow_dirty = README.pod
     allow_dirty = LICENSE
     allow_dirty = CONTRIBUTING
+    allow_dirty = ppport.h
     commit_msg = %N-%v%t%n%n%c
 
     [Git::Tag]
@@ -355,6 +356,8 @@ Stopwords for spelling tests can be added by adding a directive to pod (as
 many as you'd like), as described in L<Pod::Spell/ADDING STOPWORDS>:
 
     =for stopwords foo bar baz
+
+See also L<[Test::PodSpelling]|Dist::Zilla::Plugin::Test::PodSpelling/stopwords>.
 
 =head2 installer
 
@@ -508,13 +511,6 @@ I am also usually active on irc, as 'ether' at C<irc.perl.org>.
 
 Karen Etheridge <ether@cpan.org>
 
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2013 by Karen Etheridge.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =head1 CONTRIBUTORS
 
 =for stopwords Randy Stauner Сергей Романов
@@ -530,5 +526,12 @@ Randy Stauner <rwstauner@cpan.org>
 Сергей Романов <sromanov@cpan.org>
 
 =back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2013 by Karen Etheridge.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut

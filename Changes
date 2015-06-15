@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.095     2015-06-15 03:37:11Z
           - switch to my weaver plugin bundle in newly-minted distributions;
             preventing older sharedir installs from interfering
           - always copy ppport.h from release back to the repository

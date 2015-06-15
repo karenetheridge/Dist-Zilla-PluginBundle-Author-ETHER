@@ -729,6 +729,8 @@ many as you'd like), as described in L<Pod::Spell/ADDING STOPWORDS>:
 
     =for stopwords foo bar baz
 
+See also L<[Test::PodSpelling]|Dist::Zilla::Plugin::Test::PodSpelling/stopwords>.
+
 =head2 installer
 
 =for stopwords ModuleBuildTiny

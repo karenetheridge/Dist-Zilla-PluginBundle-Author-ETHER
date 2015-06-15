@@ -76,12 +76,14 @@ sub all_plugins_in_prereqs
                 if exists $exempt{$plugin};
             next if $plugin eq 'Dist::Zilla::Plugin::FinderCode';  # added automatically by dist builder
 
-            # the plugin should have been added to develop prereqs - look for
-            # an explicit :version requirement there
+            # plugins with a specific :version requirement are added to
+            # prereqs via an extra injected [Prereqs] plugin
             my $required_version = $bundle_plugin_prereqs->{find_meta($plugin)->name} // 0;
 
             if (exists $additional{$plugin})
             {
+                # plugin was added in via an extra option, therefore the
+                # plugin should have been added to develop prereqs
                 ok(
                     exists $dist_meta->{prereqs}{develop}{requires}{$plugin},
                     $plugin . ' is a develop prereq of the distribution',
@@ -95,6 +97,7 @@ sub all_plugins_in_prereqs
             }
             else
             {
+                # plugin is a core requirement of the bundle
                 cmp_deeply(
                     $pluginbundle_meta->{prereqs}{runtime}{requires},
                     superhashof({ $plugin => $required_version }),

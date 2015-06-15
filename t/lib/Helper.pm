@@ -79,7 +79,6 @@ sub all_plugins_in_prereqs
             # the plugin should have been added to develop prereqs - look for
             # an explicit :version requirement there
             my $required_version = $bundle_plugin_prereqs->{find_meta($plugin)->name} // 0;
-            $required_version = any($required_version, re(qr/[^\d.]/));
 
             if (exists $additional{$plugin})
             {

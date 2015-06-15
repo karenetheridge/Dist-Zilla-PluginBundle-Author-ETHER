@@ -6,6 +6,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
           - always copy ppport.h from release back to the repository
           - define weaver plugin bundle config in a more compact and readable
             syntax
+          - do not permit Module::Build::Tiny to be used as an installer if
+            perl 5.006 compatibility is desired
 
 0.094     2015-06-01 03:30:00Z
           - eliminate remaining uses of List::MoreUtils

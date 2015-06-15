@@ -8,6 +8,9 @@ use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
 use File::pushd 'pushd';
+use JSON::MaybeXS;
+use List::Util 'max';
+use Pod::Weaver::PluginBundle::Default;
 
 use lib 't/lib';
 use Helper;
@@ -54,9 +57,8 @@ is(
     'build proceeds normally',
 );
 
-my $plugin = $tzil->plugin_named('@Author::ETHER/PodWeaver');
 cmp_deeply(
-    $plugin,
+    $tzil->plugin_named('@Author::ETHER/PodWeaver'),
     noclass(superhashof({
         replacer => 'replace_with_comment',
         post_code_replacer => 'replace_with_nothing',
@@ -103,5 +105,66 @@ or diag 'got distmeta: ', explain $tzil->distmeta;
 
 diag 'got log messages: ', explain $tzil->log_messages
     if not Test::Builder->new->is_passing;
+
+undef $wd;  # go back to original dir
+
+# TODO: if my weaver bundle ever becomes customizable (e.g. via Moose
+# attributes), move these subsequent tests into t/lib and test it for all
+# possible configurations.
+
+# If we specified a :version in weaver configs,
+# - we want to see a runtime prereq in our own dist
+# - TODO: we want to see an injected 'develop' prereq on the target dist ([PodWeaver] should do this)
+# Many things come in via [@Default], so look in there as well.
+
+subtest 'all plugins in use are specified as required runtime prerequisites by the plugin bundle' => sub {
+SKIP: {
+    skip('this test requires a built dist', 1) if not -f 'META.json';
+
+    my $pluginbundle_meta = decode_json(path('META.json')->slurp_raw);
+
+    my %default_bundle_requirements = map {
+       $_->[1] => $_->[2]{':version'}   # package => payload :version
+    } Pod::Weaver::PluginBundle::Default->mvp_bundle_config;
+
+    foreach my $bundle_plugin_config (Pod::Weaver::PluginBundle::Author::ETHER->mvp_bundle_config)
+    {
+        my $package = $bundle_plugin_config->[1];
+        my $payload_version = $bundle_plugin_config->[2]{':version'};
+
+        # package is part of @Default
+        if (exists $default_bundle_requirements{$package})
+        {
+            cmp_deeply(
+                $pluginbundle_meta->{prereqs}{runtime}{requires},
+                superhashof({ 'Pod::Weaver::PluginBundle::Default' =>
+                        (defined $payload_version || defined $default_bundle_requirements{$package}
+                            ? _atleast(max($payload_version // 0, $default_bundle_requirements{$package} // 0))
+                            : ignore())
+                    }),
+                $package . ' is part of [@Default], and Pod::Weaver::PluginBundle::Default is a runtime prereq of the plugin bundle' . ($payload_version ? ' at at least ' . $payload_version : ''),
+            );
+        }
+        else
+        {
+            cmp_deeply(
+                $pluginbundle_meta->{prereqs}{runtime}{requires},
+                superhashof({ $package => (defined $payload_version ? _atleast($payload_version) : ignore()) }),
+                $package . ' is a runtime prereq of the plugin bundle' . ($payload_version ? ' at at least ' . $payload_version : ''),
+            );
+        }
+    }
+
+    diag 'got plugin bundle metadata: ', explain $pluginbundle_meta
+        if not Test::Builder->new->is_passing;
+} };
+
+sub _atleast {
+    my $val = shift;
+    code(sub {
+        return 1 if $_[0] >= $val;
+        return 0, "$_[0] is not at least $val";
+    })
+}
 
 done_testing;

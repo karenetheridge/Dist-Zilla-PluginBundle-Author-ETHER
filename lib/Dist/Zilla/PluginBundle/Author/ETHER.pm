@@ -264,7 +264,7 @@ sub configure
 
         # Before Release
         [ 'CheckStrictVersion'  => { decimal_only => 1 } ],
-        [ 'Git::Check'          => 'initial check' => { ':version' => '2.025', build_warnings => 1, allow_dirty => [''] } ],
+        [ 'Git::Check'          => 'initial check' => { allow_dirty => [''] } ],
         'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
         [ 'Git::Remote::Check'  => { branch => 'master', remote_branch => 'master' } ],
@@ -603,8 +603,6 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     decimal_only = 1
 
     [Git::Check / initial check]
-    :version = 2.025
-    build_warnings = 1
     allow_dirty =
 
     [Git::CheckFor::MergeConflicts]

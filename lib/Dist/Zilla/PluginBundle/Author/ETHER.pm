@@ -140,6 +140,9 @@ sub configure
     warn '[@Author::ETHER] ' . colored('bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?', 'bright_red') . "\n"
         if -d 'bin' and any { $_ eq 'ModuleBuildTiny' } $self->installer;
 
+    warn '[@Author::ETHER] You are using [ModuleBuild] as an installer, WTF?!'
+        if any { $_ eq 'ModuleBuild' } $self->installer;
+
     my $remove = $self->payload->{ $self->plugin_remover_attribute } // [];
     my %removed; @removed{@$remove} = (!!1) x @$remove;
 

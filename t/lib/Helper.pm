@@ -87,13 +87,13 @@ sub all_plugins_in_prereqs
                 ok(
                     exists $dist_meta->{prereqs}{develop}{requires}{$plugin},
                     $plugin . ' is a develop prereq of the distribution',
-                ) or diag 'got dist metadata: ', explain $dist_meta;
+                );
 
                 cmp_deeply(
                     $pluginbundle_meta->{prereqs}{runtime}{recommends},
                     superhashof({ $plugin => $required_version }),
                     $plugin . ' is a runtime recommendation of the plugin bundle',
-                ) or diag 'got plugin bundle metadata: ', explain $pluginbundle_meta;
+                );
             }
             else
             {
@@ -102,8 +102,14 @@ sub all_plugins_in_prereqs
                     $pluginbundle_meta->{prereqs}{runtime}{requires},
                     superhashof({ $plugin => $required_version }),
                     $plugin . ' is a runtime prereq of the plugin bundle',
-                ) or diag 'got plugin bundle metadata: ', explain $pluginbundle_meta;
+                );
             }
+        }
+
+        if (not Test::Builder->new->is_passing)
+        {
+            diag 'got dist metadata: ', explain $dist_meta;
+            diag 'got plugin bundle metadata: ', explain $pluginbundle_meta;
         }
     }
 } }

@@ -23,6 +23,7 @@ sub configure
     return (
         '@CorePrep',
         '-SingleEncoding',
+        [ '-Transformer' => List => { transformer => 'List' } ],
 
         'Name',
         'Version',
@@ -39,7 +40,6 @@ sub configure
         [ 'Contributors' => { ':version' => '0.008' } ],
         'Legal',
 
-        [ '-Transformer' => List => { transformer => 'List' } ],
     );
 }
 
@@ -139,6 +139,9 @@ following F<weaver.ini>, minus some optimizations:
 
     [-SingleEncoding]
 
+    [-Transformer / List]
+    transformer = List
+
     [Name]
     [Version]
 
@@ -167,17 +170,14 @@ following F<weaver.ini>, minus some optimizations:
 
     [Legal]
 
+This is also equivalent (other than section ordering) to:
+
     [-Transformer / List]
     transformer = List
-
-This is also equivalent (other than section ordering) to:
 
     [@Default]
     [Contributors]
     :version = 0.008
-
-    [-Transformer / List]
-    transformer = List
 
 =head1 OPTIONS / OVERRIDES
 

@@ -33,6 +33,7 @@ my $tzil = Builder->from_config(
                 [ '@Author::ETHER' => {
                     -remove => \@REMOVED_PLUGINS,
                     'RewriteVersion::Transitional.skip_version_provider' => 1,
+                    'Test::MinimumVersion.max_target_perl' => '5.008',
                 } ],
             ),
             path(qw(source lib Foo.pm)) => <<FOO,

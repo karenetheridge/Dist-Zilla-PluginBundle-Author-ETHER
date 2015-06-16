@@ -47,6 +47,7 @@ my $tzil = Builder->from_config(
                     ':version' => '0.002',
                     'RewriteVersion::Transitional.skip_version_provider' => 1,
                     'Git::NextVersion.version_regexp' => '^ohhai',
+                    'Test::MinimumVersion.max_target_perl' => '5.008',
                 } ],
             ),
             path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\nour \$VERSION = '0.001';\n1",
@@ -231,12 +232,6 @@ subtest "a -remove'd plugin should not be loaded" => sub {
         );
     }
 };
-
-is(
-    $tzil->plugin_named('@Author::ETHER/Test::MinimumVersion')->max_target_perl,
-    '5.006',
-    'max_target_perl option defaults to 5.006 (when not overridden with a slice)',
-);
 
 # I'd like to test the release installation command here, but there's no nice
 # way of doing that without risking leaking my (or someone else's!) PAUSE

@@ -37,6 +37,7 @@ my @warnings = warnings {
                         ],
                         airplane => 1,
                         'RewriteVersion::Transitional.skip_version_provider' => 1,
+                        'Test::MinimumVersion.max_target_perl' => '5.008',
                     } ],
                     'FakeRelease',  # replaces UploadToCPAN, just in case!
                 ),

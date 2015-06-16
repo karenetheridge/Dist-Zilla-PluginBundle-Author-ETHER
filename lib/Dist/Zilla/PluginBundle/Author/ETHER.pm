@@ -146,7 +146,7 @@ sub configure
     # this is better than injecting a perl prereq for 5.008, to allow MBT to
     # become more 5.006-compatible in the future without forcing the distribution to be re-released.
     die 'Module::Build::Tiny should not be used in distributions that are targeting perl 5.006!'
-        if any { $_ eq 'ModuleBuildTiny' } $self->installer
+        if any { /ModuleBuildTiny/ } $self->installer
             and (not exists $self->payload->{'Test::MinimumVersion.max_target_perl'}
                  or $self->payload->{'Test::MinimumVersion.max_target_perl'} < '5.008');
 

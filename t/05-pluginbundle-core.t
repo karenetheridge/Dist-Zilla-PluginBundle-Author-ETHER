@@ -51,6 +51,12 @@ use NoPrereqChecks;
         additional => [ 'Dist::Zilla::Plugin::MakeMaker' ], # via installer option
     );
 
+    is(
+        $tzil->plugin_named('@Author::ETHER/Test::MinimumVersion')->max_target_perl,
+        '5.006',
+        'max_target_perl option defaults to 5.006 (when not overridden with a slice)',
+    );
+
     ok(!-e "build/$_", "no $_ was created in the dist") foreach qw(Makefile.PL Build.PL);
 
     diag 'got log messages: ', explain $tzil->log_messages

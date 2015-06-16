@@ -210,6 +210,8 @@ woven ahead of everything else:
 * L<Pod::Weaver>
 * L<Pod::Weaver::PluginBundle::Default>
 * L<Dist::Zilla::Plugin::PodWeaver>
+* L<Dist::Zilla::PluginBundle::Author::ETHER>
+* L<Dist::Zilla::MintingProfile::Author::ETHER>
 
 =head1 SUPPORT
 

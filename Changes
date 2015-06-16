@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.096     2015-06-16 02:04:57Z
           - fix Module::Build::Tiny prohibition to also work with
             [ModuleBuildTiny::Fallback]
           - add header and footer regions to podweaver bundle, which is very

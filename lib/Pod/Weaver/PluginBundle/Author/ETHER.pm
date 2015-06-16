@@ -207,9 +207,9 @@ woven ahead of everything else:
 =head1 SEE ALSO
 
 =for :list
-L<Pod::Weaver>
-L<Pod::Weaver::PluginBundle::Default>
-L<Dist::Zilla::Plugin::PodWeaver>
+* L<Pod::Weaver>
+* L<Pod::Weaver::PluginBundle::Default>
+* L<Dist::Zilla::Plugin::PodWeaver>
 
 =head1 SUPPORT
 

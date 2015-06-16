@@ -25,6 +25,7 @@ sub configure
         '-SingleEncoding',
         [ '-Transformer' => List => { transformer => 'List' } ],
 
+        [ 'Region' => 'header' ],
         'Name',
         'Version',
         [ 'Region' => 'prelude' ],
@@ -39,7 +40,7 @@ sub configure
         'Authors',
         [ 'Contributors' => { ':version' => '0.008' } ],
         'Legal',
-
+        [ 'Region' => 'footer' ],
     );
 }
 
@@ -142,6 +143,7 @@ following F<weaver.ini>, minus some optimizations:
     [-Transformer / List]
     transformer = List
 
+    [Region / header]
     [Name]
     [Version]
 
@@ -169,20 +171,38 @@ following F<weaver.ini>, minus some optimizations:
     :version = 0.008
 
     [Legal]
+    [Region / footer]
 
 This is also equivalent (other than section ordering) to:
 
     [-Transformer / List]
     transformer = List
 
+    [Region / header]
     [@Default]
     [Contributors]
     :version = 0.008
+    [Region / footer]
 
 =head1 OPTIONS / OVERRIDES
 
 None at this time. (The bundle is never instantiated, so this doesn't seem to
 be possible without updates to L<Pod::Weaver>.)
+
+=head1 ADDING STOPWORDS FOR SPELLING TESTS
+
+As noted in L<Dist::Zilla::PluginBundle::Author::ETHER>, stopwords for
+spelling tests can be added by adding a directive to pod:
+
+    =for stopwords foo bar baz
+
+However, if the stopword appears in the module's abstract, it is moved to the
+C<NAME> section, which will be above your stopword directive. You can handle
+this by declaring the stopword in the special C<header> section, which will be
+woven ahead of everything else:
+
+    =for :header
+    =for stopwords foo bar baz
 
 =head1 SEE ALSO
 

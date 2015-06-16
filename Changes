@@ -3,6 +3,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 {{$NEXT}}
           - fix Module::Build::Tiny prohibition to also work with
             [ModuleBuildTiny::Fallback]
+          - add header and footer regions to podweaver bundle, which is very
+            useful for adding directives before any content
 
 0.095     2015-06-15 03:37:11Z
           - switch to my weaver plugin bundle in newly-minted distributions;

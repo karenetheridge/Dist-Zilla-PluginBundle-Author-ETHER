@@ -425,16 +425,16 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     ;;; Gather Files
     [Git::GatherDir]
     :version = 2.016
-    exclude_filename = Makefile.PL
-    exclude_filename = ppport.h
-    exclude_filename = README.md
-    exclude_filename = README.pod
-    exclude_filename = META.json
-    exclude_filename = cpanfile
-    exclude_filename = TODO
     exclude_filename = CONTRIBUTING
     exclude_filename = LICENSE
+    exclude_filename = META.json
+    exclude_filename = Makefile.PL
+    exclude_filename = README.md
+    exclude_filename = README.pod
+    exclude_filename = TODO
+    exclude_filename = cpanfile
     exclude_filename = inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm
+    exclude_filename = ppport.h
 
     [MetaYAML]
     [MetaJSON]
@@ -530,16 +530,16 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     do_munging = 0
 
     [MetaNoIndex]
-    directory = t
-    directory = xt
+    directory = corpus
+    directory = demo
+    directory = examples
+    directory = fatlib
     directory = inc
     directory = local
     directory = perl5
-    directory = fatlib
-    directory = examples
     directory = share
-    directory = corpus
-    directory = demo
+    directory = t
+    directory = xt
 
     [MetaProvides::Package]
     :version = 1.15000002
@@ -579,7 +579,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
 
     ;;; Test Runner
-    # <specified installer(s)>
+    ; <specified installer(s)>
     [RunExtraTests]
     :version = 0.024
     default_jobs = 9
@@ -629,9 +629,9 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     ;;; AfterRelease
     [CopyFilesFromRelease]
-    filename = LICENSE
     filename = CONTRIBUTING
     filename = Changes
+    filename = LICENSE
     filename = ppport.h
 
     [Run::AfterRelease / remove old READMEs]
@@ -642,11 +642,11 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Git::Commit / release snapshot]
     :version = 2.020
     add_files_in = .
+    allow_dirty = CONTRIBUTING
     allow_dirty = Changes
+    allow_dirty = LICENSE
     allow_dirty = README.md
     allow_dirty = README.pod
-    allow_dirty = LICENSE
-    allow_dirty = CONTRIBUTING
     allow_dirty = ppport.h
     commit_msg = %N-%v%t%n%n%c
 

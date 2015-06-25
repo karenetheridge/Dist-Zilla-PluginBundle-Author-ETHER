@@ -140,7 +140,7 @@ sub configure
     warn '[@Author::ETHER] ' . colored('bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?', 'bright_red') . "\n"
         if -d 'bin' and any { $_ eq 'ModuleBuildTiny' } $self->installer;
 
-    warn '[@Author::ETHER] You are using [ModuleBuild] as an installer, WTF?!'
+    warn '[@Author::ETHER] ' . colored('You are using [ModuleBuild] as an installer, WTF?!', 'bright_red') . "\n"
         if any { $_ eq 'ModuleBuild' } $self->installer;
 
     # this is better than injecting a perl prereq for 5.008, to allow MBT to

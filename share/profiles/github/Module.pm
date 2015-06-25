@@ -6,6 +6,7 @@ package {{ $name }};
 # vim: set ts=8 sts=4 sw=4 tw=78 et :
 
 our $VERSION = '{{ $dist->version }}';
+
 {{
     ($zilla_plugin) = ($name =~ /^Dist::Zilla::Plugin::(.+)$/g);
 

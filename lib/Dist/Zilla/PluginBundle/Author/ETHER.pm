@@ -153,6 +153,11 @@ sub configure
     my $remove = $self->payload->{ $self->plugin_remover_attribute } // [];
     my %removed; @removed{@$remove} = (!!1) x @$remove;
 
+    warn '[@Author::ETHER] ' . colored('.git is missing and META.json is present -- this looks like a CPAN download rather than a git repository. You should probably run '
+            . (-f 'Build.PL' ? 'perl Build.PL; ./Build' : 'perl Makefile.PL; make') . ' instead of using dzil commands!', 'yellow') . "\n"
+        if not -d '.git' and -f 'META.json' and not exists $removed{'Git::GatherDir'};
+
+
     my @plugins = (
         # VersionProvider
         [ 'RewriteVersion::Transitional' => { ':version' => '0.004', global => 1, fallback_version_provider => 'Git::NextVersion', version_regexp => '^v([\d._]+)(-TRIAL)?$',

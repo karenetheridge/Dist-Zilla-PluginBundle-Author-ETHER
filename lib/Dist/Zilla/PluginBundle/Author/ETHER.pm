@@ -65,7 +65,7 @@ has copy_file_from_release => (
 
 around copy_files_from_release => sub {
     my $orig = shift; my $self = shift;
-    _uniq($self->$orig(@_), qw(LICENSE CONTRIBUTING Changes ppport.h));
+    _uniq($self->$orig(@_), qw(LICENSE CONTRIBUTING Changes ppport.h INSTALL));
 };
 
 has changes_version_columns => (
@@ -104,7 +104,8 @@ my $has_bash = can_run('bash');
 # files that might be in the repository that should never be gathered
 my @never_gather = qw(
     Makefile.PL ppport.h README.md README.pod META.json
-    cpanfile TODO CONTRIBUTING LICENSE inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm
+    cpanfile TODO CONTRIBUTING LICENSE INSTALL
+    inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm
 );
 
 around BUILDARGS => sub
@@ -431,6 +432,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Git::GatherDir]
     :version = 2.016
     exclude_filename = CONTRIBUTING
+    exclude_filename = INSTALL
     exclude_filename = LICENSE
     exclude_filename = META.json
     exclude_filename = Makefile.PL
@@ -636,6 +638,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [CopyFilesFromRelease]
     filename = CONTRIBUTING
     filename = Changes
+    filename = INSTALL
     filename = LICENSE
     filename = ppport.h
 
@@ -649,6 +652,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     add_files_in = .
     allow_dirty = CONTRIBUTING
     allow_dirty = Changes
+    allow_dirty = INSTALL
     allow_dirty = LICENSE
     allow_dirty = README.md
     allow_dirty = README.pod

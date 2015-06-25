@@ -51,7 +51,7 @@ cmp_deeply(
     (eval { Dist::Zilla::Plugin::CopyFilesFromRelease->VERSION('0.006') }
         ? \@filenames
         : $filenames[0]),
-    bag(qw(CONTRIBUTING LICENSE Changes extra_file ppport.h)),
+    bag(qw(CONTRIBUTING LICENSE Changes extra_file ppport.h INSTALL)),
     'additional copy_files_from_release file does not overshadow the defaults',
 );
 

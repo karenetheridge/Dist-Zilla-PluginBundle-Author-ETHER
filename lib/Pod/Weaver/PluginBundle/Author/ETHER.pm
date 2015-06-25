@@ -35,6 +35,7 @@ sub configure
         [ 'Collect' => 'ATTRIBUTES' => { command => 'attr' } ],
         [ 'Collect' => 'METHODS'    => { command => 'method' } ],
         [ 'Collect' => 'FUNCTIONS'  => { command => 'func' } ],
+        [ 'Collect' => 'TYPES'      => { command => 'type' } ],
         'Leftovers',
         [ 'Region' => 'postlude' ],
         'Authors',
@@ -162,6 +163,9 @@ following F<weaver.ini>, minus some optimizations:
     [Collect / FUNCTIONS]
     command = func
 
+    [Collect / TYPES]
+    command = type
+
     [Leftovers]
 
     [Region / postlude]
@@ -180,8 +184,13 @@ This is also equivalent (other than section ordering) to:
 
     [Region / header]
     [@Default]
+
+    [Collect / TYPES]
+    command = type
+
     [Contributors]
     :version = 0.008
+
     [Region / footer]
 
 =head1 OPTIONS / OVERRIDES

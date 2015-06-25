@@ -4,6 +4,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
           - bump up prereq for [Test::EOL], for the 'finders' option
           - fix bash commands when building in a directory with whitespace
           - also copy INSTALL from the build and commit it to the repository
+          - new =type collector in weaver bundle
 
 0.096     2015-06-16 02:04:57Z
           - fix Module::Build::Tiny prohibition to also work with

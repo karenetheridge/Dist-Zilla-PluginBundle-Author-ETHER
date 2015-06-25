@@ -7,8 +7,8 @@ package Pod::Weaver::PluginBundle::Author::ETHER;
 our $VERSION = '0.097';
 
 use namespace::autoclean -also => ['_exp'];
-
 use Pod::Weaver::Config::Assembler;
+
 sub _exp { Pod::Weaver::Config::Assembler->expand_package($_[0]) }
 
 sub configure

@@ -752,15 +752,19 @@ protection, and F<Makefile.PL> as a fallback, containing an upgrade warning).
 For toolchain-grade modules, you should only use F<Makefile.PL>-generating installers.
 
 You can select other backends (by plugin name, without the C<[]>), with the
-C<installer> option, or 'none' if you are supplying your own, as a separate
+C<installer> option, or C<none> if you are supplying your own, as a separate
 plugin(s).
 
 Encouraged choices are:
 
     installer = ModuleBuildTiny
+
     installer = MakeMaker
+
     installer = MakeMaker::Fallback (when used in combination with ModuleBuildTiny)
-    installer = =inc::Foo (if no configs are needed for this plugin)
+
+    installer = =inc::Foo (if no configs are needed for this plugin; e.g. subclassed from L<[MakeMaker::Awesome]|Dist::Zilla::Plugin::MakeMaker::Awesome>)
+
     installer = none (if you are including your own later on, with configs)
 
 =head2 server

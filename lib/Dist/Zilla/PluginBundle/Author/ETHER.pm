@@ -759,6 +759,7 @@ Encouraged choices are:
 
     installer = ModuleBuildTiny
     installer = MakeMaker
+    installer = MakeMaker::Fallback (when used in combination with ModuleBuildTiny)
     installer = =inc::Foo (if no configs are needed for this plugin)
     installer = none (if you are including your own later on, with configs)
 

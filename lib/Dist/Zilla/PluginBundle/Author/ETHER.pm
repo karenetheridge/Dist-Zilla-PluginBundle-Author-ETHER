@@ -745,7 +745,7 @@ See also L<[Test::PodSpelling]|Dist::Zilla::Plugin::Test::PodSpelling/stopwords>
 Available since 0.007.
 
 The installer back-end(s) to use (can be specified more than once); defaults
-to L<C<ModuleBuildTiny>|Dist::Zilla::Plugin::ModuleBuildTiny::Fallback>
+to L<C<ModuleBuildTiny::Fallback>|Dist::Zilla::Plugin::ModuleBuildTiny::Fallback>
 and L<C<MakeMaker::Fallback>|Dist::Zilla::Plugin::MakeMaker::Fallback>
 (which generates a F<Build.PL> for normal use with no-configure-requires
 protection, and F<Makefile.PL> as a fallback, containing an upgrade warning).
@@ -807,8 +807,9 @@ Available in this form since 0.076.
 
 A file, to be present in the build, which is copied back to the source
 repository at release time and committed to git. Can be repeated more than
-once. Defaults to: F<LICENSE>, F<CONTRIBUTING>; defaults are appended to,
-rather than overwritten.
+once. Defaults to:
+F<LICENSE>, F<CONTRIBUTING>, F<Changes>, F<ppport.h>, F<INSTALL>;
+defaults are appended to, rather than overwritten.
 
 =head2 surgical_podweaver
 

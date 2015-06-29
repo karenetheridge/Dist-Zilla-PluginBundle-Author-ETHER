@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.097
+version 0.098
 
 =head1 SYNOPSIS
 
@@ -369,21 +369,26 @@ See also L<[Test::PodSpelling]|Dist::Zilla::Plugin::Test::PodSpelling/stopwords>
 Available since 0.007.
 
 The installer back-end(s) to use (can be specified more than once); defaults
-to L<C<ModuleBuildTiny>|Dist::Zilla::Plugin::ModuleBuildTiny::Fallback>
+to L<C<ModuleBuildTiny::Fallback>|Dist::Zilla::Plugin::ModuleBuildTiny::Fallback>
 and L<C<MakeMaker::Fallback>|Dist::Zilla::Plugin::MakeMaker::Fallback>
 (which generates a F<Build.PL> for normal use with no-configure-requires
 protection, and F<Makefile.PL> as a fallback, containing an upgrade warning).
 For toolchain-grade modules, you should only use F<Makefile.PL>-generating installers.
 
 You can select other backends (by plugin name, without the C<[]>), with the
-C<installer> option, or 'none' if you are supplying your own, as a separate
+C<installer> option, or C<none> if you are supplying your own, as a separate
 plugin(s).
 
 Encouraged choices are:
 
     installer = ModuleBuildTiny
+
     installer = MakeMaker
-    installer = =inc::Foo (if no configs are needed for this plugin)
+
+    installer = MakeMaker::Fallback (when used in combination with ModuleBuildTiny)
+
+    installer = =inc::Foo (if no configs are needed for this plugin; e.g. subclassed from L<[MakeMaker::Awesome]|Dist::Zilla::Plugin::MakeMaker::Awesome>)
+
     installer = none (if you are including your own later on, with configs)
 
 =head2 server
@@ -446,8 +451,9 @@ Available in this form since 0.076.
 
 A file, to be present in the build, which is copied back to the source
 repository at release time and committed to git. Can be repeated more than
-once. Defaults to: F<LICENSE>, F<CONTRIBUTING>; defaults are appended to,
-rather than overwritten.
+once. Defaults to:
+F<LICENSE>, F<CONTRIBUTING>, F<Changes>, F<ppport.h>, F<INSTALL>;
+defaults are appended to, rather than overwritten.
 
 =head2 surgical_podweaver
 

@@ -192,8 +192,7 @@ is(
                         class => 'Dist::Zilla::Plugin::RewriteVersion::Transitional',
                         config => superhashof({
                             'Dist::Zilla::Plugin::RewriteVersion::Transitional' => superhashof({
-                                fallback_version_provider => 'Git::NextVersion',
-                                _fallback_version_provider_args => { version_regexp => '^ohhai' },
+                                # no fallback used here - module had a $VERSION
                             }),
                         }),
                         name => '@Author::ETHER/RewriteVersion::Transitional',
@@ -206,6 +205,15 @@ is(
     )
     or diag 'got distmeta: ', explain $tzil->distmeta;
 }
+
+cmp_deeply(
+    (first { $_->isa('Dist::Zilla::Plugin::RewriteVersion::Transitional') } @{ $tzil->plugins }),
+    methods(
+        fallback_version_provider => 'Git::NextVersion',
+        _fallback_version_provider_args => { version_regexp => '^ohhai' },
+    ),
+    'payload for [Git::NextVersion] is passed along to the replacement used by [RewriteVersion::Transitional]',
+);
 
 cmp_deeply(
     $tzil->distmeta,

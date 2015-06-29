@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - fix test that broke due to [RewriteVersion::Transitional] 0.006
 
 0.097     2015-06-25 04:11:43Z
           - bump up prereq for [Test::EOL], for the 'finders' option

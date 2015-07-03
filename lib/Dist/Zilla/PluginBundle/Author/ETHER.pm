@@ -200,7 +200,7 @@ sub configure
         'PodCoverageTests',
         [ 'Test::PodSpelling'   => { ':version' => '2.006001' } ],
         #[Test::Pod::LinkCheck]     many outstanding bugs
-        'Test::Pod::No404s',
+        [ 'Test::Pod::No404s'   => { ':version' => '1.002' } ],
         [ 'Test::Kwalitee'      => { ':version' => '2.06', filename => 'xt/author/kwalitee.t' } ],
         'MojibakeTests',
         [ 'Test::ReportPrereqs' => { ':version' => '0.019', verify_prereqs => 1,
@@ -489,6 +489,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Test::PodSpelling]
     ;[Test::Pod::LinkCheck]     many outstanding bugs
     [Test::Pod::No404s]
+    :version = 1.002
     [Test::Kwalitee]
     :version = 2.06
     filename = xt/author/kwalitee.t

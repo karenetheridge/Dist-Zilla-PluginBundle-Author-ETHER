@@ -340,10 +340,15 @@ sub configure
         push @$plugin_spec, {} if not ref $plugin_spec->[-1];
         my $payload = $plugin_spec->[-1];
 
-        if (my @keys = grep { $plugin->isa($_) or $plugin->does($_) } keys %extra_args)
+        if (my @modules_for_extra_configs = grep { $plugin->isa($_) or $plugin->does($_) } keys %extra_args)
         {
-            # combine all the relevant configs together
-            my %configs = map { %{ $extra_args{$_} } } @keys;
+            # combine all the relevant configs together, but don't take
+            # :version unless it matches the package exactly
+            my %configs = map { %{ $extra_args{$_} } } @modules_for_extra_configs;
+            delete $configs{':version'};
+
+            $configs{':version'} = $extra_args{$plugin}{':version'}
+                if exists $extra_args{$plugin} and exists $extra_args{$plugin}{':version'};
 
             # and add to the payload of this plugin
             @{$payload}{keys %configs} = values %configs;

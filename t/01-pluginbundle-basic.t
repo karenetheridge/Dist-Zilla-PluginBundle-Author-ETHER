@@ -111,7 +111,7 @@ my @expected_files = qw(
     xt/release/cpan-changes.t
     xt/release/distmeta.t
     xt/release/minimum-version.t
-    xt/release/mojibake.t
+    xt/author/mojibake.t
     xt/release/pod-coverage.t
     xt/release/pod-no404s.t
     xt/release/pod-syntax.t

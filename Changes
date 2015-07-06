@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
           - bump prereq on [Test::Pod::No404s], to get prereq injection
+          - upgrade [MojibakeTests], to get the file in xt/author and prereq
+            injection
 
 0.098     2015-06-29 03:31:18Z
           - fix test that broke due to [RewriteVersion::Transitional] 0.006

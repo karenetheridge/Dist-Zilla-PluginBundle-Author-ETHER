@@ -82,7 +82,7 @@ my %extra_args = (
     # default_jobs is no-op until Dist::Zilla 5.014
     'Dist::Zilla::Role::TestRunner' => { default_jobs => 9 },
     'Dist::Zilla::Plugin::ModuleBuild' => { mb_version => '0.28' },
-    'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => { ':version' => '0.006' },
+    'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => { ':version' => '0.018', version_method => 'conservative' },
 );
 
 # plugins that use the network when they run

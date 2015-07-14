@@ -126,10 +126,12 @@ SKIP: {
         ],
     );
 
+    is($tzil->distmeta->{x_static_install}, 1, 'build is marked as eligible for static install');
+
     cmp_deeply(
         $tzil->distmeta->{prereqs}{develop}{requires},
         superhashof({
-            'Dist::Zilla::Plugin::ModuleBuildTiny' => '0.009',
+            'Dist::Zilla::Plugin::ModuleBuildTiny' => '0.012',
         }),
         'installer prereq version is added',
     ) or diag 'got dist metadata: ', explain $tzil->distmeta;

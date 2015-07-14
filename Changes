@@ -5,6 +5,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
           - upgrade [MojibakeTests], to get the file in xt/author and prereq
             injection
           - pass add_tarball_name = 0 to [RewriteVersion(::*)?] configs
+          - set x_static_install flag in some distributions
 
 0.098     2015-06-29 03:31:18Z
           - fix test that broke due to [RewriteVersion::Transitional] 0.006

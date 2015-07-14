@@ -148,6 +148,7 @@ is(
     cmp_deeply(
         $tzil->distmeta,
         superhashof({
+            x_static_install => 1,
             prereqs => superhashof({
                 develop => superhashof({
                     requires => superhashof({

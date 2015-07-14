@@ -77,12 +77,12 @@ has changes_version_columns => (
 # configs are applied when plugins match ->isa($key) or ->does($key)
 my %extra_args = (
     'Dist::Zilla::Plugin::MakeMaker' => { 'eumm_version' => '0' },
-    'Dist::Zilla::Plugin::ModuleBuildTiny' => { ':version' => '0.009', version_method => 'conservative' },
+    'Dist::Zilla::Plugin::ModuleBuildTiny' => { ':version' => '0.012', version_method => 'conservative', static => 'auto' },
     'Dist::Zilla::Plugin::MakeMaker::Fallback' => { ':version' => '0.012' },
     # default_jobs is no-op until Dist::Zilla 5.014
     'Dist::Zilla::Role::TestRunner' => { default_jobs => 9 },
     'Dist::Zilla::Plugin::ModuleBuild' => { mb_version => '0.28' },
-    'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => { ':version' => '0.018', version_method => 'conservative' },
+    'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => { ':version' => '0.018', version_method => 'conservative', static => 'auto' },
 );
 
 # plugins that use the network when they run
@@ -244,6 +244,7 @@ sub configure
         'MetaConfig',
         [ 'Keywords'            => { ':version' => '0.004' } ],
         [ 'Git::Contributors'   => { ':version' => '0.004', order_by => 'commits' } ],
+        # [StaticInstall]
 
         # Register Prereqs
         # (MakeMaker or other installer)
@@ -261,6 +262,12 @@ sub configure
 
         # Install Tool (some are also Test Runners)
         $self->installer,
+
+        [ 'StaticInstall' => {
+                ':version' => '0.005', mode => 'auto',
+                dry_run => ($self->payload->{'Authority.authority'} // 'cpan:ETHER') eq 'cpan:ETHER'
+                    || ($self->payload->{'StaticInstall.mode'} // '') eq 'off' ? 0 : 1,
+            } ],
 
         # Test Runners (load after installers to avoid a rebuild)
         [ 'RunExtraTests'       => { ':version' => '0.024' } ],
@@ -578,6 +585,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Git::Contributors]
     :version = 0.004
     order_by = commits
+    ;[StaticInstall]   ; below
 
 
     ;;; Register Prereqs
@@ -600,6 +608,11 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     ;;; Install Tool
     <specified installer(s)>
+
+    [StaticInstall]
+    :version = 0.005
+    mode = auto
+    dry_run = 1  ; only if authority is not ETHER
 
 
     ;;; Test Runner

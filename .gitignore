@@ -4,5 +4,6 @@
 /.latest
 /Dist-Zilla-PluginBundle-Author-ETHER-*/
 /Dist-Zilla-PluginBundle-Author-ETHER-*.tar.gz
+/META.json
 /todo.txt
 /todo/

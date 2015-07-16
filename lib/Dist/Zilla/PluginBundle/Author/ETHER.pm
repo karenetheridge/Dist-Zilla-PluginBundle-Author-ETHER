@@ -380,7 +380,9 @@ sub _pause_config
     my $file = path($ENV{HOME} // 'oops', '.pause');
     return if not -e $file;
 
-    my ($username, $password) = map { my (undef, $val) = split ' ', $_; $val } $file->lines;
+    my ($username, $password) = map {
+        my (undef, $val) = split ' ', $_; $val  # awk-style whitespace splitting
+    } $file->lines;
 }
 
 sub _uniq { keys %{ +{ map { $_ => undef } @_ } } }

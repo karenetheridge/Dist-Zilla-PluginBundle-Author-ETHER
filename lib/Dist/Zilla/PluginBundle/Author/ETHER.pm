@@ -161,8 +161,13 @@ sub configure
 
     my @plugins = (
         # VersionProvider
-        [ 'RewriteVersion::Transitional' => { ':version' => '0.004', global => 1, fallback_version_provider => 'Git::NextVersion', version_regexp => '^v([\d._]+)(-TRIAL)?$',
-                (map { (my $key = $_) =~ s/Git::NextVersion\.//; $key => $self->payload->{$_} } grep { /^Git::NextVersion\./ } keys %{ $self->payload }) } ],
+        [ 'RewriteVersion::Transitional' => {
+                ':version' => '0.004',
+                global => 1,
+                fallback_version_provider => 'Git::NextVersion',
+                version_regexp => '^v([\d._]+)(-TRIAL)?$',
+                (map { (my $key = $_) =~ s/Git::NextVersion\.//; $key => $self->payload->{$_} } grep { /^Git::NextVersion\./ } keys %{ $self->payload })
+            } ],
 
         # BeforeBuild
         # [ 'EnsurePrereqsInstalled' ], # FIXME: use options to make this less annoying!

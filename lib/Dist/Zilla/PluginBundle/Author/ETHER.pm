@@ -164,6 +164,7 @@ sub configure
         [ 'RewriteVersion::Transitional' => {
                 ':version' => '0.004',
                 global => 1,
+                add_tarball_name => 0,
                 fallback_version_provider => 'Git::NextVersion',
                 version_regexp => '^v([\d._]+)(-TRIAL)?$',
                 (map { (my $key = $_) =~ s/Git::NextVersion\.//; $key => $self->payload->{$_} } grep { /^Git::NextVersion\./ } keys %{ $self->payload })
@@ -414,6 +415,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [RewriteVersion::Transitional]
     :version = 0.004
     global = 1
+    add_tarball_name = 0
     fallback_version_provider = Git::NextVersion
     version_regexp = ^v([\d._]+)(-TRIAL)?$
 

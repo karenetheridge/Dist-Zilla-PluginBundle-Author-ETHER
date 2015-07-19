@@ -158,6 +158,10 @@ sub configure
             . (-f 'Build.PL' ? 'perl Build.PL; ./Build' : 'perl Makefile.PL; make') . ' instead of using dzil commands!', 'yellow') . "\n"
         if not -d '.git' and -f 'META.json' and not exists $removed{'Git::GatherDir'};
 
+    # only set x_static_install using auto mode for my own distributions
+    my $static_install_mode = $self->payload->{'StaticInstall.mode'} // 'auto';
+    my $static_install_dry_run = ($static_install_mode eq 'auto'
+            and ($self->payload->{'Authority.authority'} // 'cpan:ETHER') ne 'cpan:ETHER') ? 1 : 0;
 
     my @plugins = (
         # VersionProvider
@@ -261,13 +265,10 @@ sub configure
             } ] : ()),
 
         # Install Tool (some are also Test Runners)
-        $self->installer,
+        $self->installer,   # options are set lower down, via %extra_args
 
-        [ 'StaticInstall' => {
-                ':version' => '0.005', mode => 'auto',
-                dry_run => ($self->payload->{'Authority.authority'} // 'cpan:ETHER') eq 'cpan:ETHER'
-                    || ($self->payload->{'StaticInstall.mode'} // '') eq 'off' ? 0 : 1,
-            } ],
+        # note that MBT::*'s static tweak is consequently adjusted, later
+        [ 'StaticInstall' => { ':version' => '0.005', mode => $static_install_mode, dry_run => $static_install_dry_run } ],
 
         # Test Runners (load after installers to avoid a rebuild)
         [ 'RunExtraTests'       => { ':version' => '0.024' } ],
@@ -369,6 +370,15 @@ sub configure
 
         # record develop prereq
         $plugin_requirements->add_minimum($plugin => $payload->{':version'} // 0);
+    }
+
+    # if ModuleBuildTiny(::*) is being used, disable its static option if
+    # [StaticInstall] is being run with mode=off or dry_run=1
+    if (($static_install_mode eq 'off' or $static_install_dry_run)
+        and any { /^ModuleBuildTiny/ } $self->installer)
+    {
+        my $mbt_spec = first { $_->[0] =~ /^ModuleBuildTiny/ } @plugins;
+        $mbt_spec->[-1]{static} = 'no';
     }
 
     # ensure that additional optional plugins are declared in prereqs
@@ -870,6 +880,10 @@ allocated in Changes entries to the version string. Defaults to 10.
 
 This bundle makes use of L<Dist::Zilla::Role::PluginBundle::PluginRemover> and
 L<Dist::Zilla::Role::PluginBundle::Config::Slicer> to allow further customization.
+(Note that even though some overridden values are inspected in this class,
+they are still overlaid on top of whatever this bundle eventually decides to
+pass - so what is in the F<dist.ini> always trumps everything else.)
+
 Plugins are not loaded until they are actually needed, so it is possible to
 C<--force>-install this plugin bundle and C<-remove> some plugins that do not
 install or are otherwise problematic.

@@ -205,4 +205,74 @@ subtest 'installer = none' => sub {
         if not Test::Builder->new->is_passing;
 };
 
+subtest 'installer = ModuleBuildTiny, StaticInstall.mode = off' => sub {
+    SKIP: {
+    # MBT is already a prereq of things in our runtime recommends list
+    skip('[ModuleBuildTiny] not installed', 1)
+        if not eval { require_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 6 };
+
+    my $tzil = Builder->from_config(
+        { dist_root => 'does-not-exist' },
+        {
+            add_files => {
+                path(qw(source dist.ini)) => simple_ini(
+                    'GatherDir',
+                    [ '@Author::ETHER' => {
+                        '-remove' => \@REMOVED_PLUGINS,
+                        server => 'none',
+                        installer => [ 'ModuleBuildTiny' ],
+                        'RewriteVersion::Transitional.skip_version_provider' => 1,
+                        'Test::MinimumVersion.max_target_perl' => '5.008',
+                        'StaticInstall.mode' => 'off',
+                      },
+                    ],
+                ),
+                path(qw(source lib MyModule.pm)) => "package MyModule;\n\n1",
+            },
+        },
+    );
+
+    assert_no_git($tzil);
+
+    $tzil->chrome->logger->set_debug(1);
+    is(
+        exception { $tzil->build },
+        undef,
+        'build proceeds normally',
+    );
+
+    # check that everything we loaded is properly declared as prereqs
+    all_plugins_in_prereqs($tzil,
+        exempt => [ 'Dist::Zilla::Plugin::GatherDir' ],     # used by us here
+        additional => [
+            'Dist::Zilla::Plugin::ModuleBuildTiny', # ""
+        ],
+    );
+
+    is($tzil->distmeta->{x_static_install}, 0, 'build is marked as not eligible for static install (by explicit request)');
+
+    cmp_deeply(
+        $tzil->distmeta->{prereqs}{develop}{requires},
+        superhashof({
+            'Dist::Zilla::Plugin::ModuleBuildTiny' => '0.012',
+        }),
+        'installer prereq version is added',
+    ) or diag 'got dist metadata: ', explain $tzil->distmeta;
+
+    cmp_deeply(
+        [
+            $tzil->plugin_named('@Author::ETHER/ModuleBuildTiny'),
+            $tzil->plugin_named('@Author::ETHER/StaticInstall'),
+        ],
+        [
+            methods(default_jobs => 9, static => 'no'),
+            methods(mode => 'off', dry_run => 0),
+        ],
+        'appropriate configurations are passed for static install',
+    );
+
+    diag 'got log messages: ', explain $tzil->log_messages
+        if not Test::Builder->new->is_passing;
+} };
+
 done_testing;

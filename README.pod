@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.099
+version 0.100
 
 =head1 SYNOPSIS
 
@@ -489,6 +489,10 @@ allocated in Changes entries to the version string. Defaults to 10.
 
 This bundle makes use of L<Dist::Zilla::Role::PluginBundle::PluginRemover> and
 L<Dist::Zilla::Role::PluginBundle::Config::Slicer> to allow further customization.
+(Note that even though some overridden values are inspected in this class,
+they are still overlaid on top of whatever this bundle eventually decides to
+pass - so what is in the F<dist.ini> always trumps everything else.)
+
 Plugins are not loaded until they are actually needed, so it is possible to
 C<--force>-install this plugin bundle and C<-remove> some plugins that do not
 install or are otherwise problematic.

@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.100     2015-07-19 05:16:43Z
           - ensure all static install configurations are correct and
             consistent with each other
           - fix test that breaks if [RewriteVersion] is not at least version

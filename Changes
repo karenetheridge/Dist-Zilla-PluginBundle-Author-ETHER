@@ -3,6 +3,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 {{$NEXT}}
           - ensure all static install configurations are correct and
             consistent with each other
+          - fix test that breaks if [RewriteVersion] is not at least version
+            0.010
 
 0.099     2015-07-18 03:44:44Z
           - bump prereq on [Test::Pod::No404s], to get prereq injection

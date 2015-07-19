@@ -211,7 +211,7 @@ cmp_deeply(
     (first { $_->isa('Dist::Zilla::Plugin::RewriteVersion::Transitional') } @{ $tzil->plugins }),
     methods(
         fallback_version_provider => 'Git::NextVersion',
-        _fallback_version_provider_args => { version_regexp => '^ohhai' },
+        _fallback_version_provider_args => superhashof({ version_regexp => '^ohhai' }),
     ),
     'payload for [Git::NextVersion] is passed along to the replacement used by [RewriteVersion::Transitional]',
 );

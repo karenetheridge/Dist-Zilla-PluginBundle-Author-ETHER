@@ -21,7 +21,7 @@ use Helper;
 use NoNetworkHits;
 use NoPrereqChecks;
 
-{
+subtest 'installer = MakeMaker' => sub {
     my $tzil = Builder->from_config(
         { dist_root => 'does-not-exist' },
         {
@@ -81,12 +81,13 @@ use NoPrereqChecks;
 
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;
-}
+};
 
-SKIP: {
+subtest 'installer = MakeMaker, ModuleBuildTiny' => sub {
+    SKIP: {
     # MBT is already a prereq of things in our runtime recommends list
     skip('[ModuleBuildTiny] not installed', 1)
-        if not eval { require_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 1 };
+        if not eval { require_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 6 };
 
     my $tzil = Builder->from_config(
         { dist_root => 'does-not-exist' },
@@ -167,9 +168,9 @@ SKIP: {
 
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;
-}
+} };
 
-{
+subtest 'installer = none' => sub {
     my $tzil = Builder->from_config(
         { dist_root => 'does-not-exist' },
         {
@@ -202,6 +203,6 @@ SKIP: {
 
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;
-}
+};
 
 done_testing;

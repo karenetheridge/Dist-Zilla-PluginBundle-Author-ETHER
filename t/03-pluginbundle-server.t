@@ -61,9 +61,11 @@ my %server_to_resources = (
     } qw(p5sagit catagits)),
 );
 
-foreach my $server (keys %server_to_resources)
-{ SKIP: {
-    skip('can only test server=github when in the local git repository', 1)
+subtest "server = $_" => sub {
+    SKIP: {
+    my $server = $_;
+
+    skip('can only test server=github when in the local git repository', 4)
         if $server eq 'github' and not (-d '.git' or -d '../../.git' or -d '../../../.git');
 
     my $tzil = Builder->from_config(
@@ -115,5 +117,6 @@ foreach my $server (keys %server_to_resources)
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;
 } }
+foreach keys %server_to_resources;
 
 done_testing;

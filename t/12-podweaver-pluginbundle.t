@@ -24,12 +24,9 @@ use Pod::Weaver::PluginBundle::Author::ETHER;
 # the config_plugins config is used, and
 # we do not die from trying to use a broken weaver.ini.
 
-foreach my $root (qw(
-    t/corpus/with_broken_weaver_ini
-    t/corpus/with_no_weaver_ini
-))
+subtest "root dir = $_" => sub
 {
-    note "using root dir $root";
+    my $root = $_;
 
     my $wd = pushd($root);
 
@@ -122,5 +119,9 @@ POD
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;
 }
+foreach qw(
+    t/corpus/with_broken_weaver_ini
+    t/corpus/with_no_weaver_ini
+);
 
 done_testing;

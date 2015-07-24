@@ -627,5 +627,5 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
           - users of [@Author::ETHER] can now -remove plugins
 
 0.001     2013-04-14 20:52:50Z
-          - Initial release.
-
+          - Initial release, incorporating the minting profile that I had been
+            using locally in ~/.dzil/profiles/github.

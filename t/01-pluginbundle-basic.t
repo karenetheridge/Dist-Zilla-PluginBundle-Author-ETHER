@@ -96,7 +96,7 @@ my @expected_files = qw(
     lib/DZT/Sample.pm
     lib/DZT/Sample2.pm
     CONTRIBUTING
-    LICENSE
+    LICENCE
     MANIFEST
     META.json
     META.yml

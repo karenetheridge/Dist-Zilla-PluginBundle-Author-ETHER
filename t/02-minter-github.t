@@ -46,7 +46,7 @@ my @expected_files = qw(
     Changes
     dist.ini
     CONTRIBUTING
-    LICENSE
+    LICENCE
     README.pod
     lib/My/New/Dist.pm
     t/01-basic.t

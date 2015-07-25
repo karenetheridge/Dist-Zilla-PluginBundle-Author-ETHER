@@ -65,7 +65,7 @@ has copy_file_from_release => (
 
 around copy_files_from_release => sub {
     my $orig = shift; my $self = shift;
-    _uniq($self->$orig(@_), qw(LICENSE CONTRIBUTING Changes ppport.h INSTALL));
+    _uniq($self->$orig(@_), qw(LICENCE LICENSE CONTRIBUTING Changes ppport.h INSTALL));
 };
 
 has changes_version_columns => (
@@ -104,7 +104,7 @@ my $has_bash = can_run('bash');
 # files that might be in the repository that should never be gathered
 my @never_gather = qw(
     Makefile.PL ppport.h README.md README.pod META.json
-    cpanfile TODO CONTRIBUTING LICENSE INSTALL
+    cpanfile TODO CONTRIBUTING LICENCE LICENSE INSTALL
     inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm
 );
 
@@ -158,10 +158,11 @@ sub configure
             . (-f 'Build.PL' ? 'perl Build.PL; ./Build' : 'perl Makefile.PL; make') . ' instead of using dzil commands!', 'yellow') . "\n"
         if not -d '.git' and -f 'META.json' and not exists $removed{'Git::GatherDir'};
 
+    my $authority = $self->payload->{'Authority.authority'} // 'cpan:ETHER';
+
     # only set x_static_install using auto mode for my own distributions
     my $static_install_mode = $self->payload->{'StaticInstall.mode'} // 'auto';
-    my $static_install_dry_run = ($static_install_mode eq 'auto'
-            and ($self->payload->{'Authority.authority'} // 'cpan:ETHER') ne 'cpan:ETHER') ? 1 : 0;
+    my $static_install_dry_run = ($static_install_mode eq 'auto' and $authority ne 'cpan:ETHER') ? 1 : 0;
 
     my @plugins = (
         # VersionProvider
@@ -194,7 +195,8 @@ sub configure
             },
         } ],
 
-        qw(MetaYAML MetaJSON License Readme Manifest),
+        qw(MetaYAML MetaJSON Readme Manifest),
+        [ 'License'             => { $authority eq 'cpan:ETHER' ? ( ':version' => '5.038', filename => 'LICENCE' ) : () } ],
         [ 'GenerateFile::ShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING', has_xs => $has_xs } ],
         'InstallGuide',
 
@@ -298,10 +300,13 @@ sub configure
         'UploadToCPAN',
 
         # After Release
-        [ 'CopyFilesFromRelease' => { filename => [ $self->copy_files_from_release ] } ],
+        ( $authority eq 'cpan:ETHER' and -e 'LICENSE' ?
+            [ 'Run::AfterRelease' => 'remove old LICENSEs' => { ':version' => '0.038', quiet => 1, eval => q!unlink 'LICENSE'! } ]
+            : ()),
         ( -e 'README.md' ?
             [ 'Run::AfterRelease' => 'remove old READMEs' => { ':version' => '0.038', quiet => 1, eval => q!unlink 'README.md'! } ]
             : ()),
+        [ 'CopyFilesFromRelease' => { filename => [ $self->copy_files_from_release ] } ],
         [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } _uniq('README.md', 'README.pod', $self->copy_files_from_release) ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { ':version' => '0.40', metacpan => 1 } ] : (),
@@ -464,6 +469,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     :version = 2.016
     exclude_filename = CONTRIBUTING
     exclude_filename = INSTALL
+    exclude_filename = LICENCE
     exclude_filename = LICENSE
     exclude_filename = META.json
     exclude_filename = Makefile.PL
@@ -476,9 +482,12 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     [MetaYAML]
     [MetaJSON]
-    [License]
     [Readme]
     [Manifest]
+    [License]
+    :version = 5.038
+    filename = LICENCE  ; for distributions where I have authority
+
     [GenerateFile::ShareDir / generate CONTRIBUTING]
     -dist = Dist-Zilla-PluginBundle-Author-ETHER
     -filename = CONTRIBUTING
@@ -675,17 +684,23 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
 
     ;;; AfterRelease
-    [CopyFilesFromRelease]
-    filename = CONTRIBUTING
-    filename = Changes
-    filename = INSTALL
-    filename = LICENSE
-    filename = ppport.h
+    [Run::AfterRelease / remove old LICENSEs]   ; if switching to LICENCE
+    :version = 0.038
+    quiet = 1
+    eval = unlink 'LICENSE'
 
     [Run::AfterRelease / remove old READMEs]
     :version = 0.038
     quiet = 1
     eval = unlink 'README.md'
+
+    [CopyFilesFromRelease]
+    filename = CONTRIBUTING
+    filename = Changes
+    filename = INSTALL
+    filename = LICENCE
+    filename = LICENSE
+    filename = ppport.h
 
     [Git::Commit / release snapshot]
     :version = 2.020
@@ -693,6 +708,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     allow_dirty = CONTRIBUTING
     allow_dirty = Changes
     allow_dirty = INSTALL
+    allow_dirty = LICENCE
     allow_dirty = LICENSE
     allow_dirty = README.md
     allow_dirty = README.pod
@@ -853,7 +869,7 @@ Available in this form since 0.076.
 A file, to be present in the build, which is copied back to the source
 repository at release time and committed to git. Can be repeated more than
 once. Defaults to:
-F<LICENSE>, F<CONTRIBUTING>, F<Changes>, F<ppport.h>, F<INSTALL>;
+F<LICENCE>, F<LICENSE>, F<CONTRIBUTING>, F<Changes>, F<ppport.h>, F<INSTALL>;
 defaults are appended to, rather than overwritten.
 
 =head2 surgical_podweaver

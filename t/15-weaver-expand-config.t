@@ -13,6 +13,7 @@ sub _exp { Pod::Weaver::Config::Assembler->expand_package($_[0]) }
 my @bad_data = (
     [ { a => 1 }, qr/unrecognized config format: HASH/ ],
     [ undef, qr/undefined config/ ],
+    [ [ Name => { ':version' => '999' } ], qr/Pod::Weaver::Section::Name version 999 required/ ],
 );
 
 foreach my $bad_data (@bad_data)

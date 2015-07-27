@@ -8,6 +8,7 @@ our $VERSION = '0.101';
 
 use namespace::autoclean -also => ['_exp'];
 use Pod::Weaver::Config::Assembler;
+use Module::Runtime 'use_module';
 
 sub _exp { Pod::Weaver::Config::Assembler->expand_package($_[0]) }
 
@@ -100,6 +101,8 @@ sub _expand_config
         $name = $this_spec->[1];
         $payload = { region_name => $this_spec->[1], %$payload };
     }
+
+    use_module($class, $payload->{':version'}) if $payload->{':version'};
 
     # prepend '@Author::ETHER/' to each class name,
     # except for Generic and Collect which are left alone.

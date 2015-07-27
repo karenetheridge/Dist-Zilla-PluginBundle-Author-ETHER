@@ -25,6 +25,7 @@ sub configure
         '@CorePrep',
         '-SingleEncoding',
         [ '-Transformer' => List => { transformer => 'List' } ],
+        [ '-Transformer' => Verbatim => { transformer => 'Verbatim' } ],
 
         [ 'Region' => 'header' ],
         'Name',
@@ -146,6 +147,9 @@ following F<weaver.ini>, minus some optimizations:
 
     [-Transformer / List]
     transformer = List
+
+    [-Transformer / Verbatim]
+    transformer = Verbatim
 
     [Region / header]
     [Name]

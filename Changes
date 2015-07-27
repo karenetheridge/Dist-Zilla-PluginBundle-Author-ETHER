@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - add use of the Verbatim transformer to the weaver plugin bundle
 
 0.100     2015-07-19 05:16:43Z
           - ensure all static install configurations are correct and

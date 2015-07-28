@@ -4,7 +4,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
           - add use of the Verbatim transformer to the weaver plugin bundle
           - LICENSE file is now renamed as LICENCE for my own distributions
             (where I have authority) (or when the 'licence' option is set to
-            'LICENCE')
+            'LICENCE'), and the pod section will read "COPYRIGHT AND LICENCE"
 
 0.100     2015-07-19 05:16:43Z
           - ensure all static install configurations are correct and

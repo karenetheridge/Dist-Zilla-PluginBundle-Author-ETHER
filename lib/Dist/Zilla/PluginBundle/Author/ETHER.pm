@@ -915,7 +915,8 @@ Available since 0.101.
 
 A string that specifies the name to use for the licence file.  Defaults to
 C<LICENCE> for distributions where I (ETHER) have first-come, or C<LICENSE>
-otherwise.
+otherwise. (The pod section for legal information is also adjusted
+appropriately.)
 
 =for stopwords customizations
 

@@ -29,13 +29,14 @@ my $tzil = Builder->from_config(
     {
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
-                'GatherDir',
+                [ 'GatherDir' => { exclude_filename => 'LICENCE' } ],
                 [ '@Author::ETHER' => {
                     -remove => \@REMOVED_PLUGINS,
                     'RewriteVersion::Transitional.skip_version_provider' => 1,
                     'Test::MinimumVersion.max_target_perl' => '5.008',
                 } ],
             ),
+            path(qw(source LICENCE)) => 'this will be overwritten',
             path(qw(source lib Foo.pm)) => <<FOO,
 package Foo;
 # ABSTRACT: Hello, this is foo
@@ -103,6 +104,13 @@ cmp_deeply(
     'weaver plugin config is properly included in metadata - weaver.ini does not exist, so bundle is used',
 )
 or diag 'got distmeta: ', explain $tzil->distmeta;
+
+my $module = $tzil->slurp_file('build/lib/Foo.pm');
+like(
+    $module,
+    qr/=head1 COPYRIGHT AND LICENCE/,
+    'the Legal heading is adjusted appropriately',
+);
 
 diag 'got log messages: ', explain $tzil->log_messages
     if not Test::Builder->new->is_passing;

@@ -42,7 +42,7 @@ sub configure
         [ 'Region' => 'postlude' ],
         'Authors',
         [ 'Contributors' => { ':version' => '0.008' } ],
-        'Legal',
+        [ 'Legal' => { -f 'LICENCE' ? ( header => 'COPYRIGHT AND LICENCE' ) : () } ],
         [ 'Region' => 'footer' ],
     );
 }
@@ -182,6 +182,8 @@ following F<weaver.ini>, minus some optimizations:
     :version = 0.008
 
     [Legal]
+    header = COPYRIGHT AND LICENCE ; only if file is called LICENCE
+
     [Region / footer]
 
 This is also equivalent (other than section ordering) to:

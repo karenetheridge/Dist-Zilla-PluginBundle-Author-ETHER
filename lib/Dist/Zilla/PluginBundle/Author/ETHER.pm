@@ -74,6 +74,18 @@ has changes_version_columns => (
     default => sub { $_[0]->payload->{changes_version_columns} // 10 },
 );
 
+has licence => (
+    is => 'ro', isa => 'Str',
+    lazy => 1,
+    default => sub {
+        my $self = shift;
+        $self->payload->{licence}
+            // $self->payload->{license}
+            // (($self->payload->{'Authority.authority'} // 'cpan:ETHER') eq 'cpan:ETHER'
+                ? 'LICENCE' : 'LICENSE');
+    },
+);
+
 # configs are applied when plugins match ->isa($key) or ->does($key)
 my %extra_args = (
     'Dist::Zilla::Plugin::MakeMaker' => { 'eumm_version' => '0' },
@@ -158,11 +170,10 @@ sub configure
             . (-f 'Build.PL' ? 'perl Build.PL; ./Build' : 'perl Makefile.PL; make') . ' instead of using dzil commands!', 'yellow') . "\n"
         if not -d '.git' and -f 'META.json' and not exists $removed{'Git::GatherDir'};
 
-    my $authority = $self->payload->{'Authority.authority'} // 'cpan:ETHER';
-
     # only set x_static_install using auto mode for my own distributions
     my $static_install_mode = $self->payload->{'StaticInstall.mode'} // 'auto';
-    my $static_install_dry_run = ($static_install_mode eq 'auto' and $authority ne 'cpan:ETHER') ? 1 : 0;
+    my $static_install_dry_run = ($static_install_mode eq 'auto'
+            and ($self->payload->{'Authority.authority'} // 'cpan:ETHER') ne 'cpan:ETHER') ? 1 : 0;
 
     my @plugins = (
         # VersionProvider
@@ -196,7 +207,7 @@ sub configure
         } ],
 
         qw(MetaYAML MetaJSON Readme Manifest),
-        [ 'License'             => { $authority eq 'cpan:ETHER' ? ( ':version' => '5.038', filename => 'LICENCE' ) : () } ],
+        [ 'License'             => { ':version' => '5.038', filename => $self->licence } ],
         [ 'GenerateFile::ShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING', has_xs => $has_xs } ],
         'InstallGuide',
 
@@ -300,8 +311,11 @@ sub configure
         'UploadToCPAN',
 
         # After Release
-        ( $authority eq 'cpan:ETHER' and -e 'LICENSE' ?
-            [ 'Run::AfterRelease' => 'remove old LICENSEs' => { ':version' => '0.038', quiet => 1, eval => q!unlink 'LICENSE'! } ]
+        ( $self->licence eq 'LICENSE' && -e 'LICENCE' ?
+            [ 'Run::AfterRelease' => 'remove old LICENCE' => { ':version' => '0.038', quiet => 1, eval => q!unlink 'LICENCE'! } ]
+            : ()),
+        ( $self->licence eq 'LICENCE' && -e 'LICENSE' ?
+            [ 'Run::AfterRelease' => 'remove old LICENSE' => { ':version' => '0.038', quiet => 1, eval => q!unlink 'LICENSE'! } ]
             : ()),
         ( -e 'README.md' ?
             [ 'Run::AfterRelease' => 'remove old READMEs' => { ':version' => '0.038', quiet => 1, eval => q!unlink 'README.md'! } ]
@@ -684,7 +698,12 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
 
     ;;; AfterRelease
-    [Run::AfterRelease / remove old LICENSEs]   ; if switching to LICENCE
+    [Run::AfterRelease / remove old LICENCE]    ; if switching from LICENCE -> LICENSE
+    :version = 0.038
+    quiet = 1
+    eval = unlink 'LICENCE'
+
+    [Run::AfterRelease / remove old LICENSE]    ; if switching from LICENSE -> LICENCE
     :version = 0.038
     quiet = 1
     eval = unlink 'LICENSE'
@@ -889,6 +908,14 @@ Available since 0.076.
 
 An integer that specifies how many columns (right-padded with whitespace) are
 allocated in Changes entries to the version string. Defaults to 10.
+
+=head2 licence (or license)
+
+Available since 0.101.
+
+A string that specifies the name to use for the licence file.  Defaults to
+C<LICENCE> for distributions where I (ETHER) have first-come, or C<LICENSE>
+otherwise.
 
 =for stopwords customizations
 

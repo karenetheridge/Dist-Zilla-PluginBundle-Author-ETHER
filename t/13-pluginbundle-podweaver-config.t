@@ -20,7 +20,7 @@ use NoPrereqChecks;
 # load this in advance, as we change directories between configuration and building
 use Pod::Weaver::PluginBundle::Author::ETHER;
 
-my $wd = pushd('t/corpus/with_no_weaver_ini');
+my $wd = pushd('corpus/with_no_weaver_ini');
 
 ok(!-e 'weaver.ini', 'a weaver.ini does not exist in this directory');
 

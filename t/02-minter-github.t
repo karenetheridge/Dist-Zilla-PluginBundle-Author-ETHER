@@ -23,7 +23,7 @@ plan skip_all => 'minting requires perl 5.014' unless $] >= 5.013002;
 my $tzil = Minter->_new_from_profile(
     [ 'Author::ETHER' => 'github' ],
     { name => 'My-New-Dist', },
-    { global_config_root => dir('t/corpus/global')->absolute }, # sadly, this must quack like a Path::Class
+    { global_config_root => dir('corpus/global')->absolute }, # sadly, this must quack like a Path::Class
 );
 
 # we need to stop the git plugins from doing their thing

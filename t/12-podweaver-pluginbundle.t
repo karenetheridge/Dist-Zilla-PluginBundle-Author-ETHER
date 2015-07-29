@@ -120,8 +120,8 @@ POD
         if not Test::Builder->new->is_passing;
 }
 foreach qw(
-    t/corpus/with_broken_weaver_ini
-    t/corpus/with_no_weaver_ini
+    corpus/with_broken_weaver_ini
+    corpus/with_no_weaver_ini
 );
 
 done_testing;

@@ -4,7 +4,7 @@ package Dist::Zilla::MintingProfile::Author::ETHER;
 # ABSTRACT: Mint distributions like ETHER does
 # vim: set ts=8 sts=4 sw=4 tw=115 et :
 
-our $VERSION = '0.101';
+our $VERSION = '0.102';
 
 use Moose;
 with 'Dist::Zilla::Role::MintingProfile';

@@ -20,6 +20,9 @@ delete $ENV{DZIL_AIRPLANE};
     sub _pause_config { 'URMOM', 'mysekritpassword' }
 }
 
+# load this in advance, as we change directories between configuration and building
+use Pod::Weaver::PluginBundle::Author::ETHER;
+
 # plugins to always remove from test dists, as they use git or the network
 # Our files are copied into source, so Git::GatherDir doesn't see them and
 # besides, we would like to run these tests at install time too!

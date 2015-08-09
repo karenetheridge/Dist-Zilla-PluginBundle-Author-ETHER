@@ -212,7 +212,7 @@ sub configure
         'InstallGuide',
 
         [ 'Test::Compile'       => { ':version' => '2.039', bail_out_on_fail => 1, xt_mode => 1,
-            script_finder => [qw(:ExecFiles @Author::ETHER/Examples)] } ],
+            script_finder => [qw(:PerlExecFiles @Author::ETHER/Examples)] } ],
         [ 'Test::NoTabs'        => { ':version' => '0.08', finder => [qw(:InstallModules :ExecFiles @Author::ETHER/Examples :TestFiles @Author::ETHER/ExtraTestFiles)] } ],
         [ 'Test::EOL'           => { ':version' => '0.17', finder => [qw(:InstallModules :ExecFiles @Author::ETHER/Examples :TestFiles @Author::ETHER/ExtraTestFiles)] } ],
         'MetaTests',
@@ -512,7 +512,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     :version = 2.039
     bail_out_on_fail = 1
     xt_mode = 1
-    script_finder = :ExecFiles
+    script_finder = :PerlExecFiles
     script_finder = Examples
 
     [Test::NoTabs]

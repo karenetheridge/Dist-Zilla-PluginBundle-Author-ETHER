@@ -29,14 +29,13 @@ my $tzil = Builder->from_config(
     {
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
-                [ 'GatherDir' => { exclude_filename => 'LICENCE' } ],
+                'GatherDir',
                 [ '@Author::ETHER' => {
                     -remove => \@REMOVED_PLUGINS,
                     'RewriteVersion::Transitional.skip_version_provider' => 1,
                     'Test::MinimumVersion.max_target_perl' => '5.008',
                 } ],
             ),
-            path(qw(source LICENCE)) => 'this will be overwritten',
             path(qw(source lib Foo.pm)) => <<FOO,
 package Foo;
 # ABSTRACT: Hello, this is foo

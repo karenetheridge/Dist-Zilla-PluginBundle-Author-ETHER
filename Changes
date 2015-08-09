@@ -2,6 +2,9 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
           - declare proper prereq version for Pod::Weaver::Section::Legal
+          - switch from one hacky mechanism to determine the 'Legal' pod
+            header to another hacky mechanism, but at least this one is more
+            likely to do what I want
 
 0.101     2015-08-08 20:18:26Z
           - add use of the Verbatim transformer to the weaver plugin bundle

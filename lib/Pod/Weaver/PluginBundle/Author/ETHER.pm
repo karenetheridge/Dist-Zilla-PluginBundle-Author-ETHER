@@ -9,6 +9,7 @@ our $VERSION = '0.102';
 use namespace::autoclean -also => ['_exp'];
 use Pod::Weaver::Config::Assembler;
 use Module::Runtime 'use_module';
+use PadWalker 'peek_sub';
 
 sub _exp { Pod::Weaver::Config::Assembler->expand_package($_[0]) }
 
@@ -20,6 +21,12 @@ sub configure
     # -- it returns a list of strings or 1, 2 or 3-element arrayrefs
     # containing plugin specifications. The goal is to make this look as close
     # to what weaver.ini looks like as possible.
+
+    # I wouldn't have to do this ugliness if I could have some configuration values passed in from weaver.ini or
+    # the [PodWeaver] plugin's use of config_plugin (where I could define a 'licence' option)
+    my $podweaver_plugin = ${ peek_sub(\&Dist::Zilla::Plugin::PodWeaver::weaver)->{'$self'} };
+    my $licence_plugin = $podweaver_plugin && $podweaver_plugin->zilla->plugin_named('@Author::ETHER/License');
+    my $licence_filename = $licence_plugin ? $licence_plugin->filename : 'LICENCE';
 
     return (
         '@CorePrep',
@@ -42,7 +49,7 @@ sub configure
         [ 'Region' => 'postlude' ],
         'Authors',
         [ 'Contributors' => { ':version' => '0.008' } ],
-        [ 'Legal' => { -f 'LICENCE' ? ( ':version' => '4.011', header => 'COPYRIGHT AND LICENCE' ) : () } ],
+        [ 'Legal' => { ':version' => '4.011', header => 'COPYRIGHT AND ' . $licence_filename } ],
         [ 'Region' => 'footer' ],
     );
 }
@@ -183,7 +190,7 @@ following F<weaver.ini>, minus some optimizations:
 
     [Legal]
     :version = 4.011
-    header = COPYRIGHT AND LICENCE ; only if file is called LICENCE
+    header = COPYRIGHT AND <licence filename>
 
     [Region / footer]
 

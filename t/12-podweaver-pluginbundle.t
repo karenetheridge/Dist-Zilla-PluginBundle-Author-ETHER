@@ -9,6 +9,11 @@ use Test::Deep;
 use Path::Tiny;
 use File::pushd 'pushd';
 
+use lib 't/lib';
+use Helper;
+use NoNetworkHits;
+use NoPrereqChecks;
+
 # load this in advance, as we change directories between configuration and building
 use Pod::Weaver::PluginBundle::Author::ETHER;
 

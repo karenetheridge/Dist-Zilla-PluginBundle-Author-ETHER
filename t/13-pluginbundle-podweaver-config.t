@@ -142,7 +142,8 @@ SKIP: {
         my $payload_version = $bundle_plugin_config->[2]{':version'};
 
         # package is part of @Default
-        if (exists $default_bundle_requirements{$package})
+        if (exists $default_bundle_requirements{$package}
+            and not exists $pluginbundle_meta->{prereqs}{runtime}{requires}{$package})
         {
             cmp_deeply(
                 $pluginbundle_meta->{prereqs}{runtime}{requires},

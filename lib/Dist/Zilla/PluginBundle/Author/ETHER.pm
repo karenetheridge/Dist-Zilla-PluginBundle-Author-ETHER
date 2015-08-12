@@ -246,7 +246,7 @@ sub configure
         ],
         [ 'ReadmeAnyFromPod'    => { ':version' => '0.142180', type => 'pod', location => 'root', phase => 'release' } ],
 
-        # MetaData
+        # Metadata
         $self->server eq 'github' ? [ 'GithubMeta' => { ':version' => '0.54', homepage => 0, issues => 0 } ] : (),
         [ 'AutoMetaResources'   => { 'bugtracker.rt' => 1,
               $self->server eq 'gitmo' ? ( 'repository.gitmo' => 1 )
@@ -576,7 +576,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     phase = release
 
 
-    ;;; MetaData
+    ;;; Metadata
     [GithubMeta]    ; (if server = 'github' or omitted)
     :version = 0.54
     homepage = 0

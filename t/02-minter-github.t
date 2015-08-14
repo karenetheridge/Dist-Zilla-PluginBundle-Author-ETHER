@@ -129,8 +129,9 @@ like(
 );
 
 unlike($dist_ini, qr/^\s/, 'no leading whitespace in dist.ini');
-unlike($dist_ini, qr/[^\S\n]\n/m, 'no trailing whitespace in dist.ini');
+unlike($dist_ini, qr/[^\S\n]\n/, 'no trailing whitespace in dist.ini');
 unlike($dist_ini, qr/\n\n\n/, 'no double blank links in dist.ini');
+unlike($dist_ini, qr/\n\n\z/, 'file does not end with a blank line');
 
 like(
     path($mint_dir, '.gitignore')->slurp_utf8,

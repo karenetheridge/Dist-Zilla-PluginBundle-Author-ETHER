@@ -8,6 +8,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
             header to another hacky mechanism, but at least this one is more
             likely to do what I want
           - use :PerlExecFiles in [Test::Compile]
+          - [AutoPrereqs] now looks for develop prerequisites in xt/
           - dist.ini in newly-minted dists will now never have trailing
             whitespace
 

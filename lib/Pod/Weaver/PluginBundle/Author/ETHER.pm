@@ -198,6 +198,8 @@ This is also equivalent (other than section ordering) to:
 
     [-Transformer / List]
     transformer = List
+    [-Transformer / Verbatim]
+    transformer = Verbatim
 
     [Region / header]
     [@Default]

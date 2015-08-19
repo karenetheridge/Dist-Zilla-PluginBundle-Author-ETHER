@@ -212,10 +212,19 @@ This is also equivalent (other than section ordering) to:
 
     [Region / footer]
 
-=head1 OPTIONS / OVERRIDES
+=head1 OPTIONS
 
 None at this time. (The bundle is never instantiated, so this doesn't seem to
 be possible without updates to L<Pod::Weaver>.)
+
+=head1 OVERRIDING A SPECIFIC SECTION
+
+This F<weaver.ini> will let you use a custom C<COPYRIGHT AND LICENCE> section and still use the plugin bundle:
+
+    [@Author::ETHER]
+    [AllowOverride / OverrideLegal]
+    header_re = ^COPYRIGHT
+    match_anywhere = 1
 
 =head1 ADDING STOPWORDS FOR SPELLING TESTS
 

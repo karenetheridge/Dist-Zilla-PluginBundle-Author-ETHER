@@ -47,6 +47,32 @@ sub configure
         [ 'Collect' => 'TYPES'      => { command => 'type' } ],
         'Leftovers',
         [ 'Region' => 'postlude' ],
+
+        [ 'GenerateSection' => 'SUPPORT' => {
+                title => 'SUPPORT',
+                main_module_only => 0,
+                text => [ <<'SUPPORT',
+{{ join("\n\n",
+    ($bugtracker_email && $bugtracker_email =~ /rt\.cpan\.org/)
+    ? "Bugs may be submitted through L<the RT bug tracker|$bugtracker_web>\n(or L<$bugtracker_email|mailto:$bugtracker_email>)."
+    : $bugtracker_web
+    ? "bugs may be submitted through L<$bugtracker_web>."
+    : (),
+
+    $distmeta->{resources}{x_MailingList} ? 'There is also a mailing list available for users of this distribution, at' . "\n" . $distmeta->{resources}{x_MailingList} . '.' : (),
+
+    $distmeta->{resources}{x_IRC}
+        ? 'There is also an irc channel available for users of this distribution, at' . "\n" . $distmeta->{resources}{x_IRC} . '.'
+        : (),
+
+    ($distmeta->{x_authority} // '') eq 'cpan:ETHER'
+    ? "I am also usually active on irc, as 'ether' at C<irc.perl.org>."
+    : (),
+) }}
+SUPPORT
+                        ] },
+        ],
+
         'Authors',
         [ 'Contributors' => { ':version' => '0.008' } ],
         [ 'Legal' => { ':version' => '4.011', header => 'COPYRIGHT AND ' . $licence_filename } ],
@@ -184,6 +210,10 @@ following F<weaver.ini>, minus some optimizations:
 
     [Region / postlude]
 
+    [GenerateSection / SUPPORT]
+    main_module_only = 0
+    text = <template>
+
     [Authors]
     [Contributors]
     :version = 0.008
@@ -206,6 +236,10 @@ This is also equivalent (other than section ordering) to:
 
     [Collect / TYPES]
     command = type
+
+    [GenerateSection / SUPPORT]
+    main_module_only = 0
+    text = <template>
 
     [Contributors]
     :version = 0.008

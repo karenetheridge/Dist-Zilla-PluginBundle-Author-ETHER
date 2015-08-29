@@ -221,7 +221,7 @@ sub configure
         [ 'Test::MinimumVersion' => { ':version' => '2.000003', max_target_perl => '5.006' } ],
         'PodSyntaxTests',
         'PodCoverageTests',
-        [ 'Test::PodSpelling'   => { ':version' => '2.006001' } ],
+        [ 'Test::PodSpelling'   => { ':version' => '2.006001', stopwords => ['irc'] } ],
         #[Test::Pod::LinkCheck]     many outstanding bugs
         [ 'Test::Pod::No404s'   => { ':version' => '1.002' } ],
         [ 'Test::Kwalitee'      => { ':version' => '2.06', filename => 'xt/author/kwalitee.t' } ],

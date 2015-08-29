@@ -4,6 +4,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
           - switch to [MungeFile] for munging
             Dist::Zilla::MintingProfile::Author::ETHER and its data files
             during the build
+          - weave a standard SUPPORT section into pod
 
 0.102     2015-08-15 02:15:25Z
           - declare proper prereq version for Pod::Weaver::Section::Legal

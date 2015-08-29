@@ -65,7 +65,7 @@ has copy_file_from_release => (
 
 around copy_files_from_release => sub {
     my $orig = shift; my $self = shift;
-    _uniq($self->$orig(@_), qw(LICENCE LICENSE CONTRIBUTING Changes ppport.h INSTALL));
+    sort(_uniq($self->$orig(@_), qw(LICENCE LICENSE CONTRIBUTING Changes ppport.h INSTALL)));
 };
 
 has changes_version_columns => (
@@ -321,7 +321,8 @@ sub configure
             [ 'Run::AfterRelease' => 'remove old READMEs' => { ':version' => '0.038', quiet => 1, eval => q!unlink 'README.md'! } ]
             : ()),
         [ 'CopyFilesFromRelease' => { filename => [ $self->copy_files_from_release ] } ],
-        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } _uniq('README.md', 'README.pod', $self->copy_files_from_release) ], commit_msg => '%N-%v%t%n%n%c' } ],
+
+        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } sort(_uniq('README.md', 'README.pod', $self->copy_files_from_release)) ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { ':version' => '0.40', metacpan => 1 } ] : (),
 

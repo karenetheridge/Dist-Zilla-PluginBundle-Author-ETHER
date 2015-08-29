@@ -244,7 +244,6 @@ sub configure
                 post_code_replacer => 'replace_with_nothing',
             }
         ],
-        [ 'ReadmeAnyFromPod'    => { ':version' => '0.142180', type => 'pod', location => 'root', phase => 'release' } ],
 
         # Metadata
         $self->server eq 'github' ? [ 'GithubMeta' => { ':version' => '0.54', homepage => 0, issues => 0 } ] : (),
@@ -321,6 +320,7 @@ sub configure
             [ 'Run::AfterRelease' => 'remove old READMEs' => { ':version' => '0.038', quiet => 1, eval => q!unlink 'README.md'! } ]
             : ()),
         [ 'CopyFilesFromRelease' => { filename => [ $self->copy_files_from_release ] } ],
+        [ 'ReadmeAnyFromPod'    => { ':version' => '0.142180', type => 'pod', location => 'root', phase => 'release' } ],
 
         [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } sort(_uniq('README.md', 'README.pod', $self->copy_files_from_release)) ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v', tag_message => 'v%v%t' } ],
@@ -570,12 +570,6 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     replacer = replace_with_comment
     post_code_replacer = replace_with_nothing
 
-    [ReadmeAnyFromPod]
-    :version = 0.142180
-    type = pod
-    location = root
-    phase = release
-
 
     ;;; Metadata
     [GithubMeta]    ; (if server = 'github' or omitted)
@@ -722,6 +716,12 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     filename = LICENCE
     filename = LICENSE
     filename = ppport.h
+
+    [ReadmeAnyFromPod]
+    :version = 0.142180
+    type = pod
+    location = root
+    phase = release
 
     [Git::Commit / release snapshot]
     :version = 2.020

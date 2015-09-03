@@ -54,14 +54,23 @@ my @tests = (
             ],
             pod => qr/^=head1 SUPPORT\n\n$rt\n\n$mailing_list\n\n$irc_channel$extra_pod/m,
         },
+        {
+            test_name => "authority = $authority, custom SUPPORT content",
+            config => [
+                @authority_conf,
+            ],
+            extra_content => "\n\n-pod\n\n=head1 SUPPORT\n\nHere is my custom support content\.\n\n=cut\n",
+            pod => qr/^=head1 SUPPORT\n\nHere is my custom support content\.\n\n$rt$extra_pod/m,
+        },
     }
     qw(ETHER BOB)
 );
 
 subtest $_->{test_name} => sub
 {
-    my $expected_pod = $_->{pod};
     my $config = $_->{config};
+    my $extra_content = $_->{extra_content} // '';
+    my $expected_pod = $_->{pod};
 
     my $tzil = Builder->from_config(
         { dist_root => 'does-not-exist' },
@@ -81,7 +90,7 @@ subtest $_->{test_name} => sub
                     ],
                     @$config,
                 ),
-                path(qw(source lib Foo.pm)) => "package Foo;\n\n1",
+                path(qw(source lib Foo.pm)) => "package Foo;\n\n1;\n$extra_content",
             },
         },
     );

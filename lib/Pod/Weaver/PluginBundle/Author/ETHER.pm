@@ -48,7 +48,7 @@ sub configure
         'Leftovers',
         [ 'Region' => 'postlude' ],
 
-        [ 'GenerateSection' => 'SUPPORT' => {
+        [ 'GenerateSection' => 'generate SUPPORT' => {
                 title => 'SUPPORT',
                 main_module_only => 0,
                 text => [ <<'SUPPORT',
@@ -71,6 +71,13 @@ sub configure
 ) }}
 SUPPORT
                         ] },
+        ],
+
+        [ 'AllowOverride' => 'allow override SUPPORT' => {
+               header_re => '^SUPPORT',
+               action => 'prepend',
+               match_anywhere => 0,
+            },
         ],
 
         'Authors',
@@ -213,6 +220,10 @@ following F<weaver.ini>, minus some optimizations:
     [GenerateSection / SUPPORT]
     main_module_only = 0
     text = <template>
+    [AllowOverride / allow override SUPPORT]
+    header_re = ^SUPPORT
+    action = prepend
+    match_anywhere = 0
 
     [Authors]
     [Contributors]
@@ -237,9 +248,13 @@ This is also equivalent (other than section ordering) to:
     [Collect / TYPES]
     command = type
 
-    [GenerateSection / SUPPORT]
+    [GenerateSection / generate SUPPORT]
     main_module_only = 0
     text = <template>
+    [AllowOverride / allow override SUPPORT]
+    header_re = ^SUPPORT
+    action = prepend
+    match_anywhere = 0
 
     [Contributors]
     :version = 0.008

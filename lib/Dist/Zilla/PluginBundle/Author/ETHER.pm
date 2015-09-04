@@ -834,15 +834,12 @@ plugin(s).
 
 Encouraged choices are:
 
-    installer = ModuleBuildTiny
-
-    installer = MakeMaker
-
-    installer = MakeMaker::Fallback (when used in combination with ModuleBuildTiny)
-
-    installer = =inc::Foo (if no configs are needed for this plugin; e.g. subclassed from L<[MakeMaker::Awesome]|Dist::Zilla::Plugin::MakeMaker::Awesome>)
-
-    installer = none (if you are including your own later on, with configs)
+=for :list
+* C<< installer = ModuleBuildTiny >>
+* C<< installer = MakeMaker >>
+* C<< installer = MakeMaker::Fallback >> (when used in combination with ModuleBuildTiny)
+* C<< installer = =inc::Foo >> (if no configs are needed for this plugin; e.g. subclassed from L<[MakeMaker::Awesome]|Dist::Zilla::Plugin::MakeMaker::Awesome>)
+* C<< installer = none >> (if you are including your own later on, with configs)
 
 =head2 server
 

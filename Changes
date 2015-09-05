@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - add a L<> around the support mailing list address woven into pod
 
 0.103     2015-09-04 02:22:42Z
           - switch to [MungeFile] for munging

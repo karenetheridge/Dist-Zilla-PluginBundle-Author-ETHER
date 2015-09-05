@@ -933,7 +933,7 @@ install or are otherwise problematic.
 
 If a F<weaver.ini> is present in the distribution, pod is woven using it;
 otherwise, the behaviour is as with a F<weaver.ini> containing the single line
-C<[@Author::ETHER]>.
+C<[@Author::ETHER]> (see L<Pod::Weaver::PluginBundle::Author::ETHER>).
 
 =head1 NAMING SCHEME
 

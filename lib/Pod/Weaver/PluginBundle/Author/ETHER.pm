@@ -74,7 +74,7 @@ SUPPORT
         ],
 
         [ 'AllowOverride' => 'allow override SUPPORT' => {
-               header_re => '^SUPPORT',
+               header_re => '^(SUPPORT|BUGS)',
                action => 'prepend',
                match_anywhere => 0,
             },
@@ -221,7 +221,7 @@ following F<weaver.ini>, minus some optimizations:
     main_module_only = 0
     text = <template>
     [AllowOverride / allow override SUPPORT]
-    header_re = ^SUPPORT
+    header_re = ^(SUPPORT|BUGS)
     action = prepend
     match_anywhere = 0
 
@@ -252,7 +252,7 @@ This is also equivalent (other than section ordering) to:
     main_module_only = 0
     text = <template>
     [AllowOverride / allow override SUPPORT]
-    header_re = ^SUPPORT
+    header_re = ^(SUPPORT|BUGS)
     action = prepend
     match_anywhere = 0
 

@@ -79,9 +79,11 @@ has licence => (
     lazy => 1,
     default => sub {
         my $self = shift;
+        my $authority = $self->payload->{'Authority.authority'} // 'cpan:ETHER';
         $self->payload->{licence}
             // $self->payload->{license}
-            // (($self->payload->{'Authority.authority'} // 'cpan:ETHER') eq 'cpan:ETHER'
+            # licenSe is US-only; known non-American authors will be treated appropriately.
+            // ((any { $authority eq "cpan:$_" } qw(ETHER ABERGMAN AVAR BINGOS BOBTFISH CHOLET FLORA GETTY ILMARI JAWNSY JQUELIN LEONT LLAP MSTROUT NUFFIN PERIGRIN PHAYLON))
                 ? 'LICENCE' : 'LICENSE');
     },
 );

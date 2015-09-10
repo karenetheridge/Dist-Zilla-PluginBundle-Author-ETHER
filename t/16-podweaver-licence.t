@@ -48,6 +48,10 @@ my @tests = (
         expected_file => 'LICENSE',
         config => { 'Authority.authority' => 'cpan:OTHERDUDE' },
     },
+    {
+        expected_file => 'LICENCE',
+        config => { 'Authority.authority' => 'cpan:BOBTFISH' },
+    },
 );
 
 subtest "expecting $_->{expected_file} from config: " . join(' => ', %{ $_->{config} }) => sub

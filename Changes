@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.104     2015-09-19 21:48:10Z
           - add a L<> around the support mailing list address woven into pod
           - automatically use "LICENCE" rather than "LICENSE" in distributions
             with first-come maintainers who are not Americans

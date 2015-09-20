@@ -65,7 +65,7 @@ has copy_file_from_release => (
 
 around copy_files_from_release => sub {
     my $orig = shift; my $self = shift;
-    sort(_uniq($self->$orig(@_), $self->licence, qw(CONTRIBUTING Changes ppport.h INSTALL)));
+    sort(_uniq($self->$orig(@_), qw(LICENCE LICENSE CONTRIBUTING Changes ppport.h INSTALL)));
 };
 
 has changes_version_columns => (

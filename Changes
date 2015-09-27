@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - fix cleanup of old LICENSE file after moving it to LICENCE during
+            release (broken in 0.103)
 
 0.104     2015-09-19 21:48:10Z
           - add a L<> around the support mailing list address woven into pod

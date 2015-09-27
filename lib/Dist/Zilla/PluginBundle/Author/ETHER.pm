@@ -226,7 +226,7 @@ sub configure
         [ 'Test::PodSpelling'   => { ':version' => '2.006001', stopwords => ['irc'] } ],
         #[Test::Pod::LinkCheck]     many outstanding bugs
         [ 'Test::Pod::No404s'   => { ':version' => '1.002' } ],
-        [ 'Test::Kwalitee'      => { ':version' => '2.06', filename => 'xt/author/kwalitee.t' } ],
+        [ 'Test::Kwalitee'      => { ':version' => '2.10', filename => 'xt/author/kwalitee.t' } ],
         [ 'MojibakeTests'       => { ':version' => '0.8' } ],
         [ 'Test::ReportPrereqs' => { ':version' => '0.019', verify_prereqs => 1,
             exists $removed{PodCoverageTests} ? () : ( include => [ 'Pod::Coverage' ] ),
@@ -548,7 +548,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Test::Pod::No404s]
     :version = 1.002
     [Test::Kwalitee]
-    :version = 2.06
+    :version = 2.10
     filename = xt/author/kwalitee.t
     [MojibakeTests]
     :version = 0.8

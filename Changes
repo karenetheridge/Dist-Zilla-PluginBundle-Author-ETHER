@@ -3,6 +3,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 {{$NEXT}}
           - fix cleanup of old LICENSE file after moving it to LICENCE during
             release (broken in 0.103)
+          - fix declared version dependency on [Test::Kwalitee], to ensure it
+            has the "filename" configuration option (RT#107362)
 
 0.104     2015-09-19 21:48:10Z
           - add a L<> around the support mailing list address woven into pod

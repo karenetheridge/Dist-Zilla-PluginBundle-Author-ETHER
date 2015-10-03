@@ -247,7 +247,7 @@ subtest "a -remove'd plugin should not be loaded" => sub {
 # password in the failure output of like(). Can you imagine my embarrassment!
 
 my $contributing = $tzil->slurp_file('build/CONTRIBUTING');
-unlike($contributing, qr/[^\S\n]\n/m, 'no trailing whitespace in generated CONTRIBUTING');
+unlike($contributing, qr/[^\S\n]\n/, 'no trailing whitespace in generated CONTRIBUTING');
 like(
     $contributing,
     qr/^  \$ cpanm --reinstall --installdeps --with-recommends DZT::Sample\n.*^  \$ cpanm --reinstall --installdeps --with-develop --with-recommends DZT::Sample$/ms,

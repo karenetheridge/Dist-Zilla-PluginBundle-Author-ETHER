@@ -217,7 +217,8 @@ following F<weaver.ini>, minus some optimizations:
 
     [Region / postlude]
 
-    [GenerateSection / SUPPORT]
+    [GenerateSection / generate SUPPORT]
+    title = SUPPORT
     main_module_only = 0
     text = <template>
     [AllowOverride / allow override SUPPORT]
@@ -249,6 +250,7 @@ This is also equivalent (other than section ordering) to:
     command = type
 
     [GenerateSection / generate SUPPORT]
+    title = SUPPORT
     main_module_only = 0
     text = <template>
     [AllowOverride / allow override SUPPORT]

@@ -50,8 +50,8 @@ my $tzil = Builder->from_config(
                     'Test::MinimumVersion.max_target_perl' => '5.008',
                 } ],
             ),
-            path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\nour \$VERSION = '0.001';\n1",
-            path(qw(source lib DZT Sample2.pm)) => "package DZT::Sample2;\nour \$VERSION = '0.001';\n1",
+            path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\nour \$VERSION = '0.002';\n1",
+            path(qw(source lib DZT Sample2.pm)) => "package DZT::Sample2;\n1",
         },
     },
 );
@@ -159,6 +159,7 @@ is(
                 }),
             }),
             provides => {
+                # version edited, added (respectively) by [RewriteVersion::Transitional]
                 'DZT::Sample'   => { file => 'lib/DZT/Sample.pm', version => '0.005' },
                 'DZT::Sample2'  => { file => 'lib/DZT/Sample2.pm', version => '0.005' },
             },

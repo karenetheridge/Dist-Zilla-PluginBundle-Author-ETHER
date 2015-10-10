@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - bump prereq version for [InstallGuide] (RT#107659)
 
 0.105     2015-09-27 17:23:09Z
           - fix cleanup of old LICENSE file after moving it to LICENCE during

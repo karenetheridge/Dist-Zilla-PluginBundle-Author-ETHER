@@ -211,7 +211,7 @@ sub configure
         qw(MetaYAML MetaJSON Readme Manifest),
         [ 'License'             => { ':version' => '5.038', filename => $self->licence } ],
         [ 'GenerateFile::ShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING', has_xs => $has_xs } ],
-        'InstallGuide',
+        [ 'InstallGuide'        => { ':version' => '1.200005' } ],
 
         [ 'Test::Compile'       => { ':version' => '2.039', bail_out_on_fail => 1, xt_mode => 1,
             script_finder => [qw(:PerlExecFiles @Author::ETHER/Examples)] } ],
@@ -510,6 +510,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     -filename = CONTRIBUTING
     has_xs = <dynamically-determined flag>
     [InstallGuide]
+    :version = 1.200005
 
     [Test::Compile]
     :version = 2.039

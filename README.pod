@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.105
+version 0.106
 
 =head1 SYNOPSIS
 
@@ -83,6 +83,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     -filename = CONTRIBUTING
     has_xs = <dynamically-determined flag>
     [InstallGuide]
+    :version = 1.200005
 
     [Test::Compile]
     :version = 2.039
@@ -117,6 +118,9 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [PodSyntaxTests]
     [PodCoverageTests]
     [Test::PodSpelling]
+    :version = 2.006003
+    stopwords = irc
+
     ;[Test::Pod::LinkCheck]     many outstanding bugs
     [Test::Pod::No404s]
     :version = 1.002

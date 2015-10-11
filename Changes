@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.106     2015-10-11 00:00:09Z
           - bump prereq version for [InstallGuide] (RT#107659)
           - bump prereq version for [Test::PodSpelling] (RT#107660)
 

@@ -661,7 +661,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [CheckSelfDependency]
 
     [Run::AfterBuild / .ackrc]
-    :version = 0.38
+    :version = 0.038
     quiet = 1
     run = bash -c "test -e .ackrc && grep -q -- '--ignore-dir=.latest' .ackrc || echo '--ignore-dir=.latest' >> .ackrc; if [[ `dirname '%d'` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi"
     [Run::AfterBuild / .latest]
@@ -757,7 +757,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [NextRelease]
     :version = 5.033
     time_zone = UTC
-    format = %-8v  %{uyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
+    format = %-8v  %{yyyy-MM-dd HH:mm:ss'Z'}d%{ (TRIAL RELEASE)}T
 
     [Git::Commit / post-release commit]
     :version = 2.020
@@ -775,7 +775,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Run::AfterRelease / release complete]
     :version = 0.038
     quiet = 1
-    eval = print "release complete!\\xa"
+    eval = print "release complete!\xa"
 
     ; listed late, to allow all other plugins which do BeforeRelease checks to run first.
     [ConfirmRelease]

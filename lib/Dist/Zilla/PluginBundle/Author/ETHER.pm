@@ -156,7 +156,8 @@ sub configure
         if -d 'bin' and any { $_ eq 'ModuleBuildTiny' } $self->installer;
 
     warn '[@Author::ETHER] ' . colored('You are using [ModuleBuild] as an installer, WTF?!', 'bright_red') . "\n"
-        if any { $_ eq 'ModuleBuild' } $self->installer;
+        if any { $_->isa('Dist::Zilla::Plugin::ModuleBuild') }
+            map { Dist::Zilla::Util->expand_config_package_name($_) } $self->installer;
 
     # this is better than injecting a perl prereq for 5.008, to allow MBT to
     # become more 5.006-compatible in the future without forcing the distribution to be re-released.

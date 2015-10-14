@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.107     2015-10-14 01:29:39Z
           - bump prereq version for [PodSyntaxTests], [PodCoverageTests] for
             the new xt/author placement

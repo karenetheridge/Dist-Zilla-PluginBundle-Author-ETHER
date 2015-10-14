@@ -221,8 +221,8 @@ sub configure
         [ 'Test::CPAN::Changes' => { ':version' => '0.008' } ],
         'Test::ChangesHasContent',
         [ 'Test::MinimumVersion' => { ':version' => '2.000003', max_target_perl => '5.006' } ],
-        'PodSyntaxTests',
-        'PodCoverageTests',
+        [ 'PodSyntaxTests'      => { ':version' => '5.040' } ],
+        [ 'PodCoverageTests'    => { ':version' => '5.040' } ],
         [ 'Test::PodSpelling'   => { ':version' => '2.006003', stopwords => ['irc'] } ],
         #[Test::Pod::LinkCheck]     many outstanding bugs
         [ 'Test::Pod::No404s'   => { ':version' => '1.002' } ],
@@ -543,7 +543,9 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     :version = 2.000003
     max_target_perl = 5.006
     [PodSyntaxTests]
+    :version = 5.040
     [PodCoverageTests]
+    :version = 5.040
     [Test::PodSpelling]
     :version = 2.006003
     stopwords = irc

@@ -200,7 +200,6 @@ sub configure
 
         # Finders
         [ 'FileFinder::ByName'  => Examples => { dir => 'examples' } ],
-        [ 'FileFinder::ByName'  => ExtraTestFiles => { dir => 'xt' } ],
 
         # Gather Files
         [ 'Git::GatherDir'      => { ':version' => '2.016', do {
@@ -216,8 +215,8 @@ sub configure
 
         [ 'Test::Compile'       => { ':version' => '2.039', bail_out_on_fail => 1, xt_mode => 1,
             script_finder => [qw(:PerlExecFiles @Author::ETHER/Examples)] } ],
-        [ 'Test::NoTabs'        => { ':version' => '0.08', finder => [qw(:InstallModules :ExecFiles @Author::ETHER/Examples :TestFiles @Author::ETHER/ExtraTestFiles)] } ],
-        [ 'Test::EOL'           => { ':version' => '0.17', finder => [qw(:InstallModules :ExecFiles @Author::ETHER/Examples :TestFiles @Author::ETHER/ExtraTestFiles)] } ],
+        [ 'Test::NoTabs'        => { ':version' => '0.08', finder => [qw(:InstallModules :ExecFiles @Author::ETHER/Examples :TestFiles :ExtraTestFiles)] } ],
+        [ 'Test::EOL'           => { ':version' => '0.17', finder => [qw(:InstallModules :ExecFiles @Author::ETHER/Examples :TestFiles :ExtraTestFiles)] } ],
         'MetaTests',
         [ 'Test::CPAN::Changes' => { ':version' => '0.008' } ],
         'Test::ChangesHasContent',
@@ -478,8 +477,6 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     ;;; Finders
     [FileFinder::ByName / Examples]
     dir = examples
-    [FileFinder::ByName / ExtraTestFiles]
-    dir = xt
 
 
     ;;; Gather Files
@@ -526,7 +523,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     finder = :ExecFiles
     finder = Examples
     finder = :TestFiles
-    finder = ExtraTestFiles
+    finder = :ExtraTestFiles
 
     [Test::EOL]
     :version = 0.17
@@ -534,7 +531,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     finder = :ExecFiles
     finder = Examples
     finder = :TestFiles
-    finder = ExtraTestFiles
+    finder = :ExtraTestFiles
 
     [MetaTests]
     [Test::CPAN::Changes]

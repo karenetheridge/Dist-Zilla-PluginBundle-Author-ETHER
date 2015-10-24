@@ -268,7 +268,7 @@ like(
 ^If you have found a bug, but do not have an accompanying patch to fix it, you
 can submit an issue report here:
 \Qhttps://rt.cpan.org/Public/Dist/Display.html?Name=DZT-Sample\E
-or via email: bug-DZT-Sample\@\Qrt.cpan.org.\E
+or via email: bug-DZT-Sample\@\Qrt.cpan.org\E
 This is a good place to send your questions about the usage of this distribution.
 }m,
     'correctly inserted bugtracker mailto',

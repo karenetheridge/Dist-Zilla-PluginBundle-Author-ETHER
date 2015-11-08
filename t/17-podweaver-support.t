@@ -18,7 +18,7 @@ use Pod::Weaver::PluginBundle::Author::ETHER;
 
 my $stopwords = qr/^=for stopwords irc\n\n/m;
 my $rt = qr{^\QBugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Dist/Display.html?Name=Foo-Bar>\E\s\(or L<bug-Foo-Bar\@rt\.cpan\.org\|mailto:bug-Foo-Bar\@rt\.cpan\.org>\)\.$}m;
-my $irc_channel = qr{^There is also an irc channel available for users of this distribution, at\sirc://irc\.perl\.org/\#foobar\.$}m;
+my $irc_channel = qr{^There is also an irc channel available for users of this distribution, at\sL<irc://irc\.perl\.org/\#foobar>\.$}m;
 my $mailing_list = qr{^There is also a mailing list available for users of this distribution, at\sL<http://foo.org/mailing-list>\.$}m;
 my $irc_ether = qr/^I am also usually active on irc, as 'ether' at C<irc.perl.org>\.$/m;
 

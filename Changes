@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
           - drop dots after URLs in CONTRIBUTING, which broke hyperlinking
+          - switch from [GenerateFile::ShareDir] to
+            [GenerateFile::FromShareDir]
 
 0.107     2015-10-14 01:29:39Z
           - bump prereq version for [PodSyntaxTests], [PodCoverageTests] for

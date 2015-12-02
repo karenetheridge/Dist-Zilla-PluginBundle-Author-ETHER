@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.109     2015-12-02 02:59:09Z
           - avoid importing Test::Deep::none, to avoid clashing with
             List::Util

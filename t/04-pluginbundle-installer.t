@@ -3,7 +3,7 @@ use warnings;
 
 use Test::More;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
-use Test::Deep;
+use Test::Deep '!none';
 use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;

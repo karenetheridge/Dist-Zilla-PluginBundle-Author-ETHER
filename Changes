@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - avoid importing Test::Deep::none, to avoid clashing with
+            List::Util
 
 0.108     2015-11-12 04:55:28Z
           - drop dots after URLs in CONTRIBUTING, which broke hyperlinking

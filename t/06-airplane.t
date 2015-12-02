@@ -103,7 +103,7 @@ cmp_deeply(
 );
 
 like(
-    exception { $tzil->release },
+    colorstrip(exception { $tzil->release }),
     qr{\[\@Author::ETHER/BlockRelease\] halting release},
     'release halts',
 );

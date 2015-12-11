@@ -805,7 +805,8 @@ otherwise the version is incremented after each release, in the F<*.pm> files.
 
 =head2 pod coverage
 
-Subs can be considered "covered" for pod coverage tests by adding a directive to pod,
+Subroutines can be considered "covered" for pod coverage tests by adding a
+directive to pod (as many as you'd like),
 as described in L<Pod::Coverage::TrustPod>:
 
     =for Pod::Coverage foo bar baz
@@ -845,7 +846,7 @@ Encouraged choices are:
 * C<< installer = MakeMaker >>
 * C<< installer = MakeMaker::Fallback >> (when used in combination with ModuleBuildTiny)
 * C<< installer = =inc::Foo >> (if no configs are needed for this plugin; e.g. subclassed from L<[MakeMaker::Awesome]|Dist::Zilla::Plugin::MakeMaker::Awesome>)
-* C<< installer = none >> (if you are including your own later on, with configs)
+* C<< installer = none >> (if you are providing your own elsewhere in the file, with configs)
 
 =head2 server
 

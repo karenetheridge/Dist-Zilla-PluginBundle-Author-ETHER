@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.110     2015-12-23 07:57:17Z
           - run [Git::Contributors] later, after other prereq plugins have run
 
 0.109     2015-12-02 02:59:09Z

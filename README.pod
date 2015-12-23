@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.109
+version 0.110
 
 =head1 SYNOPSIS
 
@@ -189,10 +189,8 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [MetaConfig]
     [Keywords]
     :version = 0.004
-    [Git::Contributors]
-    :version = 0.004
-    order_by = commits
-    ;[StaticInstall]   ; below
+    ;[Git::Contributors]    ; below
+    ;[StaticInstall]        ; below
 
 
     ;;; Register Prereqs
@@ -216,6 +214,10 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     ;;; Install Tool
     <specified installer(s)>
+
+    [Git::Contributors]
+    :version = 0.004
+    order_by = commits
 
     [StaticInstall]
     :version = 0.005
@@ -377,7 +379,8 @@ otherwise the version is incremented after each release, in the F<*.pm> files.
 
 =head2 pod coverage
 
-Subs can be considered "covered" for pod coverage tests by adding a directive to pod,
+Subroutines can be considered "covered" for pod coverage tests by adding a
+directive to pod (as many as you'd like),
 as described in L<Pod::Coverage::TrustPod>:
 
     =for Pod::Coverage foo bar baz
@@ -432,7 +435,7 @@ C<< installer = =inc::Foo >> (if no configs are needed for this plugin; e.g. sub
 
 =item *
 
-C<< installer = none >> (if you are including your own later on, with configs)
+C<< installer = none >> (if you are providing your own elsewhere in the file, with configs)
 
 =back
 

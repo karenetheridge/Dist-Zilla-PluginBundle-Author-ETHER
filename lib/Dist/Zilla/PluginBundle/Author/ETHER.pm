@@ -261,7 +261,7 @@ sub configure
         [ 'MetaProvides::Package' => { ':version' => '1.15000002', finder => ':InstallModules', meta_noindex => 1, inherit_version => 0, inherit_missing => 0 } ],
         'MetaConfig',
         [ 'Keywords'            => { ':version' => '0.004' } ],
-        [ 'Git::Contributors'   => { ':version' => '0.004', order_by => 'commits' } ],
+        # [Git::Contributors]
         # [StaticInstall]
 
         # Register Prereqs
@@ -280,6 +280,9 @@ sub configure
 
         # Install Tool (some are also Test Runners)
         $self->installer,   # options are set lower down, via %extra_args
+
+        # we prefer this to run after other Register Prereqs plugins
+        [ 'Git::Contributors'   => { ':version' => '0.004', order_by => 'commits' } ],
 
         # note that MBT::*'s static tweak is consequently adjusted, later
         [ 'StaticInstall' => { ':version' => '0.005', mode => $static_install_mode, dry_run => $static_install_dry_run } ],
@@ -616,10 +619,8 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [MetaConfig]
     [Keywords]
     :version = 0.004
-    [Git::Contributors]
-    :version = 0.004
-    order_by = commits
-    ;[StaticInstall]   ; below
+    ;[Git::Contributors]    ; below
+    ;[StaticInstall]        ; below
 
 
     ;;; Register Prereqs
@@ -643,6 +644,10 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     ;;; Install Tool
     <specified installer(s)>
+
+    [Git::Contributors]
+    :version = 0.004
+    order_by = commits
 
     [StaticInstall]
     :version = 0.005

@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More;
+use Test::More 0.88;
 use Test::Warnings 0.009 ':no_end_test', ':all';
 use Test::DZil;
 use Test::Deep '!any';

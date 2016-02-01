@@ -62,7 +62,17 @@ sub configure
     $distmeta->{resources}{x_MailingList} ? 'There is also a mailing list available for users of this distribution, at' . "\nL<" . $distmeta->{resources}{x_MailingList} . '>.' : (),
 
     $distmeta->{resources}{x_IRC}
-        ? 'There is also an irc channel available for users of this distribution, at' . "\nL<" . $distmeta->{resources}{x_IRC} . '>.'
+        ? 'There is also an irc channel available for users of this distribution, at' . "\nL<"
+            . do {
+                # try to extract the channel
+                if (my ($network, $channel) = ($distmeta->{resources}{x_IRC} =~ m!(?:://)?(\w+(?:\.\w+)*)/?(#\w+)!)) {
+                    'C<' . $channel . '> on C<' . $network . '>|' . $distmeta->{resources}{x_IRC}
+                }
+                else {
+                    $distmeta->{resources}{x_IRC}
+                }
+            }
+            . '>.'
         : (),
 
     ($distmeta->{x_authority} // '') eq 'cpan:ETHER'

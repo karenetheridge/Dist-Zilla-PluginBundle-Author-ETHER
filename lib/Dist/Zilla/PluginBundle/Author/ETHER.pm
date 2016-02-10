@@ -178,6 +178,11 @@ sub configure
     my $static_install_dry_run = ($static_install_mode eq 'auto'
             and ($self->payload->{'Authority.authority'} // 'cpan:ETHER') ne 'cpan:ETHER') ? 1 : 0;
 
+    warn '[@Author::ETHER] ', colored('server = ' . $self->server
+            . ': recommend instead using server = github and GithubMeta.remote = '
+            . $self->server . ' with a read-only mirror', 'yellow'), "\n"
+        if $self->server ne 'github' and $self->server ne 'none';
+
     my @plugins = (
         # VersionProvider
         [ 'RewriteVersion::Transitional' => {

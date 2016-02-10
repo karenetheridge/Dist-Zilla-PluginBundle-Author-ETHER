@@ -2,11 +2,12 @@ use strict;
 use warnings;
 
 use Test::More 0.88;
-use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
+use Test::Warnings 0.009 ':no_end_test', ':all';
 use Test::Deep;
 use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
+use Term::ANSIColor 2.01 'colorstrip';
 
 use Test::Requires {
     'Dist::Zilla::Plugin::GithubMeta' => 0,
@@ -68,24 +69,43 @@ subtest "server = $_" => sub {
     skip('can only test server=github when in the local git repository', 4)
         if $server eq 'github' and not (-d '.git' or -d '../../.git' or -d '../../../.git');
 
-    my $tzil = Builder->from_config(
-        { dist_root => 'does-not-exist' },
-        {
-            add_files => {
-                path(qw(source dist.ini)) => simple_ini(
-                    'GatherDir',
-                    [ '@Author::ETHER' => {
-                        server => $server,
-                        installer => 'MakeMaker',
-                        '-remove' =>  \@REMOVED_PLUGINS,
-                        'RewriteVersion::Transitional.skip_version_provider' => 1,
-                      },
-                    ],
-                ),
-                path(qw(source lib MyModule.pm)) => "package MyModule;\n\n1",
+    my $tzil;
+    my @warnings = warnings {
+        $tzil = Builder->from_config(
+            { dist_root => 'does-not-exist' },
+            {
+                add_files => {
+                    path(qw(source dist.ini)) => simple_ini(
+                        'GatherDir',
+                        [ '@Author::ETHER' => {
+                            server => $server,
+                            installer => 'MakeMaker',
+                            '-remove' =>  \@REMOVED_PLUGINS,
+                            'RewriteVersion::Transitional.skip_version_provider' => 1,
+                          },
+                        ],
+                    ),
+                    path(qw(source lib MyModule.pm)) => "package MyModule;\n\n1",
+                },
             },
-        },
-    );
+        );
+    };
+
+    if ($server eq 'github' or $server eq 'none')
+    {
+        warn @warnings if @warnings;
+    }
+    else
+    {
+        my $expected = "server = $server: recommend instead using server = github and GithubMeta.remote = $server with a read-only mirror";
+        my $ok = cmp_deeply(
+            [ map { colorstrip($_) } @warnings ],
+            superbagof(re(qr/^\[\@Author::ETHER\] $expected/)),
+            'we warn when using other server settings',
+        ) or diag explain @warnings;
+        @warnings = grep { !m/$expected/ } @warnings;
+        warn @warnings if @warnings and $ok;
+    }
 
     assert_no_git($tzil);
 
@@ -119,4 +139,5 @@ subtest "server = $_" => sub {
 } }
 foreach sort keys %server_to_resources;
 
+had_no_warnings if $ENV{AUTHOR_TESTING};
 done_testing;

@@ -117,6 +117,6 @@ subtest "server = $_" => sub {
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;
 } }
-foreach keys %server_to_resources;
+foreach sort keys %server_to_resources;
 
 done_testing;

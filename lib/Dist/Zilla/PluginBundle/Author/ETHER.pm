@@ -152,10 +152,10 @@ sub configure
         if $has_xs and not -e 'Makefile.PL';
 
     # check for a bin/ that should probably be renamed to script/
-    warn '[@Author::ETHER] ' . colored('bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?', 'bright_red') . "\n"
+    warn '[@Author::ETHER] ', colored('bin/ detected - should this be moved to script/, so its contents can be installed into $PATH?', 'bright_red'), "\n"
         if -d 'bin' and any { $_ eq 'ModuleBuildTiny' } $self->installer;
 
-    warn '[@Author::ETHER] ' . colored('You are using [ModuleBuild] as an installer, WTF?!', 'bright_red') . "\n"
+    warn '[@Author::ETHER] ', colored('You are using [ModuleBuild] as an installer, WTF?!', 'bright_red'), "\n"
         if any { $_->isa('Dist::Zilla::Plugin::ModuleBuild') }
             map { Dist::Zilla::Util->expand_config_package_name($_) } $self->installer;
 
@@ -169,8 +169,8 @@ sub configure
     my $remove = $self->payload->{ $self->plugin_remover_attribute } // [];
     my %removed; @removed{@$remove} = (!!1) x @$remove;
 
-    warn '[@Author::ETHER] ' . colored('.git is missing and META.json is present -- this looks like a CPAN download rather than a git repository. You should probably run '
-            . (-f 'Build.PL' ? 'perl Build.PL; ./Build' : 'perl Makefile.PL; make') . ' instead of using dzil commands!', 'yellow') . "\n"
+    warn '[@Author::ETHER] ', colored('.git is missing and META.json is present -- this looks like a CPAN download rather than a git repository. You should probably run '
+            . (-f 'Build.PL' ? 'perl Build.PL; ./Build' : 'perl Makefile.PL; make') . ' instead of using dzil commands!', 'yellow'), "\n"
         if not -d '.git' and -f 'META.json' and not exists $removed{'Git::GatherDir'};
 
     # only set x_static_install using auto mode for my own distributions

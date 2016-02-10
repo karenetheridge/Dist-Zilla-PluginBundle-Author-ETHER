@@ -5,7 +5,7 @@ package Dist::Zilla::PluginBundle::Author::ETHER;
 # KEYWORDS: author bundle distribution tool
 # vim: set ts=8 sts=4 sw=4 tw=115 et :
 
-our $VERSION = '0.111';
+our $VERSION = '0.112';
 
 use Moose;
 with

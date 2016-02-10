@@ -64,7 +64,8 @@ my $ok = cmp_deeply(
     superbagof(re(qr'^\[@Author::ETHER\] building in airplane mode - plugins requiring the network are skipped, and releases are not permitted')),
     'we warn when in airplane mode',
 ) or diag explain @warnings;
-diag explain grep { !m'building in airplane mode - plugins requiring the network are skipped, and releases are not permitted' } @warnings if $ok;
+@warnings = grep { !m'building in airplane mode - plugins requiring the network are skipped, and releases are not permitted' } @warnings;
+warn @warnings if @warnings and $ok;
 
 assert_no_git($tzil);
 

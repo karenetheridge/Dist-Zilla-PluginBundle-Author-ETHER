@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
           - use more sophisticated markup for the irc channel in SUPPORT pod
+          - avoid mangling pod sections labelled something like "SUPPORTED
+            INTERFACES" into the "SUPPORT" section
 
 0.110     2015-12-23 07:57:17Z
           - run [Git::Contributors] later, after other prereq plugins have run

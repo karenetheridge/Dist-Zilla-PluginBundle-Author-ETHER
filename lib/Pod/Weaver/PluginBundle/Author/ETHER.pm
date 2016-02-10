@@ -84,7 +84,7 @@ SUPPORT
         ],
 
         [ 'AllowOverride' => 'allow override SUPPORT' => {
-               header_re => '^(SUPPORT|BUGS)',
+               header_re => '^(SUPPORT|BUGS)\b',
                action => 'prepend',
                match_anywhere => 0,
             },

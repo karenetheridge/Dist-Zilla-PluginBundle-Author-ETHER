@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.112     2016-03-14 02:35:38Z
           - adjust minting template so vim modeline is always high enough to
             be respected (first five lines)
           - use new version_extractor = Module::Metadata feature in

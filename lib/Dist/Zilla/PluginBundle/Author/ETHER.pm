@@ -233,7 +233,7 @@ sub configure
         [ 'Test::Pod::No404s'   => { ':version' => '1.002' } ],
         [ 'Test::Kwalitee'      => { ':version' => '2.10', filename => 'xt/author/kwalitee.t' } ],
         [ 'MojibakeTests'       => { ':version' => '0.8' } ],
-        [ 'Test::ReportPrereqs' => { ':version' => '0.019', verify_prereqs => 1,
+        [ 'Test::ReportPrereqs' => { ':version' => '0.022', verify_prereqs => 1, version_extractor => 'Module::Metadata',
             exists $removed{PodCoverageTests} ? () : ( include => [ 'Pod::Coverage' ] ),
           } ],
         'Test::Portability',
@@ -565,8 +565,9 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [MojibakeTests]
     :version = 0.8
     [Test::ReportPrereqs]
-    :version = 0.019
+    :version = 0.022
     verify_prereqs = 1
+    version_extractor = Module::Metadata
     include = Pod::Coverage
     [Test::Portability]
     [Test::CleanNamespaces]

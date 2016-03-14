@@ -3,6 +3,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 {{$NEXT}}
           - adjust minting template so vim modeline is always high enough to
             be respected (first five lines)
+          - use new version_extractor = Module::Metadata feature in
+            [Test::ReportPrereqs]
 
 0.111     2016-02-10 04:50:57Z
           - use more sophisticated markup for the irc channel in SUPPORT pod

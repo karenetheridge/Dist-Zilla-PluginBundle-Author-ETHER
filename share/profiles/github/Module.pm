@@ -1,9 +1,9 @@
 use strict;
 use warnings;
 package {{ $name }};
+# vim: set ts=8 sts=4 sw=4 tw=115 et :
 # ABSTRACT: ...
 # KEYWORDS: ...
-# vim: set ts=8 sts=4 sw=4 tw=115 et :
 
 our $VERSION = '{{ $dist->version }}';
 

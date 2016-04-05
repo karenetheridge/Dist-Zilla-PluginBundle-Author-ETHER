@@ -15,13 +15,13 @@ with
 
 use Dist::Zilla::Util;
 use Moose::Util::TypeConstraints qw(enum subtype where);
-use List::Util 1.33 qw(first any);
+use List::Util 1.45 qw(first any uniq);
 use Module::Runtime 'require_module';
 use Devel::CheckBin 'can_run';
 use Path::Tiny;
 use CPAN::Meta::Requirements;
 use Term::ANSIColor 'colored';
-use namespace::autoclean -also => ['_uniq'];
+use namespace::autoclean;
 
 sub mvp_multivalue_args { qw(installer copy_file_from_release) }
 
@@ -65,7 +65,7 @@ has copy_file_from_release => (
 
 around copy_files_from_release => sub {
     my $orig = shift; my $self = shift;
-    sort(_uniq($self->$orig(@_), qw(LICENCE LICENSE CONTRIBUTING Changes ppport.h INSTALL)));
+    sort(uniq($self->$orig(@_), qw(LICENCE LICENSE CONTRIBUTING Changes ppport.h INSTALL)));
 };
 
 has changes_version_columns => (
@@ -332,7 +332,7 @@ sub configure
         [ 'CopyFilesFromRelease' => { filename => [ $self->copy_files_from_release ] } ],
         [ 'ReadmeAnyFromPod'    => { ':version' => '0.142180', type => 'pod', location => 'root', phase => 'release' } ],
 
-        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } sort(_uniq('README.md', 'README.pod', $self->copy_files_from_release)) ], commit_msg => '%N-%v%t%n%n%c' } ],
+        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } sort(uniq('README.md', 'README.pod', $self->copy_files_from_release)) ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { ':version' => '0.40', metacpan => 1 } ] : (),
 
@@ -437,8 +437,6 @@ sub _pause_config
         my (undef, $val) = split ' ', $_; $val  # awk-style whitespace splitting
     } $file->lines;
 }
-
-sub _uniq { keys %{ +{ map { $_ => undef } @_ } } }
 
 __PACKAGE__->meta->make_immutable;
 __END__

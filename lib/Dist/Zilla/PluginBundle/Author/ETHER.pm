@@ -295,7 +295,7 @@ sub configure
         [ 'Git::Contributors'   => { ':version' => '0.004', order_by => 'commits' } ],
 
         # note that MBT::*'s static tweak is consequently adjusted, later
-        [ 'StaticInstall' => { ':version' => '0.005', mode => $static_install_mode, dry_run => $static_install_dry_run } ],
+        [ 'StaticInstall'       => { ':version' => '0.005', mode => $static_install_mode, dry_run => $static_install_dry_run } ],
 
         # Test Runners (load after installers to avoid a rebuild)
         [ 'RunExtraTests'       => { ':version' => '0.024' } ],
@@ -351,7 +351,7 @@ sub configure
     # hopefully the file is available at this location soonish after release!
     my ($username, $password) = $self->_pause_config;
     push @plugins,
-        [ 'Run::AfterRelease' => 'install release' => { ':version' => '0.031', fatal_errors => 0, run => 'cpanm http://' . $username . ':' . $password . '@pause.perl.org/pub/PAUSE/authors/id/' . substr($username, 0, 1).'/'.substr($username,0,2).'/'.$username.'/%a' } ] if $username and $password;
+        [ 'Run::AfterRelease'   => 'install release' => { ':version' => '0.031', fatal_errors => 0, run => 'cpanm http://' . $username . ':' . $password . '@pause.perl.org/pub/PAUSE/authors/id/' . substr($username, 0, 1).'/'.substr($username,0,2).'/'.$username.'/%a' } ] if $username and $password;
 
     if ($self->airplane)
     {

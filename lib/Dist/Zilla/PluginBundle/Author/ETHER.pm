@@ -113,7 +113,12 @@ my @network_plugins = qw(
 my %network_plugins;
 @network_plugins{ map { Dist::Zilla::Util->expand_config_package_name($_) } @network_plugins } = () x @network_plugins;
 
-my $has_bash = can_run('bash');
+has _has_bash => (
+    is => 'ro',
+    isa => 'Bool',
+    lazy => 1,
+    default => sub { !!can_run('bash') },
+);
 
 # files that might be in the repository that should never be gathered
 my @never_gather = qw(
@@ -139,7 +144,7 @@ sub configure
     my $self = shift;
 
     warn '[@Author::ETHER] no "bash" executable found; skipping Run::AfterBuild commands to update .ackrc and .latest symlink', "\n"
-        if not $has_bash;
+        if not $self->_has_bash;
 
     # NOTE! since the working directory has not changed to $zilla->root yet,
     # if running this code via a different mechanism than dzil <command>, file
@@ -298,7 +303,7 @@ sub configure
         # After Build
         'CheckSelfDependency',
 
-        ( $has_bash ?
+        ( $self->_has_bash ?
             [ 'Run::AfterBuild' => '.ackrc' => { ':version' => '0.038', quiet => 1, run => q{bash -c "test -e .ackrc && grep -q -- '--ignore-dir=.latest' .ackrc || echo '--ignore-dir=.latest' >> .ackrc; if [[ `dirname '%d'` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi"} } ]
             : ()),
         [ 'Run::AfterBuild'     => '.latest' => { ':version' => '0.038', quiet => 1, eval => q!if ('%d' =~ /^%n-[.[:xdigit:]]+$/) { unlink '.latest'; symlink '%d', '.latest'; }! } ],

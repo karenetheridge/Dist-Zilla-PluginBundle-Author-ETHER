@@ -29,7 +29,10 @@ sub configure
     my $licence_filename = $licence_plugin ? $licence_plugin->filename : 'LICENCE';
 
     return (
-        '@CorePrep',
+        # equivalent to [@CorePrep]
+        [ '-EnsurePod5' ],
+        [ '-H1Nester' ],
+
         '-SingleEncoding',
         [ '-Transformer' => List => { transformer => 'List' } ],
         [ '-Transformer' => Verbatim => { transformer => 'Verbatim' } ],
@@ -191,7 +194,8 @@ It is also used automatically when your F<dist.ini> contains:
 This is a L<Pod::Weaver> plugin bundle. It is I<approximately> equal to the
 following F<weaver.ini>, minus some optimizations:
 
-    [@CorePrep]
+    [-EnsurePod5]
+    [-H1Nester]
 
     [-SingleEncoding]
 

@@ -7,9 +7,9 @@ package Dist::Zilla::MintingProfile::Author::ETHER;
 our $VERSION = '0.113';
 
 use Moose;
-with 'Dist::Zilla::Role::MintingProfile';
+with 'Dist::Zilla::Role::MintingProfile' => { -version => '5.047' };
 use File::ShareDir;
-use Path::Class;        # sadly, we still need to use Path::Class :(
+use Path::Tiny;
 use Carp;
 use namespace::autoclean;
 
@@ -20,8 +20,8 @@ sub profile_dir
     die 'minting requires perl 5.014' unless $] >= 5.013002;
 
     my $dist_name = '{{ $dist->name }}';
-    my $profile_dir = dir( File::ShareDir::dist_dir($dist_name) )
-                      ->subdir( 'profiles', $profile_name );
+
+    my $profile_dir = path(File::ShareDir::dist_dir($dist_name))->child('profiles', $profile_name);
 
     return $profile_dir if -d $profile_dir;
 

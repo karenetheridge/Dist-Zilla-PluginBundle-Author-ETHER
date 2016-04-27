@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - fix PodWeaver config test that broke when Dist::Zilla::Tester
+            behaviour changed
 
 0.113     2016-04-23 16:11:17Z
           - remove last vestiges of Path::Class

@@ -8,6 +8,7 @@ use Test::DZil;
 use Test::Fatal;
 use Path::Tiny;
 use File::pushd 'pushd';
+use Dist::Zilla::Tester;
 
 use lib 't/lib';
 use Helper;
@@ -17,12 +18,12 @@ use NoPrereqChecks;
 # load this in advance, as we change directories between configuration and building
 use Pod::Weaver::PluginBundle::Author::ETHER;
 
-my $wd = pushd('corpus/with_weaver_ini');
-
-ok(-e 'weaver.ini', 'a weaver.ini exists in this directory');
+my $dist_root;
+$dist_root = pushd('corpus/with_weaver_ini') if Dist::Zilla::Tester->VERSION < '6.003';
 
 my $tzil = Builder->from_config(
-    { dist_root => 'does-not-exist' },
+    # newer Dist::Zilla::Tester chdirs into source/ so we need to copy the files we need
+    { dist_root => Dist::Zilla::Tester->VERSION < '6.003' ? 'does-not-exist' : 'corpus/with_weaver_ini' },
     {
         add_files => {
             path(qw(source dist.ini)) => simple_ini(

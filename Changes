@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.114     2016-04-27 04:26:51Z
           - fix PodWeaver config test that broke when Dist::Zilla::Tester
             behaviour changed

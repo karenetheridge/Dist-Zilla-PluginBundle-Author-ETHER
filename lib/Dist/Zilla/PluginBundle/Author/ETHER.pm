@@ -277,7 +277,7 @@ sub configure
         # Register Prereqs
         # (MakeMaker or other installer)
         [ 'AutoPrereqs'         => { ':version' => '5.038' } ],
-        'Prereqs::AuthorDeps',
+        [ 'Prereqs::AuthorDeps' => { ':version' => '0.006' } ],
         [ 'MinimumPerl'         => { ':version' => '1.006', configure_finder => ':NoFiles' } ],
         [ 'Prereqs' => pluginbundle_version => {
                 '-phase' => 'develop', '-relationship' => 'recommends',

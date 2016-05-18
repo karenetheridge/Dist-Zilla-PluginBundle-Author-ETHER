@@ -233,7 +233,7 @@ sub configure
         [ 'Test::MinimumVersion' => { ':version' => '2.000003', max_target_perl => '5.006' } ],
         [ 'PodSyntaxTests'      => { ':version' => '5.040' } ],
         [ 'PodCoverageTests'    => { ':version' => '5.040' } ],
-        [ 'Test::PodSpelling'   => { ':version' => '2.006003', stopwords => ['irc'] } ],
+        [ 'Test::PodSpelling'   => { ':version' => '2.006003', stopwords => ['irc'], directories => [qw(examples lib script t xt)] } ],
         #[Test::Pod::LinkCheck]     many outstanding bugs
         [ 'Test::Pod::No404s'   => { ':version' => '1.002' } ],
         [ 'Test::Kwalitee'      => { ':version' => '2.10', filename => 'xt/author/kwalitee.t' } ],
@@ -558,6 +558,11 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Test::PodSpelling]
     :version = 2.006003
     stopwords = irc
+    directory = examples
+    directory = lib
+    directory = script
+    directory = t
+    directory = xt
 
     ;[Test::Pod::LinkCheck]     many outstanding bugs
     [Test::Pod::No404s]

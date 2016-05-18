@@ -17,7 +17,7 @@ use NoNetworkHits;
 use NoPrereqChecks;
 
 # used by the 'airplane' config
-use Test::Requires 'Dist::Zilla::Plugin::BlockRelease';
+use Test::Needs 'Dist::Zilla::Plugin::BlockRelease';
 
 use Test::File::ShareDir -share => { -dist => { 'Dist-Zilla-PluginBundle-Author-ETHER' => 'share' } };
 

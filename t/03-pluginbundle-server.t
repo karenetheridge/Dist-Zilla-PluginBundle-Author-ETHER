@@ -9,7 +9,7 @@ use Test::Fatal;
 use Path::Tiny;
 use Term::ANSIColor 2.01 'colorstrip';
 
-use Test::Requires {
+use Test::Needs {
     'Dist::Zilla::Plugin::GithubMeta' => 0,
     'Dist::Zilla::Plugin::GitHub::Update' => '0.40',
 };

@@ -10,7 +10,7 @@ use Path::Tiny;
 use Module::Runtime 'require_module';
 use List::Util 1.33 'none';
 
-use Test::Requires qw(
+use Test::Needs qw(
     Dist::Zilla::Plugin::ModuleBuildTiny
 );
 

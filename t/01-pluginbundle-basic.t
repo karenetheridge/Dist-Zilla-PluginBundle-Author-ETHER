@@ -12,7 +12,7 @@ use Module::Runtime 'module_notional_filename';
 use Moose::Util 'find_meta';
 
 # these are used by our default 'installer' setting
-use Test::Requires qw(
+use Test::Needs qw(
     Dist::Zilla::Plugin::MakeMaker::Fallback
     Dist::Zilla::Plugin::ModuleBuildTiny
 );

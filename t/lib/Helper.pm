@@ -22,6 +22,7 @@ delete $ENV{DZIL_AIRPLANE};
 }
 
 # load this in advance, as we change directories between configuration and building
+# (TODO: no longer needed with Dist-Zilla PR#552)
 use Pod::Weaver::PluginBundle::Author::ETHER;
 
 # plugins to always remove from test dists, as they use git or the network

@@ -15,9 +15,6 @@ use Helper;
 use NoNetworkHits;
 use NoPrereqChecks;
 
-# load this in advance, as we change directories between configuration and building
-use Pod::Weaver::PluginBundle::Author::ETHER;
-
 my $dist_root;
 $dist_root = pushd('corpus/with_weaver_ini') if Dist::Zilla::Tester->VERSION < '6.003';
 

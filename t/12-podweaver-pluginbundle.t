@@ -14,9 +14,6 @@ use Helper;
 use NoNetworkHits;
 use NoPrereqChecks;
 
-# load this in advance, as we change directories between configuration and building
-use Pod::Weaver::PluginBundle::Author::ETHER;
-
 {
     package MyContributors;
     use Moose;

@@ -13,9 +13,6 @@ use Helper;
 use NoNetworkHits;
 use NoPrereqChecks;
 
-# load this in advance, as we change directories between configuration and building
-use Pod::Weaver::PluginBundle::Author::ETHER;
-
 my $stopwords = qr/^=for stopwords irc\n\n/m;
 my $rt = qr{^\QBugs may be submitted through L<the RT bug tracker|https://rt.cpan.org/Public/Dist/Display.html?Name=Foo-Bar>\E\s\(or L<bug-Foo-Bar\@rt\.cpan\.org\|mailto:bug-Foo-Bar\@rt\.cpan\.org>\)\.$}m;
 my $irc_channel = qr{^There is also an irc channel available for users of this distribution, at\sL<C<\#foobar> on C<irc\.perl\.org>|irc://irc\.perl\.org/\#foobar>\.$}m;

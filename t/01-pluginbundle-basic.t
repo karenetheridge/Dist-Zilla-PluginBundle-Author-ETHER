@@ -113,7 +113,7 @@ my @expected_files = qw(
     xt/release/minimum-version.t
     xt/author/mojibake.t
     xt/author/pod-coverage.t
-    xt/release/pod-no404s.t
+    xt/author/pod-no404s.t
     xt/author/pod-syntax.t
     xt/release/portability.t
 );

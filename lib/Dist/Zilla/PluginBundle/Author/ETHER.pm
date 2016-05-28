@@ -235,7 +235,7 @@ sub configure
         [ 'PodCoverageTests'    => { ':version' => '5.040' } ],
         [ 'Test::PodSpelling'   => { ':version' => '2.006003', stopwords => ['irc'], directories => [qw(examples lib script t xt)] } ],
         #[Test::Pod::LinkCheck]     many outstanding bugs
-        [ 'Test::Pod::No404s'   => { ':version' => '1.002' } ],
+        [ 'Test::Pod::No404s'   => { ':version' => '1.003' } ],
         [ 'Test::Kwalitee'      => { ':version' => '2.10', filename => 'xt/author/kwalitee.t' } ],
         [ 'MojibakeTests'       => { ':version' => '0.8' } ],
         [ 'Test::ReportPrereqs' => { ':version' => '0.022', verify_prereqs => 1, version_extractor => 'Module::Metadata',
@@ -566,7 +566,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     ;[Test::Pod::LinkCheck]     many outstanding bugs
     [Test::Pod::No404s]
-    :version = 1.002
+    :version = 1.003
     [Test::Kwalitee]
     :version = 2.10
     filename = xt/author/kwalitee.t

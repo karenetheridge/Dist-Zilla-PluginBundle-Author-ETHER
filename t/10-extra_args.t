@@ -34,6 +34,7 @@ my $tzil = Builder->from_config(
                 } ],
             ),
             path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\n\n1",
+            path(qw(source Changes)) => '',
         },
     },
 );

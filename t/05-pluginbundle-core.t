@@ -32,6 +32,7 @@ use NoPrereqChecks;
                     ],
                 ),
                 path(qw(source lib MyModule.pm)) => "package MyModule;\n\n1",
+                path(qw(source Changes)) => '',
             },
         },
     );

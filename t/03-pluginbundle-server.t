@@ -86,6 +86,7 @@ subtest "server = $_" => sub {
                         ],
                     ),
                     path(qw(source lib MyModule.pm)) => "package MyModule;\n\n1",
+                    path(qw(source Changes)) => '',
                 },
             },
         );

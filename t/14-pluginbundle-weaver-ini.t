@@ -40,6 +40,7 @@ package Foo;
 
 =cut
 FOO
+            path(qw(source Changes)) => '',
         },
     },
 );

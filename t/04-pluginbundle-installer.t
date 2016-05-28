@@ -37,6 +37,7 @@ subtest 'installer = MakeMaker' => sub {
                     ],
                 ),
                 path(qw(source lib MyDist.pm)) => "package MyDist;\n\n1",
+                path(qw(source Changes)) => '',
             },
         },
     );
@@ -105,6 +106,7 @@ subtest 'installer = MakeMaker, ModuleBuildTiny' => sub {
                     ],
                 ),
                 path(qw(source lib MyModule.pm)) => "package MyModule;\n\n1",
+                path(qw(source Changes)) => '',
             },
         },
     );
@@ -186,6 +188,7 @@ subtest 'installer = none' => sub {
                     ],
                 ),
                 path(qw(source lib MyDist.pm)) => "package MyDist;\n\n1",
+                path(qw(source Changes)) => '',
             },
         },
     );
@@ -228,6 +231,7 @@ subtest 'installer = ModuleBuildTiny, StaticInstall.mode = off' => sub {
                     ],
                 ),
                 path(qw(source lib MyModule.pm)) => "package MyModule;\n\n1",
+                path(qw(source Changes)) => '',
             },
         },
     );

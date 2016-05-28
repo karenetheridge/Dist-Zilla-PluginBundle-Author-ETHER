@@ -88,6 +88,7 @@ subtest $_->{test_name} => sub
                     @$config,
                 ),
                 path(qw(source lib Foo.pm)) => "package Foo;\n\n1;\n$extra_content",
+                path(qw(source Changes)) => '',
             },
         },
     );

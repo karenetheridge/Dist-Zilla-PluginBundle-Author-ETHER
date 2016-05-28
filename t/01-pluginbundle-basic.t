@@ -52,6 +52,7 @@ my $tzil = Builder->from_config(
             ),
             path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\nour \$VERSION = '0.002';\n1",
             path(qw(source lib DZT Sample2.pm)) => "package DZT::Sample2;\n1",
+            path(qw(source Changes)) => '',
         },
     },
 );
@@ -101,6 +102,7 @@ my @expected_files = qw(
     META.json
     META.yml
     README
+    Changes
     t/00-report-prereqs.t
     xt/author/00-compile.t
     xt/author/eol.t

@@ -5,6 +5,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
             script/, t/, xt/ directories
           - bump prereq version for [Test::Pod::No404s] for the new xt/author
             placement (RT#114799)
+          - fix tests that fail with Dist::Zilla::Plugin::NextRelease 6.005
 
 0.114     2016-04-27 04:26:51Z
           - fix PodWeaver config test that broke when Dist::Zilla::Tester

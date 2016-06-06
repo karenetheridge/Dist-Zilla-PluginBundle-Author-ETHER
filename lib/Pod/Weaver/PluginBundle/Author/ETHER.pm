@@ -13,14 +13,12 @@ use PadWalker 'peek_sub';
 
 sub _exp { Pod::Weaver::Config::Assembler->expand_package($_[0]) }
 
+# This sub behaves somewhat like a Dist::Zilla pluginbundle's configure() -- it returns a list of strings or 1, 2
+# or 3-element arrayrefs containing plugin specifications. The goal is to make this look as close to what
+# weaver.ini looks like as possible.
 sub configure
 {
     my $self = shift;
-
-    # this sub behaves somewhat like a Dist::Zilla pluginbundle's configure()
-    # -- it returns a list of strings or 1, 2 or 3-element arrayrefs
-    # containing plugin specifications. The goal is to make this look as close
-    # to what weaver.ini looks like as possible.
 
     # I wouldn't have to do this ugliness if I could have some configuration values passed in from weaver.ini or
     # the [PodWeaver] plugin's use of config_plugin (where I could define a 'licence' option)

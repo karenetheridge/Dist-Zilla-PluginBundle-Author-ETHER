@@ -183,7 +183,7 @@ Or in your F<dist.ini>
 It is also used automatically when your F<dist.ini> contains:
 
     [@Author::ETHER]
-    :version = 0.094
+    :version = 0.094    ; or any higher version
 
 =head1 DESCRIPTION
 

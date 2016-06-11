@@ -117,7 +117,7 @@ my @expected_files = qw(
     xt/author/pod-coverage.t
     xt/author/pod-no404s.t
     xt/author/pod-syntax.t
-    xt/release/portability.t
+    xt/author/portability.t
 );
 
 push @expected_files, eval { Dist::Zilla::Plugin::Test::NoTabs->VERSION('0.09'); 1 }

@@ -241,7 +241,7 @@ sub configure
         [ 'Test::ReportPrereqs' => { ':version' => '0.022', verify_prereqs => 1, version_extractor => 'Module::Metadata',
             exists $removed{PodCoverageTests} ? () : ( include => [ 'Pod::Coverage' ] ),
           } ],
-        'Test::Portability',
+        [ 'Test::Portability'   => { ':version' => '2.000007' } ],
         [ 'Test::CleanNamespaces' => { ':version' => '0.006' } ],
 
 
@@ -578,6 +578,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     version_extractor = Module::Metadata
     include = Pod::Coverage
     [Test::Portability]
+    :version = 2.000007
     [Test::CleanNamespaces]
     :version = 0.006
 

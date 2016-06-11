@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - bump prereq version for [Test::Portability] for the new xt/author
+            placement
 
 0.115     2016-05-28 20:33:51Z
           - [Test::PodSpelling] now also tests files in examples/, lib/,

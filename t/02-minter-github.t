@@ -74,7 +74,7 @@ like(
 
 like(
     $module,
-    qr/\n\n1;\n__END__\n/m,
+    qr/\n\n1;\n__END__\n/,
 );
 
  like(
@@ -85,7 +85,7 @@ like(
 
 like(
     $module,
-    qr/\n\n1;\n__END__\n/m,
+    qr/\n\n1;\n__END__\n/,
     'the package code ends in a generic way',
 );
 

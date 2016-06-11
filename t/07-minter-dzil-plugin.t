@@ -49,7 +49,7 @@ like(
 Test::MinimumVersion.max_target_perl = 5.008003
 
 \[MetaResources\]
-x_IRC/m,
+x_IRC/,
     'found dist.ini content',
 );
 
@@ -62,7 +62,7 @@ my $module = path($mint_dir, 'lib/Dist/Zilla/Plugin/Foo/Bar.pm')->slurp_utf8;
 
 like(
     $module,
-    qr/^use strict;\nuse warnings;\npackage Dist::Zilla::Plugin::Foo::Bar;/m,
+    qr/^use strict;\nuse warnings;\npackage Dist::Zilla::Plugin::Foo::Bar;/,
     'our new module has a valid package declaration',
 );
 
@@ -104,7 +104,7 @@ my $cut = <<CUT;
 
 =cut
 CUT
-        qr/\Q$pattern\E/m
+        qr/\Q$pattern\E/
     },
     'our new module has a brief synopsis tailored to dzil plugins',
 );
@@ -177,7 +177,7 @@ diag 'got log messages: ', explain $tzil->log_messages
 
 done_testing;
 TEST
-        qr/\Q$pattern\E/m,
+        qr/\Q$pattern\E/,
     },
     'test gets custom content for testing dzil plugins',
 );

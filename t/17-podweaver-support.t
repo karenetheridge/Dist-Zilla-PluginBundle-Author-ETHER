@@ -23,7 +23,7 @@ my @tests = (
     map {
         my $authority = $_;
         my @authority_conf = ( [ Authority => { authority => "cpan:$authority" } ] );
-        my $extra_pod = $authority eq 'cpan:ETHER' ? qr/\n\n$irc_ether/m : '';
+        my $extra_pod = $authority eq 'cpan:ETHER' ? qr/\n\n$irc_ether/ : '';
         {
             test_name => "authority = $authority, no metadata",
             config => [

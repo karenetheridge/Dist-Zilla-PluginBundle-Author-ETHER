@@ -103,6 +103,10 @@ like(
 
 =head1 DESCRIPTION
 SYNOPSIS
+my $cut = <<CUT;
+
+=cut
+CUT
         qr/\Q$pattern\E/
     },
     'our new module has a brief generic synopsis and description',

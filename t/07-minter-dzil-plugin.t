@@ -98,7 +98,12 @@ In your F<dist.ini>:
     [Foo::Bar]
 
 =head1 DESCRIPTION
+
 SYNOPSIS
+my $cut = <<CUT;
+
+=cut
+CUT
         qr/\Q$pattern\E/m
     },
     'our new module has a brief synopsis tailored to dzil plugins',

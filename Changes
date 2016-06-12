@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.116     2016-06-12 01:07:29Z
           - bump prereq version for [Test::Portability] for the new xt/author
             placement

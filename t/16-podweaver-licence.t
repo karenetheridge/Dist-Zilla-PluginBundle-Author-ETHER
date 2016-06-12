@@ -21,12 +21,10 @@ my @tests = (
     },
     {
         expected_file => 'LICENCE',
-        config => { 'Authority.authority' => 'cpan:OTHERDUDE' },
         config => { licence => 'LICENCE' },
     },
     {
         expected_file => 'LICENCE',
-        config => { 'Authority.authority' => 'cpan:OTHERDUDE' },
         config => { 'License.filename' => 'LICENCE' },
     },
     {

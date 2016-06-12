@@ -29,9 +29,16 @@ sub mvp_multivalue_args { qw(installer copy_file_from_release) }
 # but [PromptIfStale] generally makes that unnecessary
 has installer => (
     isa => 'ArrayRef[Str]',
+    init_arg => undef,
     lazy => 1,
     default => sub {
-        $_[0]->payload->{installer} // [ 'MakeMaker::Fallback', 'ModuleBuildTiny::Fallback' ];
+        my $self = shift;
+
+        return [ 'MakeMaker::Fallback', 'ModuleBuildTiny::Fallback' ]
+            if not exists $self->payload->{installer};
+
+        # remove 'none' from installer list
+        return [ grep { $_ ne 'none' } @{ $self->payload->{installer} } ];
     },
     traits => ['Array'],
     handles => { installer => 'elements' },
@@ -39,24 +46,28 @@ has installer => (
 
 has server => (
     is => 'ro', isa => enum([qw(github gitmo p5sagit catagits none)]),
+    init_arg => undef,
     lazy => 1,
     default => sub { $_[0]->payload->{server} // 'github' },
 );
 
 has surgical_podweaver => (
     is => 'ro', isa => 'Bool',
+    init_arg => undef,
     lazy => 1,
     default => sub { $_[0]->payload->{surgical_podweaver} // 0 },
 );
 
 has airplane => (
     is => 'ro', isa => 'Bool',
+    init_arg => undef,
     lazy => 1,
     default => sub { $ENV{DZIL_AIRPLANE} || $_[0]->payload->{airplane} // 0 },
 );
 
 has copy_file_from_release => (
     isa => 'ArrayRef[Str]',
+    init_arg => undef,
     lazy => 1,
     default => sub { $_[0]->payload->{copy_file_from_release} // [] },
     traits => ['Array'],
@@ -70,12 +81,14 @@ around copy_files_from_release => sub {
 
 has changes_version_columns => (
     is => 'ro', isa => subtype('Int', where { $_ > 0 && $_ < 20 }),
+    init_arg => undef,
     lazy => 1,
     default => sub { $_[0]->payload->{changes_version_columns} // 10 },
 );
 
 has licence => (
     is => 'ro', isa => 'Str',
+    init_arg => undef,
     lazy => 1,
     default => sub {
         my $self = shift;
@@ -126,18 +139,6 @@ my @never_gather = qw(
     cpanfile TODO CONTRIBUTING LICENCE LICENSE INSTALL
     inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm
 );
-
-around BUILDARGS => sub
-{
-    my $orig = shift;
-    my $self = shift;
-    my $args = $self->$orig(@_);
-
-    # remove 'none' from installer list
-    return $args if not exists $args->{payload}{installer};
-    @{$args->{payload}{installer}} = grep { $_ ne 'none' } @{$args->{payload}{installer}};
-    return $args;
-};
 
 sub configure
 {

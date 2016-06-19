@@ -245,7 +245,7 @@ sub configure
         [ 'Test::NoTabs'        => { ':version' => '0.08', finder => [qw(:InstallModules :ExecFiles @Author::ETHER/Examples :TestFiles :ExtraTestFiles)] } ],
         [ 'Test::EOL'           => { ':version' => '0.17', finder => [qw(:InstallModules :ExecFiles @Author::ETHER/Examples :TestFiles :ExtraTestFiles)] } ],
         'MetaTests',
-        [ 'Test::CPAN::Changes' => { ':version' => '0.008' } ],
+        [ 'Test::CPAN::Changes' => { ':version' => '0.012' } ],
         'Test::ChangesHasContent',
         [ 'Test::MinimumVersion' => { ':version' => '2.000003', max_target_perl => '5.006' } ],
         [ 'PodSyntaxTests'      => { ':version' => '5.040' } ],
@@ -562,7 +562,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     [MetaTests]
     [Test::CPAN::Changes]
-    :version = 0.008
+    :version = 0.012
     [Test::ChangesHasContent]
     [Test::MinimumVersion]
     :version = 2.000003

@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.117     2016-06-19 17:13:44Z
           - new 'authority' configuration option
 
 0.116     2016-06-12 01:07:29Z

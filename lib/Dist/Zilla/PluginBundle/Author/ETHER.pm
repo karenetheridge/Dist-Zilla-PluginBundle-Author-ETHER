@@ -92,12 +92,28 @@ has licence => (
     lazy => 1,
     default => sub {
         my $self = shift;
-        my $authority = $self->payload->{'Authority.authority'} // 'cpan:ETHER';
+        my $authority = $self->authority;
         $self->payload->{licence}
             // $self->payload->{license}
             # licenSe is US-only; known non-American authors will be treated appropriately.
             // ((any { $authority eq "cpan:$_" } qw(ETHER ABERGMAN AVAR BINGOS BOBTFISH CHOLET FLORA GETTY ILMARI JAWNSY JQUELIN LEONT LLAP MSTROUT NUFFIN PERIGRIN PHAYLON))
                 ? 'LICENCE' : 'LICENSE');
+    },
+);
+
+has authority => (
+    is => 'ro', isa => 'Str',
+    init_arg => undef,
+    lazy => 1,
+    default => sub {
+        my $self = shift;
+
+        # we could warn about this, but then we'd have to change configs (and bump prereqs) for an awful lot of
+        # distributions.
+        return $self->payload->{'Authority.authority'}
+            if exists $self->payload->{'Authority.authority'};
+
+        $self->payload->{authority} // 'cpan:ETHER';
     },
 );
 
@@ -182,7 +198,7 @@ sub configure
     # only set x_static_install using auto mode for my own distributions
     my $static_install_mode = $self->payload->{'StaticInstall.mode'} // 'auto';
     my $static_install_dry_run = ($static_install_mode eq 'auto'
-            and ($self->payload->{'Authority.authority'} // 'cpan:ETHER') ne 'cpan:ETHER') ? 1 : 0;
+            and $self->authority ne 'cpan:ETHER') ? 1 : 0;
 
     warn '[@Author::ETHER] ', colored('server = ' . $self->server
             . ': recommend instead using server = github and GithubMeta.remote = '
@@ -266,7 +282,7 @@ sub configure
             : $self->server eq 'catagits' ? ( 'repository.catagits' => 1 )
             : ()
         } ],
-        [ 'Authority'           => { ':version' => '1.009', authority => 'cpan:ETHER', do_munging => 0 } ],
+        [ 'Authority'           => { ':version' => '1.009', authority => $self->authority, do_munging => 0 } ],
         [ 'MetaNoIndex'         => { directory => [ qw(t xt), grep { -d } qw(inc local perl5 fatlib examples share corpus demo) ] } ],
         [ 'MetaProvides::Package' => { ':version' => '1.15000002', finder => ':InstallModules', meta_noindex => 1, inherit_version => 0, inherit_missing => 0 } ],
         'MetaConfig',
@@ -941,6 +957,16 @@ A string that specifies the name to use for the licence file.  Defaults to
 C<LICENCE> for distributions where I (ETHER) or any other known non-Americans
 have first-come permissions, or C<LICENSE> otherwise.
 (The pod section for legal information is also adjusted appropriately.)
+
+=head2 authority
+
+Available since 0.117.
+
+A string of the form C<cpan:PAUSEID> that references the PAUSE ID of the user who has primary ("first-come")
+authority over the distribution and main module namespace. If not provided, it is extracted from the configuration
+passed through to the <[Authority]|Dist::Zilla::Plugin::Authority> plugin, and finally defaults to C<cpan:ETHER>.
+It is presently used for setting C<x_authority> metadata and deciding which spelling is used for the F<LICENCE>
+file (if the C<licence> configuration is not provided).
 
 =for stopwords customizations
 

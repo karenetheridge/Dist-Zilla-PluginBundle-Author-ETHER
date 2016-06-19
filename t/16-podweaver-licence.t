@@ -29,7 +29,7 @@ my @tests = (
     },
     {
         expected_file => 'LICENCE',
-        config => { 'Authority.authority' => 'cpan:ETHER' },
+        config => { authority => 'cpan:ETHER' },
     },
     {
         expected_file => 'LICENSE',
@@ -41,11 +41,11 @@ my @tests = (
     },
     {
         expected_file => 'LICENSE',
-        config => { 'Authority.authority' => 'cpan:OTHERDUDE' },
+        config => { authority => 'cpan:OTHERDUDE' },
     },
     {
         expected_file => 'LICENCE',
-        config => { 'Authority.authority' => 'cpan:BOBTFISH' },
+        config => { authority => 'cpan:BOBTFISH' },
     },
 );
 

@@ -4,6 +4,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 0.117     2016-06-19 17:13:44Z
           - new 'authority' configuration option
+          - bump prereq version for [Test::CPAN::Changes], to avoid the broken
+            0.011 release
 
 0.116     2016-06-12 01:07:29Z
           - bump prereq version for [Test::Portability] for the new xt/author

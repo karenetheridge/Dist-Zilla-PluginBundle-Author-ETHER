@@ -17,7 +17,7 @@ sub profile_dir
 {
     my ($self, $profile_name) = @_;
 
-    die 'minting requires perl 5.014' unless $] >= 5.013002;
+    die 'minting requires perl 5.014' unless "$]" >= 5.013002;
 
     my $dist_name = '{{ $dist->name }}';
 

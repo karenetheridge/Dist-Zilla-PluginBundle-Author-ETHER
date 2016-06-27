@@ -6,7 +6,7 @@ use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep;
 use Test::DZil;
 use Test::Fatal;
-use Path::Tiny;
+use Path::Tiny 0.062;
 use List::Util 'first';
 use Module::Runtime 'module_notional_filename';
 use Moose::Util 'find_meta';
@@ -128,11 +128,10 @@ push @expected_files, 't/00-report-prereqs.dd'
     if Dist::Zilla::Plugin::Test::ReportPrereqs->VERSION >= 0.014;
 
 my @found_files;
-my $iter = $build_dir->iterator({ recurse => 1 });
-while (my $path = $iter->())
-{
-    push @found_files, $path->relative($build_dir)->stringify if -f $path;
-}
+$build_dir->visit(
+    sub { push @found_files, $_->relative($build_dir)->stringify if -f },
+    { recurse => 1 },
+);
 
 cmp_deeply(
     \@found_files,

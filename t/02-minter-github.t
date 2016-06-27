@@ -5,7 +5,7 @@ use Test::More 0.88;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep;
 use Test::DZil;
-use Path::Tiny;
+use Path::Tiny 0.062;
 use Moose::Util 'find_meta';
 
 use lib 't/lib';
@@ -52,11 +52,10 @@ my @expected_files = qw(
 );
 
 my @found_files;
-my $iter = $mint_dir->iterator({ recurse => 1 });
-while (my $path = $iter->())
-{
-    push @found_files, $path->relative($mint_dir)->stringify if -f $path;     # ignore directories
-}
+$mint_dir->visit(
+    sub { push @found_files, $_->relative($mint_dir)->stringify if -f },
+    { recurse => 1 },
+);
 
 cmp_deeply(
     \@found_files,

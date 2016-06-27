@@ -6,7 +6,7 @@ use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep '!none';
 use Test::DZil;
 use Test::Fatal;
-use Path::Tiny;
+use Path::Tiny 0.062;
 use Module::Runtime 'require_module';
 use List::Util 1.33 'none';
 
@@ -65,11 +65,10 @@ subtest 'installer = MakeMaker' => sub {
 
     my $build_dir = path($tzil->tempdir)->child('build');
     my @found_files;
-    my $iter = $build_dir->iterator({ recurse => 1 });
-    while (my $path = $iter->())
-    {
-        push @found_files, $path->relative($build_dir)->stringify if -f $path;
-    }
+    $build_dir->visit(
+        sub { push @found_files, $_->relative($build_dir)->stringify if -f },
+        { recurse => 1 },
+    );
 
     cmp_deeply(
         \@found_files,
@@ -153,11 +152,10 @@ subtest 'installer = MakeMaker, ModuleBuildTiny' => sub {
 
     my $build_dir = path($tzil->tempdir)->child('build');
     my @found_files;
-    my $iter = $build_dir->iterator({ recurse => 1 });
-    while (my $path = $iter->())
-    {
-        push @found_files, $path->relative($build_dir)->stringify if -f $path;
-    }
+    $build_dir->visit(
+        sub { push @found_files, $_->relative($build_dir)->stringify if -f },
+        { recurse => 1 },
+    );
 
     cmp_deeply(
         \@found_files,

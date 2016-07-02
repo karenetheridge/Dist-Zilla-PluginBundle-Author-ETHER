@@ -672,7 +672,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
 
     ;;; Install Tool
-    <specified installer(s)>
+    ; <specified installer(s)>
 
     [Git::Contributors]
     :version = 0.004

@@ -168,7 +168,7 @@ sub configure
     # operations may be looking at the wrong directory! Take this into
     # consideration when running tests!
 
-    my $has_xs =()= glob('*.xs');
+    my $has_xs = glob('*.xs') ? 1 : 0;
     warn '[@Author::ETHER] XS-based distribution detected.', "\n" if $has_xs;
     die '[@Author::ETHER] no Makefile.PL found in the repository root: this is not very nice for contributors!', "\n"
         if $has_xs and not -e 'Makefile.PL';

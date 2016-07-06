@@ -256,8 +256,7 @@ sub configure
         [ 'Test::Kwalitee'      => { ':version' => '2.10', filename => 'xt/author/kwalitee.t' } ],
         [ 'MojibakeTests'       => { ':version' => '0.8' } ],
         [ 'Test::ReportPrereqs' => { ':version' => '0.022', verify_prereqs => 1, version_extractor => 'Module::Metadata',
-            exists $removed{PodCoverageTests} ? () : ( include => [ 'Pod::Coverage' ] ),
-          } ],
+            include => [ sort ( qw(autodie JSON::PP YAML), exists $removed{PodCoverageTests} ? () : 'Pod::Coverage' ) ] } ],
         [ 'Test::Portability'   => { ':version' => '2.000007' } ],
         [ 'Test::CleanNamespaces' => { ':version' => '0.006' } ],
 
@@ -592,7 +591,10 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     :version = 0.022
     verify_prereqs = 1
     version_extractor = Module::Metadata
+    include = JSON::PP
     include = Pod::Coverage
+    include = YAML
+    include = autodie
     [Test::Portability]
     :version = 2.000007
     [Test::CleanNamespaces]

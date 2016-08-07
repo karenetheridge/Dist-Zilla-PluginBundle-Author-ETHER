@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.118     2016-08-07 21:59:49Z
           - in tests, report the installed version of more tools, to aid in
             diagnosing buggy CPANTesters reports
 

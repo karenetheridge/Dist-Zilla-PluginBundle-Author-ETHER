@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.117
+version 0.118
 
 =head1 SYNOPSIS
 
@@ -138,7 +138,10 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     :version = 0.022
     verify_prereqs = 1
     version_extractor = Module::Metadata
+    include = JSON::PP
     include = Pod::Coverage
+    include = YAML
+    include = autodie
     [Test::Portability]
     :version = 2.000007
     [Test::CleanNamespaces]
@@ -218,7 +221,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
 
     ;;; Install Tool
-    <specified installer(s)>
+    ; <specified installer(s)>
 
     [Git::Contributors]
     :version = 0.004

@@ -73,10 +73,7 @@ cmp_deeply(
                     class => 'Dist::Zilla::Plugin::PodWeaver',
                     config => superhashof({
                         'Dist::Zilla::Plugin::PodWeaver' => all(
-                            # TODO: replace with Test::Deep::notexists($key)
-                            code(sub {
-                                !exists $_[0]->{config_plugins} ? 1 : (0, 'config_plugins exists');
-                            }),
+                            notexists('config_plugins'),
                             superhashof({
                                 # check that all plugins came from '@Default',
                                 # *not* [@Author::ETHER].

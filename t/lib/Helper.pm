@@ -2,7 +2,7 @@ package # hide from PAUSE
     Helper;
 
 use parent 'Exporter';
-our @EXPORT = qw(@REMOVED_PLUGINS assert_no_git all_plugins_in_prereqs);
+our @EXPORT = qw(@REMOVED_PLUGINS assert_no_git all_plugins_in_prereqs notexists);
 
 use Test::More;
 use Test::Deep;
@@ -116,5 +116,14 @@ sub all_plugins_in_prereqs
         }
     }
 } }
+
+# TODO: replace with Test::Deep::notexists($key)
+sub notexists
+{
+    my $key = shift;
+    Test::Deep::code(sub {
+        !exists $_[0]->{$key} ? 1 : (0, "'$key' key exists");
+    });
+}
 
 1;

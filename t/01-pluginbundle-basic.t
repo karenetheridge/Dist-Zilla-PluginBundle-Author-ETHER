@@ -223,11 +223,7 @@ cmp_deeply(
     superhashof({
         prereqs => superhashof({
             develop => superhashof({
-                requires =>
-                    # TODO: replace with Test::Deep::notexists($key)
-                    code(sub {
-                        !exists $_[0]->{'Dist::Zilla::Plugin::Git::Commit'} ? 1 : (0, 'Dist::Zilla::Plugin::Git::Commit exists');
-                    }),
+                requires => notexists('Dist::Zilla::Plugin::Git::Commit'),
             }),
         }),
     }),

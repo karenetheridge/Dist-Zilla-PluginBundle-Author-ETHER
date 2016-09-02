@@ -1,6 +1,9 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - Module::Metadata is no longer used as a test prereq (via
+            [Test::ReportPrereqs]) if ExtUtils::MakeMaker is the sole
+            installer, to avoid adding possibly-unwanted prereqs (Graham Knop)
 
 0.118     2016-08-07 21:59:49Z
           - in tests, report the installed version of more tools, to aid in

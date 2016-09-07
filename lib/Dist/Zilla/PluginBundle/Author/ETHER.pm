@@ -154,6 +154,7 @@ my @never_gather = qw(
     Makefile.PL ppport.h README.md README.pod META.json
     cpanfile TODO CONTRIBUTING LICENCE LICENSE INSTALL
     inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm
+    appveyor.yml
 );
 
 sub configure

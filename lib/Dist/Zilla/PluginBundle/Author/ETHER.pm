@@ -160,7 +160,7 @@ sub configure
 {
     my $self = shift;
 
-    warn '[@Author::ETHER] no "bash" executable found; skipping Run::AfterBuild commands to update .ackrc and .latest symlink', "\n"
+    warn '[@Author::ETHER] no "bash" executable found; skipping Run::AfterBuild command to update .ackrc', "\n"
         if not $self->_has_bash;
 
     # NOTE! since the working directory has not changed to $zilla->root yet,

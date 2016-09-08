@@ -4,6 +4,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
           - avoid fatal errors on MSWin32 or any system where symlink support
             is not available (see github #5)
           - silence "no bash" warnings during testing
+          - respect necessary prereqs for configs provided by plugin roles
 
 0.119     2016-09-04 22:48:25Z
           - Module::Metadata is no longer used as a test prereq (via

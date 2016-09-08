@@ -26,7 +26,7 @@ use NoPrereqChecks;
 
 SKIP: {
     skip('we only insist that the author have bash installed', 1)
-        unless $ENV{AUTHOR_TESTING};
+        unless $ENV{RELEASE_TESTING};
 
     require Devel::CheckBin;
     ok(Devel::CheckBin::can_run('bash'), 'the bash executable is available');

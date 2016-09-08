@@ -407,16 +407,15 @@ sub configure
 
         if (my @modules_for_extra_configs = grep { $plugin->isa($_) or $plugin->does($_) } keys %extra_args)
         {
-            # combine all the relevant configs together, but don't take
-            # :version unless it matches the package exactly
+            # combine all the relevant configs together
             my %configs = map { %{ $extra_args{$_} } } @modules_for_extra_configs;
-            delete $configs{':version'};
 
-            $configs{':version'} = $extra_args{$plugin}{':version'}
-                if exists $extra_args{$plugin} and exists $extra_args{$plugin}{':version'};
-
-            # and add to the payload of this plugin
+            # and add to the payload for this plugin
             @{$payload}{keys %configs} = values %configs;
+
+            # don't keep :version unless it matches the package exactly, but still respect the prereq
+            $plugin_requirements->add_minimum($plugin => delete $configs{':version'})
+                if exists $configs{':version'} and not exists $extra_args{$plugin};
         }
 
         # record develop prereq

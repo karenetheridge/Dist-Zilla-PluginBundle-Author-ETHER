@@ -161,7 +161,7 @@ sub configure
     my $self = shift;
 
     warn '[@Author::ETHER] no "bash" executable found; skipping Run::AfterBuild command to update .ackrc', "\n"
-        if not $self->_has_bash;
+        if not $INC{'Test/More.pm'} and not $self->_has_bash;
 
     # NOTE! since the working directory has not changed to $zilla->root yet,
     # if running this code via a different mechanism than dzil <command>, file

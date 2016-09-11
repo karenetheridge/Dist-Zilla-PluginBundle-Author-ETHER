@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.120     2016-09-11 00:03:52Z
           - avoid fatal errors on MSWin32 or any system where symlink support
             is not available (see github #5)
           - silence "no bash" warnings during testing

@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.119
+version 0.120
 
 =head1 SYNOPSIS
 
@@ -140,6 +140,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     version_extractor = Module::Metadata
     include = JSON::PP
     include = Pod::Coverage
+    include = Sub::Name
     include = YAML
     include = autodie
     [Test::Portability]
@@ -248,8 +249,9 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     quiet = 1
     run = bash -c "test -e .ackrc && grep -q -- '--ignore-dir=.latest' .ackrc || echo '--ignore-dir=.latest' >> .ackrc; if [[ `dirname '%d'` != .build ]]; then test -e .ackrc && grep -q -- '--ignore-dir=%d' .ackrc || echo '--ignore-dir=%d' >> .ackrc; fi"
     [Run::AfterBuild / .latest]
-    :version = 0.038
+    :version = 0.041
     quiet = 1
+    fatal_errors = 0
     eval = if ('%d' =~ /^%n-[.[:xdigit:]]+$/) { unlink '.latest'; symlink '%d', '.latest'; }
 
 

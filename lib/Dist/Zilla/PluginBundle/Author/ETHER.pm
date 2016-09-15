@@ -331,7 +331,7 @@ sub configure
         'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
         [ 'Git::Remote::Check'  => { branch => 'master', remote_branch => 'master' } ],
-        'CheckPrereqsIndexed',
+        [ 'CheckPrereqsIndexed' => { ':version' => '0.019' } ],
         'TestRelease',
         [ 'Git::Check'          => 'after tests' => { allow_dirty => [''] } ],
         'CheckIssues',
@@ -726,6 +726,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     remote_branch = master
 
     [CheckPrereqsIndexed]
+    :version = 0.019
     [TestRelease]
     [Git::Check / after tests]
     allow_dirty =

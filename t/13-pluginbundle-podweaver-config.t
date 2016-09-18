@@ -17,9 +17,6 @@ use Helper;
 use NoNetworkHits;
 use NoPrereqChecks;
 
-my $wd = pushd('corpus/with_no_weaver_ini');
-
-ok(!-e 'weaver.ini', 'a weaver.ini does not exist in this directory');
 
 my $tzil = Builder->from_config(
     { dist_root => 'does-not-exist' },
@@ -112,7 +109,7 @@ like(
 diag 'got log messages: ', explain $tzil->log_messages
     if not Test::Builder->new->is_passing;
 
-undef $wd;  # go back to original dir
+
 
 # TODO: if my weaver bundle ever becomes customizable (e.g. via Moose
 # attributes), move these subsequent tests into t/lib and test it for all

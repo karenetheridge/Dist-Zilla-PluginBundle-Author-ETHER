@@ -15,9 +15,6 @@ use Helper;
 use NoNetworkHits;
 use NoPrereqChecks;
 
-my $dist_root;
-$dist_root = pushd('corpus/with_weaver_ini') if Dist::Zilla::Tester->VERSION < '6.003';
-
 my $tzil = Builder->from_config(
     { dist_root => 'does-not-exist' },
     {

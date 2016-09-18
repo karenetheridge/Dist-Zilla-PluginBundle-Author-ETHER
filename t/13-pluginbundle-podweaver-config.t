@@ -17,9 +17,10 @@ use Helper;
 use NoNetworkHits;
 use NoPrereqChecks;
 
-my $wd = pushd('corpus/with_no_weaver_ini');
-
-ok(!-e 'weaver.ini', 'a weaver.ini does not exist in this directory');
+# the bundle changes behaviour when it sees weaver.ini... ensure it is nowhere
+# to be found, either in the initial directory or in the directory
+# Dist::Zilla::Tester changes into during the build
+ok(!-e 'weaver.ini', 'a weaver.ini does not exist in the initial directory');
 
 my $tzil = Builder->from_config(
     { dist_root => 'does-not-exist' },
@@ -55,6 +56,13 @@ is(
     undef,
     'build proceeds normally',
 );
+
+my $build_dir = path($tzil->tempdir)->child('build');
+
+# the bundle changes behaviour when it sees weaver.ini... ensure it is nowhere
+# to be found, either in the initial directory or in the directory
+# Dist::Zilla::Tester changes into during the build
+ok(!-e $build_dir->child('weaver.ini'), 'a weaver.ini does not exist in the build directory');
 
 cmp_deeply(
     $tzil->plugin_named('@Author::ETHER/PodWeaver'),
@@ -112,7 +120,6 @@ like(
 diag 'got log messages: ', explain $tzil->log_messages
     if not Test::Builder->new->is_passing;
 
-undef $wd;  # go back to original dir
 
 # TODO: if my weaver bundle ever becomes customizable (e.g. via Moose
 # attributes), move these subsequent tests into t/lib and test it for all

@@ -19,8 +19,7 @@ my $dist_root;
 $dist_root = pushd('corpus/with_weaver_ini') if Dist::Zilla::Tester->VERSION < '6.003';
 
 my $tzil = Builder->from_config(
-    # newer Dist::Zilla::Tester chdirs into source/ so we need to copy the files we need
-    { dist_root => Dist::Zilla::Tester->VERSION < '6.003' ? 'does-not-exist' : 'corpus/with_weaver_ini' },
+    { dist_root => 'does-not-exist' },
     {
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
@@ -41,6 +40,7 @@ package Foo;
 =cut
 FOO
             path(qw(source Changes)) => '',
+            path(qw(source weaver.ini)) => "[\@Default]\n",
         },
     },
 );

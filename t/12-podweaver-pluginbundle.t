@@ -26,21 +26,48 @@ use NoPrereqChecks;
 # the config_plugins config is used, and
 # we do not die from trying to use a broken weaver.ini.
 
-subtest "root dir = $_" => sub
-{
-    my $root = $_;
+# we actually need to test without the config_plugin option sa well, so we are
+# sure we explode in each case!!
 
-    my $wd = pushd($root);
+my @tests = (
+    {
+        name => 'weaver.ini is broken',
+        files => [
+            path(qw(source weaver.ini)) => "[\@Def ault] ; this is clearly broken\n",
+        ],
+        has_config_plugin => 0,
+        error => qr/illegal package name Pod::Weaver::PluginBundle::Def ault/,
+    },
+    {
+        name => 'weaver.ini is broken',
+        files => [
+            path(qw(source weaver.ini)) => "[\@Def ault] ; this is clearly broken\n",
+        ],
+        has_config_plugin => 1,
+    },
+    {
+        name => 'weaver.ini is missing',
+        has_config_plugin => 0,
+    },
+    {
+        name => 'weaver.ini is missing',
+        has_config_plugin => 1,
+    },
+);
+
+subtest "$_->{name}, has_config_plugin = $_->{has_config_plugin}" => sub
+{
+    my $testcase = $_;
 
     my $tzil = Builder->from_config(
-        { dist_root => $root },
+        { dist_root => 'does-not-exist' },
         {
             add_files => {
                 path(qw(source dist.ini)) => simple_ini(
                     'GatherDir',
                     '=MyContributors',
                     'MetaConfig',
-                    [ PodWeaver => { config_plugin => '@Author::ETHER' } ],
+                    [ PodWeaver => { $testcase->{has_config_plugin} ? ( config_plugin => '@Author::ETHER' ) : () } ],
                 ),
                 path(qw(source lib Foo.pm)) => <<FOO,
 package Foo;
@@ -51,15 +78,36 @@ package Foo;
 
 =cut
 FOO
+                @{ $testcase->{files} || [] },
             },
         },
     );
 
     $tzil->chrome->logger->set_debug(1);
+
+    if ($testcase->{error})
+    {
+        like(
+            exception { $tzil->build },
+            $testcase->{error},
+            'build explodes when ' . $testcase->{name}
+                . ' and there is ' . ($testcase->{has_config_file} ? 'a' : 'no' ) . ' config file',
+        );
+
+        diag 'got distmeta: ', explain $tzil->distmeta
+            if not Test::Builder->new->is_passing;
+
+        diag 'got log messages: ', explain $tzil->log_messages
+            if not Test::Builder->new->is_passing;
+
+        return;
+    }
+
     is(
         exception { $tzil->build },
         undef,
-        'build proceeds normally',
+        'build proceeds normally when ' . $testcase->{name}
+            . ' and there is ' . ($testcase->{has_config_file} ? 'a' : 'no' ) . ' config file',
     );
 
     my $module = $tzil->slurp_file('build/lib/Foo.pm');
@@ -82,7 +130,14 @@ POD
 
     like($module, qr/^=head1 AUTHOR\n\n/m, 'module has woven the AUTHOR section into pod');
 
-    like($module, qr/^=head1 CONTRIBUTOR\n\n.*Anon Y. Moose <anon\@null.com>\n\n/ms, 'module has woven the CONTRIBUTOR section into pod');
+    my ($testsub, $verb) = $testcase->{has_config_plugin}
+        ? ( sub { goto &like }, 'has' )
+        : ( sub { goto &unlike }, "hasn't" );
+    $testsub->(
+        $module,
+        qr/^=head1 CONTRIBUTOR\n\n.*Anon Y. Moose <anon\@null.com>\n\n/ms,
+        "module $verb woven the CONTRIBUTOR section into pod",
+    );
 
     cmp_deeply(
         $tzil->distmeta,
@@ -92,21 +147,23 @@ POD
                     {
                         class => 'Dist::Zilla::Plugin::PodWeaver',
                         config => superhashof({
-                            'Dist::Zilla::Plugin::PodWeaver' => superhashof({
-                                config_plugins => [ '@Author::ETHER' ],
-                                # check that all plugins came from '@Author::ETHER'
-                                plugins => array_each(
-                                    # TODO: we can use our bundle name in these
-                                    # sections too, by adjusting how we set up the configs
-                                    code(sub {
-                                        ref $_[0] eq 'HASH' or return (0, 'not a HASH');
-                                        $_[0]->{name} =~ m{^\@(CorePrep|Author::ETHER)/}
-                                            or $_[0]->{class} =~ /^Pod::Weaver::Section::(Generic|Collect)$/
-                                            or return (0, 'weaver plugin has bad name');
-                                        return 1;
-                                    }),
-                                ),
-                            }),
+                            'Dist::Zilla::Plugin::PodWeaver' => $testcase->{has_config_plugin}
+                              ? (superhashof({
+                                    config_plugins => [ '@Author::ETHER' ],
+                                    # check that all plugins came from '@Author::ETHER'
+                                    plugins => array_each(
+                                        # TODO: we can use our bundle name in these
+                                        # sections too, by adjusting how we set up the configs
+                                        code(sub {
+                                            ref $_[0] eq 'HASH' or return (0, 'not a HASH');
+                                            $_[0]->{name} =~ m{^\@(CorePrep|Author::ETHER)/}
+                                                or $_[0]->{class} =~ /^Pod::Weaver::Section::(Generic|Collect)$/
+                                                or return (0, 'weaver plugin has bad name');
+                                            return 1;
+                                        }),
+                                    ),
+                                }))
+                              : notexists('config_plugins'),
                         }),
                         name => 'PodWeaver',
                         version => Dist::Zilla::Plugin::PodWeaver->VERSION,
@@ -121,9 +178,6 @@ POD
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;
 }
-foreach qw(
-    corpus/with_broken_weaver_ini
-    corpus/with_no_weaver_ini
-);
+foreach @tests;
 
 done_testing;

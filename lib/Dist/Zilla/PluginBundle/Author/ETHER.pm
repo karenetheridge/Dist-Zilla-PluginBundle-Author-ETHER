@@ -252,7 +252,7 @@ sub configure
         [ 'PodCoverageTests'    => { ':version' => '5.040' } ],
         [ 'Test::PodSpelling'   => { ':version' => '2.006003', stopwords => ['irc'], directories => [qw(examples lib script t xt)] } ],
         #[Test::Pod::LinkCheck]     many outstanding bugs
-        [ 'Test::Pod::No404s'   => { ':version' => '1.003' } ],
+        ($ENV{TRAVIS} ? () : [ 'Test::Pod::No404s'   => { ':version' => '1.003' } ] ),
         [ 'Test::Kwalitee'      => { ':version' => '2.10', filename => 'xt/author/kwalitee.t' } ],
         [ 'MojibakeTests'       => { ':version' => '0.8' } ],
         [ 'Test::ReportPrereqs' => { ':version' => '0.022', verify_prereqs => 1,

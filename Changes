@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - don't include Test::Pod::No404s under Travis (GitHub #7, Dave Rolsky)
 
 0.120     2016-09-11 00:03:52Z
           - avoid fatal errors on MSWin32 or any system where symlink support

@@ -139,8 +139,6 @@ my @network_plugins = qw(
     UploadToCPAN
     Git::Push
 );
-my %network_plugins;
-@network_plugins{ map { Dist::Zilla::Util->expand_config_package_name($_) } @network_plugins } = () x @network_plugins;
 
 has _has_bash => (
     is => 'ro',

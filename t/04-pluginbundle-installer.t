@@ -98,8 +98,8 @@ subtest 'installer = MakeMaker' => sub {
 subtest 'installer = MakeMaker, ModuleBuildTiny' => sub {
     SKIP: {
     # MBT is already a prereq of things in our runtime recommends list
-    skip('[ModuleBuildTiny] not installed', 1)
-        if not eval { require_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 6 };
+    skip('[ModuleBuildTiny] not installed', 9)
+        if not eval { require_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 1 };
 
     my $tzil = Builder->from_config(
         { dist_root => 'does-not-exist' },
@@ -246,8 +246,8 @@ subtest 'installer = none' => sub {
 subtest 'installer = ModuleBuildTiny, StaticInstall.mode = off' => sub {
     SKIP: {
     # MBT is already a prereq of things in our runtime recommends list
-    skip('[ModuleBuildTiny] not installed', 1)
-        if not eval { require_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 6 };
+    skip('[ModuleBuildTiny] not installed', 8)
+        if not eval { require_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 1 };
 
     my $tzil = Builder->from_config(
         { dist_root => 'does-not-exist' },

@@ -308,7 +308,7 @@ sub configure
         $self->installer,   # options are set lower down, via %extra_args
 
         # we prefer this to run after other Register Prereqs plugins
-        [ 'Git::Contributors'   => { ':version' => '0.004', order_by => 'commits' } ],
+        [ 'Git::Contributors'   => { ':version' => '0.029', order_by => 'commits' } ],
 
         # note that MBT::*'s static tweak is consequently adjusted, later
         [ 'StaticInstall'       => { ':version' => '0.005', mode => $static_install_mode, dry_run => $static_install_dry_run } ],
@@ -678,7 +678,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     ; <specified installer(s)>
 
     [Git::Contributors]
-    :version = 0.004
+    :version = 0.029
     order_by = commits
 
     [StaticInstall]

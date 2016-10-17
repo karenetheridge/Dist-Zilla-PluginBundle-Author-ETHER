@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.121     2016-10-17 01:38:51Z
           - stop prompting on release when we contain a develop prereq on
             ourselves at the version we are releasing

@@ -5,7 +5,7 @@ package Dist::Zilla::PluginBundle::Author::ETHER;
 # ABSTRACT: A plugin bundle for distributions built by ETHER
 # KEYWORDS: author bundle distribution tool
 
-our $VERSION = '0.121';
+our $VERSION = '0.122';
 
 use Moose;
 with

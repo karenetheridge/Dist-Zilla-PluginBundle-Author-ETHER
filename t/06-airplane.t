@@ -87,18 +87,12 @@ all_plugins_in_prereqs($tzil,
     ],
 );
 
-my @network_plugins =
-    map { Dist::Zilla::Util->expand_config_package_name($_) } @{
-        closed_over(\&Dist::Zilla::PluginBundle::Author::ETHER::configure)->{'@network_plugins'}
-    };
-
-my @found_network_plugins = grep {
-    my $plugin = $_;
-    any { $_ eq $plugin } @network_plugins
-} $tzil->plugins;
+my %network_plugins = %{
+    closed_over(\&Dist::Zilla::PluginBundle::Author::ETHER::configure)->{'%network_plugins'}
+};
 
 cmp_deeply(
-    \@found_network_plugins,
+    [ grep { exists $network_plugins{$_} } $tzil->plugins ],
     [],
     'no network-using plugins were actually loaded',
 );

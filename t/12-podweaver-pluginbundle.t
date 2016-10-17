@@ -26,7 +26,7 @@ use NoPrereqChecks;
 # the config_plugins config is used, and
 # we do not die from trying to use a broken weaver.ini.
 
-# and we actually need to test without the config_plugin option sa well, so we
+# and we actually need to test without the config_plugin option as well, so we
 # are sure we explode in each case!!
 
 my @tests = (

@@ -21,9 +21,9 @@ my $irc_ether = qr/^I am also usually active on irc, as 'ether' at C<irc.perl.or
 
 my @tests = (
     map {
-        my $authority = $_;
-        my @authority_conf = ( [ Authority => { authority => "cpan:$authority" } ] );
-        my $extra_pod = $authority eq 'cpan:ETHER' ? qr/\n\n$irc_ether/ : '';
+        my $authority = "cpan:$_";
+        my @authority_conf = ( [ Authority => { authority => $authority } ] );
+        my $extra_pod = "\n"; #$authority eq 'cpan:ETHER' ? $irc_ether : '';
         {
             test_name => "authority = $authority, no metadata",
             config => [

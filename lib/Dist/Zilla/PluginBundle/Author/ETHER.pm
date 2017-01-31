@@ -21,6 +21,7 @@ use Devel::CheckBin 'can_run';
 use Path::Tiny;
 use CPAN::Meta::Requirements;
 use Term::ANSIColor 'colored';
+eval 'require Win32::Console::ANSI' if $^O eq 'MSWin32';
 use namespace::autoclean;
 
 sub mvp_multivalue_args { qw(installer copy_file_from_release) }

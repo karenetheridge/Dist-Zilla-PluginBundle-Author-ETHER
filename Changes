@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - properly display ANSI colours on MSWin32 (Roy Ivy III)
 
 0.121     2016-10-17 01:38:51Z
           - stop prompting on release when we contain a develop prereq on

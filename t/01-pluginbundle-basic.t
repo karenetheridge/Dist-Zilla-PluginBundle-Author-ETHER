@@ -87,6 +87,18 @@ foreach my $plugin ('Dist::Zilla::Plugin::MakeMaker::Fallback', 'Dist::Zilla::Pl
     )
 }
 
+my @plugin_classes = map { find_meta($_)->name } @{$tzil->plugins};
+is(
+    scalar(grep { $_ eq 'Dist::Zilla::Plugin::UploadToCPAN' } @plugin_classes),
+    1,
+    'UploadToCPAN is in the plugin list',
+);
+is(
+    scalar(grep { $_ eq 'Dist::Zilla::Plugin::FakeRelease' } @plugin_classes),
+    0,
+    'FakeRelease is not in the plugin list',
+);
+
 my $build_dir = path($tzil->tempdir)->child('build');
 
 my @expected_files = qw(

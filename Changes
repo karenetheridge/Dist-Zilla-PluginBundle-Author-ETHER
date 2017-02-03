@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
           - properly display ANSI colours on MSWin32 (Roy Ivy III)
+          - a fake release (one where no PAUSE upload is performed) can now be
+            achieved by setting the FAKE_RELEASE environment variable
 
 0.121     2016-10-17 01:38:51Z
           - stop prompting on release when we contain a develop prereq on

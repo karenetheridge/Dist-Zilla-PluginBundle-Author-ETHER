@@ -10,6 +10,7 @@ use Path::Tiny;
 use List::Util 1.33 'any';
 use PadWalker 'closed_over';
 use Term::ANSIColor 2.01 'colorstrip';
+use Moose::Util 'find_meta';
 
 use lib 't/lib';
 use Helper;
@@ -20,6 +21,8 @@ use NoPrereqChecks;
 use Test::Needs 'Dist::Zilla::Plugin::BlockRelease';
 
 use Test::File::ShareDir -share => { -dist => { 'Dist-Zilla-PluginBundle-Author-ETHER' => 'share' } };
+
+$ENV{FAKE_RELEASE} = 1;
 
 my $tzil;
 my @warnings = warnings {
@@ -39,7 +42,6 @@ my @warnings = warnings {
                         'RewriteVersion::Transitional.skip_version_provider' => 1,
                         'Test::MinimumVersion.max_target_perl' => '5.008',
                     } ],
-                    'FakeRelease',  # replaces UploadToCPAN, just in case!
                 ),
                 path(qw(source lib Foo Bar.pm)) => <<MODULE,
 use strict;
@@ -59,12 +61,22 @@ CHANGES
     );
 };
 
+my @plugin_classes = map { find_meta($_)->name } @{$tzil->plugins};
+die 'UploadToCPAN found in plugin list' if any { $_ eq 'Dist::Zilla::Plugin::UploadToCPAN' } @plugin_classes;
+die 'FakeRelease not found in plugin list' if not any { $_ eq 'Dist::Zilla::Plugin::FakeRelease' } @plugin_classes;
+
+my @expected_log_messages = (
+    'building in airplane mode - plugins requiring the network are skipped, and releases are not permitted',
+    'FAKE_RELEASE set - not uploading to CPAN',
+);
+
 my $ok = cmp_deeply(
     [ map { colorstrip($_) } @warnings ],
-    superbagof(re(qr'^\[@Author::ETHER\] building in airplane mode - plugins requiring the network are skipped, and releases are not permitted')),
-    'we warn when in airplane mode',
+    superbagof(map { re(qr/^\[\@Author::ETHER\] $_/) } @expected_log_messages),
+    'we warn when in airplane mode, and performing a fake release',
 ) or diag explain @warnings;
-@warnings = grep { !m'building in airplane mode - plugins requiring the network are skipped, and releases are not permitted' } @warnings;
+
+@warnings = grep { my $warning = $_; not grep { $warning =~ /$_/ } @expected_log_messages } @warnings;
 warn @warnings if @warnings and $ok;
 
 assert_no_git($tzil);

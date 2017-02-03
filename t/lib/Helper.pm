@@ -14,6 +14,7 @@ use namespace::clean;
 
 $ENV{USER} = 'notether';
 delete $ENV{DZIL_AIRPLANE};
+delete $ENV{FAKE_RELEASE};
 
 {
     use Dist::Zilla::PluginBundle::Author::ETHER;

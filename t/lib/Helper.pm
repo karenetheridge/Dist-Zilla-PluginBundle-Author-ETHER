@@ -4,7 +4,7 @@ package # hide from PAUSE
 use parent 'Exporter';
 our @EXPORT = qw(@REMOVED_PLUGINS assert_no_git all_plugins_in_prereqs notexists);
 
-use Test::More;
+use Test::More 0.96;
 use Test::Deep;
 use List::Util 1.45 'uniq';
 use Path::Tiny;

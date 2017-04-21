@@ -929,7 +929,7 @@ you'll need to provide this yourself.
 
 Available since 0.053.
 
-A boolean option, that when set, removes the use of all plugins that use the
+A boolean option that, when set, removes the use of all plugins that use the
 network (generally for comparing metadata against PAUSE, and querying the
 remote git server), as well as blocking the use of the C<release> command.
 Defaults to false; can also be set with the environment variable C<DZIL_AIRPLANE>.
@@ -950,7 +950,7 @@ defaults are appended to, rather than overwritten.
 
 Available since 0.051.
 
-A boolean option, that when set, uses
+A boolean option that, when set, uses
 L<[SurgicalPodWeaver]|Dist::Zilla::Plugin::SurgicalPodWeaver> instead of
 L<[PodWeaver]|Dist::Zilla::Plugin::SurgicalPodWeaver>, but with all the same
 options. Defaults to false.
@@ -985,7 +985,7 @@ file (if the C<licence> configuration is not provided).
 
 Available since 0.122.
 
-A boolean option, that when set, removes <[UploadToCPAN]|Dist::Zilla::Plugin::UploadToCPAN> from the plugin list
+A boolean option that, when set, removes <[UploadToCPAN]|Dist::Zilla::Plugin::UploadToCPAN> from the plugin list
 and replaces it with <[FakeRelease]|Dist::Zilla::Plugin::FakeRelease>.
 Defaults to false; can also be set with the environment variable C<FAKE_RELEASE>.
 

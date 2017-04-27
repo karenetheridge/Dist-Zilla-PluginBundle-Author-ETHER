@@ -335,6 +335,7 @@ sub configure
 
         # Before Release
         [ 'CheckStrictVersion'  => { decimal_only => 1 } ],
+        'CheckMetaResources',
         [ 'Git::Check'          => 'initial check' => { allow_dirty => [''] } ],
         'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],

@@ -447,7 +447,7 @@ sub configure
 
     push @plugins, (
         # listed last, to be sure we run at the very end of each phase
-        [ 'VerifyPhases' => 'PHASE VERIFICATION' ],
+        [ 'VerifyPhases' => 'PHASE VERIFICATION' => { ':version' => '0.015' } ],
     ) if ($ENV{USER} // '') eq 'ether';
 
     $self->add_plugins(@plugins);
@@ -830,6 +830,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     ; listed last, to be sure we run at the very end of each phase
     ; only performed if $ENV{USER} eq 'ether'
     [VerifyPhases / PHASE VERIFICATION]
+    :version = 0.015
 
 
 =for Pod::Coverage configure mvp_multivalue_args

@@ -4,6 +4,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
           - bump up prereq for Test::Portability::Files (used by
             [Test::Portability]) for better compliance with ANSI filename
             formats
+          - bump up prereq for [VerifyPhases] to get share_map fix
 
 0.122     2017-02-03 01:27:46Z
           - properly display ANSI colours on MSWin32 (Roy Ivy Ⅲ)

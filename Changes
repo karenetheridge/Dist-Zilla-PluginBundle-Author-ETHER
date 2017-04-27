@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.123     2017-04-27 21:04:35Z
           - bump up prereq for Test::Portability::Files (used by
             [Test::Portability]) for better compliance with ANSI filename
             formats

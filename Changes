@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.124     2017-05-13 16:34:59Z
           - added [EnsureLatestPerl] to before-release checks
           - added [EnsureUnsafeInc] (with dot_in_INC=0)

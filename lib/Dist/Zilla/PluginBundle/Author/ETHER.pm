@@ -721,6 +721,8 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [CheckStrictVersion]
     decimal_only = 1
 
+    [CheckMetaResources]
+
     [Git::Check / initial check]
     allow_dirty =
 

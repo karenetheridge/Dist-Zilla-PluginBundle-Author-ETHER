@@ -295,6 +295,7 @@ sub configure
         [ 'MetaProvides::Package' => { ':version' => '1.15000002', finder => ':InstallModules', meta_noindex => 1, inherit_version => 0, inherit_missing => 0 } ],
         'MetaConfig',
         [ 'Keywords'            => { ':version' => '0.004' } ],
+        [ 'UseUnsafeInc'        => { dot_in_INC => 0 } ],
         # [Git::Contributors]
         # [StaticInstall]
 
@@ -661,6 +662,10 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [MetaConfig]
     [Keywords]
     :version = 0.004
+
+    [UseUnsafeInc]
+    dot_in_INC = 0
+
     ;[Git::Contributors]    ; below
     ;[StaticInstall]        ; below
 

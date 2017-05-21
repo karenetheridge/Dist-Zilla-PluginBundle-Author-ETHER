@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - fix tests to work on older perls (thanks, [EnsureLatestPerl])
 
 0.124     2017-05-13 16:34:59Z
           - added [EnsureLatestPerl] to before-release checks

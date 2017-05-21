@@ -22,6 +22,7 @@ use Path::Tiny;
 use CPAN::Meta::Requirements;
 use Term::ANSIColor 'colored';
 eval 'require Win32::Console::ANSI' if $^O eq 'MSWin32';
+use Config;
 use namespace::autoclean;
 
 sub mvp_multivalue_args { qw(installer copy_file_from_release) }
@@ -295,7 +296,7 @@ sub configure
         [ 'MetaProvides::Package' => { ':version' => '1.15000002', finder => ':InstallModules', meta_noindex => 1, inherit_version => 0, inherit_missing => 0 } ],
         'MetaConfig',
         [ 'Keywords'            => { ':version' => '0.004' } ],
-        [ 'UseUnsafeInc'        => { dot_in_INC => 0 } ],
+        ($Config{default_inc_excludes_dot} ? [ 'UseUnsafeInc' => { dot_in_INC => 0 } ] : ()),
         # [Git::Contributors]
         # [StaticInstall]
 
@@ -663,6 +664,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Keywords]
     :version = 0.004
 
+    ; if we are releasing with a new perl with -DDEFAULT_INC_EXCLUDES_DOT set
     [UseUnsafeInc]
     dot_in_INC = 0
 

@@ -81,6 +81,11 @@ around copy_files_from_release => sub {
     sort(uniq($self->$orig(@_), qw(LICENCE LICENSE CONTRIBUTING Changes ppport.h INSTALL)));
 };
 
+sub commit_files_after_release
+{
+    grep { -e } sort(uniq('README.md', 'README.pod', shift->copy_files_from_release));
+}
+
 has changes_version_columns => (
     is => 'ro', isa => subtype('Int', where { $_ > 0 && $_ < 20 }),
     init_arg => undef,
@@ -413,7 +418,7 @@ sub configure
         [ 'CopyFilesFromRelease' => { filename => [ $self->copy_files_from_release ] } ],
         [ 'ReadmeAnyFromPod'    => { ':version' => '0.142180', type => 'pod', location => 'root', phase => 'release' } ],
 
-        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ grep { -e } sort(uniq('README.md', 'README.pod', $self->copy_files_from_release)) ], commit_msg => '%N-%v%t%n%n%c' } ],
+        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ $self->commit_files_after_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { ':version' => '0.40', metacpan => 1 } ] : (),
 

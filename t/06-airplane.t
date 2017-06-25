@@ -8,7 +8,6 @@ use Test::Deep '!any';
 use Test::Fatal;
 use Path::Tiny;
 use List::Util 1.33 'any';
-use PadWalker 'closed_over';
 use Term::ANSIColor 2.01 'colorstrip';
 use Moose::Util 'find_meta';
 
@@ -103,9 +102,7 @@ all_plugins_in_prereqs($tzil,
     ],
 );
 
-my %network_plugins = %{
-    closed_over(\&Dist::Zilla::PluginBundle::Author::ETHER::configure)->{'%network_plugins'}
-};
+my %network_plugins = Dist::Zilla::PluginBundle::Author::ETHER->_network_plugins;
 
 cmp_deeply(
     [ grep { exists $network_plugins{$_} } $tzil->plugins ],

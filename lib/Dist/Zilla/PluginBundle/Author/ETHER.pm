@@ -138,18 +138,22 @@ my %extra_args = (
 );
 
 # plugins that use the network when they run
-my @network_plugins = qw(
-    PromptIfStale
-    Test::Pod::LinkCheck
-    Test::Pod::No404s
-    Git::Remote::Check
-    CheckPrereqsIndexed
-    CheckIssues
-    UploadToCPAN
-    Git::Push
-);
-my %network_plugins;
-@network_plugins{ map { Dist::Zilla::Util->expand_config_package_name($_) } @network_plugins } = () x @network_plugins;
+sub _network_plugins
+{
+    my @network_plugins = qw(
+        PromptIfStale
+        Test::Pod::LinkCheck
+        Test::Pod::No404s
+        Git::Remote::Check
+        CheckPrereqsIndexed
+        CheckIssues
+        UploadToCPAN
+        Git::Push
+    );
+    my %network_plugins;
+    @network_plugins{ map { Dist::Zilla::Util->expand_config_package_name($_) } @network_plugins } = () x @network_plugins;
+    %network_plugins;
+}
 
 has _has_bash => (
     is => 'ro',
@@ -388,6 +392,7 @@ sub configure
 
     if ($self->airplane)
     {
+        my %network_plugins = $self->_network_plugins;
         warn '[@Author::ETHER] ' . colored('building in airplane mode - plugins requiring the network are skipped, and releases are not permitted', 'yellow') . "\n";
         @plugins = grep {
             my $plugin = Dist::Zilla::Util->expand_config_package_name(

@@ -170,8 +170,9 @@ is(
             }),
             provides => {
                 # version edited, added (respectively) by [RewriteVersion::Transitional]
-                'DZT::Sample'   => { file => 'lib/DZT/Sample.pm', version => '0.005' },
-                'DZT::Sample2'  => { file => 'lib/DZT/Sample2.pm', version => '0.005' },
+                # FIXME: see https://github.com/kentnl/Dist-Zilla-Plugin-MetaProvides/issues/8
+                'DZT::Sample'   => { file => 'lib/DZT/Sample.pm', version => ignore() }, # TODO '0.005'
+                'DZT::Sample2'  => { file => 'lib/DZT/Sample2.pm', }, # TODO version => '0.005' },
             },
             x_Dist_Zilla => superhashof({
                 plugins => supersetof(
@@ -217,7 +218,7 @@ is(
                                 filename => [ 'Changes' ],
                             }),
                         }),
-                        name => '@Author::ETHER/copy Changes',
+                        name => '@Author::ETHER/@Git::VersionManager/CopyFilesFromRelease',
                         version => Dist::Zilla::Plugin::CopyFilesFromRelease->VERSION,
                     },
                     {
@@ -234,7 +235,7 @@ is(
                                 skip_version_provider => 1,
                             }),
                         }),
-                        name => '@Author::ETHER/RewriteVersion::Transitional',
+                        name => '@Author::ETHER/@Git::VersionManager/RewriteVersion::Transitional',
                         version => Dist::Zilla::Plugin::RewriteVersion::Transitional->VERSION,
                     },
                 ),

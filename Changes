@@ -1,6 +1,9 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - version extraction and updating plugins now fully extracted out
+            into their own plugin bundle, [@Git::VersionManager], to be soon
+            released in its own distribution
 
 0.127     2017-08-06 03:16:22Z
           - fix test library's type handling on older Dist::Zilla

@@ -265,13 +265,7 @@ sub configure
     # method modifier will also apply default configs, compile develop prereqs
     $self->add_plugins(
         # VersionProvider
-        [ 'RewriteVersion::Transitional' => {
-                ':version' => '0.004',
-                global => 1,
-                fallback_version_provider => 'Git::NextVersion',
-                version_regexp => '^v([\d._]+)(-TRIAL)?$',
-                (map { (my $key = $_) =~ s/Git::NextVersion\.//; $key => $self->payload->{$_} } grep { /^Git::NextVersion\./ } keys %{ $self->payload })
-            } ],
+        # see [@Git::VersionManager]
 
         # BeforeBuild
         # [ 'EnsurePrereqsInstalled' ], # FIXME: use options to make this less annoying!
@@ -317,7 +311,6 @@ sub configure
 
         # Munge Files
         [ 'Git::Describe'       => { ':version' => '0.004', on_package_line => 1 } ],
-        # [RewriteVersion::Transitional], for the transitional usecase
         [
             ($self->surgical_podweaver ? 'SurgicalPodWeaver' : 'PodWeaver') => {
                 $self->surgical_podweaver ? () : ( ':version' => '4.005' ),
@@ -416,17 +409,27 @@ sub configure
         [ 'ReadmeAnyFromPod'    => { ':version' => '0.142180', type => 'pod', location => 'root', phase => 'release' } ],
     );
 
-    # all plugins to do with calculating, munging, incrementing versions
-    $self->add_plugins(
-        # After Release
-        [ 'CopyFilesFromRelease' => 'copy Changes' => { filename => [ 'Changes' ] } ],
-        [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ $self->commit_files_after_release ], commit_msg => '%N-%v%t%n%n%c' } ],
-        [ 'Git::Tag'            => { tag_message => 'v%v%t' } ],
+    # plugins to do with calculating, munging, incrementing versions
+    $self->add_bundle('@Git::VersionManager' => {
+        'RewriteVersion::Transitional.global' => 1,
+        'RewriteVersion::Transitional.fallback_version_provider' => 'Git::NextVersion',
+        'RewriteVersion::Transitional.version_regexp' => '^v([\d._]+)(-TRIAL)?$',
 
-        [ 'BumpVersionAfterRelease::Transitional' => { ':version' => '0.004', global => 1 } ],
-        [ 'NextRelease'         => { ':version' => '5.033', time_zone => 'UTC', format => '%-' . ($self->changes_version_columns - 2) . 'v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
-        [ 'Git::Commit'         => 'post-release commit' => { ':version' => '2.020', allow_dirty => [ 'Changes' ], allow_dirty_match => [ '^lib/.*\.pm$' ], commit_msg => 'increment $VERSION after %v release' } ],
-    );
+        # for first Git::Commit
+        commit_files_after_release => [ $self->commit_files_after_release ],
+        # because of [Git::Check], only files copied from the release would be added -- there is nothing else
+        # hanging around in the current directory
+        'release snapshot.add_files_in' => ['.'],
+        'release snapshot.commit_msg' => '%N-%v%t%n%n%c',
+
+        'Git::Tag.tag_message' => 'v%v%t',
+
+        'BumpVersionAfterRelease::Transitional.global' => 1,
+
+        'NextRelease.:version' => '5.033',
+        'NextRelease.time_zone' => 'UTC',
+        'NextRelease.format' => '%-' . ($self->changes_version_columns - 2) . 'v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T',
+    });
 
     $self->add_plugins(
         'Git::Push',
@@ -572,14 +575,6 @@ In your F<dist.ini>:
 
 This is a L<Dist::Zilla> plugin bundle. It is I<very approximately> equal to the
 following F<dist.ini> (following the preamble), minus some optimizations:
-
-    ;;; VersionProvider
-    [RewriteVersion::Transitional]
-    :version = 0.004
-    global = 1
-    fallback_version_provider = Git::NextVersion
-    version_regexp = ^v([\d._]+)(-TRIAL)?$
-
 
     ;;; BeforeBuild
     [PromptIfStale / stale modules, build]
@@ -876,6 +871,15 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     location = root
     phase = release
 
+    ;;;;;; begin [@Git::VersionManager]
+
+    ; this is actually a VersionProvider and FileMunger
+    [RewriteVersion::Transitional]
+    :version = 0.004
+    global = 1
+    fallback_version_provider = Git::NextVersion
+    version_regexp = ^v([\d._]+)(-TRIAL)?$
+
     [CopyFilesFromRelease / copy Changes]
     filename = Changes
 
@@ -909,6 +913,8 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     allow_dirty = Changes
     allow_dirty_match = ^lib/.*\.pm$
     commit_msg = increment $VERSION after %v release
+
+    ;;;;;; end [@Git::VersionManager]
 
     [Git::Push]
 
@@ -1124,5 +1130,6 @@ see L<KENTNL's distribution|Dist::Zilla::PluginBundle::Author::KENTNL/NAMING-SCH
 =for :list
 * L<Pod::Weaver::PluginBundle::Author::ETHER>
 * L<Dist::Zilla::MintingProfile::Author::ETHER>
+* L<Dist::Zilla::PluginBundle::Git::VersionManager>
 
 =cut

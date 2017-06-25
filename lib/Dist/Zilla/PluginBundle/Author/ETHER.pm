@@ -455,7 +455,7 @@ sub configure
 
     # ensure that additional optional plugins are declared in prereqs
     $self->add_plugins(
-        [ 'Prereqs' => bundle_plugins =>
+        [ 'Prereqs' => 'prereqs for @Author::ETHER' =>
         { '-phase' => 'develop', '-relationship' => 'requires',
           %{ $self->_develop_requires_as_string_hash } } ]
     );

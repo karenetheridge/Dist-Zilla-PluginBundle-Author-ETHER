@@ -81,7 +81,7 @@ sub all_plugins_in_prereqs
     my $pluginbundle_meta = decode_json(path('META.json')->slurp_raw);
     my $dist_meta = $tzil->distmeta;
 
-    my $bundle_plugin_prereqs = $tzil->plugin_named('@Author::ETHER/bundle_plugins')->_prereq;
+    my $bundle_plugin_prereqs = $tzil->plugin_named('@Author::ETHER/prereqs for @Author::ETHER')->_prereq;
 
     subtest 'all plugins in use are specified as *required* runtime prerequisites by the plugin bundle, or develop prerequisites by the distribution' => sub {
         foreach my $plugin (uniq map { find_meta($_)->name } @{$tzil->plugins})

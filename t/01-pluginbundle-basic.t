@@ -213,8 +213,15 @@ is(
                     {
                         class => 'Dist::Zilla::Plugin::RewriteVersion::Transitional',
                         config => superhashof({
-                            'Dist::Zilla::Plugin::RewriteVersion::Transitional' => superhashof({
-                                # no fallback used here - module had a $VERSION
+                            'Dist::Zilla::Plugin::RewriteVersion::Transitional' => all(
+                                superhashof({}),
+                                # no fallback used here - we provided a version in root config
+                                notexists(qw(fallback_version_provider _fallback_version_provider_args)),
+                            ),
+                            'Dist::Zilla::Plugin::RewriteVersion' => superhashof({
+                                global => 1,
+                                add_tarball_name => 0,
+                                skip_version_provider => 1,
                             }),
                         }),
                         name => '@Author::ETHER/RewriteVersion::Transitional',

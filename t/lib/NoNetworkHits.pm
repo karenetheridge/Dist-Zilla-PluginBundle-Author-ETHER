@@ -11,4 +11,12 @@ use warnings;
     sub get { die "HTTP::Tiny::get called for $_[1]" }
     sub mirror { die "HTTP::Tiny::mirror called for $_[1]" }
 }
+
+{
+    use LWP::UserAgent;
+    package # hide from AutoPrereqs-provides heuristic
+        LWP::UserAgent;
+    no warnings 'redefine';
+    sub new { die "LWP::UserAgent::new called for $_[1]" }
+}
 1;

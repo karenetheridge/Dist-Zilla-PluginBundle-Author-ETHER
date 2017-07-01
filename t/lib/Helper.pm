@@ -121,9 +121,14 @@ sub all_plugins_in_prereqs
 # TODO: replace with Test::Deep::notexists($key)
 sub notexists
 {
-    my $key = shift;
+    my @keys = @_;
     Test::Deep::code(sub {
-        !exists $_[0]->{$key} ? 1 : (0, "'$key' key exists");
+        # TODO return 0 unless $self->test_reftype($_[0], 'HASH');
+        return (0, 'not a HASH') if ref $_[0] ne 'HASH';
+        foreach my $key (@keys) {
+            return (0, "'$key' key exists") if exists $_[0]->{$key};
+        }
+        return 1;
     });
 }
 

@@ -685,6 +685,11 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     -relationship = requires
     Dist::Zilla::PluginBundle::Author::ETHER = <version specified in dist.ini>
 
+    [Prereqs / prereqs for @Author::ETHER]
+    -phase = develop
+    -relationship = requires
+    ...all the plugins this bundle uses...
+
     [Prereqs / pluginbundle_version]
     -phase = develop
     -relationship = recommends

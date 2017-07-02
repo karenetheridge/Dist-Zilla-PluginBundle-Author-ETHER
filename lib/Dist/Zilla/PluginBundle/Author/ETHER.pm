@@ -194,7 +194,7 @@ has _develop_requires => (
 );
 
 # files that might be in the repository that should never be gathered
-my @never_gather = qw(
+my @never_gather = grep { -e } qw(
     Makefile.PL ppport.h README.md README.pod META.json
     cpanfile TODO CONTRIBUTING LICENCE LICENSE INSTALL
     inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm
@@ -286,11 +286,7 @@ sub configure
         [ 'FileFinder::ByName'  => Examples => { dir => 'examples' } ],
 
         # Gather Files
-        [ 'Git::GatherDir'      => { ':version' => '2.016', do {
-                my @filenames = grep { -e } @never_gather;
-                @filenames ? ( exclude_filename => \@filenames ) : ()
-            },
-        } ],
+        [ 'Git::GatherDir'      => { ':version' => '2.016', @never_gather ? ( exclude_filename => \@never_gather) : () } ],
 
         qw(MetaYAML MetaJSON Readme Manifest),
         [ 'License'             => { ':version' => '5.038', filename => $self->licence } ],

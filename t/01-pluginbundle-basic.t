@@ -201,6 +201,16 @@ is(
                         version => Dist::Zilla::Plugin::Run::AfterRelease->VERSION,
                     }),
                     {
+                        class => 'Dist::Zilla::Plugin::CopyFilesFromRelease',
+                        config => superhashof({
+                            'Dist::Zilla::Plugin::CopyFilesFromRelease' => superhashof({
+                                filename => superbagof(qw(LICENCE LICENSE CONTRIBUTING Changes ppport.h INSTALL)),
+                            }),
+                        }),
+                        name => '@Author::ETHER/CopyFilesFromRelease',
+                        version => Dist::Zilla::Plugin::CopyFilesFromRelease->VERSION,
+                    },
+                    {
                         class => 'Dist::Zilla::Plugin::RewriteVersion::Transitional',
                         config => superhashof({
                             'Dist::Zilla::Plugin::RewriteVersion::Transitional' => superhashof({

@@ -320,7 +320,7 @@ sub configure
         # we prefer this to run after other Register Prereqs plugins
         [ 'Git::Contributors'   => { ':version' => '0.029', order_by => 'commits' } ],
 
-        # note that MBT::*'s static tweak is consequently adjusted, later
+        # must appear after installers; also note that MBT::*'s static tweak is consequently adjusted, later
         [ 'StaticInstall'       => { ':version' => '0.005', mode => $static_install_mode, dry_run => $static_install_dry_run } ],
 
         # Test Runners (load after installers to avoid a rebuild)

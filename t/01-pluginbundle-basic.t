@@ -204,10 +204,20 @@ is(
                         class => 'Dist::Zilla::Plugin::CopyFilesFromRelease',
                         config => superhashof({
                             'Dist::Zilla::Plugin::CopyFilesFromRelease' => superhashof({
-                                filename => superbagof(qw(LICENCE LICENSE CONTRIBUTING Changes ppport.h INSTALL)),
+                                filename => superbagof(qw(LICENCE LICENSE CONTRIBUTING ppport.h INSTALL)),
                             }),
                         }),
-                        name => '@Author::ETHER/CopyFilesFromRelease',
+                        name => '@Author::ETHER/copy generated files',
+                        version => Dist::Zilla::Plugin::CopyFilesFromRelease->VERSION,
+                    },
+                    {
+                        class => 'Dist::Zilla::Plugin::CopyFilesFromRelease',
+                        config => superhashof({
+                            'Dist::Zilla::Plugin::CopyFilesFromRelease' => superhashof({
+                                filename => [ 'Changes' ],
+                            }),
+                        }),
+                        name => '@Author::ETHER/copy Changes',
                         version => Dist::Zilla::Plugin::CopyFilesFromRelease->VERSION,
                     },
                     {

@@ -78,12 +78,12 @@ has copy_file_from_release => (
 
 around copy_files_from_release => sub {
     my $orig = shift; my $self = shift;
-    sort(uniq($self->$orig(@_), qw(LICENCE LICENSE CONTRIBUTING Changes ppport.h INSTALL)));
+    sort(uniq($self->$orig(@_), qw(LICENCE LICENSE CONTRIBUTING ppport.h INSTALL)));
 };
 
 sub commit_files_after_release
 {
-    grep { -e } sort(uniq('README.md', 'README.pod', shift->copy_files_from_release));
+    grep { -e } sort(uniq('README.md', 'README.pod', 'Changes', shift->copy_files_from_release));
 }
 
 has changes_version_columns => (
@@ -411,9 +411,11 @@ sub configure
         ( -e 'README.md' ?
             [ 'Run::AfterRelease' => 'remove old READMEs' => { ':version' => '0.038', quiet => 1, eval => q!unlink 'README.md'! } ]
             : ()),
-        [ 'CopyFilesFromRelease' => { filename => [ $self->copy_files_from_release ] } ],
+
+        [ 'CopyFilesFromRelease' => 'copy generated files' => { filename => [ $self->copy_files_from_release ] } ],
         [ 'ReadmeAnyFromPod'    => { ':version' => '0.142180', type => 'pod', location => 'root', phase => 'release' } ],
 
+        [ 'CopyFilesFromRelease' => 'copy Changes' => { filename => [ 'Changes' ] } ],
         [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ $self->commit_files_after_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v', tag_message => 'v%v%t' } ],
         $self->server eq 'github' ? [ 'GitHub::Update' => { ':version' => '0.40', metacpan => 1 } ] : (),
@@ -825,9 +827,8 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     quiet = 1
     eval = unlink 'README.md'
 
-    [CopyFilesFromRelease]
+    [CopyFilesFromRelease / copy generated files]
     filename = CONTRIBUTING
-    filename = Changes
     filename = INSTALL
     filename = LICENCE
     filename = LICENSE
@@ -838,6 +839,9 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     type = pod
     location = root
     phase = release
+
+    [CopyFilesFromRelease / copy Changes]
+    filename = Changes
 
     [Git::Commit / release snapshot]
     :version = 2.020

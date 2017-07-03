@@ -60,10 +60,10 @@ cmp_deeply(
         all(
             methods(
                 [ isa => 'Dist::Zilla::Plugin::CopyFilesFromRelease' ] => bool(1),
-                plugin_name => re(qr{^\@Author::ETHER/([^/]+/)?CopyFilesFromRelease$}),
+                plugin_name => re(qr{^\@Author::ETHER/([^/]+/)?copy Changes$}),
             ),
             listmethods(
-                filename => superbagof('Changes'),
+                filename => [ 'Changes' ],
             ),
         ),
         methods(

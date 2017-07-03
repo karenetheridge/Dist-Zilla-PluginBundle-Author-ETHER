@@ -262,7 +262,8 @@ sub configure
             . $self->server . ' with a read-only mirror', 'yellow'), "\n"
         if $self->server ne 'github' and $self->server ne 'none';
 
-    my @plugins = (
+    # method modifier will also apply default configs, compile develop prereqs
+    $self->add_plugins(
         # VersionProvider
         [ 'RewriteVersion::Transitional' => {
                 ':version' => '0.004',
@@ -414,35 +415,40 @@ sub configure
 
         [ 'CopyFilesFromRelease' => 'copy generated files' => { filename => [ $self->copy_files_from_release ] } ],
         [ 'ReadmeAnyFromPod'    => { ':version' => '0.142180', type => 'pod', location => 'root', phase => 'release' } ],
+    );
 
+    # all plugins to do with calculating, munging, incrementing versions
+    $self->add_plugins(
+        # After Release
         [ 'CopyFilesFromRelease' => 'copy Changes' => { filename => [ 'Changes' ] } ],
         [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ $self->commit_files_after_release ], commit_msg => '%N-%v%t%n%n%c' } ],
         [ 'Git::Tag'            => { tag_format => 'v%v', tag_message => 'v%v%t' } ],
-        $self->server eq 'github' ? [ 'GitHub::Update' => { ':version' => '0.40', metacpan => 1 } ] : (),
 
         [ 'BumpVersionAfterRelease::Transitional' => { ':version' => '0.004', global => 1 } ],
         [ 'NextRelease'         => { ':version' => '5.033', time_zone => 'UTC', format => '%-' . ($self->changes_version_columns - 2) . 'v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
         [ 'Git::Commit'         => 'post-release commit' => { ':version' => '2.020', allow_dirty => [ 'Changes' ], allow_dirty_match => [ '^lib/.*\.pm$' ], commit_msg => 'increment $VERSION after %v release' } ],
+    );
+
+    $self->add_plugins(
         'Git::Push',
+        $self->server eq 'github' ? [ 'GitHub::Update' => { ':version' => '0.40', metacpan => 1 } ] : (),
     );
 
     # install with an author-specific URL from PAUSE, so cpanm-reporter knows where to submit the report
     # hopefully the file is available at this location soonish after release!
     my ($username, $password) = $self->_pause_config;
-    push @plugins,
-        [ 'Run::AfterRelease'   => 'install release' => { ':version' => '0.031', fatal_errors => 0, run => 'cpanm http://' . $username . ':' . $password . '@pause.perl.org/pub/PAUSE/authors/id/' . substr($username, 0, 1).'/'.substr($username,0,2).'/'.$username.'/%a' } ] if $username and $password;
+    $self->add_plugins(
+        [ 'Run::AfterRelease'   => 'install release' => { ':version' => '0.031', fatal_errors => 0, run => 'cpanm http://' . $username . ':' . $password . '@pause.perl.org/pub/PAUSE/authors/id/' . substr($username, 0, 1).'/'.substr($username,0,2).'/'.$username.'/%a' } ],
+    ) if $username and $password;
 
     # halt release after pre-release checks, but before ConfirmRelease
-    push @plugins, 'BlockRelease' if $self->airplane;
+    $self->add_plugins('BlockRelease') if $self->airplane;
 
-    push @plugins, (
+    $self->add_plugins(
         [ 'Run::AfterRelease'   => 'release complete' => { ':version' => '0.038', quiet => 1, eval => [ qq{print "release complete!\\xa"} ] } ],
         # listed late, to allow all other plugins which do BeforeRelease checks to run first.
         'ConfirmRelease',
     );
-
-    # method modifier will also apply default configs, compile develop prereqs
-    $self->add_plugins(@plugins);
 
     # if ModuleBuildTiny(::*) is being used, disable its static option if
     # [StaticInstall] is being run with mode=off or dry_run=1
@@ -860,10 +866,6 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     tag_format = v%v
     tag_message = v%v%t
 
-    [GitHub::Update]    ; (if server = 'github' or omitted)
-    :version = 0.40
-    metacpan = 1
-
     [BumpVersionAfterRelease::Transitional]
     :version = 0.004
     global = 1
@@ -880,6 +882,10 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     commit_msg = increment $VERSION after %v release
 
     [Git::Push]
+
+    [GitHub::Update]    ; (if server = 'github' or omitted)
+    :version = 0.40
+    metacpan = 1
 
     [Run::AfterRelease / install release]
     :version = 0.031

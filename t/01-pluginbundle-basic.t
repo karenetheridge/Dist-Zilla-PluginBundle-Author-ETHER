@@ -54,7 +54,7 @@ my $tzil = Builder->from_config(
                 } ],
             ),
             path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\nour \$VERSION = '0.002';\n1",
-            path(qw(source lib DZT Sample2.pm)) => "package DZT::Sample2;\n1",
+            path(qw(source lib DZT Sample2.pm)) => "package DZT::Sample2;\n\n1",
             path(qw(source Changes)) => '',
         },
     },

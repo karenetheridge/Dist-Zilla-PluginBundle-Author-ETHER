@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - minor fixes to distribution prereqs
 
 0.125     2017-05-21 01:43:09Z
           - fix tests to work on older perls (thanks, [EnsureLatestPerl])

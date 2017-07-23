@@ -995,16 +995,18 @@ Available since 0.117.
 
 A string of the form C<cpan:PAUSEID> that references the PAUSE ID of the user who has primary ("first-come")
 authority over the distribution and main module namespace. If not provided, it is extracted from the configuration
-passed through to the <[Authority]|Dist::Zilla::Plugin::Authority> plugin, and finally defaults to C<cpan:ETHER>.
+passed through to the L<[Authority]|Dist::Zilla::Plugin::Authority> plugin, and finally defaults to C<cpan:ETHER>.
 It is presently used for setting C<x_authority> metadata and deciding which spelling is used for the F<LICENCE>
 file (if the C<licence> configuration is not provided).
 
 =head2 fake_release
 
+=for stopwords UploadToCPAN FakeRelease
+
 Available since 0.122.
 
-A boolean option that, when set, removes <[UploadToCPAN]|Dist::Zilla::Plugin::UploadToCPAN> from the plugin list
-and replaces it with <[FakeRelease]|Dist::Zilla::Plugin::FakeRelease>.
+A boolean option that, when set, removes L<[UploadToCPAN]|Dist::Zilla::Plugin::UploadToCPAN> from the plugin list
+and replaces it with L<[FakeRelease]|Dist::Zilla::Plugin::FakeRelease>.
 Defaults to false; can also be set with the environment variable C<FAKE_RELEASE>.
 
 =for stopwords customizations

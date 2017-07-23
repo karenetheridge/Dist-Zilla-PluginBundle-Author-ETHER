@@ -18,9 +18,12 @@ plan skip_all => 'need recent [MakeMaker] to test use of default_jobs option'
 
 use Test::File::ShareDir -share => { -dist => { 'Dist-Zilla-PluginBundle-Author-ETHER' => 'share' } };
 
+my $tempdir = no_git_tempdir();
+
 my $tzil = Builder->from_config(
     { dist_root => 'does-not-exist' },
     {
+        tempdir_root => $tempdir->stringify,
         add_files => {
             path(qw(source dist.ini)) => simple_ini(
                 'GatherDir',

@@ -21,10 +21,13 @@ use Helper;
 use NoNetworkHits;
 use NoPrereqChecks;
 
+
 subtest 'installer = MakeMaker' => sub {
+    my $tempdir = no_git_tempdir();
     my $tzil = Builder->from_config(
         { dist_root => 'does-not-exist' },
         {
+            tempdir_root => $tempdir->stringify,
             add_files => {
                 path(qw(source dist.ini)) => simple_ini(
                     'GatherDir',
@@ -101,9 +104,12 @@ subtest 'installer = MakeMaker, ModuleBuildTiny' => sub {
     skip('[ModuleBuildTiny] not installed', 9)
         if not eval { require_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 1 };
 
+    my $tempdir = no_git_tempdir();
+
     my $tzil = Builder->from_config(
         { dist_root => 'does-not-exist' },
         {
+            tempdir_root => $tempdir->stringify,
             add_files => {
                 path(qw(source dist.ini)) => simple_ini(
                     'GatherDir',
@@ -195,9 +201,11 @@ subtest 'installer = MakeMaker, ModuleBuildTiny' => sub {
 } };
 
 subtest 'installer = none' => sub {
+    my $tempdir = no_git_tempdir();
     my $tzil = Builder->from_config(
         { dist_root => 'does-not-exist' },
         {
+            tempdir_root => $tempdir->stringify,
             add_files => {
                 path(qw(source dist.ini)) => simple_ini(
                     'GatherDir',
@@ -249,9 +257,11 @@ subtest 'installer = ModuleBuildTiny, StaticInstall.mode = off' => sub {
     skip('[ModuleBuildTiny] not installed', 8)
         if not eval { require_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 1 };
 
+    my $tempdir = no_git_tempdir();
     my $tzil = Builder->from_config(
         { dist_root => 'does-not-exist' },
         {
+            tempdir_root => $tempdir->stringify,
             add_files => {
                 path(qw(source dist.ini)) => simple_ini(
                     'GatherDir',

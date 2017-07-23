@@ -25,11 +25,14 @@ use Test::File::ShareDir -share => { -dist => { 'Dist-Zilla-PluginBundle-Author-
 $ENV{FAKE_RELEASE} = 1;
 $ENV{DZIL_ANY_PERL} = 1;
 
+my $tempdir = no_git_tempdir();
+
 my $tzil;
 my @warnings = warnings {
     $tzil = Builder->from_config(
         { dist_root => 'does-not-exist' },
         {
+            tempdir_root => $tempdir->stringify,
             add_files => {
                 path(qw(source dist.ini)) => simple_ini(
                     'GatherDir',

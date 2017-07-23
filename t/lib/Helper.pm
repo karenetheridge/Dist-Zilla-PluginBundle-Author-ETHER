@@ -102,6 +102,9 @@ sub all_plugins_in_prereqs
             note($plugin . ' is explicitly exempted; skipping'), next
                 if exists $exempt{$plugin};
 
+            # cannot be a (non-develop) prereq if the module lives in this distribution
+            next if exists $pluginbundle_meta->{provides}{$plugin};
+
             # plugins with a specific :version requirement are added to
             # prereqs via an extra injected [Prereqs] plugin
             my $required_version = $bundle_plugin_prereqs->{find_meta($plugin)->name} // 0;

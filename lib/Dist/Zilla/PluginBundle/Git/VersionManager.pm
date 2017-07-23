@@ -75,6 +75,8 @@ sub configure
         # VersionProvider (and a file munger, for the transitional usecase)
         [ 'RewriteVersion::Transitional' => { ':version' => '0.004' } ],
 
+        [ 'MetaProvides::Update' ],
+
         # After Release
         [ 'CopyFilesFromRelease' => { filename => [ 'Changes' ] } ],
         [ 'Git::Commit'         => 'release snapshot' => {
@@ -110,6 +112,9 @@ around add_plugins => sub
     foreach my $plugin_spec (@plugins = map { ref $_ ? $_ : [ $_ ] } @plugins)
     {
         next if any { $_ eq $plugin_spec->[0] } @$remove;
+
+        # this plugin is provided in the local distribution
+        next if $plugin_spec->[0] eq 'MetaProvides::Update';
 
         # record develop prereq
         my $payload = ref $plugin_spec->[-1] ? $plugin_spec->[-1] : {};

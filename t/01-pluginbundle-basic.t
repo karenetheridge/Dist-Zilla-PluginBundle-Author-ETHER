@@ -170,9 +170,9 @@ is(
             }),
             provides => {
                 # version edited, added (respectively) by [RewriteVersion::Transitional]
-                # FIXME: see https://github.com/kentnl/Dist-Zilla-Plugin-MetaProvides/issues/8
-                'DZT::Sample'   => { file => 'lib/DZT/Sample.pm', version => ignore() }, # TODO '0.005'
-                'DZT::Sample2'  => { file => 'lib/DZT/Sample2.pm', }, # TODO version => '0.005' },
+                # see https://github.com/kentnl/Dist-Zilla-Plugin-MetaProvides/issues/8
+                'DZT::Sample'   => { file => 'lib/DZT/Sample.pm', version => '0.005' },
+                'DZT::Sample2'  => { file => 'lib/DZT/Sample2.pm', version => '0.005' },
             },
             x_Dist_Zilla => superhashof({
                 plugins => supersetof(

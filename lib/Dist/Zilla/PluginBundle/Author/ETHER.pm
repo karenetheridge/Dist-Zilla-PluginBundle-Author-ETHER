@@ -162,6 +162,23 @@ has _has_bash => (
     default => sub { !!can_run('bash') },
 );
 
+# note this is applied to the plugin list in Dist::Zilla::Role::PluginBundle::PluginRemover,
+# but we also need to use it here to be sure we are not adding configs that are only needed
+# by plugins that will be subsequently removed.
+has _removed_plugins => (
+    isa => 'HashRef[Str]',
+    init_arg => undef,
+    lazy => 1,
+    default => sub {
+        my $self = shift;
+        my $remove = $self->payload->{ $self->plugin_remover_attribute } // [];
+        my %removed; @removed{@$remove} = (!!1) x @$remove;
+        \%removed;
+    },
+    traits => ['Hash'],
+    handles => { _plugin_removed => 'exists' },
+);
+
 # files that might be in the repository that should never be gathered
 my @never_gather = qw(
     Makefile.PL ppport.h README.md README.pod META.json
@@ -201,12 +218,9 @@ sub configure
             and (not exists $self->payload->{'Test::MinimumVersion.max_target_perl'}
                  or $self->payload->{'Test::MinimumVersion.max_target_perl'} < '5.008');
 
-    my $remove = $self->payload->{ $self->plugin_remover_attribute } // [];
-    my %removed; @removed{@$remove} = (!!1) x @$remove;
-
     warn '[@Author::ETHER] ', colored('.git is missing and META.json is present -- this looks like a CPAN download rather than a git repository. You should probably run '
             . (-f 'Build.PL' ? 'perl Build.PL; ./Build' : 'perl Makefile.PL; make') . ' instead of using dzil commands!', 'yellow'), "\n"
-        if not -d '.git' and -f 'META.json' and not exists $removed{'Git::GatherDir'};
+        if not -d '.git' and -f 'META.json' and not $self->_plugin_removed('Git::GatherDir');
 
     # only set x_static_install using auto mode for my own distributions
     my $static_install_mode = $self->payload->{'StaticInstall.mode'} // 'auto';
@@ -270,7 +284,7 @@ sub configure
         [ 'MojibakeTests'       => { ':version' => '0.8' } ],
         [ 'Test::ReportPrereqs' => { ':version' => '0.022', verify_prereqs => 1,
             version_extractor => ( ( any { $_ ne 'MakeMaker' } $self->installer ) ? 'Module::Metadata' : 'ExtUtils::MakeMaker' ),
-            include => [ sort ( qw(autodie JSON::PP Sub::Name YAML), exists $removed{PodCoverageTests} ? () : 'Pod::Coverage' ) ] } ],
+            include => [ sort ( qw(autodie JSON::PP Sub::Name YAML), $self->_plugin_removed('PodCoverageTests') ? () : 'Pod::Coverage' ) ] } ],
         [ 'Test::Portability'   => { ':version' => '2.000007' } ],
         [ 'Test::CleanNamespaces' => { ':version' => '0.006' } ],
 
@@ -414,7 +428,7 @@ sub configure
     my $plugin_requirements = CPAN::Meta::Requirements->new;
     foreach my $plugin_spec (@plugins = map { ref $_ ? $_ : [ $_ ] } @plugins)
     {
-        next if $removed{$plugin_spec->[0]}
+        next if $self->_plugin_removed($plugin_spec->[0])
             or $plugin_spec->[0] eq 'BlockRelease';  # temporary hack, due to plugin ordering
 
         my $plugin = Dist::Zilla::Util->expand_config_package_name($plugin_spec->[0]);

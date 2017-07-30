@@ -2,6 +2,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
           - minor fixes to distribution prereqs
+          - fixed logic for adding default configs for certain plugins and
+            their roles
 
 0.125     2017-05-21 01:43:09Z
           - fix tests to work on older perls (thanks, [EnsureLatestPerl])

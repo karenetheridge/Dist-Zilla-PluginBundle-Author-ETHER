@@ -423,17 +423,17 @@ sub configure
         push @$plugin_spec, {} if not ref $plugin_spec->[-1];
         my $payload = $plugin_spec->[-1];
 
-        if (my @modules_for_extra_configs = grep { $plugin->isa($_) or $plugin->does($_) } keys %extra_args)
+        foreach my $module (grep { $plugin->isa($_) or $plugin->does($_) } keys %extra_args)
         {
-            # combine all the relevant configs together
-            my %configs = map { %{ $extra_args{$_} } } @modules_for_extra_configs;
-
-            # and add to the payload for this plugin
-            @{$payload}{keys %configs} = values %configs;
+            my %configs = %{ $extra_args{$module} };    # copy, not reference!
 
             # don't keep :version unless it matches the package exactly, but still respect the prereq
-            $plugin_requirements->add_minimum($plugin => delete $configs{':version'})
-                if exists $configs{':version'} and not exists $extra_args{$plugin};
+            $plugin_requirements->add_minimum($module => delete $configs{':version'})
+                if exists $configs{':version'} and $module ne $plugin;
+
+            # we don't need to worry about overwriting the payload with defaults, as
+            # ConfigSlicer will copy them back over later on.
+            @{$payload}{keys %configs} = values %configs;
         }
 
         # record develop prereq

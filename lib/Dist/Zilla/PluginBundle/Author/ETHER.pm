@@ -14,7 +14,7 @@ with
     'Dist::Zilla::Role::PluginBundle::Config::Slicer';
 
 use Dist::Zilla::Util;
-use Moose::Util::TypeConstraints qw(enum subtype where);
+use Moose::Util::TypeConstraints qw(enum subtype where class_type);
 use List::Util 1.45 qw(first any uniq);
 use Module::Runtime 'require_module';
 use Devel::CheckBin 'can_run';
@@ -174,6 +174,18 @@ has _removed_plugins => (
     },
     traits => ['Hash'],
     handles => { _plugin_removed => 'exists' },
+);
+
+# this attribute and its supporting code is a candidate to be extracted out into its own role,
+# for re-use in other bundles
+has _develop_requires => (
+    isa => class_type('CPAN::Meta::Requirements'),
+    lazy => 1,
+    default => sub { CPAN::Meta::Requirements->new },
+    handles => {
+        _add_minimum_develop_requires => 'add_minimum',
+        _develop_requires_as_string_hash => 'as_string_hash',
+    },
 );
 
 # files that might be in the repository that should never be gathered
@@ -424,7 +436,6 @@ sub configure
         'ConfirmRelease',
     );
 
-    my $plugin_requirements = CPAN::Meta::Requirements->new;
     foreach my $plugin_spec (@plugins = map { ref $_ ? $_ : [ $_ ] } @plugins)
     {
         next if $self->_plugin_removed($plugin_spec->[0])
@@ -441,7 +452,7 @@ sub configure
             my %configs = %{ $extra_args{$module} };    # copy, not reference!
 
             # don't keep :version unless it matches the package exactly, but still respect the prereq
-            $plugin_requirements->add_minimum($module => delete $configs{':version'})
+            $self->_add_minimum_develop_requires($module => delete $configs{':version'})
                 if exists $configs{':version'} and $module ne $plugin;
 
             # we don't need to worry about overwriting the payload with defaults, as
@@ -450,7 +461,7 @@ sub configure
         }
 
         # record develop prereq
-        $plugin_requirements->add_minimum($plugin => $payload->{':version'} // 0);
+        $self->_add_minimum_develop_requires($plugin => $payload->{':version'} // 0);
     }
 
     # if ModuleBuildTiny(::*) is being used, disable its static option if
@@ -466,7 +477,7 @@ sub configure
     unshift @plugins,
         [ 'Prereqs' => bundle_plugins =>
             { '-phase' => 'develop', '-relationship' => 'requires',
-              %{ $plugin_requirements->as_string_hash } } ];
+              %{ $self->_develop_requires_as_string_hash } } ];
 
     push @plugins, (
         # listed last, to be sure we run at the very end of each phase

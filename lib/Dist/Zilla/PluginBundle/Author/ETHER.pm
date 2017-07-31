@@ -339,7 +339,10 @@ sub configure
         [ 'CheckStrictVersion'  => { decimal_only => 1 } ],
         'CheckMetaResources',
         'EnsureLatestPerl',
-        [ 'Git::Check'          => 'initial check' => { allow_dirty => [''] } ],
+
+        # if in airplane mode, allow our uncommitted dist.ini edit which sets 'airplane = 1'
+        [ 'Git::Check'          => 'initial check' => { allow_dirty => [ $self->airplane ? '' : 'dist.ini' ] } ],
+
         'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],
         [ 'Git::Remote::Check'  => { branch => 'master', remote_branch => 'master' } ],
@@ -392,9 +395,6 @@ sub configure
             );
             not exists $network_plugins{$plugin}
         } @plugins;
-
-        # allow our uncommitted dist.ini edit which sets 'airplane = 1'
-        push @{( first { ref eq 'ARRAY' && $_->[0] eq 'Git::Check' } @plugins )->[-1]{allow_dirty}}, 'dist.ini';
 
         # halt release after pre-release checks, but before ConfirmRelease
         push @plugins, 'BlockRelease';

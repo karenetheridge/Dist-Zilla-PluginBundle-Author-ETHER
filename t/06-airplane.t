@@ -113,6 +113,12 @@ cmp_deeply(
     'no network-using plugins were actually loaded',
 );
 
+cmp_deeply(
+    $tzil->distmeta->{prereqs}{develop}{requires},
+    notexists(keys %network_plugins),
+    'no network-using plugins were added to develop prereqs',
+);
+
 like(
     colorstrip(exception { $tzil->release }),
     qr{\[\@Author::ETHER/BlockRelease\] halting release},

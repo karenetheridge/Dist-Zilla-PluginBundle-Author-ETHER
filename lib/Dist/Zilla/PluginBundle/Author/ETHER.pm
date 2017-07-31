@@ -438,10 +438,43 @@ sub configure
         'ConfirmRelease',
     );
 
+    # method modifier will also apply default configs, compile develop prereqs
+    $self->add_plugins(@plugins);
+
+    # if ModuleBuildTiny(::*) is being used, disable its static option if
+    # [StaticInstall] is being run with mode=off or dry_run=1
+    if (($static_install_mode eq 'off' or $static_install_dry_run)
+        and any { /^ModuleBuildTiny/ } $self->installer)
+    {
+        my $mbt = Dist::Zilla::Util->expand_config_package_name('ModuleBuildTiny');
+        my $mbt_spec = first { $_->[1] =~ /^$mbt/ } @{ $self->plugins };
+
+        $mbt_spec->[-1]{static} = 'no';
+    }
+
+    # ensure that additional optional plugins are declared in prereqs
+    $self->add_plugins(
+        [ 'Prereqs' => bundle_plugins =>
+        { '-phase' => 'develop', '-relationship' => 'requires',
+          %{ $self->_develop_requires_as_string_hash } } ]
+    );
+
+    # listed last, to be sure we run at the very end of each phase
+    $self->add_plugins(
+        [ 'VerifyPhases' => 'PHASE VERIFICATION' => { ':version' => '0.015' } ]
+    ) if ($ENV{USER} // '') eq 'ether';
+}
+
+# determine develop prereqs, and apply default configs (respecting superclasses, roles)
+around add_plugins => sub
+{
+    my ($orig, $self, @plugins) = @_;
+
     foreach my $plugin_spec (@plugins = map { ref $_ ? $_ : [ $_ ] } @plugins)
     {
         next if $self->_plugin_removed($plugin_spec->[0])
-            or $plugin_spec->[0] eq 'BlockRelease';  # temporary hack, due to plugin ordering
+            or $plugin_spec->[0] eq 'BlockRelease'
+            or $plugin_spec->[0] eq 'VerifyPhases';
 
         my $plugin = Dist::Zilla::Util->expand_config_package_name($plugin_spec->[0]);
         require_module($plugin);
@@ -466,28 +499,8 @@ sub configure
         $self->_add_minimum_develop_requires($plugin => $payload->{':version'} // 0);
     }
 
-    # if ModuleBuildTiny(::*) is being used, disable its static option if
-    # [StaticInstall] is being run with mode=off or dry_run=1
-    if (($static_install_mode eq 'off' or $static_install_dry_run)
-        and any { /^ModuleBuildTiny/ } $self->installer)
-    {
-        my $mbt_spec = first { $_->[0] =~ /^ModuleBuildTiny/ } @plugins;
-        $mbt_spec->[-1]{static} = 'no';
-    }
-
-    # ensure that additional optional plugins are declared in prereqs
-    unshift @plugins,
-        [ 'Prereqs' => bundle_plugins =>
-            { '-phase' => 'develop', '-relationship' => 'requires',
-              %{ $self->_develop_requires_as_string_hash } } ];
-
-    push @plugins, (
-        # listed last, to be sure we run at the very end of each phase
-        [ 'VerifyPhases' => 'PHASE VERIFICATION' => { ':version' => '0.015' } ],
-    ) if ($ENV{USER} // '') eq 'ether';
-
-    $self->add_plugins(@plugins);
-}
+    return $self->$orig(@plugins);
+};
 
 # return username, password from ~/.pause
 sub _pause_config

@@ -414,7 +414,8 @@ sub configure
     my $plugin_requirements = CPAN::Meta::Requirements->new;
     foreach my $plugin_spec (@plugins = map { ref $_ ? $_ : [ $_ ] } @plugins)
     {
-        next if $removed{$plugin_spec->[0]};
+        next if $removed{$plugin_spec->[0]}
+            or $plugin_spec->[0] eq 'BlockRelease';  # temporary hack, due to plugin ordering
 
         my $plugin = Dist::Zilla::Util->expand_config_package_name($plugin_spec->[0]);
         require_module($plugin);

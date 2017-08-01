@@ -96,7 +96,7 @@ sub all_plugins_in_prereqs
             if (exists $additional{$plugin})
             {
                 # plugin was added in via an extra option, therefore the
-                # plugin should have been added to develop prereqs
+                # plugin should have been added to develop prereqs, and not be a runtime prereq
                 ok(
                     exists $dist_meta->{prereqs}{develop}{requires}{$plugin},
                     $plugin . ' is a develop prereq of the distribution',

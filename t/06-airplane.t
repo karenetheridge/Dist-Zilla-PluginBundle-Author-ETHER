@@ -96,9 +96,7 @@ all_plugins_in_prereqs($tzil,
     exempt => [
         'Dist::Zilla::Plugin::GatherDir',       # used by us here
         'Dist::Zilla::Plugin::FakeRelease',     # ""
-    ],
-    additional => [
-        'Dist::Zilla::Plugin::BlockRelease',    # via airplane option
+        'Dist::Zilla::Plugin::BlockRelease',    # added via airplane option
     ],
 );
 
@@ -112,8 +110,8 @@ cmp_deeply(
 
 cmp_deeply(
     $tzil->distmeta->{prereqs}{develop}{requires},
-    notexists(keys %network_plugins),
-    'no network-using plugins were added to develop prereqs',
+    notexists(keys %network_plugins, Dist::Zilla::Util->expand_config_package_name('BlockRelease')),
+    'no network-using plugins, nor BlockRelease, were added to develop prereqs',
 );
 
 like(

@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.126     2017-08-02 04:31:30Z
           - minor fixes to distribution prereqs
           - fixed logic for adding default configs for certain plugins and
             their roles

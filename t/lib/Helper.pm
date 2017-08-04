@@ -144,7 +144,7 @@ sub no_git_tempdir
 sub git_in_path
 {
     my $in_git;
-    my $dir = $_[0];
+    my $dir = path($_[0]);
     my $count = 0;
     while (not $dir->is_rootdir) {
         # this should never happen.

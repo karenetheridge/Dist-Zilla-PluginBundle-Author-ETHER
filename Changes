@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - fix test library's type handling on older Dist::Zilla
 
 0.126     2017-08-02 04:31:30Z
           - minor fixes to distribution prereqs

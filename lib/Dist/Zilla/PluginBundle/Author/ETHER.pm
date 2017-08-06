@@ -246,6 +246,8 @@ sub configure
         if not -d '.git' and -f 'META.json' and not $self->_plugin_removed('Git::GatherDir');
 
     # only set x_static_install using auto mode for my own distributions
+    # (for all other distributions, set explicitly to on or off)
+    # Note that this is just the default; if a dist.ini changed these values, ConfigSlicer will apply it later
     my $static_install_mode = $self->payload->{'StaticInstall.mode'} // 'auto';
     my $static_install_dry_run = ($static_install_mode eq 'auto'
             and $self->authority ne 'cpan:ETHER') ? 1 : 0;

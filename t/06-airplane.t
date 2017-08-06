@@ -103,7 +103,7 @@ all_plugins_in_prereqs($tzil,
 my %network_plugins = Dist::Zilla::PluginBundle::Author::ETHER->_network_plugins;
 
 cmp_deeply(
-    [ grep { exists $network_plugins{$_} } $tzil->plugins ],
+    [ grep { exists $network_plugins{$_} } @plugin_classes ],
     [],
     'no network-using plugins were actually loaded',
 );

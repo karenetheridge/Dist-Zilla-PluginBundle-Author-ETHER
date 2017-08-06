@@ -7,7 +7,6 @@ use Test::Deep '!none';
 use Test::DZil;
 use Test::Fatal;
 use Path::Tiny 0.062;
-use Module::Runtime 'require_module';
 use List::Util 1.33 'none';
 
 use Test::Needs qw(
@@ -94,11 +93,6 @@ subtest 'installer = MakeMaker' => sub {
 };
 
 subtest 'installer = MakeMaker, ModuleBuildTiny' => sub {
-    SKIP: {
-    # MBT is already a prereq of things in our runtime recommends list
-    skip('[ModuleBuildTiny] not installed', 9)
-        if not eval { require_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 1 };
-
     my $tempdir = no_git_tempdir();
 
     my $tzil = Builder->from_config(
@@ -188,7 +182,7 @@ subtest 'installer = MakeMaker, ModuleBuildTiny' => sub {
 
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;
-} };
+};
 
 subtest 'installer = none' => sub {
     my $tempdir = no_git_tempdir();
@@ -242,11 +236,6 @@ subtest 'installer = none' => sub {
 };
 
 subtest 'installer = ModuleBuildTiny, StaticInstall.mode = off' => sub {
-    SKIP: {
-    # MBT is already a prereq of things in our runtime recommends list
-    skip('[ModuleBuildTiny] not installed', 8)
-        if not eval { require_module 'Dist::Zilla::Plugin::ModuleBuildTiny'; 1 };
-
     my $tempdir = no_git_tempdir();
     my $tzil = Builder->from_config(
         { dist_root => 'does-not-exist' },
@@ -325,6 +314,6 @@ subtest 'installer = ModuleBuildTiny, StaticInstall.mode = off' => sub {
 
     diag 'got log messages: ', explain $tzil->log_messages
         if not Test::Builder->new->is_passing;
-} };
+};
 
 done_testing;

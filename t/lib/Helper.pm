@@ -9,6 +9,7 @@ our @EXPORT = qw(
     no_git_tempdir
     git_in_path
     notexists
+    recursive_child_files
 );
 
 use Test::More 0.96;
@@ -177,6 +178,18 @@ sub notexists
         }
         return 1;
     });
+}
+
+# simple Path::Tiny helper: like `find $dir -type f`
+sub recursive_child_files
+{
+    my $dir = shift;
+    my @found_files;
+    $dir->visit(
+        sub { push @found_files, $_->relative($dir)->stringify if -f },
+        { recurse => 1 },
+    );
+    @found_files;
 }
 
 1;

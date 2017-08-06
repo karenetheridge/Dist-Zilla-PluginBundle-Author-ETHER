@@ -67,14 +67,9 @@ subtest 'installer = MakeMaker' => sub {
     );
 
     my $build_dir = path($tzil->tempdir)->child('build');
-    my @found_files;
-    $build_dir->visit(
-        sub { push @found_files, $_->relative($build_dir)->stringify if -f },
-        { recurse => 1 },
-    );
 
     cmp_deeply(
-        \@found_files,
+        [ recursive_child_files($build_dir) ],
         all(
             superbagof('Makefile.PL'),
             code(sub { none { $_ eq 'Build.PL' } @{$_[0]} }),
@@ -169,14 +164,9 @@ subtest 'installer = MakeMaker, ModuleBuildTiny' => sub {
     );
 
     my $build_dir = path($tzil->tempdir)->child('build');
-    my @found_files;
-    $build_dir->visit(
-        sub { push @found_files, $_->relative($build_dir)->stringify if -f },
-        { recurse => 1 },
-    );
 
     cmp_deeply(
-        \@found_files,
+        [ recursive_child_files($build_dir) ],
         superbagof(qw(
             Makefile.PL
             Build.PL

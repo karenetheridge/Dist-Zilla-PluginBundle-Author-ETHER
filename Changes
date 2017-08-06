@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.127     2017-08-06 03:16:22Z
           - fix test library's type handling on older Dist::Zilla
 

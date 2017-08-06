@@ -100,7 +100,9 @@ all_plugins_in_prereqs($tzil,
     ],
 );
 
-my %network_plugins = Dist::Zilla::PluginBundle::Author::ETHER->_network_plugins;
+my @network_plugins = Dist::Zilla::PluginBundle::Author::ETHER->_network_plugins;
+my %network_plugins;
+@network_plugins{ map { Dist::Zilla::Util->expand_config_package_name($_) } @network_plugins } = () x @network_plugins;
 
 cmp_deeply(
     [ grep { exists $network_plugins{$_} } @plugin_classes ],

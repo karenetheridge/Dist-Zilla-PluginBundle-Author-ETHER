@@ -140,7 +140,7 @@ my %extra_args = (
 # plugins that use the network when they run
 sub _network_plugins
 {
-    my @network_plugins = qw(
+    qw(
         PromptIfStale
         Test::Pod::LinkCheck
         Test::Pod::No404s
@@ -150,9 +150,6 @@ sub _network_plugins
         UploadToCPAN
         Git::Push
     );
-    my %network_plugins;
-    @network_plugins{ map { Dist::Zilla::Util->expand_config_package_name($_) } @network_plugins } = () x @network_plugins;
-    %network_plugins;
 }
 
 has _has_bash => (
@@ -185,6 +182,20 @@ my @never_gather = qw(
     cpanfile TODO CONTRIBUTING LICENCE LICENSE INSTALL
     inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm
 );
+
+sub BUILD
+{
+    my $self = shift;
+
+    if ($self->airplane)
+    {
+        warn '[@Author::ETHER] ' . colored('building in airplane mode - plugins requiring the network are skipped, and releases are not permitted', 'yellow') . "\n";
+
+        # doing this before running configure means we can be sure we update the removal list before
+        # our _removed_plugins attribute is built.
+        push @{ $self->payload->{ $self->plugin_remover_attribute } }, $self->_network_plugins;
+    }
+}
 
 sub configure
 {
@@ -404,20 +415,8 @@ sub configure
     push @plugins,
         [ 'Run::AfterRelease'   => 'install release' => { ':version' => '0.031', fatal_errors => 0, run => 'cpanm http://' . $username . ':' . $password . '@pause.perl.org/pub/PAUSE/authors/id/' . substr($username, 0, 1).'/'.substr($username,0,2).'/'.$username.'/%a' } ] if $username and $password;
 
-    if ($self->airplane)
-    {
-        my %network_plugins = $self->_network_plugins;
-        warn '[@Author::ETHER] ' . colored('building in airplane mode - plugins requiring the network are skipped, and releases are not permitted', 'yellow') . "\n";
-        @plugins = grep {
-            my $plugin = Dist::Zilla::Util->expand_config_package_name(
-                !ref($_) ? $_ : ref eq 'ARRAY' ? $_->[0] : die 'wtf'
-            );
-            not exists $network_plugins{$plugin}
-        } @plugins;
-
-        # halt release after pre-release checks, but before ConfirmRelease
-        push @plugins, 'BlockRelease';
-    }
+    # halt release after pre-release checks, but before ConfirmRelease
+    push @plugins, 'BlockRelease' if $self->airplane;
 
     push @plugins, (
         [ 'Run::AfterRelease'   => 'release complete' => { ':version' => '0.038', quiet => 1, eval => [ qq{print "release complete!\\xa"} ] } ],

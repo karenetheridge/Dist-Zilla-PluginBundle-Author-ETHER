@@ -16,7 +16,7 @@ with
 use Dist::Zilla::Util;
 use Moose::Util::TypeConstraints qw(enum subtype where class_type);
 use List::Util 1.45 qw(first any uniq);
-use Module::Runtime 'require_module';
+use Module::Runtime qw(require_module use_module);
 use Devel::CheckBin 'can_run';
 use Path::Tiny;
 use CPAN::Meta::Requirements;
@@ -508,6 +508,38 @@ around add_plugins => sub
     }
 
     return $self->$orig(@plugins);
+};
+
+around add_bundle => sub
+{
+    my ($orig, $self, $bundle, $payload) = @_;
+
+    return if $self->_plugin_removed($bundle);
+
+    my $package = Dist::Zilla::Util->expand_config_package_name($bundle);
+    &use_module(
+        $package,
+        $payload && $payload->{':version'} ? $payload->{':version'} : (),
+    );
+
+    # default configs can be passed in directly - no need to consult %extra_args
+
+    # record develop prereq of bundle only, not its components (it should do that itself)
+    $self->_add_minimum_develop_requires($package => $payload->{':version'} // 0);
+
+    # allow config slices to propagate down from the user
+    $payload = {
+        %$payload,      # caller bundle's default settings for this bundle, passed to this sub
+        # custom configs from the user, which may override defaults
+        (map { $_ => $self->payload->{$_} } grep { /^(.+?)\.(.+?)/ } keys %{ $self->payload }),
+    };
+
+    # allow the user to say -remove = <plugin added in subbundle>, but also do not override
+    # any removals that were passed into this sub directly.
+    push @{$payload->{-remove}}, @{ $self->payload->{ $self->plugin_remover_attribute } }
+        if $self->payload->{ $self->plugin_remover_attribute };
+
+    return $self->$orig($bundle, $payload);
 };
 
 # return username, password from ~/.pause

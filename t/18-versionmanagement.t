@@ -53,7 +53,6 @@ cmp_deeply(
             [ isa => 'Dist::Zilla::Plugin::RewriteVersion::Transitional' ] => bool(1),
             plugin_name => re(qr{^\@Author::ETHER/([^/]+/)?RewriteVersion::Transitional$}),
             global => 1,
-            add_tarball_name => 0,
             fallback_version_provider => 'Git::NextVersion',
             _fallback_version_provider_args => { version_regexp => '^v([\d._]+)(-TRIAL)?$' },
         ),

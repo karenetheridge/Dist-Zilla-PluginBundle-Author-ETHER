@@ -268,7 +268,6 @@ sub configure
         [ 'RewriteVersion::Transitional' => {
                 ':version' => '0.004',
                 global => 1,
-                add_tarball_name => 0,
                 fallback_version_provider => 'Git::NextVersion',
                 version_regexp => '^v([\d._]+)(-TRIAL)?$',
                 (map { (my $key = $_) =~ s/Git::NextVersion\.//; $key => $self->payload->{$_} } grep { /^Git::NextVersion\./ } keys %{ $self->payload })
@@ -422,7 +421,7 @@ sub configure
         # After Release
         [ 'CopyFilesFromRelease' => 'copy Changes' => { filename => [ 'Changes' ] } ],
         [ 'Git::Commit'         => 'release snapshot' => { ':version' => '2.020', add_files_in => ['.'], allow_dirty => [ $self->commit_files_after_release ], commit_msg => '%N-%v%t%n%n%c' } ],
-        [ 'Git::Tag'            => { tag_format => 'v%v', tag_message => 'v%v%t' } ],
+        [ 'Git::Tag'            => { tag_message => 'v%v%t' } ],
 
         [ 'BumpVersionAfterRelease::Transitional' => { ':version' => '0.004', global => 1 } ],
         [ 'NextRelease'         => { ':version' => '5.033', time_zone => 'UTC', format => '%-' . ($self->changes_version_columns - 2) . 'v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T' } ],
@@ -546,7 +545,6 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [RewriteVersion::Transitional]
     :version = 0.004
     global = 1
-    add_tarball_name = 0
     fallback_version_provider = Git::NextVersion
     version_regexp = ^v([\d._]+)(-TRIAL)?$
 
@@ -863,7 +861,6 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     commit_msg = %N-%v%t%n%n%c
 
     [Git::Tag]
-    tag_format = v%v
     tag_message = v%v%t
 
     [BumpVersionAfterRelease::Transitional]

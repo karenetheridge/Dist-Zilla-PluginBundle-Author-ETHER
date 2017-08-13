@@ -15,7 +15,7 @@ our @EXPORT = qw(
 use Test::More 0.96;
 use Test::Deep;
 use List::Util 1.45 'uniq';
-use Path::Tiny;
+use Path::Tiny 0.062;
 use JSON::MaybeXS;
 use Moose::Util 'find_meta';
 use namespace::clean;

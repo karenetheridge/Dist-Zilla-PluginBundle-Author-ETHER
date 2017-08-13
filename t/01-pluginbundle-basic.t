@@ -6,7 +6,7 @@ use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
 use Test::Deep;
 use Test::DZil;
 use Test::Fatal;
-use Path::Tiny 0.062;
+use Path::Tiny;
 use List::Util 'first';
 use Module::Runtime 'module_notional_filename';
 use Moose::Util 'find_meta';

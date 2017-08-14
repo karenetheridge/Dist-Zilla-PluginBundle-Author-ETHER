@@ -1042,7 +1042,7 @@ Defaults to false; can also be set with the environment variable C<DZIL_AIRPLANE
 Available in this form since 0.076.
 
 A file, to be present in the build, which is copied back to the source
-repository at release time and committed to git. Can be repeated more than
+repository at release time and committed to git. Can be used more than
 once. Defaults to:
 F<LICENCE>, F<LICENSE>, F<CONTRIBUTING>, F<Changes>, F<ppport.h>, F<INSTALL>;
 defaults are appended to, rather than overwritten.
@@ -1063,7 +1063,7 @@ options. Defaults to false.
 Available since 0.076.
 
 An integer that specifies how many columns (right-padded with whitespace) are
-allocated in Changes entries to the version string. Defaults to 10.
+allocated in F<Changes> entries to the version string. Defaults to 10.
 
 =head2 licence (or license)
 

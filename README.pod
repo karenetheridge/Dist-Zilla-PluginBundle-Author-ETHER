@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.127
+version 0.128
 
 =head1 SYNOPSIS
 
@@ -22,15 +22,6 @@ In your F<dist.ini>:
 
 This is a L<Dist::Zilla> plugin bundle. It is I<very approximately> equal to the
 following F<dist.ini> (following the preamble), minus some optimizations:
-
-    ;;; VersionProvider
-    [RewriteVersion::Transitional]
-    :version = 0.004
-    global = 1
-    add_tarball_name = 0
-    fallback_version_provider = Git::NextVersion
-    version_regexp = ^v([\d._]+)(-TRIAL)?$
-
 
     ;;; BeforeBuild
     [PromptIfStale / stale modules, build]
@@ -314,9 +305,8 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     quiet = 1
     eval = unlink 'README.md'
 
-    [CopyFilesFromRelease]
+    [CopyFilesFromRelease / copy generated files]
     filename = CONTRIBUTING
-    filename = Changes
     filename = INSTALL
     filename = LICENCE
     filename = LICENSE
@@ -327,6 +317,18 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     type = pod
     location = root
     phase = release
+
+    ;;;;;; begin [@Git::VersionManager]
+
+    ; this is actually a VersionProvider and FileMunger
+    [RewriteVersion::Transitional]
+    :version = 0.004
+    global = 1
+    fallback_version_provider = Git::NextVersion
+    version_regexp = ^v([\d._]+)(-TRIAL)?$
+
+    [CopyFilesFromRelease / copy Changes]
+    filename = Changes
 
     [Git::Commit / release snapshot]
     :version = 2.020
@@ -342,12 +344,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     commit_msg = %N-%v%t%n%n%c
 
     [Git::Tag]
-    tag_format = v%v
     tag_message = v%v%t
-
-    [GitHub::Update]    ; (if server = 'github' or omitted)
-    :version = 0.40
-    metacpan = 1
 
     [BumpVersionAfterRelease::Transitional]
     :version = 0.004
@@ -364,7 +361,13 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     allow_dirty_match = ^lib/.*\.pm$
     commit_msg = increment $VERSION after %v release
 
+    ;;;;;; end [@Git::VersionManager]
+
     [Git::Push]
+
+    [GitHub::Update]    ; (if server = 'github' or omitted)
+    :version = 0.40
+    metacpan = 1
 
     [Run::AfterRelease / install release]
     :version = 0.031
@@ -523,7 +526,7 @@ Defaults to false; can also be set with the environment variable C<DZIL_AIRPLANE
 Available in this form since 0.076.
 
 A file, to be present in the build, which is copied back to the source
-repository at release time and committed to git. Can be repeated more than
+repository at release time and committed to git. Can be used more than
 once. Defaults to:
 F<LICENCE>, F<LICENSE>, F<CONTRIBUTING>, F<Changes>, F<ppport.h>, F<INSTALL>;
 defaults are appended to, rather than overwritten.
@@ -544,7 +547,7 @@ options. Defaults to false.
 Available since 0.076.
 
 An integer that specifies how many columns (right-padded with whitespace) are
-allocated in Changes entries to the version string. Defaults to 10.
+allocated in F<Changes> entries to the version string. Defaults to 10.
 
 =head2 licence (or license)
 
@@ -611,6 +614,10 @@ L<Pod::Weaver::PluginBundle::Author::ETHER>
 =item *
 
 L<Dist::Zilla::MintingProfile::Author::ETHER>
+
+=item *
+
+L<Dist::Zilla::PluginBundle::Git::VersionManager>
 
 =back
 

@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.128     2017-08-16 23:39:44Z
           - version extraction and updating plugins now fully extracted out
             into their own plugin bundle, [@Git::VersionManager], to be soon
             released in its own distribution

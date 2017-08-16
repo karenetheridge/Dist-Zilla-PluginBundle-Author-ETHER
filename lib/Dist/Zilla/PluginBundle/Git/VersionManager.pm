@@ -4,7 +4,7 @@ package Dist::Zilla::PluginBundle::Git::VersionManager;
 # vim: set ts=8 sts=4 sw=4 tw=115 et :
 # ABSTRACT: A plugin bundle that manages your version in git
 # KEYWORDS: bundle distribution git version Changes increment
-
+our $VERSION = '0.129';
 # no version yet until this module is in its own distribution
 
 use Moose;

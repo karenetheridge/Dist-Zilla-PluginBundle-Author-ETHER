@@ -3,7 +3,7 @@ use warnings;
 package Dist::Zilla::Plugin::MetaProvides::Update;
 # vim: set ts=8 sts=4 sw=4 tw=115 et :
 # ABSTRACT: A plugin to fix "provides" metadata after [RewriteVersion] modified $VERSION declarations
-
+our $VERSION = '0.129';
 # no version yet until this module is in its own distribution
 
 use Moose;

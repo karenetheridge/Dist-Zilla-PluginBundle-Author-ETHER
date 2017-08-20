@@ -101,6 +101,10 @@ cmp_deeply(
         ),
     ),
     'all expected plugins make it into the build, with the correct configurations',
-);
+)
+or diag 'got plugin configurations: ', do {
+    local $Data::Dumper::Maxdepth = 2;
+    explain $tzil->plugins
+};
 
 done_testing;

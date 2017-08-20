@@ -1,6 +1,9 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - fix a new test to avoid triggering the "looks like you're
+            installing from cpan, rather than building a distribution in the
+            repository" heuristic when using Dist::Zilla (e.g. on older perls)
 
 0.128     2017-08-16 23:39:44Z
           - version extraction and updating plugins now fully extracted out

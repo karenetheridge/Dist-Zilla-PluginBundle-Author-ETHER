@@ -29,7 +29,10 @@ my $tzil = Builder->from_config(
                     version  => '0.006',
                 },
                 [ '@Author::ETHER' => {
-                    # we do NOT remove plugins here, because do not do a build.
+                    # we do NOT need to remove the usual plugins here, because we do not do a build.
+                    # but we do need to avoid our heuristic for "looks like a CPAN download" on older
+                    # Dist::Zilla, where we don't change directories into the build during testing.
+                    -remove => [ 'Git::GatherDir' ],
                     server => 'none',
                     'Test::MinimumVersion.max_target_perl' => '5.008',
                     # necessary, as there are no files added to the build to read a version from

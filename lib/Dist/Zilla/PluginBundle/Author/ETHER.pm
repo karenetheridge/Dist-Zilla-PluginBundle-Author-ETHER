@@ -21,7 +21,7 @@ use Devel::CheckBin 'can_run';
 use Path::Tiny;
 use CPAN::Meta::Requirements;
 use Term::ANSIColor 'colored';
-eval 'require Win32::Console::ANSI' if $^O eq 'MSWin32';
+eval { +require Win32::Console::ANSI } if $^O eq 'MSWin32';
 use Config;
 use namespace::autoclean;
 

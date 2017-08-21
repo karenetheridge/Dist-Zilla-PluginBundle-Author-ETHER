@@ -80,7 +80,7 @@ __END__
 
 =head1 SYNOPSIS
 
-In your F<dist.ini> or a plugin bundle that effectively does the same thing:
+In your F<dist.ini> (or a plugin bundle that effectively does the same thing):
 
     [MetaProvides::*]   ; e.g. ::Class, ::Package, ::FromFile
     ...
@@ -96,8 +96,11 @@ This plugin is a hack and hopefully will soon be made redundant.  It is bundled 
 bundle that needs it, but can also be used with other bundles if such a need is identified.
 
 This plugin is meant to be run after all other file mungers, but most particularly after
-L<[RewriteVersion]|Dist::Zilla::Plugin::RewriteVersion> or the bundle that contains it.  The basic problem (that it
-is correcting for) is this:
+L<[RewriteVersion]|Dist::Zilla::Plugin::RewriteVersion>.  Because plugin bundles contain many plugins,
+it can be difficult or impossible to arrange the order of plugins and bundles in F<dist.ini> such that
+all ordering constraints are correctly satisfied.
+
+The specific ordering problem that this plugin is correcting for is this:
 
 =for :list
 * a plugin runs in the FileMunging phase that requires metadata (in my case, I typically see this with L<[PodWeaver]|Dist::Zilla::Plugin::PodWeaver>)
@@ -118,17 +121,18 @@ There are many C<$VERSION>-mutating plugins, such as:
 
 Careful ordering of plugins can be used to avoid this issue: as long as the plugin that populates "provides"
 metadata appears in the configuration B<after> the plugin that mutates C<$VERSION>, everything works correctly.  In
-L<my author bundle|Dist::Zilla::PluginBundle::Author::ETHER>, I list
+L<my author bundle|Dist::Zilla::PluginBundle::Author::ETHER>, I would prefer to list
 L<[RewriteVersion::Transitional]|Dist::Zilla::Plugin::RewriteVersion::Transitional> at the very beginning of the
-plugin list.  However, correct ordering may no longer be possible if plugins are added from sub-bundles.  I ran
+plugin list, to ensure module files are munged before any other plugins inspect them.
+However, correct ordering may no longer be possible if plugins are added from sub-bundles.  I ran
 into this exact scenario when writing L<[@Git::VersionManager]|Dist::Zilla::PluginBundle::Git::VersionManager> --
 all the plugins (except for L<[RewriteVersion::Transitional]|Dist::Zilla::Plugin::RewriteVersion::Transitional>)
 are after-release plugins, and need to run after other after-release plugins that the user may be using, so this
-likely results in the placement of the "provides" metadata-populating plugin as before these.
+likely results in the placement of the "provides" metadata-populating plugin as before these plugins.
 
 My hacky (and hopefully temporary) solution is this plugin which runs after the C<$VERSION> declaration is mutated,
 and hunts for the previous "provides" metadata-populating plugin and re-runs it, to update the metadata. Ideally,
-that plugin should do this itself as late as possible (e.g. in the Prereq Source phase), after all file munging is
+that plugin should do this itself as late as possible (such as in the Prereq Source phase), after all file munging is
 complete.
 
 =head1 SEE ALSO

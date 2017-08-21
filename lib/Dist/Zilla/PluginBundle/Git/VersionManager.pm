@@ -204,7 +204,7 @@ Note that you are responsible for ensuring these files are in the repository
 (perhaps by using L<[CopyFilesFromRelease]|Dist::Zilla::Plugin::CopyFilesFromRelease>.
 Additionally, the file(s) will not be committed if they do not already have git history;
 for new files, you should add the C<add_files_in = .> configuration (and use
-L<[Git::Check]|Dist::Zilla::Plugin::Git::Check> to ensure that <B>only<B> these files
+L<[Git::Check]|Dist::Zilla::Plugin::Git::Check> to ensure that B<only> these files
 exist in the repository, not any other files that should not be added.)
 
 =head2 changes_version_columns
@@ -221,7 +221,7 @@ This bundle makes use of L<Dist::Zilla::Role::PluginBundle::PluginRemover> and
 L<Dist::Zilla::Role::PluginBundle::Config::Slicer> to allow further customization.
 (Note that even though some overridden values are inspected in this class,
 they are still overlaid on top of whatever this bundle eventually decides to
-pass - so what is in the F<dist.ini> or in the C<add_bundle> arguments always
+pass -- so what is in the F<dist.ini> or in the C<add_bundle> arguments always
 trumps everything else.)
 
 Plugins are not loaded until they are actually needed, so it is possible to

@@ -64,9 +64,10 @@ cmp_deeply(
                 [ isa => 'Dist::Zilla::Plugin::CopyFilesFromRelease' ] => bool(1),
                 plugin_name => re(qr{^\@Author::ETHER/\@Git::VersionManager/CopyFilesFromRelease$}),
             ),
-            listmethods(
+            noclass(superhashof({
+                # in 0.006, the method started returning a list rather than a listref
                 filename => [ 'Changes' ],
-            ),
+            })),
         ),
         methods(
             [ isa => 'Dist::Zilla::Plugin::Git::Commit' ] => bool(1),
@@ -103,7 +104,7 @@ cmp_deeply(
     'all expected plugins make it into the build, with the correct configurations',
 )
 or diag 'got plugin configurations: ', do {
-    local $Data::Dumper::Maxdepth = 2;
+    local $Data::Dumper::Maxdepth = 4;
     explain $tzil->plugins
 };
 

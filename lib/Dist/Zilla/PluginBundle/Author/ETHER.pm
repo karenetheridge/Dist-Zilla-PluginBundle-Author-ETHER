@@ -378,7 +378,7 @@ sub configure
         'EnsureLatestPerl',
 
         # if in airplane mode, allow our uncommitted dist.ini edit which sets 'airplane = 1'
-        [ 'Git::Check'          => 'initial check' => { allow_dirty => [ $self->airplane ? '' : 'dist.ini' ] } ],
+        [ 'Git::Check'          => 'initial check' => { allow_dirty => [ $self->airplane ? 'dist.ini' : '' ] } ],
 
         'Git::CheckFor::MergeConflicts',
         [ 'Git::CheckFor::CorrectBranch' => { ':version' => '0.004', release_branch => 'master' } ],

@@ -4,6 +4,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
           - fix test that is broken with older [CopyFilesFromRelease]
           - fix inverted condition in [Git::Check] configuration (wrong since
             version 0.126)
+          - fix airplane mode, broken since version 0.127
 
 0.129     2017-08-21 04:45:42Z
           - fix a new test to avoid triggering the "looks like you're

@@ -15,7 +15,7 @@ with
 
 use Dist::Zilla::Util;
 use Moose::Util::TypeConstraints qw(enum subtype where class_type);
-use List::Util 1.45 qw(first any uniq);
+use List::Util 1.45 qw(first any uniq none);
 use Module::Runtime qw(require_module use_module);
 use Devel::CheckBin 'can_run';
 use Path::Tiny;
@@ -178,7 +178,7 @@ has _removed_plugins => (
         \%removed;
     },
     traits => ['Hash'],
-    handles => { _plugin_removed => 'exists' },
+    handles => { _plugin_removed => 'exists', _removed_plugins => 'keys' },
 );
 
 # this attribute and its supporting code is a candidate to be extracted out into its own role,
@@ -481,11 +481,20 @@ around add_plugins => sub
 {
     my ($orig, $self, @plugins) = @_;
 
-    foreach my $plugin_spec (@plugins = map { ref $_ ? $_ : [ $_ ] } @plugins)
+    @plugins = grep {
+        my $plugin = $_;
+        my $plugin_package = Dist::Zilla::Util->expand_config_package_name($plugin->[0]);
+        none {
+             $plugin_package eq Dist::Zilla::Util->expand_config_package_name($_)   # match by package name
+             or ($plugin->[1] and not ref $plugin->[1] and $plugin->[1] eq $_)      # match by moniker
+        } $self->_removed_plugins
+    } map { ref $_ ? $_ : [ $_ ] } @plugins;
+
+    foreach my $plugin_spec (@plugins)
     {
-        next if $self->_plugin_removed($plugin_spec->[0])
-            or $plugin_spec->[0] eq 'BlockRelease'
-            or $plugin_spec->[0] eq 'VerifyPhases';
+        # these should never be added to develop prereqs
+        next if $plugin_spec->[0] eq 'BlockRelease'     # temporary use during development
+            or $plugin_spec->[0] eq 'VerifyPhases';     # only used by ether, not others
 
         my $plugin = Dist::Zilla::Util->expand_config_package_name($plugin_spec->[0]);
         require_module($plugin);

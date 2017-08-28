@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.130     2017-08-28 01:13:46Z
           - fix test that is broken with older [CopyFilesFromRelease]
           - fix inverted condition in [Git::Check] configuration (wrong since

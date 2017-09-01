@@ -67,7 +67,7 @@ sub assert_no_git
 # requires list
 # - some plugins can be marked 'additional' - must be in recommended prereqs
 #   AND the built dist's develop requires list
-# - some plugins can be explicitly exempted (added manually to faciliate
+# - some plugins can be explicitly exempted (added manually to facilitate
 #   testing)
 # TODO: move into its own distribution
 sub all_plugins_in_prereqs

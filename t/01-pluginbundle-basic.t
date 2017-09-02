@@ -130,7 +130,6 @@ my @expected_files = qw(
     xt/release/minimum-version.t
     xt/author/mojibake.t
     xt/author/pod-coverage.t
-    xt/author/pod-no404s.t
     xt/author/pod-syntax.t
     xt/author/portability.t
 );
@@ -141,6 +140,8 @@ push @expected_files, eval { Dist::Zilla::Plugin::Test::NoTabs->VERSION('0.09');
 
 push @expected_files, 't/00-report-prereqs.dd'
     if Dist::Zilla::Plugin::Test::ReportPrereqs->VERSION >= 0.014;
+
+push @expected_files, 'xt/author/pod-no404s.t' if not $ENV{CONTINUOUS_INTEGRATION};
 
 cmp_deeply(
     [ recursive_child_files($build_dir) ],

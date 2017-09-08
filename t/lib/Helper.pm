@@ -72,15 +72,13 @@ sub assert_no_git
 # TODO: move into its own distribution
 sub all_plugins_in_prereqs
 { SKIP: {
-    skip('this test requires a built dist', 1) if not -f 'META.json';
-
     my ($tzil, %options) = @_;
 
     my $bundle_name = $options{bundle_name} // '@Author::ETHER';    # TODO: default to dist we are in
     my %additional = map { $_ => undef } @{ $options{additional} // [] };
     my %exempt = map { $_ => undef } @{ $options{exempt} // [] };
 
-    my $pluginbundle_meta = decode_json(path('META.json')->slurp_raw);
+    my $pluginbundle_meta = -f 'META.json' ? decode_json(path('META.json')->slurp_raw) : undef;
     my $dist_meta = $tzil->distmeta;
 
     # these are develop-requires prereqs
@@ -104,7 +102,12 @@ sub all_plugins_in_prereqs
                 if exists $exempt{$plugin};
 
             # cannot be a (non-develop) prereq if the module lives in this distribution
-            next if exists $pluginbundle_meta->{provides}{$plugin};
+            next if (
+                $pluginbundle_meta ? exists $pluginbundle_meta->{provides}{$plugin}
+               : do {
+                   (my $file = $plugin) =~ s{::}{/}g; $file .= '.pm';
+                   path('lib', $file)->exists;
+               });
 
             # plugins with a specific :version requirement are added to
             # prereqs via an extra injected [Prereqs] plugin
@@ -123,7 +126,7 @@ sub all_plugins_in_prereqs
                     $pluginbundle_meta->{prereqs}{runtime}{recommends},
                     superhashof({ $plugin => $required_version }),
                     $plugin . ' is a runtime recommendation of the plugin bundle',
-                );
+                ) if $pluginbundle_meta;
             }
             else
             {
@@ -132,9 +135,11 @@ sub all_plugins_in_prereqs
                     $pluginbundle_meta->{prereqs}{runtime}{requires},
                     superhashof({ $plugin => $required_version }),
                     $plugin . ' is a runtime prereq of the plugin bundle',
-                );
+                ) if $pluginbundle_meta;
             }
         }
+
+        pass 'this is a token test to keep things humming' if not $pluginbundle_meta;
 
         if (not Test::Builder->new->is_passing)
         {

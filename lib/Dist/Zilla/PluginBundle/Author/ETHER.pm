@@ -769,11 +769,6 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     :version = 1.006
     configure_finder = :NoFiles
 
-    [Prereqs / installer_requirements]
-    -phase = develop
-    -relationship = suggests
-    Dist::Zilla::PluginBundle::Author::ETHER = <version specified in dist.ini>
-
     [Prereqs / prereqs for @Author::ETHER]
     -phase = develop
     -relationship = suggests

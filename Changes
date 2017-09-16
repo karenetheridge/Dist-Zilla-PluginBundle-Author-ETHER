@@ -4,6 +4,9 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
           - spelling fix in generated CONTRIBUTING file (thanks, Edward
             Betts!)
           - added .travis.yml to minting profile
+          - plugins used by the bundle are now injected into develop-suggests
+            prerequisites, rather than develop-requires, so Travis no longer
+            feels obliged to install them when testing the built distribution
 
 0.130     2017-08-28 01:13:46Z
           - fix test that is broken with older [CopyFilesFromRelease]

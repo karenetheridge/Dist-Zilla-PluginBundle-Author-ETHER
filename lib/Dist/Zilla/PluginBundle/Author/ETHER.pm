@@ -183,13 +183,13 @@ has _removed_plugins => (
 
 # this attribute and its supporting code is a candidate to be extracted out into its own role,
 # for re-use in other bundles
-has _develop_requires => (
+has _develop_suggests => (
     isa => class_type('CPAN::Meta::Requirements'),
     lazy => 1,
     default => sub { CPAN::Meta::Requirements->new },
     handles => {
-        _add_minimum_develop_requires => 'add_minimum',
-        _develop_requires_as_string_hash => 'as_string_hash',
+        _add_minimum_develop_suggests => 'add_minimum',
+        _develop_suggests_as_string_hash => 'as_string_hash',
     },
 );
 
@@ -340,14 +340,14 @@ sub configure
         # Register Prereqs
         # (MakeMaker or other installer)
         [ 'AutoPrereqs'         => { ':version' => '5.038' } ],
-        [ 'Prereqs::AuthorDeps' => { ':version' => '0.006' } ],
+        [ 'Prereqs::AuthorDeps' => { ':version' => '0.006', relation => 'suggests' } ],
         [ 'MinimumPerl'         => { ':version' => '1.006', configure_finder => ':NoFiles' } ],
         [ 'Prereqs' => pluginbundle_version => {
                 '-phase' => 'develop', '-relationship' => 'recommends',
                 $self->meta->name => $self->VERSION,
             } ],
         ($self->surgical_podweaver ? [ 'Prereqs' => pod_weaving => {
-                '-phase' => 'develop', '-relationship' => 'requires',
+                '-phase' => 'develop', '-relationship' => 'suggests',
                 'Dist::Zilla::Plugin::SurgicalPodWeaver' => 0
             } ] : ()),
 
@@ -466,8 +466,8 @@ sub configure
     # ensure that additional optional plugins are declared in prereqs
     $self->add_plugins(
         [ 'Prereqs' => 'prereqs for @Author::ETHER' =>
-        { '-phase' => 'develop', '-relationship' => 'requires',
-          %{ $self->_develop_requires_as_string_hash } } ]
+        { '-phase' => 'develop', '-relationship' => 'suggests',
+          %{ $self->_develop_suggests_as_string_hash } } ]
     );
 
     # listed last, to be sure we run at the very end of each phase
@@ -507,7 +507,7 @@ around add_plugins => sub
             my %configs = %{ $extra_args{$module} };    # copy, not reference!
 
             # don't keep :version unless it matches the package exactly, but still respect the prereq
-            $self->_add_minimum_develop_requires($module => delete $configs{':version'})
+            $self->_add_minimum_develop_suggests($module => delete $configs{':version'})
                 if exists $configs{':version'} and $module ne $plugin;
 
             # we don't need to worry about overwriting the payload with defaults, as
@@ -516,7 +516,7 @@ around add_plugins => sub
         }
 
         # record develop prereq
-        $self->_add_minimum_develop_requires($plugin => $payload->{':version'} // 0);
+        $self->_add_minimum_develop_suggests($plugin => $payload->{':version'} // 0);
     }
 
     return $self->$orig(@plugins);
@@ -537,7 +537,7 @@ around add_bundle => sub
     # default configs can be passed in directly - no need to consult %extra_args
 
     # record develop prereq of bundle only, not its components (it should do that itself)
-    $self->_add_minimum_develop_requires($package => $payload->{':version'} // 0);
+    $self->_add_minimum_develop_suggests($package => $payload->{':version'} // 0);
 
     # allow config slices to propagate down from the user
     $payload = {
@@ -764,18 +764,19 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [AutoPrereqs]
     :version = 5.038
     [Prereqs::AuthorDeps]
+    relation = suggests
     [MinimumPerl]
     :version = 1.006
     configure_finder = :NoFiles
 
     [Prereqs / installer_requirements]
     -phase = develop
-    -relationship = requires
+    -relationship = suggests
     Dist::Zilla::PluginBundle::Author::ETHER = <version specified in dist.ini>
 
     [Prereqs / prereqs for @Author::ETHER]
     -phase = develop
-    -relationship = requires
+    -relationship = suggests
     ...all the plugins this bundle uses...
 
     [Prereqs / pluginbundle_version]

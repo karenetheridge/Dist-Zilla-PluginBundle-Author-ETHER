@@ -162,7 +162,7 @@ is(
             x_static_install => 1,
             prereqs => superhashof({
                 develop => superhashof({
-                    requires => superhashof({
+                    suggests => superhashof({
                         'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => '0.018',
                         'Dist::Zilla::Plugin::MakeMaker::Fallback' => '0.012',
                         'Dist::Zilla::PluginBundle::Author::ETHER' => '0.002',
@@ -261,7 +261,7 @@ cmp_deeply(
     superhashof({
         prereqs => superhashof({
             develop => superhashof({
-                requires => notexists('Dist::Zilla::Plugin::Git::Commit'),
+                suggests => notexists('Dist::Zilla::Plugin::Git::Commit'),
             }),
         }),
     }),

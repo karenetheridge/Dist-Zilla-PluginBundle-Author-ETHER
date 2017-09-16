@@ -66,7 +66,7 @@ sub assert_no_git
 # checks that all plugins in use are in the plugin bundle dist's runtime
 # requires list
 # - some plugins can be marked 'additional' - must be in recommended prereqs
-#   AND the built dist's develop requires list
+#   AND the built dist's develop suggests list
 # - some plugins can be explicitly exempted (added manually to facilitate
 #   testing)
 # TODO: move into its own distribution
@@ -81,20 +81,20 @@ sub all_plugins_in_prereqs
     my $pluginbundle_meta = -f 'META.json' ? decode_json(path('META.json')->slurp_raw) : undef;
     my $dist_meta = $tzil->distmeta;
 
-    # these are develop-requires prereqs
+    # these are develop-suggests prereqs
     my $plugin_name = "$bundle_name/prereqs for $bundle_name";
     my $bundle_plugin_prereqs = $tzil->plugin_named($plugin_name);
     cmp_deeply(
         $bundle_plugin_prereqs,
         methods(
             prereq_phase => 'develop',
-            prereq_type => 'requires',
+            prereq_type => 'suggests',
         ),
-        "found '$plugin_name' develop-requires prereqs",
+        "found '$plugin_name' develop-suggests prereqs",
     );
     $bundle_plugin_prereqs = $bundle_plugin_prereqs->_prereq;
 
-    subtest 'all plugins in use are specified as *required* runtime prerequisites by the plugin bundle, or develop prerequisites by the distribution' => sub {
+    subtest 'all plugins in use are specified as *required* runtime prerequisites by the plugin bundle, or develop-suggests prerequisites by the distribution' => sub {
         foreach my $plugin (uniq map { find_meta($_)->name }
             grep { $_->plugin_name =~ /^$bundle_name\/[^@]/ } @{$tzil->plugins})
         {
@@ -118,7 +118,7 @@ sub all_plugins_in_prereqs
                 # plugin was added in via an extra option, therefore the
                 # plugin should have been added to develop prereqs, and not be a runtime prereq
                 ok(
-                    exists $dist_meta->{prereqs}{develop}{requires}{$plugin},
+                    exists $dist_meta->{prereqs}{develop}{suggests}{$plugin},
                     $plugin . ' is a develop prereq of the distribution',
                 );
 

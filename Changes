@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.131     2017-09-16 04:29:15Z
           - spelling fix in generated CONTRIBUTING file (thanks, Edward
             Betts!)
           - added .travis.yml to minting profile

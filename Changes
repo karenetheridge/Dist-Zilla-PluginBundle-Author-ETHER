@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - spelling fix in generated CONTRIBUTING file (thanks, Edward
+            Betts!)
 
 0.130     2017-08-28 01:13:46Z
           - fix test that is broken with older [CopyFilesFromRelease]

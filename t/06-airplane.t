@@ -53,12 +53,7 @@ package Foo::Bar;
 
 1;
 MODULE
-                path(qw(source Changes)) => <<'CHANGES',
-Revision history for {{$dist->name}}
-
-{{$NEXT}}
-        - some changelog entry
-CHANGES
+                path(qw(source Changes)) => '',
             },
         },
     );

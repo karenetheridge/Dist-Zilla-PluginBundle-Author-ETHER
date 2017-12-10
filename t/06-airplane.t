@@ -102,7 +102,7 @@ my %network_plugins;
 cmp_deeply(
     [ grep { exists $network_plugins{$_} } @plugin_classes ],
     [],
-    'no network-using plugins were actually loaded',
+    'no network-using plugins were actually added',
 );
 
 cmp_deeply(

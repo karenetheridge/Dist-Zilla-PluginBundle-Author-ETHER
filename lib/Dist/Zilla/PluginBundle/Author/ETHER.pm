@@ -424,6 +424,8 @@ sub configure
 
         'Git::Tag.tag_message' => 'v%v%t',
 
+        # if the caller set bump_only_matching_versions, then this global setting falls on the floor automatically
+        # because the bundle uses the non-Transitional plugin in that case.
         'BumpVersionAfterRelease::Transitional.global' => 1,
 
         'NextRelease.:version' => '5.033',

@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.132     2017-12-13 07:15:09Z
           - fix test to work with [@Git::VersionManager] 0.003
 
 0.131     2017-09-16 04:29:15Z

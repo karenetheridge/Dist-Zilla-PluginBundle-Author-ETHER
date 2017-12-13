@@ -16,10 +16,12 @@ perl:
   - "5.14"
   - "5.12"
   - "5.10"
+matrix:
+  allow_failures:
+    - perl: blead
 
 env:
   global:
-    - TEST_PARTITIONS=1
     - AUTHOR_TESTING=1
     - AUTOMATED_TESTING=1
     - RELEASE_TESTING=0

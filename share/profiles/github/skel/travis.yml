@@ -32,6 +32,6 @@ install:{{
 }}
   - cpan-install --deps
 script:
-  - perl Makefile.PL
-  - make
+  - perl Build.PL
+  - ./Build
   - prove -b -r -s -j1 $(test-files)

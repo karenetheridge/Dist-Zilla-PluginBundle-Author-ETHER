@@ -19,6 +19,8 @@ perl:
 matrix:
   allow_failures:
     - perl: blead
+    - perl: "5.12"
+    - perl: "5.10"
 
 env:
   global:

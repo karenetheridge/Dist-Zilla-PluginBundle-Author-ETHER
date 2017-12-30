@@ -183,13 +183,13 @@ has _removed_plugins => (
 
 # this attribute and its supporting code is a candidate to be extracted out into its own role,
 # for re-use in other bundles
-has _develop_suggests => (
+has _plugin_requirements => (
     isa => class_type('CPAN::Meta::Requirements'),
     lazy => 1,
     default => sub { CPAN::Meta::Requirements->new },
     handles => {
-        _add_minimum_develop_suggests => 'add_minimum',
-        _develop_suggests_as_string_hash => 'as_string_hash',
+        _add_minimum_plugin_requirement => 'add_minimum',
+        _plugin_requirements_as_string_hash => 'as_string_hash',
     },
 );
 
@@ -469,7 +469,7 @@ sub configure
     $self->add_plugins(
         [ 'Prereqs' => 'prereqs for @Author::ETHER' =>
         { '-phase' => 'develop', '-relationship' => 'suggests',
-          %{ $self->_develop_suggests_as_string_hash } } ]
+          %{ $self->_plugin_requirements_as_string_hash } } ]
     );
 
     # listed last, to be sure we run at the very end of each phase
@@ -509,7 +509,7 @@ around add_plugins => sub
             my %configs = %{ $extra_args{$module} };    # copy, not reference!
 
             # don't keep :version unless it matches the package exactly, but still respect the prereq
-            $self->_add_minimum_develop_suggests($module => delete $configs{':version'})
+            $self->_add_minimum_plugin_requirement($module => delete $configs{':version'})
                 if exists $configs{':version'} and $module ne $plugin;
 
             # we don't need to worry about overwriting the payload with defaults, as
@@ -518,7 +518,7 @@ around add_plugins => sub
         }
 
         # record develop prereq
-        $self->_add_minimum_develop_suggests($plugin => $payload->{':version'} // 0);
+        $self->_add_minimum_plugin_requirement($plugin => $payload->{':version'} // 0);
     }
 
     return $self->$orig(@plugins);
@@ -539,7 +539,7 @@ around add_bundle => sub
     # default configs can be passed in directly - no need to consult %extra_args
 
     # record develop prereq of bundle only, not its components (it should do that itself)
-    $self->_add_minimum_develop_suggests($package => $payload->{':version'} // 0);
+    $self->_add_minimum_plugin_requirement($package => $payload->{':version'} // 0);
 
     # allow config slices to propagate down from the user
     $payload = {

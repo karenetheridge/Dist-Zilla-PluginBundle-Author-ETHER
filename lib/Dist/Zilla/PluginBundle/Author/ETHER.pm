@@ -431,6 +431,10 @@ sub configure
         'NextRelease.:version' => '5.033',
         'NextRelease.time_zone' => 'UTC',
         'NextRelease.format' => '%-' . ($self->changes_version_columns - 2) . 'v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T',
+
+        # 0.003 and earlier uses develop-suggests unconditionally, so we need not specify a minimum version
+        plugin_prereq_phase => 'develop',
+        plugin_prereq_relationship => 'suggests',
     });
 
     $self->add_plugins(

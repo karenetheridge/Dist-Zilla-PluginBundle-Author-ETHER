@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 package # hide from PAUSE
     Helper;
 
@@ -29,6 +32,7 @@ $ENV{HOME} = Path::Tiny->tempdir->stringify;
 {
     use Dist::Zilla::PluginBundle::Author::ETHER;
     package Dist::Zilla::PluginBundle::Author::ETHER;
+    no warnings 'redefine';
     sub _pause_config { 'URMOM', 'mysekritpassword' }
 }
 
@@ -182,7 +186,7 @@ sub git_in_path
         $dir = $dir->parent;
     }
     continue {
-        die "too many iterations when traversing $tempdir!"
+        die "too many iterations when traversing $dir!"
             if $count++ > 100;
     }
     return $in_git;

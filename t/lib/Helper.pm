@@ -102,7 +102,8 @@ sub all_plugins_in_prereqs
                 if exists $exempt{$plugin};
 
             # cannot be a (non-develop) prereq if the module lives in this distribution
-            next if (
+            note("$plugin is found in local directory or in 'provides' metadata; skipping"), next
+            if (
                 $pluginbundle_meta ? exists $pluginbundle_meta->{provides}{$plugin}
                : do {
                    (my $file = $plugin) =~ s{::}{/}g; $file .= '.pm';

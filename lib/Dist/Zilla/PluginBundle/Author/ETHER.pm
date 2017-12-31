@@ -993,7 +993,7 @@ See also L<[Test::PodSpelling]|Dist::Zilla::Plugin::Test::PodSpelling/stopwords>
 
 =for stopwords ModuleBuildTiny
 
-Available since 0.007.
+Available since version 0.007.
 
 The installer back-end(s) to use (can be specified more than once); defaults
 to L<C<ModuleBuildTiny::Fallback>|Dist::Zilla::Plugin::ModuleBuildTiny::Fallback>
@@ -1017,7 +1017,7 @@ Encouraged choices are:
 
 =head2 server
 
-Available since 0.019.
+Available since version 0.019.
 
 If provided, must be one of:
 
@@ -1047,7 +1047,7 @@ you'll need to provide this yourself.
 
 =head2 airplane
 
-Available since 0.053.
+Available since version 0.053.
 
 A boolean option that, when set, removes the use of all plugins that use the
 network (generally for comparing metadata against PAUSE, and querying the
@@ -1056,7 +1056,7 @@ Defaults to false; can also be set with the environment variable C<DZIL_AIRPLANE
 
 =head2 copy_file_from_release
 
-Available in this form since 0.076.
+Available in this form since version 0.076.
 
 A file, to be present in the build, which is copied back to the source
 repository at release time and committed to git. Can be used more than
@@ -1068,7 +1068,7 @@ defaults are appended to, rather than overwritten.
 
 =for stopwords PodWeaver SurgicalPodWeaver
 
-Available since 0.051.
+Available since version 0.051.
 
 A boolean option that, when set, uses
 L<[SurgicalPodWeaver]|Dist::Zilla::Plugin::SurgicalPodWeaver> instead of
@@ -1077,14 +1077,14 @@ options. Defaults to false.
 
 =head2 changes_version_columns
 
-Available since 0.076.
+Available since version 0.076.
 
 An integer that specifies how many columns (right-padded with whitespace) are
 allocated in F<Changes> entries to the version string. Defaults to 10.
 
 =head2 licence (or license)
 
-Available since 0.101.
+Available since version 0.101.
 
 A string that specifies the name to use for the licence file.  Defaults to
 C<LICENCE> for distributions where I (ETHER) or any other known non-Americans
@@ -1093,7 +1093,7 @@ have first-come permissions, or C<LICENSE> otherwise.
 
 =head2 authority
 
-Available since 0.117.
+Available since version 0.117.
 
 A string of the form C<cpan:PAUSEID> that references the PAUSE ID of the user who has primary ("first-come")
 authority over the distribution and main module namespace. If not provided, it is extracted from the configuration
@@ -1105,7 +1105,7 @@ file (if the C<licence> configuration is not provided).
 
 =for stopwords UploadToCPAN FakeRelease
 
-Available since 0.122.
+Available since version 0.122.
 
 A boolean option that, when set, removes L<[UploadToCPAN]|Dist::Zilla::Plugin::UploadToCPAN> from the plugin list
 and replaces it with L<[FakeRelease]|Dist::Zilla::Plugin::FakeRelease>.

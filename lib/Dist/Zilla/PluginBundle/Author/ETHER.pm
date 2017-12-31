@@ -131,6 +131,20 @@ has fake_release => (
     default => sub { $ENV{FAKE_RELEASE} || $_[0]->payload->{fake_release} // 0 },
 );
 
+has plugin_prereq_phase => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    default => sub { $_[0]->payload->{plugin_prereq_phase} // 'develop' },
+);
+
+has plugin_prereq_relationship => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    default => sub { $_[0]->payload->{plugin_prereq_relationship} // 'suggests' },
+);
+
 # configs are applied when plugins match ->isa($key) or ->does($key)
 my %extra_args = (
     'Dist::Zilla::Plugin::MakeMaker' => { 'eumm_version' => '0' },
@@ -262,7 +276,7 @@ sub configure
             . $self->server . ' with a read-only mirror', 'yellow'), "\n"
         if $self->server ne 'github' and $self->server ne 'none';
 
-    # method modifier will also apply default configs, compile develop prereqs
+    # method modifier will also apply default configs, compile plugin prereqs
     $self->add_plugins(
         # VersionProvider
         # see [@Git::VersionManager]
@@ -347,7 +361,8 @@ sub configure
                 $self->meta->name => $self->VERSION,
             } ],
         ($self->surgical_podweaver ? [ 'Prereqs' => pod_weaving => {
-                '-phase' => 'develop', '-relationship' => 'suggests',
+                '-phase' => $self->plugin_prereq_phase,
+                '-relationship' => $self->plugin_prereq_relationship,
                 'Dist::Zilla::Plugin::SurgicalPodWeaver' => 0
             } ] : ()),
 
@@ -433,8 +448,9 @@ sub configure
         'NextRelease.format' => '%-' . ($self->changes_version_columns - 2) . 'v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T',
 
         # 0.003 and earlier uses develop-suggests unconditionally, so we need not specify a minimum version
-        plugin_prereq_phase => 'develop',
-        plugin_prereq_relationship => 'suggests',
+        # for the default case here.
+        plugin_prereq_phase => $self->plugin_prereq_phase,
+        plugin_prereq_relationship => $self->plugin_prereq_relationship,
     });
 
     $self->add_plugins(
@@ -469,12 +485,13 @@ sub configure
         $mbt_spec->[-1]{static} = 'no';
     }
 
-    # ensure that additional optional plugins are declared in prereqs
+    # add used plugins to desired prereq section
     $self->add_plugins(
-        [ 'Prereqs' => 'prereqs for @Author::ETHER' =>
-        { '-phase' => 'develop', '-relationship' => 'suggests',
-          %{ $self->_plugin_requirements_as_string_hash } } ]
-    );
+        [ 'Prereqs' => 'prereqs for @Author::ETHER' => {
+                '-phase' => $self->plugin_prereq_phase,
+                '-relationship' => $self->plugin_prereq_relationship,
+              %{ $self->_plugin_requirements_as_string_hash } } ]
+    ) if $self->plugin_prereq_phase and $self->plugin_prereq_relationship;
 
     # listed last, to be sure we run at the very end of each phase
     $self->add_plugins(
@@ -482,7 +499,7 @@ sub configure
     ) if ($ENV{USER} // '') eq 'ether';
 }
 
-# determine develop prereqs, and apply default configs (respecting superclasses, roles)
+# determine plugin prereqs, and apply default configs (respecting superclasses, roles)
 around add_plugins => sub
 {
     my ($orig, $self, @plugins) = @_;
@@ -498,7 +515,7 @@ around add_plugins => sub
 
     foreach my $plugin_spec (@plugins)
     {
-        # these should never be added to develop prereqs
+        # these should never be added as plugin prereqs
         next if $plugin_spec->[0] eq 'BlockRelease'     # temporary use during development
             or $plugin_spec->[0] eq 'VerifyPhases';     # only used by ether, not others
 
@@ -521,7 +538,7 @@ around add_plugins => sub
             @{$payload}{keys %configs} = values %configs;
         }
 
-        # record develop prereq
+        # record prereq (and version) for later possible injection
         $self->_add_minimum_plugin_requirement($plugin => $payload->{':version'} // 0);
     }
 
@@ -542,7 +559,7 @@ around add_bundle => sub
 
     # default configs can be passed in directly - no need to consult %extra_args
 
-    # record develop prereq of bundle only, not its components (it should do that itself)
+    # record plugin prereq of bundle only, not its components (it should do that itself)
     $self->_add_minimum_plugin_requirement($package => $payload->{':version'} // 0);
 
     # allow config slices to propagate down from the user
@@ -776,8 +793,8 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     configure_finder = :NoFiles
 
     [Prereqs / prereqs for @Author::ETHER]
-    -phase = develop
-    -relationship = suggests
+    -phase = develop            ; (or whatever 'plugin_prereq_phase' is set to)
+    -relationship = suggests    ; (or whatever 'plugin_prereq_relationship' is set to)
     ...all the plugins this bundle uses...
 
     [Prereqs / pluginbundle_version]
@@ -1112,6 +1129,17 @@ and replaces it with L<[FakeRelease]|Dist::Zilla::Plugin::FakeRelease>.
 Defaults to false; can also be set with the environment variable C<FAKE_RELEASE>.
 
 =for stopwords customizations
+
+=head2 plugin_prereq_phase, plugin_prereq_relationship
+
+If these are set, then plugins used by the bundle (with minimum version requirements) are injected into the
+distribution's prerequisites at the specified phase and relationship. Defaults to C<develop> and C<suggests>.
+Disable with:
+
+    plugin_prereq_phase =
+    plugin_prereq_relationship =
+
+Available since version 0.133.
 
 =head2 other customizations
 

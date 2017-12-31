@@ -118,15 +118,13 @@ sub all_plugins_in_prereqs
             # prereqs via an extra injected [Prereqs] plugin
             my $required_version = $bundle_plugin_prereqs->{find_meta($plugin)->name} // 0;
 
+            ok(
+                exists $dist_meta->{prereqs}{develop}{suggests}{$plugin},
+                "$plugin is a develop prereq of the distribution",
+            );
+
             if (exists $additional{$plugin})
             {
-                # plugin was added in via an extra option, therefore the
-                # plugin should have been added to develop prereqs, and not be a runtime prereq
-                ok(
-                    exists $dist_meta->{prereqs}{develop}{suggests}{$plugin},
-                    $plugin . ' is a develop prereq of the distribution',
-                );
-
                 cmp_deeply(
                     $pluginbundle_meta->{prereqs}{runtime}{recommends},
                     superhashof({ $plugin => $required_version }),

@@ -29,11 +29,22 @@ delete $ENV{FAKE_RELEASE};
 
 $ENV{HOME} = Path::Tiny->tempdir->stringify;
 
+my $bundle_plugin_requirements; # hashref via CPAN::Meta::Requirements
 {
     use Dist::Zilla::PluginBundle::Author::ETHER;
     package Dist::Zilla::PluginBundle::Author::ETHER;
     no warnings 'redefine';
     sub _pause_config { 'URMOM', 'mysekritpassword' }
+
+    use Moose;
+    __PACKAGE__->meta->make_mutable;
+    # grab a copy of _plugin_prereqs attribute so we can test that these
+    # prereqs are also reflected in the bundle's runtime-requires
+    after configure => sub {
+        my $self = shift;
+        $bundle_plugin_requirements = $self->_plugin_requirements_as_string_hash;
+    };
+    __PACKAGE__->meta->make_immutable;
 }
 
 # load this in advance, as we change directories between configuration and building
@@ -81,24 +92,13 @@ sub all_plugins_in_prereqs
     my $bundle_name = $options{bundle_name} // '@Author::ETHER';    # TODO: default to dist we are in
     my %additional = map { $_ => undef } @{ $options{additional} // [] };
     my %exempt = map { $_ => undef } @{ $options{exempt} // [] };
+    my $bundle_prereqs_phase = $options{bundle_prereqs_phase} // 'develop';
+    my $bundle_prereqs_relationship = $options{bundle_prereqs_relationship} // 'suggests';
 
     my $pluginbundle_meta = -f 'META.json' ? decode_json(path('META.json')->slurp_raw) : undef;
     my $dist_meta = $tzil->distmeta;
 
-    # these are develop-suggests prereqs
-    my $plugin_name = "$bundle_name/prereqs for $bundle_name";
-    my $bundle_plugin_prereqs = $tzil->plugin_named($plugin_name);
-    cmp_deeply(
-        $bundle_plugin_prereqs,
-        methods(
-            prereq_phase => 'develop',
-            prereq_type => 'suggests',
-        ),
-        "found '$plugin_name' develop-suggests prereqs",
-    );
-    $bundle_plugin_prereqs = $bundle_plugin_prereqs->_prereq;
-
-    subtest 'all plugins in use are specified as *required* runtime prerequisites by the plugin bundle, or develop-suggests prerequisites by the distribution' => sub {
+    subtest 'all plugins in use are specified as *required* runtime prerequisites by the plugin bundle, or injected as develop-suggests prerequisites by the distribution (unless option disabled)' => sub {
         foreach my $plugin (uniq map { find_meta($_)->name }
             grep { $_->plugin_name =~ /^$bundle_name\/[^@]/ } @{$tzil->plugins})
         {
@@ -114,17 +114,19 @@ sub all_plugins_in_prereqs
                    path('lib', $file)->exists;
                });
 
-            # plugins with a specific :version requirement are added to
-            # prereqs via an extra injected [Prereqs] plugin
-            my $required_version = $bundle_plugin_prereqs->{find_meta($plugin)->name} // 0;
+            # plugins with a specific :version requirement are injected into
+            # built distribution's prereqs (develop-suggests by default)
+            my $required_version = $bundle_plugin_requirements->{find_meta($plugin)->name} // 0;
 
             ok(
-                exists $dist_meta->{prereqs}{develop}{suggests}{$plugin},
-                "$plugin is a develop prereq of the distribution",
-            );
+                exists $dist_meta->{prereqs}{$bundle_prereqs_phase}{$bundle_prereqs_relationship}{$plugin},
+                "$plugin is a $bundle_prereqs_phase prereq of the distribution",
+            ) if $bundle_prereqs_phase and $bundle_prereqs_relationship;
 
             if (exists $additional{$plugin})
             {
+                # plugin was added in via an extra option, therefore the
+                # plugin should exist as a recommendation of the bundle (as some tests require it)
                 cmp_deeply(
                     $pluginbundle_meta->{prereqs}{runtime}{recommends},
                     superhashof({ $plugin => $required_version }),

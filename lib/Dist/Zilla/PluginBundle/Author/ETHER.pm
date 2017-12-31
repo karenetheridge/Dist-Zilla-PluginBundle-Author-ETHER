@@ -131,6 +131,20 @@ has fake_release => (
     default => sub { $ENV{FAKE_RELEASE} || $_[0]->payload->{fake_release} // 0 },
 );
 
+has plugin_prereq_phase => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    default => sub { $_[0]->payload->{plugin_prereq_phase} // 'develop' },
+);
+
+has plugin_prereq_relationship => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    default => sub { $_[0]->payload->{plugin_prereq_relationship} // 'suggests' },
+);
+
 # configs are applied when plugins match ->isa($key) or ->does($key)
 my %extra_args = (
     'Dist::Zilla::Plugin::MakeMaker' => { 'eumm_version' => '0' },
@@ -433,8 +447,9 @@ sub configure
         'NextRelease.format' => '%-' . ($self->changes_version_columns - 2) . 'v  %{yyyy-MM-dd HH:mm:ss\'Z\'}d%{ (TRIAL RELEASE)}T',
 
         # 0.003 and earlier uses develop-suggests unconditionally, so we need not specify a minimum version
-        bundle_prereqs_phase => 'develop',
-        bundle_prereqs_relationship => 'suggests',
+        # for the default case here.
+        bundle_prereqs_phase => $self->plugin_prereq_phase,
+        bundle_prereqs_relationship => $self->plugin_prereq_relationship,
     });
 
     $self->add_plugins(
@@ -469,12 +484,13 @@ sub configure
         $mbt_spec->[-1]{static} = 'no';
     }
 
-    # ensure that additional optional plugins are declared in prereqs
+    # add used plugins to desired prereq section
     $self->add_plugins(
-        [ 'Prereqs' => 'prereqs for @Author::ETHER' =>
-        { '-phase' => 'develop', '-relationship' => 'suggests',
-          %{ $self->_plugin_requirements_as_string_hash } } ]
-    );
+        [ 'Prereqs' => 'prereqs for @Author::ETHER' => {
+                '-phase' => $self->plugin_prereq_phase,
+                '-relationship' => $self->plugin_prereq_relationship,
+              %{ $self->_plugin_requirements_as_string_hash } } ]
+    ) if $self->plugin_prereq_phase and $self->plugin_prereq_relationship;
 
     # listed last, to be sure we run at the very end of each phase
     $self->add_plugins(
@@ -521,7 +537,7 @@ around add_plugins => sub
             @{$payload}{keys %configs} = values %configs;
         }
 
-        # record develop prereq
+        # record prereq (and version) for later possible injection
         $self->_add_minimum_plugin_requirement($plugin => $payload->{':version'} // 0);
     }
 
@@ -1112,6 +1128,17 @@ and replaces it with L<[FakeRelease]|Dist::Zilla::Plugin::FakeRelease>.
 Defaults to false; can also be set with the environment variable C<FAKE_RELEASE>.
 
 =for stopwords customizations
+
+=head2 plugin_prereq_phase, plugin_prereq_relationship
+
+If these are set, then plugins used by the bundle (with minimum version requirements) are injected into the
+distribution's prerequisites at the specified phase and relationship. Defaults to C<develop> and C<suggests>.
+Disable with:
+
+    plugin_prereq_phase =
+    plugin_prereq_relationship =
+
+Available since version 0.133.
 
 =head2 other customizations
 

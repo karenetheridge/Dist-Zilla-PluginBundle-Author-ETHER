@@ -72,8 +72,8 @@ our @REMOVED_PLUGINS = qw(
     EnsurePrereqsInstalled
 );
 
-our $PREREQ_PHASE_DEFAULT = 'develop';
-our $PREREQ_RELATIONSHIP_DEFAULT = 'suggests';
+our $PREREQ_PHASE_DEFAULT = 'x_Dist_Zilla';
+our $PREREQ_RELATIONSHIP_DEFAULT = 'requires';
 
 # confirms that no git-based plugins are running.
 sub assert_no_git
@@ -120,7 +120,7 @@ sub all_plugins_in_prereqs
                });
 
             # plugins with a specific :version requirement are injected into
-            # built distribution's prereqs (develop-suggests by default)
+            # built distribution's prereqs (x_Dist_Zilla-requires by default)
             my $required_version = $bundle_plugin_requirements->{find_meta($plugin)->name} // 0;
 
             ok(

@@ -19,6 +19,7 @@ use List::Util 1.45 qw(first any uniq none);
 use Module::Runtime qw(require_module use_module);
 use Devel::CheckBin 'can_run';
 use Path::Tiny;
+use CPAN::Meta 2.150006;    # for x_* preservation
 use CPAN::Meta::Requirements;
 use Term::ANSIColor 'colored';
 eval { +require Win32::Console::ANSI } if $^O eq 'MSWin32';
@@ -135,14 +136,14 @@ has plugin_prereq_phase => (
     is => 'ro',
     isa => 'Str',
     lazy => 1,
-    default => sub { $_[0]->payload->{plugin_prereq_phase} // 'develop' },
+    default => sub { $_[0]->payload->{plugin_prereq_phase} // 'x_Dist_Zilla' },
 );
 
 has plugin_prereq_relationship => (
     is => 'ro',
     isa => 'Str',
     lazy => 1,
-    default => sub { $_[0]->payload->{plugin_prereq_relationship} // 'suggests' },
+    default => sub { $_[0]->payload->{plugin_prereq_relationship} // 'requires' },
 );
 
 # configs are applied when plugins match ->isa($key) or ->does($key)
@@ -794,15 +795,15 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [AutoPrereqs]
     :version = 5.038
     [Prereqs::AuthorDeps]
-    phase = develop             ; (or whatever 'plugin_prereq_phase' is set to)
-    relation = suggests         ; (or whatever 'plugin_prereq_relationship' is set to)
+    phase = x_Dist_Zilla        ; (or whatever 'plugin_prereq_phase' is set to)
+    relation = requires         ; (or whatever 'plugin_prereq_relationship' is set to)
     [MinimumPerl]
     :version = 1.006
     configure_finder = :NoFiles
 
     [Prereqs / prereqs for @Author::ETHER]
-    -phase = develop            ; (or whatever 'plugin_prereq_phase' is set to)
-    -relationship = suggests    ; (or whatever 'plugin_prereq_relationship' is set to)
+    -phase = x_Dist_Zilla       ; (or whatever 'plugin_prereq_phase' is set to)
+    -relationship = requires    ; (or whatever 'plugin_prereq_relationship' is set to)
     ...all the plugins this bundle uses...
 
 
@@ -1136,7 +1137,7 @@ Defaults to false; can also be set with the environment variable C<FAKE_RELEASE>
 =head2 plugin_prereq_phase, plugin_prereq_relationship
 
 If these are set, then plugins used by the bundle (with minimum version requirements) are injected into the
-distribution's prerequisites at the specified phase and relationship. Defaults to C<develop> and C<suggests>.
+distribution's prerequisites at the specified phase and relationship. Defaults to C<x_Dist_Zilla> and C<requires>.
 Disable with:
 
     plugin_prereq_phase =

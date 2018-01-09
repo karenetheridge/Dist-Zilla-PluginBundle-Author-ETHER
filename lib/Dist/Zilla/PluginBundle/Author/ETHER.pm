@@ -356,7 +356,7 @@ sub configure
         [ 'AutoPrereqs'         => { ':version' => '5.038' } ],
         [ 'Prereqs::AuthorDeps' => { ':version' => '0.006', relation => 'suggests' } ],
         [ 'MinimumPerl'         => { ':version' => '1.006', configure_finder => ':NoFiles' } ],
-        [ 'Prereqs' => pluginbundle_version => {
+        [ 'Prereqs' => 'pluginbundle version' => {
                 '-phase' => 'develop', '-relationship' => 'recommends',
                 $self->meta->name => $self->VERSION,
             } ],
@@ -797,7 +797,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     -relationship = suggests    ; (or whatever 'plugin_prereq_relationship' is set to)
     ...all the plugins this bundle uses...
 
-    [Prereqs / pluginbundle_version]
+    [Prereqs / pluginbundle version]
     -phase = develop
     -relationship = recommends
     Dist::Zilla::PluginBundle::Author::ETHER = <current installed version>

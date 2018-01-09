@@ -278,6 +278,12 @@ sub configure
 
     # method modifier will also apply default configs, compile plugin prereqs
     $self->add_plugins(
+        # adding this first indicates the start of the bundle in x_Dist_Zilla metadata
+        [ 'Prereqs' => 'pluginbundle version' => {
+                '-phase' => 'develop', '-relationship' => 'recommends',
+                $self->meta->name => $self->VERSION,
+            } ],
+
         # VersionProvider
         # see [@Git::VersionManager]
 
@@ -356,10 +362,6 @@ sub configure
         [ 'AutoPrereqs'         => { ':version' => '5.038' } ],
         [ 'Prereqs::AuthorDeps' => { ':version' => '0.006', relation => 'suggests' } ],
         [ 'MinimumPerl'         => { ':version' => '1.006', configure_finder => ':NoFiles' } ],
-        [ 'Prereqs' => 'pluginbundle version' => {
-                '-phase' => 'develop', '-relationship' => 'recommends',
-                $self->meta->name => $self->VERSION,
-            } ],
         ($self->surgical_podweaver ? [ 'Prereqs' => pod_weaving => {
                 '-phase' => $self->plugin_prereq_phase,
                 '-relationship' => $self->plugin_prereq_relationship,
@@ -608,6 +610,11 @@ In your F<dist.ini>:
 This is a L<Dist::Zilla> plugin bundle. It is I<very approximately> equal to the
 following F<dist.ini> (following the preamble), minus some optimizations:
 
+    [Prereqs / pluginbundle version]
+    -phase = develop
+    -relationship = recommends
+    Dist::Zilla::PluginBundle::Author::ETHER = <current installed version>
+
     ;;; BeforeBuild
     [PromptIfStale / stale modules, build]
     phase = build
@@ -796,11 +803,6 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     -phase = develop            ; (or whatever 'plugin_prereq_phase' is set to)
     -relationship = suggests    ; (or whatever 'plugin_prereq_relationship' is set to)
     ...all the plugins this bundle uses...
-
-    [Prereqs / pluginbundle version]
-    -phase = develop
-    -relationship = recommends
-    Dist::Zilla::PluginBundle::Author::ETHER = <current installed version>
 
 
     ;;; Install Tool

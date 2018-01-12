@@ -211,7 +211,7 @@ has _plugin_requirements => (
 my @never_gather = grep { -e } qw(
     Makefile.PL ppport.h README.md README.pod META.json
     cpanfile TODO CONTRIBUTING LICENCE LICENSE INSTALL
-    inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm
+    inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm dist.ini
 );
 
 sub BUILD
@@ -640,6 +640,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     exclude_filename = README.pod
     exclude_filename = TODO
     exclude_filename = cpanfile
+    exclude_filename = dist.ini
     exclude_filename = inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm
     exclude_filename = ppport.h
 

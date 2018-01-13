@@ -360,7 +360,7 @@ sub configure
         # Register Prereqs
         # (MakeMaker or other installer)
         [ 'AutoPrereqs'         => { ':version' => '5.038' } ],
-        [ 'Prereqs::AuthorDeps' => { ':version' => '0.006', relation => 'suggests' } ],
+        [ 'Prereqs::AuthorDeps' => { ':version' => '0.006', phase => $self->plugin_prereq_phase, relation => $self->plugin_prereq_relationship } ],
         [ 'MinimumPerl'         => { ':version' => '1.006', configure_finder => ':NoFiles' } ],
         ($self->surgical_podweaver ? [ 'Prereqs' => pod_weaving => {
                 '-phase' => $self->plugin_prereq_phase,
@@ -794,7 +794,8 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [AutoPrereqs]
     :version = 5.038
     [Prereqs::AuthorDeps]
-    relation = suggests
+    phase = develop             ; (or whatever 'plugin_prereq_phase' is set to)
+    relation = suggests         ; (or whatever 'plugin_prereq_relationship' is set to)
     [MinimumPerl]
     :version = 1.006
     configure_finder = :NoFiles

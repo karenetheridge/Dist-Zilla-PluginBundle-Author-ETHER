@@ -7,6 +7,8 @@ package # hide from PAUSE
 use parent 'Exporter';
 our @EXPORT = qw(
     @REMOVED_PLUGINS
+    $PREREQ_PHASE_DEFAULT
+    $PREREQ_RELATIONSHIP_DEFAULT
     assert_no_git
     all_plugins_in_prereqs
     no_git_tempdir
@@ -70,6 +72,9 @@ our @REMOVED_PLUGINS = qw(
     EnsurePrereqsInstalled
 );
 
+our $PREREQ_PHASE_DEFAULT = 'develop';
+our $PREREQ_RELATIONSHIP_DEFAULT = 'suggests';
+
 # confirms that no git-based plugins are running.
 sub assert_no_git
 {
@@ -92,8 +97,8 @@ sub all_plugins_in_prereqs
     my $bundle_name = $options{bundle_name} // '@Author::ETHER';    # TODO: default to dist we are in
     my %additional = map { $_ => undef } @{ $options{additional} // [] };
     my %exempt = map { $_ => undef } @{ $options{exempt} // [] };
-    my $prereq_plugin_phase = $options{prereq_plugin_phase} // 'develop';
-    my $prereq_plugin_relationship = $options{prereq_plugin_relationship} // 'suggests';
+    my $prereq_plugin_phase = $options{prereq_plugin_phase} // $PREREQ_PHASE_DEFAULT;
+    my $prereq_plugin_relationship = $options{prereq_plugin_relationship} // $PREREQ_RELATIONSHIP_DEFAULT;
 
     my $pluginbundle_meta = -f 'META.json' ? decode_json(path('META.json')->slurp_raw) : undef;
     my $dist_meta = $tzil->distmeta;

@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - always report installed version of Encode in
+            t/00-report-prereqs.t, as it is called by core code (PerlIO).
 
 0.133     2018-01-14 08:25:00Z
           - new 'plugin_prereq_phase' and 'plugin_prereq_relationship'

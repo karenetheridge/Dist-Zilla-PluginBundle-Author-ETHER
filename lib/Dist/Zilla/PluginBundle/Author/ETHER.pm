@@ -291,7 +291,6 @@ sub configure
         # BeforeBuild
         # [ 'EnsurePrereqsInstalled' ], # FIXME: use options to make this less annoying!
         [ 'PromptIfStale' => 'stale modules, build' => { phase => 'build', module => [ $self->meta->name ] } ],
-        [ 'PromptIfStale' => 'stale modules, release' => { phase => 'release', check_all_plugins => 1, check_all_prereqs => 1 } ],
 
         # ExecFiles
         (-d ($self->payload->{'ExecDir.dir'} // 'script') || any { /^ExecDir\./ } keys %{ $self->payload })
@@ -394,6 +393,7 @@ sub configure
         [ 'CheckStrictVersion'  => { decimal_only => 1 } ],
         'CheckMetaResources',
         'EnsureLatestPerl',
+        [ 'PromptIfStale' => 'stale modules, release' => { phase => 'release', check_all_plugins => 1, check_all_prereqs => 1 } ],
 
         # if in airplane mode, allow our uncommitted dist.ini edit which sets 'airplane = 1'
         [ 'Git::Check'          => 'initial check' => { allow_dirty => [ $self->airplane ? 'dist.ini' : '' ] } ],
@@ -620,10 +620,6 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [PromptIfStale / stale modules, build]
     phase = build
     module = Dist::Zilla::Plugin::Author::ETHER
-    [PromptIfStale / stale modules, release]
-    phase = release
-    check_all_plugins = 1
-    check_all_prereqs = 1
 
 
     ;;; ExecFiles
@@ -848,6 +844,10 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     [CheckMetaResources]
     [EnsureLatestPerl]
+    [PromptIfStale / stale modules, release]
+    phase = release
+    check_all_plugins = 1
+    check_all_prereqs = 1
 
     [Git::Check / initial check]
     allow_dirty =

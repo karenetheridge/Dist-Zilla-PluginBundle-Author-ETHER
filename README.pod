@@ -8,7 +8,7 @@ Dist::Zilla::PluginBundle::Author::ETHER - A plugin bundle for distributions bui
 
 =head1 VERSION
 
-version 0.133
+version 0.134
 
 =head1 SYNOPSIS
 
@@ -32,10 +32,6 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [PromptIfStale / stale modules, build]
     phase = build
     module = Dist::Zilla::Plugin::Author::ETHER
-    [PromptIfStale / stale modules, release]
-    phase = release
-    check_all_plugins = 1
-    check_all_prereqs = 1
 
 
     ;;; ExecFiles
@@ -134,6 +130,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     :version = 0.022
     verify_prereqs = 1
     version_extractor = Module::Metadata
+    include = Encode
     include = JSON::PP
     include = Pod::Coverage
     include = Sub::Name
@@ -259,6 +256,10 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 
     [CheckMetaResources]
     [EnsureLatestPerl]
+    [PromptIfStale / stale modules, release]
+    phase = release
+    check_all_plugins = 1
+    check_all_prereqs = 1
 
     [Git::Check / initial check]
     allow_dirty =

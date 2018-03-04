@@ -1,6 +1,9 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - fix CONTRIBUTING template that might sometimes generate an
+            undefined warning (tickling tests with AUTHOR_TESTING=1 under
+            Text::Template 1.48)
 
 0.134     2018-03-03 08:44:42Z
           - always report installed version of Encode in

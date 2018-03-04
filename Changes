@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.135     2018-03-04 19:47:45Z
           - fix CONTRIBUTING template that might sometimes generate an
             undefined warning (tickling tests with AUTHOR_TESTING=1 under
             Text::Template 1.48)

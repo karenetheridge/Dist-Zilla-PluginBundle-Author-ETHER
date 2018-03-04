@@ -429,6 +429,7 @@ sub configure
 
     # plugins to do with calculating, munging, incrementing versions
     $self->add_bundle('@Git::VersionManager' => {
+        # no minimum version needed yet
         'RewriteVersion::Transitional.global' => 1,
         'RewriteVersion::Transitional.fallback_version_provider' => 'Git::NextVersion',
         'RewriteVersion::Transitional.version_regexp' => '^v([\d._]+)(-TRIAL)?$',

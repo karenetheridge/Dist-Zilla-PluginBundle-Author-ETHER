@@ -1,6 +1,9 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - add new xt/author/changes_has_content.t that calls
+            xt/release/changes_has_content.t if not on master branch (for
+            verifying that pull requests contain a Changes entry)
 
 0.135     2018-03-04 19:47:45Z
           - fix CONTRIBUTING template that might sometimes generate an

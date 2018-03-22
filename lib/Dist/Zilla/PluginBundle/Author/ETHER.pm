@@ -315,7 +315,7 @@ sub configure
         [ 'Test::CPAN::Changes' => { ':version' => '0.012' } ],
         [ 'GenerateFile::FromShareDir' => 'generate xt/author/changes_has_content.t' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -source_filename => 'changes_has_content.t', -destination_filename => 'xt/author/changes_has_content.t' } ],
         'Test::ChangesHasContent',
-        [ 'Test::MinimumVersion' => { ':version' => '2.000003', max_target_perl => '5.006' } ],
+        [ 'Test::MinimumVersion' => { ':version' => '2.000008', max_target_perl => '5.006' } ],
         [ 'PodSyntaxTests'      => { ':version' => '5.040' } ],
         [ 'PodCoverageTests'    => { ':version' => '5.040' } ],
         [ 'Test::PodSpelling'   => { ':version' => '2.006003', stopwords => ['irc'], directories => [qw(examples lib script t xt)] } ],
@@ -697,7 +697,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     -destinotion_filename = xt/author/changes_has_content.t
     [Test::ChangesHasContent]
     [Test::MinimumVersion]
-    :version = 2.000003
+    :version = 2.000008
     max_target_perl = 5.006
     [PodSyntaxTests]
     :version = 5.040

@@ -4,6 +4,8 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
           - add new xt/author/changes_has_content.t that calls
             xt/release/changes_has_content.t if not on master branch (for
             verifying that pull requests contain a Changes entry)
+          - bump minimum required version of [Test::MinimumVersion], to get
+            recent change from xt/release -> xt/author
 
 0.135     2018-03-04 19:47:45Z
           - fix CONTRIBUTING template that might sometimes generate an

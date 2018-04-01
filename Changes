@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - fixed $TODO in xt/author-changes_has_content.t
 
 0.136     2018-03-22 04:19:40Z
           - add new xt/author/changes_has_content.t that calls

@@ -3,6 +3,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 {{$NEXT}}
           - updated travis configs (in this distribution, and minting profile)
             to reflect the new latest Dist::Zilla version in the 5.x series
+          - further fixes to $TODO in xt/author/changes_has_content.t
 
 0.137     2018-04-01 22:55:32Z
           - fixed $TODO in xt/author-changes_has_content.t

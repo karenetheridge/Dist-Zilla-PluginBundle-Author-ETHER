@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - yet more fixes to $TODO in xt/author/changes_has_content.t
 
 0.138     2018-05-15 04:07:46Z
           - updated travis configs (in this distribution, and minting profile)

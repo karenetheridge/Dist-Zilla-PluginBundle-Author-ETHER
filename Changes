@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.138     2018-05-15 04:07:46Z
           - updated travis configs (in this distribution, and minting profile)
             to reflect the new latest Dist::Zilla version in the 5.x series

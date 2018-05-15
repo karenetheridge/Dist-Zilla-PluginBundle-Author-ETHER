@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.139     2018-05-15 05:56:41Z
           - yet more fixes to $TODO in xt/author/changes_has_content.t
 

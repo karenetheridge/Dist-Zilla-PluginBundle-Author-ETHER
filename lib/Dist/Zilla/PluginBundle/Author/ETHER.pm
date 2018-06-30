@@ -239,7 +239,8 @@ sub configure
     warn '[@Author::ETHER] no "bash" executable found; skipping Run::AfterBuild command to update .ackrc', "\n"
         if not $INC{'Test/More.pm'} and not $self->_has_bash;
 
-    # NOTE! since the working directory has not changed to $zilla->root yet,
+    # NOTE! since the working directory has not changed to $zilla->root yet
+    # (and in future versions of Dist::Zilla, it may never change...)
     # if running this code via a different mechanism than dzil <command>, file
     # operations may be looking at the wrong directory! Take this into
     # consideration when running tests!

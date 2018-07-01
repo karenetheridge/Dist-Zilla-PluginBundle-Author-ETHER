@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.142     2018-07-01 22:40:53Z
           - always report installed version of Module::Runtime in
             t/00-report-prereqs.t, as recent versions are incompatible with
             older Moose.

@@ -30,8 +30,8 @@ sub configure
         # equivalent to [@CorePrep]
         [ '-EnsurePod5' ],
         [ '-H1Nester' ],
-
         '-SingleEncoding',
+
         [ '-Transformer' => List => { transformer => 'List' } ],
         [ '-Transformer' => Verbatim => { transformer => 'Verbatim' } ],
 
@@ -42,6 +42,7 @@ sub configure
         [ 'Generic' => 'SYNOPSIS' ],
         [ 'Generic' => 'DESCRIPTION' ],
         [ 'Generic' => 'OVERVIEW' ],
+
         [ 'Collect' => 'ATTRIBUTES' => { command => 'attr' } ],
         [ 'Collect' => 'METHODS'    => { command => 'method' } ],
         [ 'Collect' => 'FUNCTIONS'  => { command => 'func' } ],
@@ -194,7 +195,6 @@ following F<weaver.ini>, minus some optimizations:
 
     [-EnsurePod5]
     [-H1Nester]
-
     [-SingleEncoding]
 
     [-Transformer / List]
@@ -234,7 +234,7 @@ following F<weaver.ini>, minus some optimizations:
     main_module_only = 0
     text = <template>
     [AllowOverride / allow override SUPPORT]
-    header_re = ^(SUPPORT|BUGS)
+    header_re = ^(SUPPORT|BUGS)\b
     action = prepend
     match_anywhere = 0
 
@@ -270,6 +270,7 @@ This is also equivalent (other than section ordering) to:
     action = prepend
     match_anywhere = 0
 
+    [Authors]
     [Contributors]
     :version = 0.008
 

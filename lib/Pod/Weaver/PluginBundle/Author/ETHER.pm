@@ -93,6 +93,13 @@ SUPPORT
         ],
 
         'Authors',
+        [ 'AllowOverride' => 'allow override AUTHOR' => {
+               header_re => '^AUTHORS?\b',
+               action => 'replace',
+               match_anywhere => 0,
+            },
+        ],
+
         [ 'Contributors' => { ':version' => '0.008' } ],
         [ 'Legal' => { ':version' => '4.011', header => 'COPYRIGHT AND ' . $licence_filename } ],
         [ 'Region' => 'footer' ],
@@ -239,6 +246,11 @@ following F<weaver.ini>, minus some optimizations:
     match_anywhere = 0
 
     [Authors]
+    [AllowOverride / allow override AUTHOR]
+    header_re = ^AUTHORS?\b
+    action = replace
+    match_anywhere = 0
+
     [Contributors]
     :version = 0.008
 

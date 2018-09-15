@@ -41,8 +41,8 @@ However, you can run tests directly using the 'prove' tool:
   $ prove -lv t/some_test_file.t
   $ prove -lvr t/
 
-In most cases, 'prove' is entirely sufficient for you to test any
-patches you have.
+In most cases, 'prove' is entirely sufficient for you to test any patches you
+have.
 NO_XS
 } }}
 You may need to satisfy some dependencies.  The easiest way to satisfy
@@ -131,8 +131,8 @@ wish to be listed under a different name or address, you should submit a pull
 request to the .mailmap file to contain the correct mapping.
 
 
-This file was generated via {{ ref($plugin) . ' ' . ($plugin->VERSION || '<self>') }} from a
-template file originating in {{
+This file was generated via {{ ref($plugin) . ' ' . ($plugin->VERSION || '<self>') }}
+from a template file originating in {{
     (my $module = $plugin->dist) =~ s/-/::/g;
     eval "require $module";
     $plugin->dist . '-' . $module->VERSION

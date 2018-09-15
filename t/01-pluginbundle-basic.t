@@ -294,7 +294,7 @@ like(
 my $version = Dist::Zilla::PluginBundle::Author::ETHER->VERSION;
 like(
     $contributing,
-    qr/^template file originating in Dist-Zilla-PluginBundle-Author-ETHER-$version\.$/m,
+    qr/^from a template file originating in Dist-Zilla-PluginBundle-Author-ETHER-$version\.$/m,
     'name of this bundle distribution and its version properly inserted into CONTRIBUTING',
 );
 

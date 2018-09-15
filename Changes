@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - add paragraph on Travis CI in generated CONTRIBUTING file
 
 0.143     2018-07-08 03:46:21Z
           - allow the document to provide its own AUTHOR pod section,

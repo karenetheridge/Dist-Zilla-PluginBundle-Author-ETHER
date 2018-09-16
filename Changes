@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.144     2018-09-16 00:31:37Z
           - add paragraph on Travis CI in generated CONTRIBUTING file
 
 0.143     2018-07-08 03:46:21Z

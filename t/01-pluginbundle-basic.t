@@ -165,7 +165,7 @@ is(
                 $PREREQ_PHASE_DEFAULT => superhashof({
                     $PREREQ_RELATIONSHIP_DEFAULT => superhashof({
                         'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => '0.018',
-                        'Dist::Zilla::Plugin::MakeMaker::Fallback' => '0.012',
+                        'Dist::Zilla::Plugin::MakeMaker::Fallback' => '0.029',
                         'Dist::Zilla::PluginBundle::Author::ETHER' => '0.002',
                     }),
                 }),

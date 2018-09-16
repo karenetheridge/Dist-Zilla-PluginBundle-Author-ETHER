@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.145     2018-09-16 06:09:39Z
           - bump prereqs for [MakeMaker::Awesome] and [MakeMaker::Fallback] to
             ensure we get fixed plugin method definitions

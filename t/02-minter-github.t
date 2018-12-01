@@ -41,6 +41,7 @@ my $mint_dir = path($tzil->tempdir)->child('mint');
 
 my @expected_files = qw(
     .ackrc
+    .gitattributes
     .gitignore
     .mailmap
     .travis.yml

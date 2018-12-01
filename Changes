@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - add .gitattributes file to minting profile, to tell github that
+            this is perl code, not raku
 
 0.145     2018-09-16 06:09:39Z
           - bump prereqs for [MakeMaker::Awesome] and [MakeMaker::Fallback] to

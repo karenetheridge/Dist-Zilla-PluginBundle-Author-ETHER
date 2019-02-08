@@ -110,9 +110,7 @@ sub mvp_bundle_config
 {
     my $self = shift || __PACKAGE__;
 
-    return map {
-        $self->_expand_config($_)
-    } $self->configure;
+    return map $self->_expand_config($_), $self->configure;
 }
 
 my $prefix;

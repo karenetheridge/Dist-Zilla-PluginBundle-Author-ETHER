@@ -22,6 +22,7 @@ matrix:
     # - perl: blead
     - perl: "5.12"
     - perl: "5.10"
+  fast_finish: 1
 env:
   global:
     - AUTHOR_TESTING=1

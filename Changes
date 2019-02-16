@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.146     2019-02-16 20:32:06Z
           - add .gitattributes file to minting profile, to tell github that
             this is perl code, not raku

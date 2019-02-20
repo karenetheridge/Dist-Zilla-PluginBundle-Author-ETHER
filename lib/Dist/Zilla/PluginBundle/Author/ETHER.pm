@@ -79,7 +79,10 @@ has copy_file_from_release => (
 
 around copy_files_from_release => sub {
     my $orig = shift; my $self = shift;
-    sort(uniq($self->$orig(@_), qw(LICENCE LICENSE CONTRIBUTING ppport.h INSTALL)));
+    sort(uniq($self->$orig(@_),
+            qw(LICENCE LICENSE CONTRIBUTING ppport.h INSTALL),
+            $self->cpanfile ? 'cpanfile' : (),
+        ));
 };
 
 sub commit_files_after_release
@@ -144,6 +147,13 @@ has plugin_prereq_relationship => (
     isa => 'Str',
     lazy => 1,
     default => sub { $_[0]->payload->{plugin_prereq_relationship} // 'requires' },
+);
+
+has cpanfile => (
+    is => 'ro', isa => 'Bool',
+    init_arg => undef,
+    lazy => 1,
+    default => sub { $_[0]->payload->{cpanfile} // 0 },
 );
 
 # configs are applied when plugins match ->isa($key) or ->does($key)
@@ -307,6 +317,9 @@ sub configure
         [ 'Git::GatherDir'      => { ':version' => '2.016', @never_gather ? ( exclude_filename => \@never_gather) : () } ],
 
         qw(MetaYAML MetaJSON Readme Manifest),
+
+        $self->cpanfile ? [ 'CPANFile' ] : (),
+
         [ 'License'             => { ':version' => '5.038', filename => $self->licence } ],
         [ 'GenerateFile::FromShareDir' => 'generate CONTRIBUTING' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -filename => 'CONTRIBUTING', has_xs => $has_xs } ],
         [ 'InstallGuide'        => { ':version' => '1.200005' } ],
@@ -665,6 +678,8 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     :version = 5.038
     filename = LICENCE  ; for distributions where I have authority
 
+    [CPANFile] ; iff cpanfile = 1
+
     [GenerateFile::FromShareDir / generate CONTRIBUTING]
     -dist = Dist-Zilla-PluginBundle-Author-ETHER
     -filename = CONTRIBUTING
@@ -912,6 +927,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     filename = LICENCE
     filename = LICENSE
     filename = ppport.h
+    filename = cpanfile     ; iff cpanfile = 1
 
     [ReadmeAnyFromPod]
     :version = 0.142180
@@ -941,6 +957,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     allow_dirty = LICENSE
     allow_dirty = README.md
     allow_dirty = README.pod
+    allow_dirty = cpanfile  ; iff cpanfile = 1
     allow_dirty = ppport.h
     commit_msg = %N-%v%t%n%n%c
 
@@ -1098,7 +1115,8 @@ Available in this form since version 0.076.
 A file, to be present in the build, which is copied back to the source
 repository at release time and committed to git. Can be used more than
 once. Defaults to:
-F<LICENCE>, F<LICENSE>, F<CONTRIBUTING>, F<Changes>, F<ppport.h>, F<INSTALL>;
+F<LICENCE>, F<LICENSE>, F<CONTRIBUTING>, F<Changes>, F<ppport.h>, F<INSTALL>,
+as well as F<cpanfile> if C<cpanfile = 1> is specified in the options;
 defaults are appended to, rather than overwritten.
 
 =head2 surgical_podweaver
@@ -1148,8 +1166,6 @@ A boolean option that, when set, removes L<[UploadToCPAN]|Dist::Zilla::Plugin::U
 and replaces it with L<[FakeRelease]|Dist::Zilla::Plugin::FakeRelease>.
 Defaults to false; can also be set with the environment variable C<FAKE_RELEASE>.
 
-=for stopwords customizations
-
 =head2 plugin_prereq_phase, plugin_prereq_relationship
 
 If these are set, then plugins used by the bundle (with minimum version requirements) are injected into the
@@ -1160,6 +1176,18 @@ Disable with:
     plugin_prereq_relationship =
 
 Available since version 0.133.
+
+=for stopwords cpanfile
+
+=head2 cpanfile
+
+Available since version 0.147.
+
+A boolean option that, when set, adds a F<cpanfile> to the built distribution and also commits it to the local
+repository after release. Beware that if the distribution has C<< dynamic_config => 1 >> in metadata, this will
+I<not> be a complete list of prerequisites.
+
+=for stopwords customizations
 
 =head2 other customizations
 

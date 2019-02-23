@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.147     2019-02-23 21:42:13Z
           - amended CONTRIBUTING file to clarify that the Changes file should
             be edited in a pull request, and all tests should pass.

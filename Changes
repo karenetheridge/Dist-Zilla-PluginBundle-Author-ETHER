@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.148     2019-03-31 04:31:27Z
           - adjusted test of [Git::Tag] option to account for changes to the
             default made in version 2.046

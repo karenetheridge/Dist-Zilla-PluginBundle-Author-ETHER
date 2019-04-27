@@ -1,6 +1,8 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - set PERL_USE_UNSAFE_INC=0 for travis in this distribution and in
+            newly-minted distributions
 
 0.148     2019-03-31 04:31:27Z
           - adjusted test of [Git::Tag] option to account for changes to the

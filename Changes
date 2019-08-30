@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - fix parsing of .pause file (sorry, oalders!)
 
 0.149     2019-06-01 05:36:07Z
           - set PERL_USE_UNSAFE_INC=0 for travis in this distribution and in

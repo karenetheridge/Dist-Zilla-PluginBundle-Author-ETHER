@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.151     2020-01-18 05:41:38Z
           - update $TODO in xt/author/changes_has_content.t to also give a bye
             to the 'devel' branch

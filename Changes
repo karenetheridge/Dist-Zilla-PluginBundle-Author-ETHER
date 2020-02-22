@@ -3,6 +3,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 {{$NEXT}}
           - skip a test when a necessary feature of Dist::Zilla is not
             available (normal runtime functionality not affected)
+          - add (version-guarded) no indirect; to code and minting templates
 
 0.151     2020-01-18 05:41:38Z
           - update $TODO in xt/author/changes_has_content.t to also give a bye

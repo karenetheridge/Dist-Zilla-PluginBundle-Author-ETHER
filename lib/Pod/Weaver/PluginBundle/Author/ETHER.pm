@@ -79,7 +79,7 @@ sub configure
         : (),
 
     ($distmeta->{x_authority} // '') eq 'cpan:ETHER'
-    ? "I am also usually active on irc, as 'ether' at C<irc.perl.org>."
+    ? "I am also usually active on irc, as 'ether' at C<irc.perl.org> and C<irc.freenode.org>."
     : (),
 ) }}
 SUPPORT

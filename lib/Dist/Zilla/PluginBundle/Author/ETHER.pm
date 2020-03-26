@@ -110,7 +110,7 @@ has licence => (
             // $self->payload->{license}
             # licenSe is US-only; known non-American authors will be treated appropriately.
             // ((any { $authority eq "cpan:$_" }
-                    qw(ETHER ABERGMAN AVAR BINGOS BOBTFISH CHANSEN CHOLET DOHERTY FLORA GAAS GETTY GSAR ILMARI JAWNSY JQUELIN LBROCARD LEONT LLAP MANWAR MSTROUT NEILB NUFFIN OALDERS PERIGRIN PHAYLON SALVA))
+                    qw(ETHER ABERGMAN AVAR BINGOS BOBTFISH CHANSEN CHOLET DOHERTY FLORA GAAS GETTY GSAR ILMARI JAWNSY JQUELIN LBROCARD LEONT LLAP MANWAR MSTROUT NEILB NUFFIN OALDERS PERIGRIN PHAYLON RELEQUEST SALVA))
                 ? 'LICENCE' : 'LICENSE');
     },
 );

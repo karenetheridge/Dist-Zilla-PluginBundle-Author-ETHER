@@ -96,12 +96,10 @@ subtest "server = $_" => sub {
     skip('can only test server=github when in the local git repository', 4)
         if $server eq 'github' and not git_in_path($tzil->tempdir);
 
-    if ($server eq 'github' or $server eq 'none')
-    {
+    if ($server eq 'github' or $server eq 'none') {
         warn @warnings if @warnings;
     }
-    else
-    {
+    else {
         my $expected = "server = $server: recommend instead using server = github and GithubMeta.remote = $server with a read-only mirror";
         my $ok = cmp_deeply(
             [ map colorstrip($_), @warnings ],

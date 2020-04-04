@@ -99,8 +99,7 @@ around copy_files_from_release => sub {
         ));
 };
 
-sub commit_files_after_release
-{
+sub commit_files_after_release {
     grep -e, sort(uniq('README.md', 'README.pod', 'Changes', shift->copy_files_from_release));
 }
 
@@ -206,8 +205,7 @@ my %extra_args = (
 );
 
 # plugins that use the network when they run
-sub _network_plugins
-{
+sub _network_plugins {
     qw(
         PromptIfStale
         Test::Pod::LinkCheck
@@ -263,12 +261,10 @@ my @never_gather = grep -e, qw(
     inc/ExtUtils/MakeMaker/Dist/Zilla/Develop.pm
 );
 
-sub BUILD
-{
+sub BUILD {
     my $self = shift;
 
-    if ($self->airplane)
-    {
+    if ($self->airplane) {
         warn '[@Author::ETHER] ' . colored('building in airplane mode - plugins requiring the network are skipped, and releases are not permitted', 'yellow') . "\n";
 
         # doing this before running configure means we can be sure we update the removal list before
@@ -277,8 +273,7 @@ sub BUILD
     }
 }
 
-sub configure
-{
+sub configure {
     my $self = shift;
 
     warn '[DZ] Building with ', blessed($self), ' ', $VERSION, "...\n"
@@ -545,8 +540,7 @@ sub configure
     # if ModuleBuildTiny(::*) is being used, disable its static option if
     # [StaticInstall] is being run with mode=off or dry_run=1
     if (($static_install_mode eq 'off' or $static_install_dry_run)
-        and any { /^ModuleBuildTiny/ } $self->installer)
-    {
+            and any { /^ModuleBuildTiny/ } $self->installer) {
         my $mbt = Dist::Zilla::Util->expand_config_package_name('ModuleBuildTiny');
         my $mbt_spec = first { $_->[1] =~ /^$mbt/ } @{ $self->plugins };
 
@@ -568,8 +562,7 @@ sub configure
 }
 
 # determine plugin prereqs, and apply default configs (respecting superclasses, roles)
-around add_plugins => sub
-{
+around add_plugins => sub {
     my ($orig, $self, @plugins) = @_;
 
     @plugins = grep {
@@ -581,8 +574,7 @@ around add_plugins => sub
         } $self->_removed_plugins
     } map +(ref $_ ? $_ : [ $_ ]), @plugins;
 
-    foreach my $plugin_spec (@plugins)
-    {
+    foreach my $plugin_spec (@plugins) {
         # these should never be added as plugin prereqs
         next if $plugin_spec->[0] eq 'BlockRelease'     # temporary use during development
             or $plugin_spec->[0] eq 'VerifyPhases';     # only used by ether, not others
@@ -593,8 +585,7 @@ around add_plugins => sub
         push @$plugin_spec, {} if not ref $plugin_spec->[-1];
         my $payload = $plugin_spec->[-1];
 
-        foreach my $module (grep +($plugin->isa($_) or $plugin->does($_)), keys %extra_args)
-        {
+        foreach my $module (grep +($plugin->isa($_) or $plugin->does($_)), keys %extra_args) {
             my %configs = %{ $extra_args{$module} };    # copy, not reference!
 
             # don't keep :version unless it matches the package exactly, but still respect the prereq
@@ -613,8 +604,7 @@ around add_plugins => sub
     return $self->$orig(@plugins);
 };
 
-around add_bundle => sub
-{
+around add_bundle => sub {
     my ($orig, $self, $bundle, $payload) = @_;
 
     return if $self->_plugin_removed($bundle);

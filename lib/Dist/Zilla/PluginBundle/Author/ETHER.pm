@@ -56,6 +56,18 @@ has server => (
     default => sub { $_[0]->payload->{server} // 'github' },
 );
 
+has bugtracker => (
+    is => 'ro', isa => enum([qw(rt github)]),
+    init_arg => undef,
+    lazy => 1,
+    default => sub {
+        my $bugtracker = $_[0]->payload->{bugtracker} // 'rt';
+        die 'bugtracker cannot be github unless server = github'
+            if $bugtracker eq 'github' and $_[0]->server ne 'github';
+        $bugtracker;
+    },
+);
+
 has surgical_podweaver => (
     is => 'ro', isa => 'Bool',
     init_arg => undef,
@@ -386,8 +398,13 @@ sub configure
         ],
 
         # Metadata
-        $self->server eq 'github' ? [ 'GithubMeta' => { ':version' => '0.54', homepage => 0, issues => 0 } ] : (),
-        [ 'AutoMetaResources'   => { 'bugtracker.rt' => 1,
+        $self->server eq 'github' ? [ 'GithubMeta' => {
+                ':version' => '0.54',
+                homepage => 0,
+                issues => ($self->bugtracker eq 'github' ? 1 : 0),
+            } ] : (),
+        [ 'AutoMetaResources'   => {
+            $self->bugtracker eq 'rt' ? ( 'bugtracker.rt' => 1 ) : (),
               $self->server eq 'gitmo' ? ( 'repository.gitmo' => 1 )
             : $self->server eq 'p5sagit' ? ( 'repository.p5sagit' => 1 )
             : $self->server eq 'catagits' ? ( 'repository.catagits' => 1 )
@@ -792,7 +809,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     issues = 0
 
     [AutoMetaResources]
-    bugtracker.rt = 1
+    bugtracker.rt = 1       ; (if issues = 'rt' or omitted)
     ; (plus repository.* = 1 if server = 'gitmo' or 'p5sagit')
 
     [Authority]
@@ -1024,7 +1041,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
 =for stopwords metacpan
 
 The distribution's code is assumed to be hosted at L<github|http://github.com>;
-L<RT|http://rt.cpan.org> is used as the issue tracker.
+L<RT|http://rt.cpan.org> is used as the issue tracker (see option L</rt> below).
 The home page in the metadata points to L<github|http://github.com>,
 while the home page on L<github|http://github.com> is updated on release to
 point to L<metacpan|http://metacpan.org>.
@@ -1199,6 +1216,13 @@ Available since version 0.147.
 A boolean option that, when set, adds a F<cpanfile> to the built distribution and also commits it to the local
 repository after release. Beware that if the distribution has C<< dynamic_config => 1 >> in metadata, this will
 I<not> be a complete list of prerequisites.
+
+=head2 bugtracker
+
+Available since version 0.154.
+
+When set to C<rt> or omitted, L<RT|http://rt.cpan.org> is used as the bug/issue tracker. Can also be set to
+C<github>, in which case GitHub issues are used as the bugtracker in distribution metadata.
 
 =for stopwords customizations
 

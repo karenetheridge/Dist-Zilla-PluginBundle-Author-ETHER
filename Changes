@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - new "bugtracker" option, to use github issues instead of RT
 
 0.153     2020-04-04 04:32:08Z
           - add mention of git submodules, when relevant, in CONTRIBUTING

@@ -68,26 +68,29 @@ subtest "server = $_" => sub {
 
     my $tzil;
     my @warnings = warnings {
-        $tzil = Builder->from_config(
-            { dist_root => 'does-not-exist' },
-            {
-                # tempdir_root => default
-                add_files => {
-                    path(qw(source dist.ini)) => simple_ini(
-                        'GatherDir',
-                        [ '@Author::ETHER' => {
-                            server => $server,
-                            installer => 'MakeMaker',
-                            '-remove' =>  \@REMOVED_PLUGINS,
-                            'RewriteVersion::Transitional.skip_version_provider' => 1,
-                          },
-                        ],
-                    ),
-                    path(qw(source lib MyModule.pm)) => "package MyModule;\n\n1",
-                    path(qw(source Changes)) => '',
+        my $exception = exception {
+            $tzil = Builder->from_config(
+                { dist_root => 'does-not-exist' },
+                {
+                    # tempdir_root => default
+                    add_files => {
+                        path(qw(source dist.ini)) => simple_ini(
+                            'GatherDir',
+                            [ '@Author::ETHER' => {
+                                server => $server,
+                                installer => 'MakeMaker',
+                                '-remove' =>  \@REMOVED_PLUGINS,
+                                'RewriteVersion::Transitional.skip_version_provider' => 1,
+                              },
+                            ],
+                        ),
+                        path(qw(source lib MyModule.pm)) => "package MyModule;\n\n1",
+                        path(qw(source Changes)) => '',
+                    },
                 },
-            },
-        );
+            );
+        };
+        is $exception, undef, "no exception for server = $server";
     };
 
     skip('can only test server=github when in the local git repository', 4)

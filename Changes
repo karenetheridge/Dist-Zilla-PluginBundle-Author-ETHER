@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.153     2020-04-04 04:32:08Z
           - add mention of git submodules, when relevant, in CONTRIBUTING
 

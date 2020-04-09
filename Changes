@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.154     2020-04-09 00:29:43Z
           - new "bugtracker" option, to use github issues instead of RT
 

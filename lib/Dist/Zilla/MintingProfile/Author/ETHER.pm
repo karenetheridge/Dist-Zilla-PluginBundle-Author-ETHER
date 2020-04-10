@@ -2,7 +2,7 @@ use strict;
 use warnings;
 no if "$]" >= 5.031009, feature => 'indirect';
 package Dist::Zilla::MintingProfile::Author::ETHER;
-# vim: set ts=8 sts=4 sw=4 tw=115 et :
+# vim: set ts=8 sts=4 sw=4 tw=100 et :
 # ABSTRACT: Mint distributions like ETHER does
 
 our $VERSION = '0.155';

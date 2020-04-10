@@ -2,7 +2,7 @@ use strict;
 use warnings;
 no if "$]" >= 5.031009, feature => 'indirect';
 package Dist::Zilla::PluginBundle::Author::ETHER;
-# vim: set ts=8 sts=4 sw=4 tw=115 et :
+# vim: set ts=8 sts=4 sw=4 tw=100 et :
 # ABSTRACT: A plugin bundle for distributions built by ETHER
 # KEYWORDS: author bundle distribution tool
 

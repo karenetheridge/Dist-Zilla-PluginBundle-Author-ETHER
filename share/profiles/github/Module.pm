@@ -58,7 +58,7 @@ SYNOPSIS
 
 =head1 {{ $zilla_plugin ? 'CONFIGURATION OPTIONS' : 'FUNCTIONS/METHODS' }}
 
-=head2 C<foo>
+=head2 foo
 
 ...
 

@@ -160,7 +160,7 @@ is(
 
 =head1 FUNCTIONS/METHODS
 
-=head2 C<foo>
+=head2 foo
 
 ...
 

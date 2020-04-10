@@ -206,7 +206,7 @@ This is a L<Dist::Zilla> plugin that...
 
 =head1 CONFIGURATION OPTIONS
 
-=head2 C<foo>
+=head2 foo
 
 ...
 

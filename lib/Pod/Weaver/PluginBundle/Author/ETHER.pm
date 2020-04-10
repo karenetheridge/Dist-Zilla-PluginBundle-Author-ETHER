@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-no if "$]" >= 5.031008, feature => 'indirect';
+no if "$]" >= 5.031009, feature => 'indirect';
 package Pod::Weaver::PluginBundle::Author::ETHER;
 # vim: set ts=8 sts=4 sw=4 tw=115 et :
 # ABSTRACT: A plugin bundle for pod woven by ETHER

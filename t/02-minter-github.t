@@ -63,13 +63,13 @@ my $module = path($mint_dir, 'lib/My/New/Dist.pm')->slurp_utf8;
 
 like(
     $module,
-    qr/^use strict;\nuse warnings;\nno if "\$\]" >= 5.031009, feature => 'indirect';\npackage My::New::Dist;/m,
+    qr/^use strict;\nuse warnings;\npackage My::New::Dist;/m,
     'our new module has a valid package declaration',
 );
 
 like(
      $module,
-    qr/^our \$VERSION = '0.001';$/m,
+    qr/^our \$VERSION = '0.001';\n\nno if "\$\]" >= 5.031009, feature => 'indirect';$/m,
     'initial module $VERSION is calculated correctly',
 );
 

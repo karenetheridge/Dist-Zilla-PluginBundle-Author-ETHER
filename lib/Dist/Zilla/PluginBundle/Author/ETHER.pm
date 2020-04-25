@@ -1,6 +1,5 @@
 use strict;
 use warnings;
-no if "$]" >= 5.031009, feature => 'indirect';
 package Dist::Zilla::PluginBundle::Author::ETHER;
 # vim: set ts=8 sts=4 sw=4 tw=100 et :
 # ABSTRACT: A plugin bundle for distributions built by ETHER
@@ -8,6 +7,7 @@ package Dist::Zilla::PluginBundle::Author::ETHER;
 
 our $VERSION = '0.155';
 
+no if "$]" >= 5.031009, feature => 'indirect';
 use Moose;
 with
     'Dist::Zilla::Role::PluginBundle::Easy',

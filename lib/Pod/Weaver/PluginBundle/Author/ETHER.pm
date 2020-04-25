@@ -1,12 +1,12 @@
 use strict;
 use warnings;
-no if "$]" >= 5.031009, feature => 'indirect';
 package Pod::Weaver::PluginBundle::Author::ETHER;
 # vim: set ts=8 sts=4 sw=4 tw=100 et :
 # ABSTRACT: A plugin bundle for pod woven by ETHER
 
 our $VERSION = '0.155';
 
+no if "$]" >= 5.031009, feature => 'indirect';
 use namespace::autoclean -also => ['_exp'];
 use Pod::Weaver::Config::Assembler;
 use Module::Runtime 'use_module';

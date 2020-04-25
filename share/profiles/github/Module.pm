@@ -1,6 +1,5 @@
 use strict;
 use warnings;
-no if "$]" >= 5.031009, feature => 'indirect';
 package {{ $name }};
 # vim: set ts=8 sts=4 sw=4 tw=100 et :
 # ABSTRACT: ...
@@ -8,6 +7,7 @@ package {{ $name }};
 
 our $VERSION = '{{ $dist->version }}';
 
+no if "$]" >= 5.031009, feature => 'indirect';
 {{
     ($zilla_plugin) = ($name =~ /^Dist::Zilla::Plugin::(.+)$/g);
 

@@ -121,6 +121,12 @@ like(
     'plugin bundle and version is referenced in dist.ini',
 );
 
+like(
+    $dist_ini,
+    qr/\[Prereqs \/ DevelopRequires\]\nTest::Warnings = 0\n/,
+    'develop prereqs are added',
+);
+
 unlike($dist_ini, qr/^\s/, 'no leading whitespace in dist.ini');
 unlike($dist_ini, qr/[^\S\n]\n/, 'no trailing whitespace in dist.ini');
 unlike($dist_ini, qr/\n\n\n/, 'no double blank links in dist.ini');

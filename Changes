@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.155     2020-04-30 21:37:07Z
           - exclude local plugins (e.g. =inc::MakeMaker) from being added to
             x_Dist_Zilla prereqs and therefore being checked for by
             [PromptIfStale]

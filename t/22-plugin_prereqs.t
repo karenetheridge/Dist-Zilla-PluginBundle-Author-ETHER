@@ -31,13 +31,14 @@ my $tzil = Builder->from_config(
                     server => 'none',
                     ':version' => '0.002',
                     'RewriteVersion::Transitional.skip_version_provider' => 1,
-                    installer => 'MakeMaker',
+                    installer => '=inc::Foo',
                     plugin_prereq_phase => '',          # undef is not possible in dist.ini
                     plugin_prereq_relationship => '',   # ""
                 } ],
             ),
             path(qw(source lib DZT Sample.pm)) => "package DZT::Sample;\nour \$VERSION = '0.002';\n1",
             path(qw(source Changes)) => '',
+            path(qw(source inc Foo.pm)) => "package inc::Foo;\nuse Moose;\nextends 'Dist::Zilla::Plugin::MakeMaker';\n1",
         },
     },
 );
@@ -52,7 +53,10 @@ is(
 );
 
 all_plugins_in_prereqs($tzil,
-    exempt => [ 'Dist::Zilla::Plugin::GatherDir' ],     # used by us here
+    exempt => [
+        'Dist::Zilla::Plugin::GatherDir',   # used by us here
+        'inc::Foo',                         # local files are filtered out
+    ],
     prereq_plugin_phase => '',
     prereq_plugin_type => '',
 );

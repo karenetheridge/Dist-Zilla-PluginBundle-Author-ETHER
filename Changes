@@ -1,6 +1,9 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - exclude local plugins (e.g. =inc::MakeMaker) from being added to
+            x_Dist_Zilla prereqs and therefore being checked for by
+            [PromptIfStale]
 
 0.154     2020-04-09 00:29:43Z
           - new "bugtracker" option, to use github issues instead of RT

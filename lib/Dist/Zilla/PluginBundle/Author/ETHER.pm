@@ -598,7 +598,9 @@ around add_plugins => sub {
         }
 
         # record prereq (and version) for later possible injection
-        $self->_add_minimum_plugin_requirement($plugin => $payload->{':version'} // 0);
+        # (Note: this depends on $CWD being equal to $zilla->root)
+        $self->_add_minimum_plugin_requirement($plugin => $payload->{':version'} // 0)
+            if not -f do { (my $filename = $plugin) =~ s{::}{/}g; $filename .= '.pm' };
     }
 
     return $self->$orig(@plugins);

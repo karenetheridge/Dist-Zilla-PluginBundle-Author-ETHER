@@ -3,8 +3,14 @@ use warnings;
 
 use Test::More 0.96;
 use if $ENV{AUTHOR_TESTING}, 'Test::Warnings';
-use Test::Deep;
 use Test::DZil;
+
+BEGIN {
+  plan skip_all => '$cwd needs to be $zilla->root for these tests (requires Dist::Zilla 6.003)'
+    if not eval { Dist::Zilla->VERSION('6.003') };
+}
+
+use Test::Deep;
 use Test::Fatal;
 use Path::Tiny;
 use List::Util 1.45 'uniq';

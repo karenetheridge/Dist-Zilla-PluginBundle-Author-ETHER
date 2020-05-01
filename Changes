@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - bump some prereq requirements to fix failing tests
 
 0.155     2020-04-30 21:37:07Z
           - exclude local plugins (e.g. =inc::MakeMaker) from being added to

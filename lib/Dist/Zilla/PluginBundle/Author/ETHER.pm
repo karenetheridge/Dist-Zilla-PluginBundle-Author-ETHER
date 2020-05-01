@@ -489,6 +489,7 @@ sub configure {
         # Take care! runtime-requires prereqs needs to be updated in dist.ini when this is changed.
         ':version' => '0.007',
 
+        'RewriteVersion::Transitional.:version' => 0.006,
         'RewriteVersion::Transitional.global' => 1,
         'RewriteVersion::Transitional.fallback_version_provider' => 'Git::NextVersion',
         'RewriteVersion::Transitional.version_regexp' => '^v([\d._]+)(-TRIAL)?$',

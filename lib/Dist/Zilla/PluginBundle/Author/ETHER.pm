@@ -385,7 +385,7 @@ sub configure {
         [ 'Git::Describe'       => { ':version' => '0.004', on_package_line => 1 } ],
         [
             ($self->surgical_podweaver ? 'SurgicalPodWeaver' : 'PodWeaver') => {
-                $self->surgical_podweaver ? () : ( ':version' => '4.005' ),
+                $self->surgical_podweaver ? () : ( ':version' => '4.008' ),
                 -f 'weaver.ini' ? () : ( config_plugin => '@Author::ETHER' ),
                 replacer => 'replace_with_comment',
                 post_code_replacer => 'replace_with_nothing',
@@ -788,7 +788,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     on_package_line = 1
 
     [PodWeaver] (or [SurgicalPodWeaver])
-    :version = 4.005
+    :version = 4.008
     config_plugin = @Author::ETHER ; unless weaver.ini is present
     replacer = replace_with_comment
     post_code_replacer = replace_with_nothing

@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 package Dist::Zilla::MintingProfile::Author::ETHER;
-# vim: set ts=8 sts=4 sw=4 tw=100 et :
+# vim: set ts=8 sts=2 sw=2 tw=100 et :
 # ABSTRACT: Mint distributions like ETHER does
 
 our $VERSION = '0.156';

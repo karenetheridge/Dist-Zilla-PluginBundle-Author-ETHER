@@ -26,6 +26,7 @@ use Term::ANSIColor 'colored';
 eval { +require Win32::Console::ANSI } if $^O eq 'MSWin32';
 use Config;
 use Try::Tiny;
+use URI::Escape 'uri_escape';
 use namespace::autoclean;
 
 sub mvp_multivalue_args { qw(installer copy_file_from_release) }
@@ -191,6 +192,13 @@ sub _pause_config {
       {};
     };
     return $cfg;
+}
+
+sub _pause_download_url {
+  my $self = shift;
+  my ($username, $password) = @{$self->_pause_config}{qw(user password)};
+  return if not $username or not $password;
+  'http://'.$username.':'.uri_escape($password).'@pause.perl.org/pub/PAUSE/authors/id/'.substr($username, 0, 1).'/'.substr($username,0,2).'/'.$username.'/%a';
 }
 
 # configs are applied when plugins match ->isa($key) or ->does($key)
@@ -524,10 +532,11 @@ sub configure {
 
     # install with an author-specific URL from PAUSE, so cpanm-reporter knows where to submit the report
     # hopefully the file is available at this location soonish after release!
-    my ($username, $password) = @{$self->_pause_config}{qw(user password)};
+    my $pause_download_url = $self->_pause_download_url;;
     $self->add_plugins(
-        [ 'Run::AfterRelease'   => 'install release' => { ':version' => '0.031', fatal_errors => 0, run => 'cpanm http://' . $username . ':' . $password . '@pause.perl.org/pub/PAUSE/authors/id/' . substr($username, 0, 1).'/'.substr($username,0,2).'/'.$username.'/%a' } ],
-    ) if $username and $password;
+        [ 'Run::AfterRelease'   => 'install release' => {
+            ':version' => '0.031', fatal_errors => 0, run => 'cpanm '.$pause_download_url } ],
+    ) if $pause_download_url;
 
     # halt release after pre-release checks, but before ConfirmRelease
     $self->add_plugins('BlockRelease') if $self->airplane;

@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - properly uri-escape the PAUSE download URL (sorry Olaf!)
 
 0.156     2020-05-03 17:47:37Z
           - bump some prereq requirements to fix failing tests

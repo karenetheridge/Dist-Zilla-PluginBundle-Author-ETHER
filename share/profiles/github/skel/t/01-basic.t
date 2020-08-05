@@ -1,5 +1,6 @@
 use strict;
 use warnings;
+use 5.016;
 no if "$]" >= 5.031009, feature => 'indirect';
 
 use Test::More 0.88;

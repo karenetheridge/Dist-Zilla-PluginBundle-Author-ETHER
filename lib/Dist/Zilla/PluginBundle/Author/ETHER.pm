@@ -8,6 +8,7 @@ package Dist::Zilla::PluginBundle::Author::ETHER;
 our $VERSION = '0.159';
 
 no if "$]" >= 5.031009, feature => 'indirect';
+no if "$]" >= 5.033001, feature => 'multidimensional';
 use Moose;
 with
     'Dist::Zilla::Role::PluginBundle::Easy',

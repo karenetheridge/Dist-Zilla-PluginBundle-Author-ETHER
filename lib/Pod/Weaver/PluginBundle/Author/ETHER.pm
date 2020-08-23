@@ -7,6 +7,7 @@ package Pod::Weaver::PluginBundle::Author::ETHER;
 our $VERSION = '0.159';
 
 no if "$]" >= 5.031009, feature => 'indirect';
+no if "$]" >= 5.033001, feature => 'multidimensional';
 use namespace::autoclean -also => ['_exp'];
 use Pod::Weaver::Config::Assembler;
 use Module::Runtime 'use_module';

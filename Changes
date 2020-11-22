@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.159     2020-11-22 01:17:45Z
           - fix test that broke with Dist::Zilla 6.017 (a test changed its
             filename)

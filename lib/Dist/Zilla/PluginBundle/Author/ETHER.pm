@@ -9,6 +9,7 @@ our $VERSION = '0.160';
 
 no if "$]" >= 5.031009, feature => 'indirect';
 no if "$]" >= 5.033001, feature => 'multidimensional';
+no if "$]" >= 5.033006, feature => 'bareword_filehandles';
 use Moose;
 with
     'Dist::Zilla::Role::PluginBundle::Easy',

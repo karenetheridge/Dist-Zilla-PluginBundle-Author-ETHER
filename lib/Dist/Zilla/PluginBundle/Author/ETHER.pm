@@ -517,6 +517,7 @@ sub configure {
         # if the caller set bump_only_matching_versions, then this global setting falls on the floor automatically
         # because the bundle uses the non-Transitional plugin in that case.
         'BumpVersionAfterRelease::Transitional.global' => 1,
+        'BumpVersionAfterRelease::Transitional.finder' => [ ':InstallModules' ],  # removed :ExecFiles
 
         'NextRelease.:version' => '5.033',
         'NextRelease.time_zone' => 'UTC',
@@ -1002,6 +1003,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [BumpVersionAfterRelease::Transitional]
     :version = 0.004
     global = 1
+    finder = :InstallModules  ; removed :ExecFiles
 
     [NextRelease]
     :version = 5.033

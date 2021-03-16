@@ -752,7 +752,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [GenerateFile::FromShareDir / generate xt/author/changes_has_content.t]
     -dist = Dist-Zilla-PluginBundle-Author-ETHER
     -source_filename = changes_has_content.t
-    -destinotion_filename = xt/author/changes_has_content.t
+    -destination_filename = xt/author/changes_has_content.t
     [Test::ChangesHasContent]
     [Test::MinimumVersion]
     :version = 2.000010

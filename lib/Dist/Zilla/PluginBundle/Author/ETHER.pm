@@ -374,7 +374,6 @@ sub configure {
         [ 'Test::EOL'           => { ':version' => '0.17', finder => [qw(:InstallModules :ExecFiles @Author::ETHER/Examples :TestFiles :ExtraTestFiles)] } ],
         'MetaTests',
         [ 'Test::CPAN::Changes' => { ':version' => '0.012' } ],
-        [ 'GenerateFile::FromShareDir' => 'generate xt/author/changes_has_content.t' => { -dist => 'Dist-Zilla-PluginBundle-Author-ETHER', -source_filename => 'changes_has_content.t', -destination_filename => 'xt/author/changes_has_content.t' } ],
         'Test::ChangesHasContent',
         [ 'Test::MinimumVersion' => { ':version' => '2.000010', max_target_perl => '5.006' } ],
         [ 'PodSyntaxTests'      => { ':version' => '5.040' } ],
@@ -749,10 +748,6 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [MetaTests]
     [Test::CPAN::Changes]
     :version = 0.012
-    [GenerateFile::FromShareDir / generate xt/author/changes_has_content.t]
-    -dist = Dist-Zilla-PluginBundle-Author-ETHER
-    -source_filename = changes_has_content.t
-    -destination_filename = xt/author/changes_has_content.t
     [Test::ChangesHasContent]
     [Test::MinimumVersion]
     :version = 2.000010

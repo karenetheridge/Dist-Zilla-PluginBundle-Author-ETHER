@@ -346,7 +346,7 @@ sub configure {
         # VersionProvider
         # see [@Git::VersionManager]
 
-        # BeforeBuild
+        # Before Build
         # [ 'EnsurePrereqsInstalled' ], # FIXME: use options to make this less annoying!
         [ 'PromptIfStale' => 'stale modules, build' => { phase => 'build', module => [ $self->meta->name ] } ],
 
@@ -673,7 +673,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     -relationship = recommends
     Dist::Zilla::PluginBundle::Author::ETHER = <current installed version>
 
-    ;;; BeforeBuild
+    ;;; Before Build
     [PromptIfStale / stale modules, build]
     phase = build
     module = Dist::Zilla::Plugin::Author::ETHER
@@ -936,7 +936,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [UploadToCPAN]
 
 
-    ;;; AfterRelease
+    ;;; After Release
     [Run::AfterRelease / remove old LICENCE]    ; if switching from LICENCE -> LICENSE
     :version = 0.038
     quiet = 1

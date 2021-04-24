@@ -190,7 +190,7 @@ sub _pause_config {
     my $cfg = try {
       CPAN::Uploader->read_config_file($file)
     } catch {
-      $self->log("Couldn't load credentials from '$file': $_");
+      warn "[\@Author::ETHER] Couldn't load credentials from '$file': $_";
       {};
     };
     return $cfg;

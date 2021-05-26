@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - freenode irc channels have migrated to libera
 
 0.160     2021-03-23 20:02:54Z
           - add boilerplate to disable bareword filehandles

@@ -6,6 +6,7 @@ package Pod::Weaver::PluginBundle::Author::ETHER;
 
 our $VERSION = '0.162';
 
+use if "$]" >= 5.022, experimental => 're_strict';
 no if "$]" >= 5.031009, feature => 'indirect';
 no if "$]" >= 5.033001, feature => 'multidimensional';
 no if "$]" >= 5.033006, feature => 'bareword_filehandles';

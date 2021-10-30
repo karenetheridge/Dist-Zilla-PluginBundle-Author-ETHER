@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - now using 're_strict' feature in boilerplate
 
 0.161     2021-05-26 03:59:08Z
           - freenode irc channels have migrated to libera

@@ -88,13 +88,6 @@ SUPPORT
                         ] },
         ],
 
-        [ 'AllowOverride' => 'allow override SUPPORT' => {
-               header_re => '^(SUPPORT|BUGS)\b',
-               action => 'prepend',
-               match_anywhere => 0,
-            },
-        ],
-
         'Authors',
         [ 'AllowOverride' => 'allow override AUTHOR' => {
                header_re => '^AUTHORS?\b',

@@ -417,7 +417,7 @@ sub configure {
             : ()
         } ],
         [ 'Authority'           => { ':version' => '1.009', authority => $self->authority, do_munging => 0 } ],
-        [ 'MetaNoIndex'         => { directory => [ qw(t xt), grep -d, qw(inc local perl5 fatlib examples share corpus demo) ] } ],
+        [ 'MetaNoIndex'         => { directory => [ qw(t xt), grep -d, qw(inc local perl5 fatlib eg examples share corpus demo ) ] } ],
         [ 'MetaProvides::Package' => { ':version' => '1.15000002', finder => ':InstallModules', meta_noindex => 1, inherit_version => 0, inherit_missing => 0 } ],
         'MetaConfig',
         [ 'Keywords'            => { ':version' => '0.004' } ],

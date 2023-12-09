@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - .travis.yml file removed from minting profile
 
 0.162     2021-11-28 20:10:01Z
           - now using 're_strict' feature in boilerplate

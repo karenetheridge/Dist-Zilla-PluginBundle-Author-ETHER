@@ -226,10 +226,6 @@ following F<weaver.ini>, minus some optimizations:
     title = SUPPORT
     main_module_only = 0
     text = <template>
-    [AllowOverride / allow override SUPPORT]
-    header_re = ^(SUPPORT|BUGS)\b
-    action = prepend
-    match_anywhere = 0
 
     [Authors]
     [AllowOverride / allow override AUTHOR]
@@ -263,10 +259,6 @@ This is also equivalent (other than section ordering) to:
     title = SUPPORT
     main_module_only = 0
     text = <template>
-    [AllowOverride / allow override SUPPORT]
-    header_re = ^(SUPPORT|BUGS)
-    action = prepend
-    match_anywhere = 0
 
     [Authors]
     [Contributors]
@@ -287,6 +279,7 @@ This F<weaver.ini> will let you use a custom C<COPYRIGHT AND LICENCE> section an
     [AllowOverride / OverrideLegal]
     header_re = ^COPYRIGHT
     match_anywhere = 1
+    action = append
 
 =head1 ADDING STOPWORDS FOR SPELLING TESTS
 

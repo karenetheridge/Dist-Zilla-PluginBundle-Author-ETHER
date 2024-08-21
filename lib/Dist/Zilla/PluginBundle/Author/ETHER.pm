@@ -712,7 +712,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     [Manifest]
     [License]
     :version = 5.038
-    filename = LICENCE  ; for distributions where I have authority
+    filename = LICENCE  ; for distributions where I have authority, or any other owner who speaks the King's English
 
     [CPANFile] ; iff cpanfile = 1
 

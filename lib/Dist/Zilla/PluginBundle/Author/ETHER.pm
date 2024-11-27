@@ -43,7 +43,7 @@ has installer => (
     default => sub {
         my $self = shift;
 
-        return [ 'MakeMaker::Fallback', 'ModuleBuildTiny::Fallback' ]
+        return [ 'ModuleBuildTiny' ]
             if not exists $self->payload->{installer};
 
         # remove 'none' from installer list
@@ -1083,10 +1083,8 @@ See also L<[Test::PodSpelling]|Dist::Zilla::Plugin::Test::PodSpelling/stopwords>
 Available since version 0.007.
 
 The installer back-end(s) to use (can be specified more than once); defaults
-to L<C<ModuleBuildTiny::Fallback>|Dist::Zilla::Plugin::ModuleBuildTiny::Fallback>
-and L<C<MakeMaker::Fallback>|Dist::Zilla::Plugin::MakeMaker::Fallback>
-(which generates a F<Build.PL> for normal use with no-configure-requires
-protection, and F<Makefile.PL> as a fallback, containing an upgrade warning).
+to L<C<ModuleBuildTiny>|Dist::Zilla::Plugin::ModuleBuildTiny>
+(which generates a F<Build.PL>).
 For toolchain-grade modules, you should only use F<Makefile.PL>-generating installers.
 
 You can select other backends (by plugin name, without the C<[]>), with the

@@ -336,6 +336,9 @@ sub configure {
             . $self->server . ' with a read-only mirror', 'yellow'), "\n"
         if $self->server ne 'github' and $self->server ne 'none';
 
+    warn '[@Author::ETHER] ', colored('defunct .travis.yml file detected in repository', 'yellow'), "\n"
+        if -f '.travis.yml';
+
     # method modifier will also apply default configs, compile plugin prereqs
     $self->add_plugins(
         # adding this first indicates the start of the bundle in x_Dist_Zilla metadata

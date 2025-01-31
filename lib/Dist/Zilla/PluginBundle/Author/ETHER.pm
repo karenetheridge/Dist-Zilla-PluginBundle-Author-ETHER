@@ -202,7 +202,7 @@ sub _pause_download_url {
   my ($username, $password) = @{$self->_pause_config}{qw(user password)};
   return if not $username or not $password;
   $password = uri_escape($password) =~ s/%/%%/gr;
-  'http://'.$username.':'.$password.'@pause.perl.org/pub/PAUSE/authors/id/'.substr($username, 0, 1).'/'.substr($username,0,2).'/'.$username.'/%a';
+  'https://'.$username.':'.$password.'@pause.perl.org/pub/PAUSE/authors/id/'.substr($username, 0, 1).'/'.substr($username,0,2).'/'.$username.'/%a';
 }
 
 # configs are applied when plugins match ->isa($key) or ->does($key)

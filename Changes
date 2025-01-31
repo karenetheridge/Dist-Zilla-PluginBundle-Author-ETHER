@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - fixed PAUSE download URI to use https
 
 0.164     2024-11-27 18:20:14Z
           - in recognition of how long tooling has understood how to run

@@ -208,6 +208,7 @@ sub _pause_download_url {
 # configs are applied when plugins match ->isa($key) or ->does($key)
 my %extra_args = (
     'Dist::Zilla::Plugin::MakeMaker' => { 'eumm_version' => '0' },
+    'Dist::Zilla::Plugin::MakeMaker::Awesome' => { 'eumm_version' => '0' },
     'Dist::Zilla::Plugin::ModuleBuildTiny' => { ':version' => '0.012', version_method => 'conservative', static => 'auto' },
     'Dist::Zilla::Plugin::MakeMaker::Fallback' => { ':version' => '0.029' },
     # default_jobs is no-op until Dist::Zilla 5.014

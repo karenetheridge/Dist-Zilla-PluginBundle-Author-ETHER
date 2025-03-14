@@ -382,7 +382,7 @@ sub configure {
         'Test::ChangesHasContent',
         [ 'Test::MinimumVersion' => { ':version' => '2.000010', max_target_perl => '5.006' } ],
         [ 'PodSyntaxTests'      => { ':version' => '5.040' } ],
-        [ 'PodCoverageTests'    => { ':version' => '5.040' } ],
+        'Test::Pod::Coverage::TrustMe',
         [ 'Test::PodSpelling'   => { ':version' => '2.006003', stopwords => ['irc'], directories => [qw(examples lib script t xt)] } ],
         #[Test::Pod::LinkCheck]     many outstanding bugs
         ($ENV{CONTINUOUS_INTEGRATION} ? () : [ 'Test::Pod::No404s' => { ':version' => '1.003' } ] ),
@@ -390,8 +390,7 @@ sub configure {
         [ 'MojibakeTests'       => { ':version' => '0.8' } ],
         [ 'Test::ReportPrereqs' => { ':version' => '0.022', verify_prereqs => 1,
             version_extractor => ( ( any { $_ ne 'MakeMaker' } $self->installer ) ? 'Module::Metadata' : 'ExtUtils::MakeMaker' ),
-            include => [ sort qw(autodie Encode File::Temp JSON::PP Module::Runtime Sub::Name YAML),
-                    $self->_plugin_removed('PodCoverageTests') ? () : 'Pod::Coverage' ] } ],
+            include => [ sort qw(autodie Encode File::Temp JSON::PP Module::Runtime Sub::Name YAML) ] } ],
         [ 'Test::Portability'   => { ':version' => '2.000007' } ],
         [ 'Test::CleanNamespaces' => { ':version' => '0.006' } ],
 
@@ -759,7 +758,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     max_target_perl = 5.006
     [PodSyntaxTests]
     :version = 5.040
-    [PodCoverageTests]
+    [Test::Pod::Coverage::TrustMe]
     :version = 5.040
     [Test::PodSpelling]
     :version = 2.006003
@@ -1043,7 +1042,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     :version = 0.015
 
 
-=for Pod::Coverage configure mvp_multivalue_args
+=for Pod::Coverage commit_files_after_release configure pause_cfg_dir pause_cfg_file
 
 =for stopwords metacpan
 
@@ -1065,7 +1064,7 @@ otherwise the version is incremented after each release, in the F<*.pm> files.
 
 Subroutines can be considered "covered" for pod coverage tests by adding a
 directive to pod (as many as you'd like),
-as described in L<Pod::Coverage::TrustPod>:
+as described in L<Pod::Coverage::TrustMe>:
 
     =for Pod::Coverage foo bar baz
 

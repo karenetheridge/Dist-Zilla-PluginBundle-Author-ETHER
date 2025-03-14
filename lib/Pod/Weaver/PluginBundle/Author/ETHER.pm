@@ -183,6 +183,8 @@ It is also used automatically when your F<dist.ini> contains:
 
 =for stopwords optimizations
 
+=for Pod::Coverage configure mvp_bundle_config
+
 This is a L<Pod::Weaver> plugin bundle. It is I<approximately> equal to the
 following F<weaver.ini>, minus some optimizations:
 

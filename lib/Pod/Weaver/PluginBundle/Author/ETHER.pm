@@ -70,7 +70,7 @@ sub configure {
         ? 'There is also an irc channel available for users of this distribution, at' . "\nL<"
             . do {
                 # try to extract the channel
-                if (my ($network, $channel) = ($distmeta->{resources}{x_IRC} =~ m!(?:://)?(\w+(?:\.\w+)*)/?(#\w+)!)) {
+                if (my ($network, $channel) = ($distmeta->{resources}{x_IRC} =~ m!(?:://)?([\w-]+(?:\.[\w-]+)*)/?(#[\w-]+)!)) {
                     'C<' . $channel . '> on C<' . $network . '>|' . $distmeta->{resources}{x_IRC}
                 }
                 else {

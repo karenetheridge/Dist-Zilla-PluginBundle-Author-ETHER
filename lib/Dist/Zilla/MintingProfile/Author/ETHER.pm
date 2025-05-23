@@ -6,12 +6,16 @@ package Dist::Zilla::MintingProfile::Author::ETHER;
 
 our $VERSION = '0.168';
 
+use Moose;
+with 'Dist::Zilla::Role::MintingProfile' => { -version => '5.047' };
+
+no autovivification warn => qw(fetch store exists delete);
 use if "$]" >= 5.022, experimental => 're_strict';
 no if "$]" >= 5.031009, feature => 'indirect';
 no if "$]" >= 5.033001, feature => 'multidimensional';
 no if "$]" >= 5.033006, feature => 'bareword_filehandles';
-use Moose;
-with 'Dist::Zilla::Role::MintingProfile' => { -version => '5.047' };
+no if "$]" >= 5.041009, feature => 'smartmatch';
+no feature 'switch';
 use File::ShareDir;
 use Path::Tiny;
 use Carp;

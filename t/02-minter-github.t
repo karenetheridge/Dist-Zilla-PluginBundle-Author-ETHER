@@ -116,8 +116,8 @@ like(
 my $dist_ini = path($mint_dir, 'dist.ini')->slurp_utf8;
 like(
     $dist_ini,
-    qr/\[\@Author::ETHER\]\n:version = [\d.]+\nbugtracker = github\n/,
-    'plugin bundle and version are referenced in dist.ini',
+    qr/\[\@Author::ETHER\]\n:version = [\d.]+\nbugtracker = github\nTest::MinimumVersion.max_target_perl = 5\.020\b/,
+    'plugin bundle and version, and minimum perl version are referenced in dist.ini',
 );
 
 like(

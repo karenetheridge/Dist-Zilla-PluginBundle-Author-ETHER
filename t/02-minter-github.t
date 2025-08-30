@@ -109,7 +109,7 @@ like(
 
 like(
     path($mint_dir, 't', '01-basic.t')->slurp_utf8,
-    qr/^use My::New::Dist;\n\nfail\('this test is TODO!'\);$/m,
+    qr/^use My::New::Dist;\n\nmy \$todo = todo\('not yet implemented'\);\nfail\('this test is TODO!'\);\n\ndone_testing;$/m,
     'test gets generic content',
 );
 

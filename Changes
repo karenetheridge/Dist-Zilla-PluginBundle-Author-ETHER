@@ -6,6 +6,7 @@ Revision history for Dist-Zilla-PluginBundle-Author-ETHER
               features
             - GitHub issues tracker is now the default; added templates for
               pull requests and issues
+            - use Test2::V0 in generated tests
 
 0.167     2025-05-20 00:01:11Z
           - fix woven pod for irc details when irc channel contains a hyphen

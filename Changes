@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.168     2025-08-31 00:35:06Z
           - minting profile updates:
             - pragma boilerplate updated to disable "smartmatch" and "switch"
               features

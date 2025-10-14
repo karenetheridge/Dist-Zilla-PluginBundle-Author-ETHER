@@ -392,7 +392,7 @@ sub configure {
         [ 'MojibakeTests'       => { ':version' => '0.8' } ],
         [ 'Test::ReportPrereqs' => { ':version' => '0.022', verify_prereqs => 1,
             version_extractor => ( ( any { $_ ne 'MakeMaker' } $self->installer ) ? 'Module::Metadata' : 'ExtUtils::MakeMaker' ),
-            include => [ sort qw(autodie Encode File::Temp JSON::PP Module::Runtime Sub::Name YAML) ] } ],
+            include => [ sort qw(autodie Encode File::Temp JSON::PP Module::Runtime Sub::Name YAML::XS YAML::PP) ] } ],
         [ 'Test::Portability'   => { ':version' => '2.000007' } ],
         [ 'Test::CleanNamespaces' => { ':version' => '0.006' } ],
 
@@ -789,7 +789,8 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     include = Module::Runtime
     include = Pod::Coverage
     include = Sub::Name
-    include = YAML
+    include = YAML::XS
+    include = YAML::PP
     include = autodie
     [Test::Portability]
     :version = 2.000007

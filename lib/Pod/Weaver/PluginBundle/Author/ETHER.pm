@@ -55,6 +55,18 @@ sub configure {
         'Leftovers',
         [ 'Region' => 'postlude' ],
 
+        [ 'GenerateSection' => 'generate GIVING THANKS' => {
+                title => 'GIVING THANKS',
+                main_module_only => 0,
+                text => [ '='.<<'THANKS',
+for stopwords MetaCPAN GitHub
+
+If you found this module to be useful, please show your appreciation by
+adding a +1 in L<MetaCPAN|https://metacpan.org/dist/{{ $name }}>
+and a star in L<GitHub|{{ $repository_web }}>.
+THANKS
+                        ] },
+        ],
         [ 'GenerateSection' => 'generate SUPPORT' => {
                 title => 'SUPPORT',
                 main_module_only => 0,
@@ -183,7 +195,7 @@ It is also used automatically when your F<dist.ini> contains:
 
 =head1 DESCRIPTION
 
-=for stopwords optimizations
+=for stopwords optimizations GenerateSection
 
 =for Pod::Coverage configure mvp_bundle_config
 
@@ -226,6 +238,11 @@ following F<weaver.ini>, minus some optimizations:
 
     [Region / postlude]
 
+    [GenerateSection / generate GIVING THANKS]
+    title = GIVING THANkS
+    main_module_only = 0
+    text = <template>
+
     [GenerateSection / generate SUPPORT]
     title = SUPPORT
     main_module_only = 0
@@ -258,6 +275,11 @@ This is also equivalent (other than section ordering) to:
 
     [Collect / TYPES]
     command = type
+
+    [GenerateSection / generate GIVING THANKS]
+    title = GIVING THANKS
+    main_module_only = 0
+    text = <template>
 
     [GenerateSection / generate SUPPORT]
     title = SUPPORT

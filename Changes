@@ -1,6 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
 {{$NEXT}}
+          - patch around broken Dist::Zilla 6.034
 
 0.169     2025-10-14 02:41:16Z
           - new "GIVING THANKS" section added in woven pod

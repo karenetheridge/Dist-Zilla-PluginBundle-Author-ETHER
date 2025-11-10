@@ -662,7 +662,7 @@ around add_bundle => sub {
 # Dist::Zilla::Plugin::EnsurePrereqsInstalled
 # Dist::Zilla::Plugin::Prereqs::AuthorDeps
 # Dist::Zilla::Plugin::PromptIfStale
-require Dist::Zilla::Util::AuthorDeps;
++require Dist::Zilla::Util::AuthorDeps;
 *Dist::Zilla::Util::AuthorDeps::extract_author_deps = \&Dist::Zilla::Util::AuthorDeps::_extract_author_deps
   if eval { Dist::Zilla::Util::AuthorDeps->VERSION(6.034); 1 }
     and not Dist::Zilla::Util::AuthorDeps->can('extract_author_deps');

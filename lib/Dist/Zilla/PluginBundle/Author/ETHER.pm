@@ -658,7 +658,6 @@ around add_bundle => sub {
 
 # patch around broken Dist::Zilla 6.034+
 # known affected modules:
-# Dist::Zilla::App::Command::alldeps
 # Dist::Zilla::App::Command::stale
 # Dist::Zilla::Plugin::EnsurePrereqsInstalled
 # Dist::Zilla::Plugin::Prereqs::AuthorDeps

@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.171     2026-02-03 23:02:10Z
           - addendum to generated CONTRIBUTING file regarding AI-generated
             contributions

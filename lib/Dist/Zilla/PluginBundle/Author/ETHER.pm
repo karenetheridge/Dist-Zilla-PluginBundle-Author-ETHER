@@ -517,7 +517,7 @@ sub configure {
         'release snapshot.add_files_in' => ['.'],
         'release snapshot.commit_msg' => '%N-%v%t%n%n%c',
 
-        'Git::Tag.tag_message' => 'v%v%t',
+        'Git::Tag.tag_message' => "v%v%t%n%n%c",
 
         # if the caller set bump_only_matching_versions, then this global setting falls on the floor automatically
         # because the bundle uses the non-Transitional plugin in that case.
@@ -1011,7 +1011,7 @@ following F<dist.ini> (following the preamble), minus some optimizations:
     commit_msg = %N-%v%t%n%n%c
 
     [Git::Tag]
-    tag_message = v%v%t
+    tag_message = v%v%t%n%n%c
 
     [BumpVersionAfterRelease::Transitional]
     :version = 0.004

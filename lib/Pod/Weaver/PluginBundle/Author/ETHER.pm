@@ -42,7 +42,16 @@ sub configure {
 
         [ 'Region' => 'header' ],
         'Name',
-        'Version',
+
+        [ 'Version' => { format => [ split /\n/, <<'VERSION' ] } ],
+version %v
+
+I use a linearly-increasing version numbering scheme. No meaning should be
+presumed or inferred from the version being less than 1.0.
+%T
+%T This is a trial release!
+VERSION
+
         [ 'Region' => 'prelude' ],
         [ 'Generic' => 'SYNOPSIS' ],
         [ 'Generic' => 'DESCRIPTION' ],

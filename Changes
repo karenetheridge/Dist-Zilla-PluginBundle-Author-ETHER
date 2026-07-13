@@ -1,6 +1,6 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
-{{$NEXT}}
+0.173     2026-07-13 01:46:12Z
           - add the release notes to the release tag message
           - now including a blurb about my $VERSION format in generated pod
 

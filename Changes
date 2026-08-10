@@ -1,5 +1,7 @@
 Revision history for Dist-Zilla-PluginBundle-Author-ETHER
 
+{{$NEXT}}
+
 0.174     2026-08-10 23:00:51Z
           - fix VERSION section of pod so language about linear versions is
             not used in distributions when it is not applicable

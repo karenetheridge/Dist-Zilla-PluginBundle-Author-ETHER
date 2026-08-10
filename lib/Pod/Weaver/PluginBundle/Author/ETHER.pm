@@ -43,14 +43,18 @@ sub configure {
         [ 'Region' => 'header' ],
         'Name',
 
-        [ 'Version' => { format => [ split /\n/, <<'VERSION' ] } ],
-version %v
-
-I use a linearly-increasing version numbering scheme. No meaning should be
-presumed or inferred from the version being less than 1.0.
-%T
-%T This is a trial release!
+        [ 'GenerateSection' => 'generate VERSION' => {
+                title => 'VERSION',
+                main_module_only => 0,
+                text => [ <<'VERSION',
+version {{ join "\n\n",
+  $version,
+  $dist->is_trial ? 'This is a trial release!' : (),
+  $version < '1.0' && $version !~ /\..+\./ ? "I use a linearly-increasing version numbering scheme. No meaning should be\npresumed or inferred from the version being less than 1.0." : (),
+}}
 VERSION
+                        ] },
+        ],
 
         [ 'Region' => 'prelude' ],
         [ 'Generic' => 'SYNOPSIS' ],
